@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.IO;
+using System.Linq;
 
 namespace jflash
 {
@@ -18,6 +17,28 @@ namespace jflash
         private JFQuestionFile[] m_QuestionFiles;
         private bool bSkipHandler = false;
 
+        private string GetFilenamePrefix(string name)
+        {
+            string fileName = System.IO.Path.GetFileName(name);
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                string baseName = Path.GetFileNameWithoutExtension(fileName);
+                var match = Regex.Match(baseName, @"/(.*?)(\d+)$/");
+                if (match.Success)
+                {
+                    return match.Groups[1].Value.TrimEnd(' ', '-');
+                }
+
+                match = Regex.Match(baseName, @"/(.*?)( |-)(\p{L}+)$/");
+                if (match.Success)
+                {
+                    return match.Groups[1].Value.TrimEnd(' ', '-');
+                }
+            }
+
+            return string.Empty;
+        }
+
         public JFlashForm()
         {
 
@@ -29,11 +50,113 @@ namespace jflash
             DirectoryInfo dir = new DirectoryInfo(@"..\JFlash\Questions");
             m_QuestionFiles = new JFQuestionFile[dir.GetFiles("*.jpf").Length];
 
+            //int i = 0;
+            //foreach( FileInfo f in dir.GetFiles("*.jpf"))
+            //{
+            //    clbQuestionSets.Items.Add(f.Name);
+            //    m_QuestionFiles[i++] = new JFQuestionFile( f.FullName );
+            //}
+
+            //foreach (var group in data)
             int i = 0;
-            foreach( FileInfo f in dir.GetFiles("*.jpf"))
+            foreach (FileInfo f in dir.GetFiles("*.jpf"))
             {
-                clbQuestionSets.Items.Add(f.Name);
                 m_QuestionFiles[i++] = new JFQuestionFile( f.FullName );
+
+                string groupName = GetFilenamePrefix(f.Name);
+                if (string.IsNullOrEmpty(groupName))
+                {
+                    var cb = new CheckBox
+                    {
+                        Text = f.Name,
+                        AutoSize = true
+                    };
+
+                    //// If an item is unchecked, uncheck "Select All"
+                    //cb.CheckedChanged += (s, e) =>
+                    //{
+                    //    if (!cb.Checked && selectAllCheckBox.Checked)
+                    //    {
+                    //        selectAllCheckBox.Checked = false;
+                    //    }
+                    //    else if (checkBoxes.All(x => x.Checked))
+                    //    {
+                    //        selectAllCheckBox.Checked = true;
+                    //    }
+                    //};
+
+                    //checkBoxes.Add(cb);
+                    //innerPanel.Controls.Add(cb);
+
+                    flpQuestions.Controls.Add(cb);
+
+                    continue;
+                }
+
+                //var groupBox = new GroupBox
+                //{
+                //    Text = groupName,
+                //    AutoSize = true,
+                //    AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                //    Padding = new Padding(10)
+                //};
+
+                //var innerPanel = new FlowLayoutPanel
+                //{
+                //    Dock = DockStyle.Top,
+                //    AutoSize = true,
+                //    FlowDirection = FlowDirection.TopDown,
+                //    WrapContents = false
+                //};
+
+                //var checkBoxes = new List<CheckBox>();
+
+                //// "Select All" checkbox
+                //var selectAllCheckBox = new CheckBox
+                //{
+                //    Text = "Select All",
+                //    AutoSize = true,
+                //    Font = new Font(DefaultFont, FontStyle.Bold)
+                //};
+
+                //selectAllCheckBox.CheckedChanged += (s, e) =>
+                //{
+                //    foreach (var cb in checkBoxes)
+                //    {
+                //        cb.Checked = selectAllCheckBox.Checked;
+                //    }
+                //};
+
+                //innerPanel.Controls.Add(selectAllCheckBox);
+
+                //// Add item checkboxes
+                //foreach (var item in group)
+                //{
+                //    var cb = new CheckBox
+                //    {
+                //        Text = item,
+                //        AutoSize = true
+                //    };
+
+                //    // If an item is unchecked, uncheck "Select All"
+                //    cb.CheckedChanged += (s, e) =>
+                //    {
+                //        if (!cb.Checked && selectAllCheckBox.Checked)
+                //        {
+                //            selectAllCheckBox.Checked = false;
+                //        }
+                //        else if (checkBoxes.All(x => x.Checked))
+                //        {
+                //            selectAllCheckBox.Checked = true;
+                //        }
+                //    };
+
+                //    checkBoxes.Add(cb);
+                //    innerPanel.Controls.Add(cb);
+                //}
+
+                //groupBox.Controls.Add(innerPanel);
+                //flpQuestions.Controls.Add(groupBox);
             }
 
             dir = null;
@@ -44,17 +167,17 @@ namespace jflash
             int total = 0;
             int i = 0, k = 0;
 
-            m_SelectedQuestionFiles = new JFQuestionFile[clbQuestionSets.CheckedIndices.Count + (bAdd ? 1 : -1)];
-            while( i < clbQuestionSets.CheckedIndices.Count )
-            {
-                if( bAdd || iInsert != clbQuestionSets.CheckedIndices[i] )
-                {
-                    total += m_QuestionFiles[clbQuestionSets.CheckedIndices[i]].m_iNumQuestions;
-                    m_SelectedQuestionFiles[k] = m_QuestionFiles[clbQuestionSets.CheckedIndices[i]];
-                    k++;
-                }
-                i++;
-            }
+            //m_SelectedQuestionFiles = new JFQuestionFile[clbQuestionSets.CheckedIndices.Count + (bAdd ? 1 : -1)];
+            //while( i < clbQuestionSets.CheckedIndices.Count )
+            //{
+            //    if( bAdd || iInsert != clbQuestionSets.CheckedIndices[i] )
+            //    {
+            //        total += m_QuestionFiles[clbQuestionSets.CheckedIndices[i]].m_iNumQuestions;
+            //        m_SelectedQuestionFiles[k] = m_QuestionFiles[clbQuestionSets.CheckedIndices[i]];
+            //        k++;
+            //    }
+            //    i++;
+            //}
 
             if (bAdd)
             {
@@ -94,8 +217,8 @@ namespace jflash
             if (!bSkipHandler)
             {
                 bSkipHandler = true;
-                UpdateQuestionFileSets(((ListBox)sender).SelectedIndex, true ^ clbQuestionSets.GetItemChecked(((ListBox)sender).SelectedIndex));
-                chkSelectAll.Checked = (clbQuestionSets.CheckedIndices.Count > 0);
+                //UpdateQuestionFileSets(((ListBox)sender).SelectedIndex, true ^ clbQuestionSets.GetItemChecked(((ListBox)sender).SelectedIndex));
+                //chkSelectAll.Checked = (clbQuestionSets.CheckedIndices.Count > 0);
                 bSkipHandler = false;
             }
         }
