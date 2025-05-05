@@ -55,9 +55,10 @@ namespace jflash
             // 
             // btnFinish
             // 
+            this.btnFinish.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFinish.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFinish.Location = new System.Drawing.Point(358, 144);
-            this.btnFinish.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnFinish.Location = new System.Drawing.Point(353, 163);
+            this.btnFinish.Margin = new System.Windows.Forms.Padding(2);
             this.btnFinish.Name = "btnFinish";
             this.btnFinish.Size = new System.Drawing.Size(81, 24);
             this.btnFinish.TabIndex = 1;
@@ -67,9 +68,10 @@ namespace jflash
             // 
             // btnAbandon
             // 
+            this.btnAbandon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAbandon.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAbandon.Location = new System.Drawing.Point(358, 181);
-            this.btnAbandon.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAbandon.Location = new System.Drawing.Point(353, 193);
+            this.btnAbandon.Margin = new System.Windows.Forms.Padding(2);
             this.btnAbandon.Name = "btnAbandon";
             this.btnAbandon.Size = new System.Drawing.Size(81, 24);
             this.btnAbandon.TabIndex = 2;
@@ -79,14 +81,17 @@ namespace jflash
             // 
             // grpbxQuestion
             // 
+            this.grpbxQuestion.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpbxQuestion.Controls.Add(this.lblQuestion);
             this.grpbxQuestion.Controls.Add(this.lblPrompt);
             this.grpbxQuestion.Controls.Add(this.txtAnswer);
             this.grpbxQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpbxQuestion.Location = new System.Drawing.Point(7, 6);
-            this.grpbxQuestion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpbxQuestion.Margin = new System.Windows.Forms.Padding(2);
             this.grpbxQuestion.Name = "grpbxQuestion";
-            this.grpbxQuestion.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpbxQuestion.Padding = new System.Windows.Forms.Padding(2);
             this.grpbxQuestion.Size = new System.Drawing.Size(300, 129);
             this.grpbxQuestion.TabIndex = 0;
             this.grpbxQuestion.TabStop = false;
@@ -117,7 +122,7 @@ namespace jflash
             // txtAnswer
             // 
             this.txtAnswer.Location = new System.Drawing.Point(6, 102);
-            this.txtAnswer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtAnswer.Margin = new System.Windows.Forms.Padding(2);
             this.txtAnswer.Name = "txtAnswer";
             this.txtAnswer.Size = new System.Drawing.Size(288, 20);
             this.txtAnswer.TabIndex = 1;
@@ -125,6 +130,8 @@ namespace jflash
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.lblTotal);
             this.groupBox2.Controls.Add(this.lblAttempted);
             this.groupBox2.Controls.Add(this.lblScore);
@@ -137,10 +144,10 @@ namespace jflash
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(314, 6);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox2.Size = new System.Drawing.Size(129, 129);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox2.Size = new System.Drawing.Size(123, 129);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Status";
@@ -252,23 +259,26 @@ namespace jflash
             // 
             // lblLastAns
             // 
+            this.lblLastAns.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblLastAns.AutoSize = true;
-            this.lblLastAns.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLastAns.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLastAns.Location = new System.Drawing.Point(4, 144);
             this.lblLastAns.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblLastAns.Name = "lblLastAns";
-            this.lblLastAns.Size = new System.Drawing.Size(45, 13);
+            this.lblLastAns.Size = new System.Drawing.Size(59, 17);
             this.lblLastAns.TabIndex = 6;
             this.lblLastAns.Text = "LastAns";
             // 
             // txtLastResponseB
             // 
+            this.txtLastResponseB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtLastResponseB.BackColor = System.Drawing.SystemColors.Control;
             this.txtLastResponseB.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtLastResponseB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLastResponseB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLastResponseB.ForeColor = System.Drawing.Color.Red;
-            this.txtLastResponseB.Location = new System.Drawing.Point(18, 181);
-            this.txtLastResponseB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtLastResponseB.Location = new System.Drawing.Point(18, 192);
+            this.txtLastResponseB.Margin = new System.Windows.Forms.Padding(2);
             this.txtLastResponseB.Multiline = true;
             this.txtLastResponseB.Name = "txtLastResponseB";
             this.txtLastResponseB.Size = new System.Drawing.Size(331, 30);
@@ -277,14 +287,16 @@ namespace jflash
             // 
             // txtLastResponseA
             // 
+            this.txtLastResponseA.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtLastResponseA.BackColor = System.Drawing.SystemColors.Control;
             this.txtLastResponseA.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtLastResponseA.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLastResponseA.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLastResponseA.ForeColor = System.Drawing.Color.Blue;
-            this.txtLastResponseA.Location = new System.Drawing.Point(18, 164);
-            this.txtLastResponseA.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtLastResponseA.Location = new System.Drawing.Point(18, 169);
+            this.txtLastResponseA.Margin = new System.Windows.Forms.Padding(2);
             this.txtLastResponseA.Name = "txtLastResponseA";
-            this.txtLastResponseA.Size = new System.Drawing.Size(331, 13);
+            this.txtLastResponseA.Size = new System.Drawing.Size(331, 16);
             this.txtLastResponseA.TabIndex = 8;
             this.txtLastResponseA.Text = "Wrong";
             // 
@@ -292,7 +304,7 @@ namespace jflash
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(448, 217);
+            this.ClientSize = new System.Drawing.Size(448, 234);
             this.Controls.Add(this.txtLastResponseA);
             this.Controls.Add(this.txtLastResponseB);
             this.Controls.Add(this.lblLastAns);
@@ -301,8 +313,10 @@ namespace jflash
             this.Controls.Add(this.btnAbandon);
             this.Controls.Add(this.btnFinish);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.MinimumSize = new System.Drawing.Size(464, 273);
             this.Name = "JFQuestionaireForm";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Japanese Flash Cards - Questionaire";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.JFQuestionaireForm_FormClosed);

@@ -11,14 +11,16 @@ namespace jflash
     public partial class JFQuestionaireForm : Form
     {
         private JFQuestionSet m_QuestionSet;
-        private JFlashForm m_frmMain;
+        private JFlashForm parentForm;
 
         public JFQuestionaireForm(JFlashForm frm, int DesiredQuestionCount)
         {
-            m_frmMain = frm;
+            parentForm = frm;
+            parentForm.Hide();
             InitializeComponent();
-
-            m_frmMain.Hide();
+            int x = parentForm.Location.X + (parentForm.Width - this.Width) / 2;
+            int y = parentForm.Location.Y + (parentForm.Height - this.Height) / 2;
+            this.Location = new Point(x, y);
             btnFinish.Enabled = false;
             lblTotal.Text = DesiredQuestionCount.ToString();
             lblLastAns.Text = "";
@@ -38,15 +40,15 @@ namespace jflash
             // Need to set up randomized Question Set (q&a pairs)
             // and scores
             // Load first in set
-            m_QuestionSet = new JFQuestionSet(m_frmMain.m_SelectedQuestionFiles
-                , m_frmMain.m_iCtQuestions
+            m_QuestionSet = new JFQuestionSet(parentForm.m_SelectedQuestionFiles
+                , parentForm.m_iCtQuestions
                 , DesiredQuestionCount );
             NextQuestion();
         }
 
         private void btnAbandon_Click(object sender, EventArgs e)
         {
-            m_frmMain.Show();
+            parentForm.Show();
             this.Close();
         }
 
@@ -98,7 +100,7 @@ namespace jflash
                     btnAbandon.Enabled = false;
                     btnFinish.Enabled = true;
                     txtAnswer.Enabled = false;
-                    lblScore.Text = Convert.ToInt32(100 * m_QuestionSet.m_iNumRight / m_frmMain.m_iCtQuestions) + "%";
+                    lblScore.Text = Convert.ToInt32(100 * m_QuestionSet.m_iNumRight / parentForm.m_iCtQuestions) + "%";
                 }
                 else
                     NextQuestion();
@@ -114,7 +116,7 @@ namespace jflash
 
         private void JFQuestionaireForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            m_frmMain.Show();
+            parentForm.Show();
         }
     }
 }
