@@ -26,7 +26,7 @@ namespace jflash
             nsUpDown.Minimum = nsUpDown.Maximum = 0;
 
             //DirectoryInfo dir = new DirectoryInfo(@"C:\Users\ndonat2\Documents\P&G Laptop\Miscellaneous\jflash\jflash");
-            DirectoryInfo dir = new DirectoryInfo(@"..\..\");
+            DirectoryInfo dir = new DirectoryInfo(@"..\JFlash\Questions");
             m_QuestionFiles = new JFQuestionFile[dir.GetFiles("*.jpf").Length];
 
             int i = 0;

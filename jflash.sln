@@ -1,7 +1,7 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jflash", "jflash\jflash.csproj", "{CA123ED9-98DE-4C94-A458-2453747A0C12}"
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 201Invalid 'nullable' value: 'Enable' for C# 7.3. Please use language version '8.0' or greater.7
+VisualStudioVersion = 17.13.5
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JFlash", "JFlash\JFlash.csproj", "{CA123ED9-98DE-4C94-A458-2453747A0C12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,8 +9,8 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CA123ED9-98DE-4C94-A458-2453747A0C12}.Debug|Any CPU.ActiveCfg = Release|Any CPU
-		{CA123ED9-98DE-4C94-A458-2453747A0C12}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{CA123ED9-98DE-4C94-A458-2453747A0C12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA123ED9-98DE-4C94-A458-2453747A0C12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA123ED9-98DE-4C94-A458-2453747A0C12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA123ED9-98DE-4C94-A458-2453747A0C12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

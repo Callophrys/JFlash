@@ -1,38 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{CA123ED9-98DE-4C94-A458-2453747A0C12}</ProjectGuid>
+    <LangVersion>8.0</LangVersion>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>jflash</RootNamespace>
+    <RootNamespace>JFlash</RootNamespace>
     <AssemblyName>jflash</AssemblyName>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x64</PlatformTarget>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <FileAlignment>1024</FileAlignment>
+    <DebugSymbols>true</DebugSymbols>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -71,6 +91,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -87,7 +108,171 @@
     <Compile Include="JFQuestionaire.Designer.cs">
       <DependentUpon>JFQuestionaire.cs</DependentUpon>
     </Compile>
+    <None Include="Questions\adj-i-e-01.jpf" />
+    <None Include="Questions\adj-i-e-02.jpf" />
+    <None Include="Questions\adj-i-e-03.jpf" />
+    <None Include="Questions\adj-i-e-04.jpf" />
+    <None Include="Questions\adj-i-e-05.jpf" />
+    <None Include="Questions\adj-i-e-06.jpf" />
+    <None Include="Questions\adj-i-e.jpf" />
+    <None Include="Questions\adj-i-j-01.jpf" />
+    <None Include="Questions\adj-i-j-02.jpf" />
+    <None Include="Questions\adj-i-j-03.jpf" />
+    <None Include="Questions\adj-i-j-04.jpf" />
+    <None Include="Questions\adj-i-j-05.jpf" />
+    <None Include="Questions\adj-i-j-06.jpf" />
+    <None Include="Questions\adj-i-j.jpf" />
+    <None Include="Questions\adj-i-t.jpf" />
+    <None Include="Questions\adj-na-e.jpf" />
+    <None Include="Questions\adj-na-j.jpf" />
+    <None Include="Questions\adj-na-t.jpf" />
+    <None Include="Questions\baskan1.jpf" />
+    <None Include="Questions\baskan1b.jpf" />
+    <None Include="Questions\baskan1c.jpf" />
+    <None Include="Questions\baskan2.jpf" />
+    <None Include="Questions\baskan2b.jpf" />
+    <None Include="Questions\baskan2c.jpf" />
+    <None Include="Questions\baskan3.jpf" />
+    <None Include="Questions\baskan3b.jpf" />
+    <None Include="Questions\baskan4.jpf" />
+    <None Include="Questions\baskan4b.jpf" />
+    <None Include="Questions\baskan5.jpf" />
+    <None Include="Questions\baskan5b.jpf" />
+    <None Include="Questions\baskan6.jpf" />
+    <None Include="Questions\baskan6b.jpf" />
+    <None Include="Questions\baskan6c.jpf" />
+    <None Include="Questions\busy_people-e.jpf" />
+    <None Include="Questions\busy_people-j.jpf" />
+    <None Include="Questions\busy_people-t.jpf" />
+    <None Include="Questions\hiragan1.jpf" />
+    <None Include="Questions\hiragan2.jpf" />
+    <None Include="Questions\hiragan3.jpf" />
+    <None Include="Questions\katakan1.jpf" />
+    <None Include="Questions\katakan2.jpf" />
+    <None Include="Questions\katakan3.jpf" />
+    <None Include="Questions\katakan4.jpf" />
+    <None Include="Questions\monster-eng.jpf" />
+    <None Include="Questions\monster-rom.jpf" />
+    <None Include="Questions\monster-trx.jpf" />
+    <None Include="Questions\nouns-e.jpf" />
+    <None Include="Questions\nouns-j.jpf" />
+    <None Include="Questions\nouns-t.jpf" />
+    <None Include="Questions\seasons-e.jpf" />
+    <None Include="Questions\seasons-r.jpf" />
+    <None Include="Questions\verb-e-01.jpf" />
+    <None Include="Questions\verb-e-02.jpf" />
+    <None Include="Questions\verb-e-03.jpf" />
+    <None Include="Questions\verb-e-04.jpf" />
+    <None Include="Questions\verb-e-05.jpf" />
+    <None Include="Questions\verb-e-06.jpf" />
+    <None Include="Questions\verb-e-07.jpf" />
+    <None Include="Questions\verb-e-08.jpf" />
+    <None Include="Questions\verb-e-09.jpf" />
+    <None Include="Questions\verb-e-10.jpf" />
+    <None Include="Questions\verb-e-11.jpf" />
+    <None Include="Questions\verb-e-12.jpf" />
+    <None Include="Questions\verb-e-13.jpf" />
+    <None Include="Questions\verb-e-14.jpf" />
+    <None Include="Questions\verb-e-15.jpf" />
+    <None Include="Questions\verb-e-16.jpf" />
+    <None Include="Questions\verb-e.jpf" />
+    <None Include="Questions\verb-j-01.jpf" />
+    <None Include="Questions\verb-j-02.jpf" />
+    <None Include="Questions\verb-j-03.jpf" />
+    <None Include="Questions\verb-j-04.jpf" />
+    <None Include="Questions\verb-j-05.jpf" />
+    <None Include="Questions\verb-j-06.jpf" />
+    <None Include="Questions\verb-j-07.jpf" />
+    <None Include="Questions\verb-j-08.jpf" />
+    <None Include="Questions\verb-j-09.jpf" />
+    <None Include="Questions\verb-j-10.jpf" />
+    <None Include="Questions\verb-j-11.jpf" />
+    <None Include="Questions\verb-j-12.jpf" />
+    <None Include="Questions\verb-j-13.jpf" />
+    <None Include="Questions\verb-j-14.jpf" />
+    <None Include="Questions\verb-j-15.jpf" />
+    <None Include="Questions\verb-j-16.jpf" />
+    <None Include="Questions\verb-j.jpf" />
+    <None Include="Questions\verb-t.jpf" />
+    <None Include="Questions\x_baskan1-1.e.jpf" />
+    <None Include="Questions\x_baskan1-1.jpf" />
+    <None Include="Questions\x_baskan1-2.e.jpf" />
+    <None Include="Questions\x_baskan1-2.jpf" />
+    <None Include="Questions\x_baskan1-3.e.jpf" />
+    <None Include="Questions\x_baskan1-3.jpf" />
+    <None Include="Questions\x_baskan2-1.e.jpf" />
+    <None Include="Questions\x_baskan2-1.jpf" />
+    <None Include="Questions\x_baskan2-2.e.jpf" />
+    <None Include="Questions\x_baskan2-2.jpf" />
+    <None Include="Questions\x_baskan3-1.e.jpf" />
+    <None Include="Questions\x_baskan3-1.jpf" />
+    <None Include="Questions\x_baskan3-2.e.jpf" />
+    <None Include="Questions\x_baskan3-2.jpf" />
+    <None Include="Questions\x_baskan3-3.e.jpf" />
+    <None Include="Questions\x_baskan3-3.jpf" />
+    <None Include="Questions\x_baskan3-4.e.jpf" />
+    <None Include="Questions\x_baskan3-4.jpf" />
+    <None Include="Questions\x_baskan3-5.e.jpf" />
+    <None Include="Questions\x_baskan3-5.jpf" />
+    <None Include="Questions\x_baskan4-1.e.jpf" />
+    <None Include="Questions\x_baskan4-1.jpf" />
+    <None Include="Questions\x_baskan4-2.e.jpf" />
+    <None Include="Questions\x_baskan4-2.jpf" />
+    <None Include="Questions\x_baskan4-3.e.jpf" />
+    <None Include="Questions\x_baskan4-3.jpf" />
+    <None Include="Questions\x_baskan4-4.e.jpf" />
+    <None Include="Questions\x_baskan4-4.jpf" />
+    <None Include="Questions\x_baskan5-1.e.jpf" />
+    <None Include="Questions\x_baskan5-1.jpf" />
+    <None Include="Questions\x_baskan5-2.e.jpf" />
+    <None Include="Questions\x_baskan5-2.jpf" />
+    <None Include="Questions\x_baskan5-3.e.jpf" />
+    <None Include="Questions\x_baskan5-3.jpf" />
+    <None Include="Questions\x_baskan5-4.e.jpf" />
+    <None Include="Questions\x_baskan5-4.jpf" />
+    <None Include="Questions\x_baskan6-1.e.jpf" />
+    <None Include="Questions\x_baskan6-1.jpf" />
+    <None Include="Questions\x_baskan6-2.e.jpf" />
+    <None Include="Questions\x_baskan6-2.jpf" />
+    <None Include="Questions\x_baskan6-3.e.jpf" />
+    <None Include="Questions\x_baskan6-3.jpf" />
+    <None Include="Questions\x_baskan6-4.e.jpf" />
+    <None Include="Questions\x_baskan6-4.jpf" />
+    <None Include="Questions\y_hiragan1-01.jpf" />
+    <None Include="Questions\y_hiragan1-02.jpf" />
+    <None Include="Questions\y_hiragan1-03.jpf" />
+    <None Include="Questions\y_hiragan1-04.jpf" />
+    <None Include="Questions\y_hiragan1-05.jpf" />
+    <None Include="Questions\y_hiragan1-06.jpf" />
+    <None Include="Questions\y_hiragan1-07.jpf" />
+    <None Include="Questions\y_hiragan1-08.jpf" />
+    <None Include="Questions\y_hiragan1-09.jpf" />
+    <None Include="Questions\y_hiragan1-10.jpf" />
+    <None Include="Questions\y_katakan1-01.jpf" />
+    <None Include="Questions\y_katakan1-02.jpf" />
+    <None Include="Questions\y_katakan1-03.jpf" />
+    <None Include="Questions\y_katakan1-04.jpf" />
+    <None Include="Questions\y_katakan1-05.jpf" />
+    <None Include="Questions\y_katakan1-06.jpf" />
+    <None Include="Questions\y_katakan1-07.jpf" />
+    <None Include="Questions\y_katakan1-08.jpf" />
+    <None Include="Questions\y_katakan1-09.jpf" />
+    <None Include="Questions\y_katakan1-10.jpf" />
+    <None Include="Questions\z_hiragan.jpf" />
   </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

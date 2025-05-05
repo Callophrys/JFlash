@@ -1,0 +1,57 @@
+# Prefix of **/ before some folder means ignore folder at any level.
+
+# Files
+*.bak
+*.lnk
+*.rsuser
+*.sln.docstates
+*.suo
+*.user
+*.pdb
+*.exe
+*.exe.config
+
+# Any file with a tilde
+~*
+
+#
+# Windows Recycle Bin for file shares
+$RECYCLE.BIN/
+
+# Windows folder config file
+Desktop.ini
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+**/artifacts
+
+# NuGet
+*.nupkg
+*.snupkg
+**/packages
+# keep the following in case this is an MSBuild target
+!build/
+
+# JETBRAINS
+**/.idea
+
+# VS Code
+**/.vscode
+
+# Folders
+**/.git
+**/.vs
+**/.intermediate
+**/.lib
+**/Properties
+
+# Any folder with a tilde
+**/~*
+
+**/[Bb]in
+**/[Oo]bj
+**/.[Bb]in
+**/.[Oo]bj
+
+# Remove these if needed.
