@@ -10,13 +10,14 @@ namespace jflash
 {
     public partial class JFlashForm : Form
     {
-        public IList<JFQuestionFile> SelectedQuestionFiles = new List<JFQuestionFile>();
+        public List<JFQuestionFile> SelectedQuestionFiles = new List<JFQuestionFile>();
         public int QuestionCount = 0;
 
         private const String ALLQUESTIONSTITLE = "Test a&ll questions in selected sets: ";
         private IDictionary<string, JFQuestionFile> QuestionFiles = new Dictionary<string, JFQuestionFile>();
 
         private bool bSkipHandler = false;
+        private List<CheckBox>allCheckBoxes = new List<CheckBox>();
 
         public JFlashForm()
         {
@@ -43,46 +44,63 @@ namespace jflash
 
             int panelWidth = this.panel1.Width - 26;
 
-            var flpQuestions = new FlowLayoutPanel
+            var flowTableQuestions = new TableLayoutPanel
             {
                 Dock = DockStyle.Fill,
                 AutoScroll = true,
+                AutoSize = true,
+                ColumnCount = 1,
+                RowCount = 0,
                 //BackColor = SystemColors.ControlLightLight,
                 //BackColor = Color.DarkOrange,
-                FlowDirection = FlowDirection.TopDown,
-                WrapContents = false,
             };
 
-            this.panel1.Controls.Add(flpQuestions);
+            this.panel1.Controls.Add(flowTableQuestions);
 
             bool firstCheckboxCreated = false;
 
             foreach (var group in groups)
             {
-                int totalItems = group.Value.Count + 1; // +1 for "Select All"
-                int itemHeight = 24; // or use cb.PreferredHeight
+                //int totalItems = group.Value.Count + 1; // +1 for "Select All"
+                //int itemHeight = 24; // or use cb.PreferredHeight
 
-                var groupBox = new GroupBox
+                // 1. Create the toggle button or checkbox
+                var toggle = new CheckBox
                 {
                     Text = group.Key,
-                    //BackColor = SystemColors.ControlLightLight,
-                    //BackColor = Color.Azure,
-                    Padding = new Padding(10),
-                    AutoSize = false,
-                    Width = panelWidth,
-                    Height = (totalItems * itemHeight) + 38 - (totalItems),
+                    Appearance = Appearance.Button,
+                    AutoSize = true,
+                    FlatStyle = FlatStyle.Flat,
+                    Font = new Font(DefaultFont, FontStyle.Bold),
+                    BackColor = Color.LightSteelBlue,
+                    Dock = DockStyle.Top,
                 };
 
-                var innerPanel = new FlowLayoutPanel
+                // Collapsible panel
+                var groupPanel = new FlowLayoutPanel
                 {
-                    Dock = DockStyle.Top,
-                    AutoScroll = true,
-                    //BackColor = SystemColors.ControlLightLight,
-                    //BackColor = Color.Fuchsia,
+                    //Text = group.Key,
                     FlowDirection = FlowDirection.TopDown,
-                    Height = (totalItems * itemHeight) - totalItems,
-                    WrapContents = false
+                    WrapContents = false,
+                    Dock = DockStyle.Top,
+                    //BackColor = SystemColors.ControlLightLight,
+                    BackColor = Color.Azure,
+                    AutoSize = true,
+                    AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                    //Width = panelWidth,
+                    //Height = (totalItems * itemHeight) + 38 - (totalItems),
                 };
+
+                //var innerPanel = new FlowLayoutPanel
+                //{
+                //    Dock = DockStyle.Top,
+                //    AutoScroll = true,
+                //    //BackColor = SystemColors.ControlLightLight,
+                //    //BackColor = Color.Fuchsia,
+                //    FlowDirection = FlowDirection.TopDown,
+                //    Height = (totalItems * itemHeight) - totalItems,
+                //    WrapContents = false
+                //};
 
                 var checkBoxes = new List<CheckBox>();
 
@@ -113,12 +131,12 @@ namespace jflash
                 {
                     selectAllCheckBox.Enter += (s, e) =>
                     {
-                        flpQuestions.ScrollControlIntoView(groupBox);
+                        flowTableQuestions.ScrollControlIntoView(groupPanel);
                     };
                     firstCheckboxCreated = true;
                 }
 
-                innerPanel.Controls.Add(selectAllCheckBox);
+                groupPanel.Controls.Add(selectAllCheckBox);
 
                 // Add item checkboxes
                 foreach (var item in group.Value)
@@ -158,11 +176,33 @@ namespace jflash
                     };
 
                     checkBoxes.Add(cb);
-                    innerPanel.Controls.Add(cb);
+                    groupPanel.Controls.Add(cb);
                 }
 
-                groupBox.Controls.Add(innerPanel);
-                flpQuestions.Controls.Add(groupBox);
+                // 4. Toggle visibility
+                toggle.Checked = true;
+                toggle.CheckedChanged += (s, e) =>
+                {
+                    groupPanel.Visible = toggle.Checked;
+                };
+
+                // 5. Add both to the TableLayoutPanel
+                flowTableQuestions.RowCount += 2;
+                flowTableQuestions.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                flowTableQuestions.Controls.Add(toggle, 0, flowTableQuestions.RowCount - 2);
+
+                flowTableQuestions.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                flowTableQuestions.Controls.Add(groupPanel, 0, flowTableQuestions.RowCount - 1);
+
+                allCheckBoxes.AddRange(checkBoxes.ToArray());
+
+                chkSelectAll.CheckedChanged += (s, e) =>
+                {
+                    foreach (var cb in checkBoxes)
+                    {
+                        cb.Checked = chkSelectAll.Checked;
+                    }
+                };
             }
         }
 
@@ -201,6 +241,7 @@ namespace jflash
             nsUpDown.Maximum = total;
             if (nsUpDown.Minimum < 1)
                 nsUpDown.Value = total;
+
             nsUpDown.Minimum = Math.Sign(total);
 
             btnGo.Enabled = (total > 0);
