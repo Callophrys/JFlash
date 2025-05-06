@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text.RegularExpressions;
@@ -49,11 +49,13 @@ namespace jflash
                 Dock = DockStyle.Fill,
                 AutoScroll = true,
                 AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
                 ColumnCount = 1,
                 RowCount = 0,
                 //BackColor = SystemColors.ControlLightLight,
                 //BackColor = Color.DarkOrange,
             };
+            flowTableQuestions.SuspendLayout();
 
             this.panel1.Controls.Add(flowTableQuestions);
 
@@ -67,10 +69,10 @@ namespace jflash
                 // 1. Create the toggle button or checkbox
                 var toggle = new CheckBox
                 {
-                    Text = group.Key,
+                    Text = $"▼ {group.Key}",
                     Appearance = Appearance.Button,
                     AutoSize = true,
-                    FlatStyle = FlatStyle.Flat,
+                    //FlatStyle = FlatStyle.Flat,
                     Font = new Font(DefaultFont, FontStyle.Bold),
                     BackColor = Color.LightSteelBlue,
                     Dock = DockStyle.Top,
@@ -91,17 +93,6 @@ namespace jflash
                     //Height = (totalItems * itemHeight) + 38 - (totalItems),
                 };
 
-                //var innerPanel = new FlowLayoutPanel
-                //{
-                //    Dock = DockStyle.Top,
-                //    AutoScroll = true,
-                //    //BackColor = SystemColors.ControlLightLight,
-                //    //BackColor = Color.Fuchsia,
-                //    FlowDirection = FlowDirection.TopDown,
-                //    Height = (totalItems * itemHeight) - totalItems,
-                //    WrapContents = false
-                //};
-
                 var checkBoxes = new List<CheckBox>();
 
                 // "Select All" checkbox
@@ -115,7 +106,7 @@ namespace jflash
 
                 selectAllCheckBox.CheckedChanged += (s, e) =>
                 {
-                    if (!selectAllCheckBox.Checked) return;
+                    if (!selectAllCheckBox.Checked && checkBoxes.Count != checkBoxes.Count(c => c.Checked)) return;
 
                     foreach (var cb in checkBoxes)
                     {
@@ -183,6 +174,14 @@ namespace jflash
                 toggle.Checked = true;
                 toggle.CheckedChanged += (s, e) =>
                 {
+                    if (toggle.Checked)
+                    {
+                        toggle.Text = $"▼ {group.Key}";
+                    }
+                    else
+                    {
+                        toggle.Text = $"▶ {group.Key}"; 
+                    }
                     groupPanel.Visible = toggle.Checked;
                 };
 
@@ -195,7 +194,6 @@ namespace jflash
                 flowTableQuestions.Controls.Add(groupPanel, 0, flowTableQuestions.RowCount - 1);
 
                 allCheckBoxes.AddRange(checkBoxes.ToArray());
-
                 chkSelectAll.CheckedChanged += (s, e) =>
                 {
                     foreach (var cb in checkBoxes)
@@ -204,6 +202,8 @@ namespace jflash
                     }
                 };
             }
+
+            flowTableQuestions.ResumeLayout();
         }
 
         private string GetFilenamePrefix(string name)
@@ -219,7 +219,7 @@ namespace jflash
                     return match.Groups[1].Value.TrimEnd(' ', '-');
                 }
 
-                match = Regex.Match(baseName, @"/(.*?)( |-)(\p{L}+)$/");
+                match = Regex.Match(baseName, @"(.*?)( |-)(\p{L}+)$");
                 if (match.Success)
                 {
                     Console.WriteLine("that one");

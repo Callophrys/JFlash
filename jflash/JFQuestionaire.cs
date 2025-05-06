@@ -61,7 +61,7 @@ namespace jflash
             lblAttempted.Text = m_QuestionSet.questionNumber.ToString();
             lblScore.Text = (m_QuestionSet.questionNumber > 1 ? Convert.ToInt32(100 * m_QuestionSet.countCorrect / (m_QuestionSet.questionNumber - 1)) : 100 ) + "%";
 
-            grpbxQuestion.Text = "Question " + m_QuestionSet.questionNumber + " of " + m_QuestionSet.countAttempted;
+            grpbxQuestion.Text = $"Question {m_QuestionSet.questionNumber} of {m_QuestionSet.countAttempted}";
         }
 
         private void txtAnswer_KeyDown(object sender, KeyEventArgs e)
@@ -73,11 +73,11 @@ namespace jflash
                 {
                     lblRight.Text = m_QuestionSet.countCorrect.ToString();
                     lblLastAns.ForeColor = System.Drawing.Color.Blue;
-                    txtLastResponseA.Text = "Correct entry:  " + txtAnswer.Text;
+                    txtLastResponseA.Text = $"Correct entry:  {txtAnswer.Text}";
                     txtLastResponseA.ForeColor = System.Drawing.Color.Blue;
                     if (m_QuestionSet.m_CurrentQuestion.HasMultipleAnswers())
                     {
-                        txtLastResponseB.Text = "Others:  " + m_QuestionSet.m_CurrentQuestion.m_strAnswer.Replace(txtAnswer.Text,"").Replace(",,",",").Trim(',').Replace(",",", ");
+                        txtLastResponseB.Text = $"Others:  {m_QuestionSet.m_CurrentQuestion.m_strAnswer.Replace(txtAnswer.Text,"").Replace(",,",",").Trim(',').Replace(",",", ")}";
                         txtLastResponseB.ForeColor = System.Drawing.Color.Blue;
                     }
                     else
@@ -89,9 +89,9 @@ namespace jflash
                 {
                     lblWrong.Text = m_QuestionSet.countWrong.ToString();
                     lblLastAns.ForeColor = System.Drawing.Color.Red;
-                    txtLastResponseA.Text = "Wrong entry:  " + txtAnswer.Text;
+                    txtLastResponseA.Text = $"Wrong entry:  {txtAnswer.Text}";
                     txtLastResponseA.ForeColor = System.Drawing.Color.Red;
-                    txtLastResponseB.Text = "Correct is:  " + m_QuestionSet.m_CurrentQuestion.m_strAnswer.Replace(",",", ");
+                    txtLastResponseB.Text = $"Correct is:  {m_QuestionSet.m_CurrentQuestion.m_strAnswer.Replace(",",", ")}";
                     txtLastResponseB.ForeColor = System.Drawing.Color.Red;
                 }
 
