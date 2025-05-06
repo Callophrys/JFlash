@@ -10,12 +10,161 @@ namespace jflash
 {
     public partial class JFlashForm : Form
     {
-        public JFQuestionFile[] m_SelectedQuestionFiles;
-        public int m_iCtQuestions = 0;
+        public IList<JFQuestionFile> SelectedQuestionFiles = new List<JFQuestionFile>();
+        public int QuestionCount = 0;
 
-        private const String m_strAllQuestions = "Test a&ll questions in selected sets: ";
-        private JFQuestionFile[] m_QuestionFiles;
+        private const String ALLQUESTIONSTITLE = "Test a&ll questions in selected sets: ";
+        private IDictionary<string, JFQuestionFile> QuestionFiles = new Dictionary<string, JFQuestionFile>();
+
         private bool bSkipHandler = false;
+
+        public JFlashForm()
+        {
+
+            InitializeComponent();
+            rbAllQuestions.Text = ALLQUESTIONSTITLE + "0";
+            nsUpDown.Minimum = nsUpDown.Maximum = 0;
+
+            DirectoryInfo dir = new DirectoryInfo(@"..\JFlash\Questions");
+
+            var groups = new SortedDictionary<string, List<string>>();
+
+            foreach (FileInfo f in dir.GetFiles("*.jpf"))
+            {
+                string groupName = GetFilenamePrefix(f.Name);
+                if (!groups.ContainsKey(groupName))
+                {
+                    groups.Add(groupName, new List<string>());
+                }
+
+                groups[groupName].Add(f.Name);
+            }
+            dir = null;
+
+            int panelWidth = this.panel1.Width - 26;
+
+            var flpQuestions = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                AutoScroll = true,
+                //BackColor = SystemColors.ControlLightLight,
+                //BackColor = Color.DarkOrange,
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
+            };
+
+            this.panel1.Controls.Add(flpQuestions);
+
+            bool firstCheckboxCreated = false;
+
+            foreach (var group in groups)
+            {
+                int totalItems = group.Value.Count + 1; // +1 for "Select All"
+                int itemHeight = 24; // or use cb.PreferredHeight
+
+                var groupBox = new GroupBox
+                {
+                    Text = group.Key,
+                    //BackColor = SystemColors.ControlLightLight,
+                    //BackColor = Color.Azure,
+                    Padding = new Padding(10),
+                    AutoSize = false,
+                    Width = panelWidth,
+                    Height = (totalItems * itemHeight) + 38 - (totalItems),
+                };
+
+                var innerPanel = new FlowLayoutPanel
+                {
+                    Dock = DockStyle.Top,
+                    AutoScroll = true,
+                    //BackColor = SystemColors.ControlLightLight,
+                    //BackColor = Color.Fuchsia,
+                    FlowDirection = FlowDirection.TopDown,
+                    Height = (totalItems * itemHeight) - totalItems,
+                    WrapContents = false
+                };
+
+                var checkBoxes = new List<CheckBox>();
+
+                // "Select All" checkbox
+                var selectAllCheckBox = new CheckBox
+                {
+                    Text = "Select All",
+                    AutoSize = true,
+                    //BackColor = Color.ForestGreen,
+                    Font = new Font(DefaultFont, FontStyle.Bold)
+                };
+
+                selectAllCheckBox.CheckedChanged += (s, e) =>
+                {
+                    if (!selectAllCheckBox.Checked) return;
+
+                    foreach (var cb in checkBoxes)
+                    {
+                        cb.Checked = selectAllCheckBox.Checked;
+                    }
+                };
+
+                selectAllCheckBox.KeyDown += (s, e) => questions_KeyDown(s, e);
+
+                // Put this in since alt-A on label always takes to the first
+                // control, but not quite. This looks cleaner.
+                if (!firstCheckboxCreated)
+                {
+                    selectAllCheckBox.Enter += (s, e) =>
+                    {
+                        flpQuestions.ScrollControlIntoView(groupBox);
+                    };
+                    firstCheckboxCreated = true;
+                }
+
+                innerPanel.Controls.Add(selectAllCheckBox);
+
+                // Add item checkboxes
+                foreach (var item in group.Value)
+                {
+                    var cb = new CheckBox
+                    {
+                        Text = item,
+                        AutoSize = true,
+                        Padding = new Padding(10, 0, 0, 0)
+                    };
+
+                    // If an item is unchecked, uncheck "Select All"
+                    cb.CheckedChanged += (s, e) =>
+                    {
+                        if (cb.Checked)
+                        {
+                            QuestionFiles.Add(item, new JFQuestionFile(cb.Text));
+                        }
+                        else
+                        {
+                            if (QuestionFiles.ContainsKey(item))
+                            {
+                                QuestionFiles.Remove(item);
+                            }
+                        }
+
+                        UpdateQuestionFileSets();
+
+                        if (!cb.Checked && selectAllCheckBox.Checked)
+                        {
+                            selectAllCheckBox.Checked = false;
+                        }
+                        else if (checkBoxes.All(x => x.Checked))
+                        {
+                            selectAllCheckBox.Checked = true;
+                        }
+                    };
+
+                    checkBoxes.Add(cb);
+                    innerPanel.Controls.Add(cb);
+                }
+
+                groupBox.Controls.Add(innerPanel);
+                flpQuestions.Controls.Add(groupBox);
+            }
+        }
 
         private string GetFilenamePrefix(string name)
         {
@@ -23,15 +172,17 @@ namespace jflash
             if (!string.IsNullOrEmpty(fileName))
             {
                 string baseName = Path.GetFileNameWithoutExtension(fileName);
-                var match = Regex.Match(baseName, @"/(.*?)(\d+)$/");
+                var match = Regex.Match(baseName, @"^(.*?)(\d+.*|[ -_][^ -_]+)$");
                 if (match.Success)
                 {
+                    Console.WriteLine("this on");
                     return match.Groups[1].Value.TrimEnd(' ', '-');
                 }
 
                 match = Regex.Match(baseName, @"/(.*?)( |-)(\p{L}+)$/");
                 if (match.Success)
                 {
+                    Console.WriteLine("that one");
                     return match.Groups[1].Value.TrimEnd(' ', '-');
                 }
             }
@@ -39,154 +190,13 @@ namespace jflash
             return string.Empty;
         }
 
-        public JFlashForm()
+        private void UpdateQuestionFileSets() //int iInsert, bool bAdd)
         {
+            int total = QuestionFiles.Sum((kvp) => kvp.Value.m_iNumQuestions);
+            SelectedQuestionFiles = QuestionFiles.Values.ToList();
 
-            InitializeComponent();
-            rbAllQuestions.Text = m_strAllQuestions + "0";
-            nsUpDown.Minimum = nsUpDown.Maximum = 0;
-
-            //DirectoryInfo dir = new DirectoryInfo(@"C:\Users\ndonat2\Documents\P&G Laptop\Miscellaneous\jflash\jflash");
-            DirectoryInfo dir = new DirectoryInfo(@"..\JFlash\Questions");
-            m_QuestionFiles = new JFQuestionFile[dir.GetFiles("*.jpf").Length];
-
-            //int i = 0;
-            //foreach( FileInfo f in dir.GetFiles("*.jpf"))
-            //{
-            //    clbQuestionSets.Items.Add(f.Name);
-            //    m_QuestionFiles[i++] = new JFQuestionFile( f.FullName );
-            //}
-
-            //foreach (var group in data)
-            int i = 0;
-            foreach (FileInfo f in dir.GetFiles("*.jpf"))
-            {
-                m_QuestionFiles[i++] = new JFQuestionFile( f.FullName );
-
-                string groupName = GetFilenamePrefix(f.Name);
-                if (string.IsNullOrEmpty(groupName))
-                {
-                    var cb = new CheckBox
-                    {
-                        Text = f.Name,
-                        AutoSize = true
-                    };
-
-                    //// If an item is unchecked, uncheck "Select All"
-                    //cb.CheckedChanged += (s, e) =>
-                    //{
-                    //    if (!cb.Checked && selectAllCheckBox.Checked)
-                    //    {
-                    //        selectAllCheckBox.Checked = false;
-                    //    }
-                    //    else if (checkBoxes.All(x => x.Checked))
-                    //    {
-                    //        selectAllCheckBox.Checked = true;
-                    //    }
-                    //};
-
-                    //checkBoxes.Add(cb);
-                    //innerPanel.Controls.Add(cb);
-
-                    flpQuestions.Controls.Add(cb);
-
-                    continue;
-                }
-
-                //var groupBox = new GroupBox
-                //{
-                //    Text = groupName,
-                //    AutoSize = true,
-                //    AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                //    Padding = new Padding(10)
-                //};
-
-                //var innerPanel = new FlowLayoutPanel
-                //{
-                //    Dock = DockStyle.Top,
-                //    AutoSize = true,
-                //    FlowDirection = FlowDirection.TopDown,
-                //    WrapContents = false
-                //};
-
-                //var checkBoxes = new List<CheckBox>();
-
-                //// "Select All" checkbox
-                //var selectAllCheckBox = new CheckBox
-                //{
-                //    Text = "Select All",
-                //    AutoSize = true,
-                //    Font = new Font(DefaultFont, FontStyle.Bold)
-                //};
-
-                //selectAllCheckBox.CheckedChanged += (s, e) =>
-                //{
-                //    foreach (var cb in checkBoxes)
-                //    {
-                //        cb.Checked = selectAllCheckBox.Checked;
-                //    }
-                //};
-
-                //innerPanel.Controls.Add(selectAllCheckBox);
-
-                //// Add item checkboxes
-                //foreach (var item in group)
-                //{
-                //    var cb = new CheckBox
-                //    {
-                //        Text = item,
-                //        AutoSize = true
-                //    };
-
-                //    // If an item is unchecked, uncheck "Select All"
-                //    cb.CheckedChanged += (s, e) =>
-                //    {
-                //        if (!cb.Checked && selectAllCheckBox.Checked)
-                //        {
-                //            selectAllCheckBox.Checked = false;
-                //        }
-                //        else if (checkBoxes.All(x => x.Checked))
-                //        {
-                //            selectAllCheckBox.Checked = true;
-                //        }
-                //    };
-
-                //    checkBoxes.Add(cb);
-                //    innerPanel.Controls.Add(cb);
-                //}
-
-                //groupBox.Controls.Add(innerPanel);
-                //flpQuestions.Controls.Add(groupBox);
-            }
-
-            dir = null;
-        }
-
-        private void UpdateQuestionFileSets(int iInsert, bool bAdd)
-        {
-            int total = 0;
-            int i = 0, k = 0;
-
-            //m_SelectedQuestionFiles = new JFQuestionFile[clbQuestionSets.CheckedIndices.Count + (bAdd ? 1 : -1)];
-            //while( i < clbQuestionSets.CheckedIndices.Count )
-            //{
-            //    if( bAdd || iInsert != clbQuestionSets.CheckedIndices[i] )
-            //    {
-            //        total += m_QuestionFiles[clbQuestionSets.CheckedIndices[i]].m_iNumQuestions;
-            //        m_SelectedQuestionFiles[k] = m_QuestionFiles[clbQuestionSets.CheckedIndices[i]];
-            //        k++;
-            //    }
-            //    i++;
-            //}
-
-            if (bAdd)
-            {
-                total += m_QuestionFiles[iInsert].m_iNumQuestions;
-                m_SelectedQuestionFiles[m_SelectedQuestionFiles.Length-1] = m_QuestionFiles[iInsert];
-            }
-
-            rbAllQuestions.Text = m_strAllQuestions + total;
-            m_iCtQuestions = total;
+            rbAllQuestions.Text = ALLQUESTIONSTITLE + total;
+            QuestionCount = total;
 
             nsUpDown.Maximum = total;
             if (nsUpDown.Minimum < 1)
@@ -203,7 +213,7 @@ namespace jflash
 
         private void btnGo_Click(object sender, EventArgs e)
         {
-            Form frm = new JFQuestionaireForm(this, rbLimitQuestions.Checked ? Convert.ToInt16(nsUpDown.Value) : m_iCtQuestions);
+            Form frm = new JFQuestionaireForm(this, rbLimitQuestions.Checked ? Convert.ToInt16(nsUpDown.Value) : QuestionCount);
             frm.Show();
         }
 
@@ -212,34 +222,10 @@ namespace jflash
             rbLimitQuestions.Checked = true;
         }
 
-        private void clbQuestionSets_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-            if (!bSkipHandler)
-            {
-                bSkipHandler = true;
-                //UpdateQuestionFileSets(((ListBox)sender).SelectedIndex, true ^ clbQuestionSets.GetItemChecked(((ListBox)sender).SelectedIndex));
-                //chkSelectAll.Checked = (clbQuestionSets.CheckedIndices.Count > 0);
-                bSkipHandler = false;
-            }
-        }
-
-        private void clbQuestionSets_KeyDown(object sender, KeyEventArgs e)
+        private void questions_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == 13)
                 btnGo_Click(sender, e);
         }
-
-        //private void chkSelectAll_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    if (!bSkipHandler)
-        //    {
-        //        //bSkipHandler = true;
-        //        for (int i = 0; i < clbQuestionSets.Items.Count; i++)
-        //        {
-        //            clbQuestionSets.SetItemCheckState(i, chkSelectAll.CheckState);
-        //        }
-        //        //bSkipHandler = false;
-        //    }
-        //}
     }
 }

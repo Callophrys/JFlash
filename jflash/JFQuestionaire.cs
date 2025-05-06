@@ -40,8 +40,8 @@ namespace jflash
             // Need to set up randomized Question Set (q&a pairs)
             // and scores
             // Load first in set
-            m_QuestionSet = new JFQuestionSet(parentForm.m_SelectedQuestionFiles
-                , parentForm.m_iCtQuestions
+            m_QuestionSet = new JFQuestionSet(parentForm.SelectedQuestionFiles
+                , parentForm.QuestionCount
                 , DesiredQuestionCount );
             NextQuestion();
         }
@@ -58,20 +58,20 @@ namespace jflash
             lblPrompt.Text = q.m_strPrompt;
             lblQuestion.Text = q.m_strQuestion;
 
-            lblAttempted.Text = m_QuestionSet.m_iQuestionNo.ToString();
-            lblScore.Text = (m_QuestionSet.m_iQuestionNo > 1 ? Convert.ToInt32(100 * m_QuestionSet.m_iNumRight / (m_QuestionSet.m_iQuestionNo - 1)) : 100 ) + "%";
+            lblAttempted.Text = m_QuestionSet.questionNumber.ToString();
+            lblScore.Text = (m_QuestionSet.questionNumber > 1 ? Convert.ToInt32(100 * m_QuestionSet.countCorrect / (m_QuestionSet.questionNumber - 1)) : 100 ) + "%";
 
-            grpbxQuestion.Text = "Question " + m_QuestionSet.m_iQuestionNo + " of " + m_QuestionSet.m_iCtDesired;
+            grpbxQuestion.Text = "Question " + m_QuestionSet.questionNumber + " of " + m_QuestionSet.countAttempted;
         }
 
         private void txtAnswer_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == 13)
             {
-                lblLastAns.Text = m_QuestionSet.m_iQuestionNo + ") " + m_QuestionSet.m_CurrentQuestion.m_strQuestion;
+                lblLastAns.Text = m_QuestionSet.questionNumber + ") " + m_QuestionSet.m_CurrentQuestion.m_strQuestion;
                 if (m_QuestionSet.IsEntryCorrect(txtAnswer.Text))
                 {
-                    lblRight.Text = m_QuestionSet.m_iNumRight.ToString();
+                    lblRight.Text = m_QuestionSet.countCorrect.ToString();
                     lblLastAns.ForeColor = System.Drawing.Color.Blue;
                     txtLastResponseA.Text = "Correct entry:  " + txtAnswer.Text;
                     txtLastResponseA.ForeColor = System.Drawing.Color.Blue;
@@ -87,7 +87,7 @@ namespace jflash
                 }
                 else
                 {
-                    lblWrong.Text = m_QuestionSet.m_iNumWrong.ToString();
+                    lblWrong.Text = m_QuestionSet.countWrong.ToString();
                     lblLastAns.ForeColor = System.Drawing.Color.Red;
                     txtLastResponseA.Text = "Wrong entry:  " + txtAnswer.Text;
                     txtLastResponseA.ForeColor = System.Drawing.Color.Red;
@@ -95,12 +95,12 @@ namespace jflash
                     txtLastResponseB.ForeColor = System.Drawing.Color.Red;
                 }
 
-                if (m_QuestionSet.m_bFinished)
+                if (m_QuestionSet.isFinished)
                 {
                     btnAbandon.Enabled = false;
                     btnFinish.Enabled = true;
                     txtAnswer.Enabled = false;
-                    lblScore.Text = Convert.ToInt32(100 * m_QuestionSet.m_iNumRight / parentForm.m_iCtQuestions) + "%";
+                    lblScore.Text = Convert.ToInt32(100 * m_QuestionSet.countCorrect / parentForm.QuestionCount) + "%";
                 }
                 else
                     NextQuestion();

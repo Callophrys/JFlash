@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace jflash
@@ -8,34 +9,34 @@ namespace jflash
     {
         public JFQuestion[] Questions;
         public JFQuestion m_CurrentQuestion;
-        public int m_iCtDesired, m_iNumRight, m_iNumWrong;
-        public int m_iQuestionNo;
-        public Boolean m_bFinished;
+        public int countAttempted, countCorrect, countWrong;
+        public int questionNumber;
+        public Boolean isFinished;
         public int Hours, Minutes, Seconds;
 
         private JFQuestionFile[] QuestionFiles;
 
-        public JFQuestionSet(JFQuestionFile[] Files, int TotQs, int NumQs)
+        public JFQuestionSet(IList<JFQuestionFile> Files, int TotQs, int NumQs)
         {
             int k;
 
-            QuestionFiles = Files;
-            m_iCtDesired = NumQs;
-            m_iNumRight = 0;
-            m_iNumWrong = 0;
+            QuestionFiles = Files.ToArray();
+            countAttempted = NumQs;
+            countCorrect = 0;
+            countWrong = 0;
 
-            m_iQuestionNo = 0;
-            m_bFinished = false;
+            questionNumber = 0;
+            isFinished = false;
             Hours = Minutes = Seconds = 0;
 
             Questions = new JFQuestion[TotQs];
 
             k=0;
-            for (int i = 0; i < Files.Length; i++)
+            for (int i = 0; i < Files.Count; i++)
             {
                 for (int j = 0; j < Files[i].m_iNumQuestions; j++)
                 {
-                    Questions[k] = Files[i].m_Questions[j];
+                    Questions[k] = Files[i].Questions[j];
                     k++;
                 }
             }
@@ -59,8 +60,8 @@ namespace jflash
 
         public JFQuestion NextQuestion()
         {
-            m_CurrentQuestion = Questions[m_iQuestionNo];
-            m_bFinished = (++m_iQuestionNo >= m_iCtDesired);
+            m_CurrentQuestion = Questions[questionNumber];
+            isFinished = (++questionNumber >= countAttempted);
             return m_CurrentQuestion;
         }
 
@@ -69,9 +70,9 @@ namespace jflash
             Boolean r;
             r = m_CurrentQuestion.IsEntryCorrect(ans);
             if (r)
-                m_iNumRight++;
+                countCorrect++;
             else
-                m_iNumWrong++;
+                countWrong++;
             return r;
         }
     }

@@ -10,19 +10,20 @@ namespace jflash
         static int TYPE_ENTRY = 1;
         static int TYPE_CHOICE = 2;
 
+        public String Filename;
+        public List<JFQuestion> Questions = new List<JFQuestion>();
+
         public String m_Description;
-        public String m_Filename;
         public String m_strPrompt;
         public int m_iNumQuestions, m_iType;
-        public JFQuestion[] m_Questions;
 
         public JFQuestionFile(String filename)
         {
             String input;
-            if (File.Exists(filename))
+            Filename = $"..\\JFlash\\Questions\\{filename}";
+            if (File.Exists(Filename))
             {
-                m_Filename = String.Copy(filename);
-                using (StreamReader sr = File.OpenText(m_Filename))
+                using (StreamReader sr = File.OpenText(Filename))
                 {
                     if ((input = sr.ReadLine()) != null && String.Compare(input, "JPFLASH") !=0 )
                     {
@@ -88,11 +89,10 @@ namespace jflash
                         // END tag seems missing
                     }
 
-                    m_Questions = new JFQuestion[m_iNumQuestions];
                     for (i = 0; i < m_iNumQuestions; i++)
                     {
                         q = String.Copy(qss[i].Trim(new Char[] { '\t', ' ', '\r' }));
-                        m_Questions[i] = new JFQuestion(q, this);
+                        Questions.Add(new JFQuestion(q, this));
                     }
 
                     sr.Close();
