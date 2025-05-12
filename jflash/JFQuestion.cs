@@ -1,37 +1,49 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
-namespace jflash
+namespace JFlash
 {
     public class JFQuestion
     {
         public String Answer;
         public String Question;
         public String Additional;
-        public String Prompt;
-        public Boolean HasMultipleAnswers => Answer.Contains(",");
+        //public String Prompt;
+        public Boolean HasMultipleAnswers => Answer.Contains(',') || Answer.Contains('，');
+        public IList<string> sourceParts;
 
-        public JFQuestion(String SourceLine, JFQuestionFile Parent)
+        public JFQuestion(String SourceLine, JFQuestionFile Parent, int idxFrom, int idxTo)
         {
             // Divide line into q & a, separated by semicolon
-            Prompt = Parent.Prompt;
+            //Prompt = Parent.Prompt;
+            sourceParts = SourceLine.Split(new char[]{';', '；' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-            var sourceParts = SourceLine.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            UpdateQuestion(idxFrom, idxTo);
+        }
 
-            Answer = sourceParts[1].Trim();
-            Question = sourceParts[0].Trim();
+        public void UpdateQuestion(int idxFrom, int idxTo)
+        {
+            Question = sourceParts[idxFrom].Trim();
+            Answer = sourceParts[idxTo].Trim();
 
-            if (sourceParts.Length > 2)
+            var extra = new List<string>();
+            for (var i = 0; i < sourceParts.Count; ++i)
             {
-                Additional = sourceParts[2].Trim();
+                if (i != idxFrom && i != idxTo)
+                {
+                    extra.Prepend(sourceParts[i].Trim());
+                }
             }
+
+            Additional = string.Join("  /  ", extra);
         }
 
         public Boolean IsEntryCorrect(String ans)
         {
             Boolean bCorrect = false;
-            foreach (String p in Answer.Split(','))
+            foreach (String p in Answer.Split(new char[] { ',', '，'}))
             {
                 bCorrect |= (String.Compare(ans, p, true) == 0);
             }

@@ -6,8 +6,17 @@ using System.Windows.Forms;
 using System.IO;
 using System.Linq;
 
-namespace jflash
+namespace JFlash
 {
+    public enum JPCHOICES
+    {
+        Kanji = 0,
+        Hirigana = 1,
+        Katakana = 2,
+        Romaji = 3,
+        English = 4,
+    }
+
     public partial class JFlashForm : Form
     {
         public List<JFQuestionFile> SelectedQuestionFiles = new List<JFQuestionFile>();
@@ -19,11 +28,65 @@ namespace jflash
 
         private bool bSkipHandler = false;
 
+        private List<string> choices = new List<string>()
+        {
+            "Kanji",
+            "Hirigana",
+            "Katakana",
+            "Romaji",
+            "English",
+        };
+
+        public static string JpIntToChoiceString(int choice)
+        {
+            return choice switch
+            {
+                1 => "Hirigana",
+                2 => "Katakana",
+                3 => "Romaji",
+                4 => "English",
+                _ => "Kanji",
+            };
+        }
+
+        public static JPCHOICES JpStringToChoice(string choice)
+        {
+            return choice switch
+            {
+                "Hirigana" => JPCHOICES.Hirigana,
+                "Katakana" => JPCHOICES.Katakana,
+                "Romaji" => JPCHOICES.Romaji,
+                "English" => JPCHOICES.English,
+                _ => JPCHOICES.Kanji,
+            };
+        }
+
+        public static int JpStringToChoiceIndex(string choice)
+        {
+            return (int)(JpStringToChoice(choice)); 
+        }
+
+        //public static string JpChoiceToString(JPCHOICES choice)
+        //{
+        //    //switch (choice)
+        //    //{
+        //    //    case JPCHOICES.Kanji: return JPCHOICES.Kanji.ToString();
+        //    //    case JPCHOICES.Hirigana: return JPCHOICES.Romaji.ToString();
+        //    //    case JPCHOICES.Katakana: return JPCHOICES.Katakana.ToString();
+        //    //    case JPCHOICES.Romaji: return JPCHOICES.Romaji.ToString();
+        //    //    case JPCHOICES.English: return JPCHOICES.English.ToString();
+        //    //}
+        //    return choice.ToString();
+        //}
+
         public JFlashForm()
         {
-
             InitializeComponent();
             rbAllQuestions.Text = ALLQUESTIONSTITLE + "0";
+            string[] langChoices = choices.ToArray();
+            this.cmbFrom.Items.AddRange(langChoices);
+            this.cmbTo.Items.AddRange(langChoices);
+
             nsUpDown.Minimum = nsUpDown.Maximum = 0;
 
             DirectoryInfo dir = new DirectoryInfo(@"..\JFlash\Questions");
@@ -32,6 +95,8 @@ namespace jflash
 
             foreach (FileInfo f in dir.GetFiles("*.jpf"))
             {
+                if (!f.Name.Contains("adj-01.jpf")) continue;
+
                 string groupName = GetFilenamePrefix(f.Name);
                 if (!groups.ContainsKey(groupName))
                 {
@@ -144,7 +209,7 @@ namespace jflash
                     {
                         if (cb.Checked)
                         {
-                            QuestionFiles.Add(item, new JFQuestionFile(cb.Text));
+                            QuestionFiles.Add(item, new JFQuestionFile(cb.Text, JpStringToChoiceIndex(cmbFrom.Text), JpStringToChoiceIndex(cmbTo.Text)));
                         }
                         else
                         {
@@ -254,7 +319,10 @@ namespace jflash
 
         private void btnGo_Click(object sender, EventArgs e)
         {
-            Form frm = new JFQuestionaireForm(this, rbLimitQuestions.Checked ? Convert.ToInt16(nsUpDown.Value) : QuestionCount);
+            Form frm = new JFQuestionaireForm(this
+                , rbLimitQuestions.Checked ? Convert.ToInt16(nsUpDown.Value) : QuestionCount
+                , cmbFrom.Text
+                , cmbTo.Text);
             frm.Show();
         }
 
@@ -267,6 +335,27 @@ namespace jflash
         {
             if (e.KeyValue == 13)
                 btnGo_Click(sender, e);
+        }
+
+        private void cmbFrom_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateQuestionFiles();
+        }
+
+        private void cmbTo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateQuestionFiles();
+        }
+
+        private void updateQuestionFiles()
+        {
+            foreach (var question in QuestionFiles.Values)
+            {
+                foreach (var q in question.Questions)
+                {
+                    q.UpdateQuestion(JpStringToChoiceIndex(cmbFrom.Text), JpStringToChoiceIndex(cmbTo.Text));
+                }
+            }
         }
     }
 }

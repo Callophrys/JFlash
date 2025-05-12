@@ -70,18 +70,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="JFQuestion.cs" />
-    <Compile Include="JFlash.cs">
+    <Compile Include="JFlashForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="JFlash.Designer.cs">
-      <DependentUpon>JFlash.cs</DependentUpon>
+    <Compile Include="JFlashForm.Designer.cs">
+      <DependentUpon>JFlashForm.cs</DependentUpon>
     </Compile>
     <Compile Include="JFQuestionSet.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="JFlash.resx">
+    <EmbeddedResource Include="JFlashForm.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>JFlash.cs</DependentUpon>
+      <DependentUpon>JFlashForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -114,42 +114,22 @@
     <Compile Include="JFQuestionaire.Designer.cs">
       <DependentUpon>JFQuestionaire.cs</DependentUpon>
     </Compile>
-    <None Include="Questions\adj-i-e-01.jpf" />
-    <None Include="Questions\adj-i-e-02.jpf" />
-    <None Include="Questions\adj-i-e-03.jpf" />
-    <None Include="Questions\adj-i-e-04.jpf" />
-    <None Include="Questions\adj-i-e-05.jpf" />
-    <None Include="Questions\adj-i-e-06.jpf" />
-    <None Include="Questions\adj-i-e.jpf" />
-    <None Include="Questions\adj-i-j-01.jpf" />
-    <None Include="Questions\adj-i-j-02.jpf" />
-    <None Include="Questions\adj-i-j-03.jpf" />
-    <None Include="Questions\adj-i-j-04.jpf" />
-    <None Include="Questions\adj-i-j-05.jpf" />
-    <None Include="Questions\adj-i-j-06.jpf" />
-    <None Include="Questions\adj-i-j.jpf" />
-    <None Include="Questions\adj-i-t.jpf" />
-    <None Include="Questions\adj-na-e.jpf" />
-    <None Include="Questions\adj-na-j.jpf" />
-    <None Include="Questions\adj-na-t.jpf" />
+    <None Include="Questions\adj-i-02.jpf" />
+    <None Include="Questions\adj-i-03.jpf" />
+    <None Include="Questions\adj-i-04.jpf" />
+    <None Include="Questions\adj-i-05.jpf" />
+    <None Include="Questions\adj-i-06.jpf" />
+    <None Include="Questions\adj-i-01.jpf" />
+    <None Include="Questions\adj-na.jpf" />
     <None Include="Questions\baskan1.jpf" />
-    <None Include="Questions\baskan1b.jpf" />
-    <None Include="Questions\baskan1c.jpf" />
     <None Include="Questions\baskan2.jpf" />
     <None Include="Questions\baskan2b.jpf" />
     <None Include="Questions\baskan2c.jpf" />
     <None Include="Questions\baskan3.jpf" />
-    <None Include="Questions\baskan3b.jpf" />
     <None Include="Questions\baskan4.jpf" />
-    <None Include="Questions\baskan4b.jpf" />
     <None Include="Questions\baskan5.jpf" />
-    <None Include="Questions\baskan5b.jpf" />
     <None Include="Questions\baskan6.jpf" />
-    <None Include="Questions\baskan6b.jpf" />
-    <None Include="Questions\baskan6c.jpf" />
-    <None Include="Questions\busy_people-e.jpf" />
-    <None Include="Questions\busy_people-j.jpf" />
-    <None Include="Questions\busy_people-t.jpf" />
+    <None Include="Questions\busy_people.jpf" />
     <None Include="Questions\hiragana1.jpf" />
     <None Include="Questions\hiragana2.jpf" />
     <None Include="Questions\hiragana3.jpf" />
@@ -157,9 +137,7 @@
     <None Include="Questions\katakana2.jpf" />
     <None Include="Questions\katakana3.jpf" />
     <None Include="Questions\katakana4.jpf" />
-    <None Include="Questions\monster-eng.jpf" />
-    <None Include="Questions\monster-rom.jpf" />
-    <None Include="Questions\monster-trx.jpf" />
+    <None Include="Questions\monster.jpf" />
     <None Include="Questions\nouns-e.jpf" />
     <None Include="Questions\nouns-j.jpf" />
     <None Include="Questions\nouns-t.jpf" />

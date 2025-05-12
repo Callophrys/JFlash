@@ -6,14 +6,14 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace jflash
+namespace JFlash
 {
     public partial class JFQuestionaireForm : Form
     {
         private JFQuestionSet QuestionSet;
         private JFlashForm parentForm;
 
-        public JFQuestionaireForm(JFlashForm frm, int desiredQuestionCount)
+        public JFQuestionaireForm(JFlashForm frm, int desiredQuestionCount, string langFrom, string langTo)
         {
             parentForm = frm;
             parentForm.Hide();
@@ -27,6 +27,8 @@ namespace jflash
             txtLastAttempt.Text = string.Empty;
             txtLastAnswer.Text = string.Empty;
             txtAdditional.Text = string.Empty;
+
+            lblQuestionPrompt.Text = string.Format("Enter the {1} for the presented {0}", langFrom, langTo);
 
             // Also randomize font choice and font style
             Random rnd = new Random(DateTime.UtcNow.Millisecond);
@@ -43,7 +45,7 @@ namespace jflash
             // Load first in set
             QuestionSet = new JFQuestionSet(parentForm.SelectedQuestionFiles
                 , parentForm.QuestionCount
-                , desiredQuestionCount );
+                , desiredQuestionCount);
 
             NextQuestion();
         }
@@ -57,7 +59,7 @@ namespace jflash
         public void NextQuestion()
         {
             JFQuestion q = QuestionSet.NextQuestion();
-            lblQuestionPrompt.Text = q.Prompt;
+            //lblQuestionPrompt.Text = q.Prompt;
             lblQuestionQuery.Text = q.Question;
 
             lblStatusResultAttempted.Text = QuestionSet.questionNumber.ToString();

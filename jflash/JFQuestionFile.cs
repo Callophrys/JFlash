@@ -3,7 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text;
 
-namespace jflash
+namespace JFlash
 {
     public class JFQuestionFile
     {
@@ -17,7 +17,7 @@ namespace jflash
         public String Prompt;
         public int m_iNumQuestions, m_iType;
 
-        public JFQuestionFile(String filename)
+        public JFQuestionFile(String filename, int idxFrom, int idxTo)
         {
             String input;
             Filename = $"..\\JFlash\\Questions\\{filename}";
@@ -48,7 +48,7 @@ namespace jflash
                     }
                     else
                     {
-                        Prompt = input.Substring(7);
+                        Prompt = string.Format(input.Substring(7), JFlashForm.JpIntToChoiceString(idxFrom), JFlashForm.JpIntToChoiceString(idxTo));
                     }
 
                     if ((input = sr.ReadLine()) != null && String.Compare(input, 0, "Type", 0, 4 ) != 0)
@@ -92,7 +92,7 @@ namespace jflash
                     for (i = 0; i < m_iNumQuestions; i++)
                     {
                         q = String.Copy(qss[i].Trim(new Char[] { '\t', ' ', '\r' }));
-                        Questions.Add(new JFQuestion(q, this));
+                        Questions.Add(new JFQuestion(q, this, idxFrom, idxTo));
                     }
 
                     sr.Close();

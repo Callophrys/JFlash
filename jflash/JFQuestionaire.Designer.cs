@@ -1,4 +1,4 @@
-namespace jflash
+namespace JFlash
 {
     partial class JFQuestionaireForm
     {

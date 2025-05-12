@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace jflash
+namespace JFlash
 {
     class JFQuestionSet
     {
@@ -40,6 +40,7 @@ namespace jflash
                     k++;
                 }
             }
+
             shuffleElements(Questions, TotQs);
         }
 

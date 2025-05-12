@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace jflash
+namespace JFlash
 {
     static class Program
     {
