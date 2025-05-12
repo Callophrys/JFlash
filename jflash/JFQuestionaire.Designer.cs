@@ -32,32 +32,34 @@ namespace jflash
             this.btnFinish = new System.Windows.Forms.Button();
             this.btnAbandon = new System.Windows.Forms.Button();
             this.grpbxQuestion = new System.Windows.Forms.GroupBox();
-            this.lblQuestion = new System.Windows.Forms.Label();
-            this.lblPrompt = new System.Windows.Forms.Label();
+            this.lblQuestionQuery = new System.Windows.Forms.Label();
+            this.lblQuestionPrompt = new System.Windows.Forms.Label();
             this.txtAnswer = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lblTotal = new System.Windows.Forms.Label();
-            this.lblAttempted = new System.Windows.Forms.Label();
-            this.lblScore = new System.Windows.Forms.Label();
-            this.lblWrong = new System.Windows.Forms.Label();
-            this.lblRight = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblStatusResultTotal = new System.Windows.Forms.Label();
+            this.lblStatusResultAttempted = new System.Windows.Forms.Label();
+            this.lblStatusResultScore = new System.Windows.Forms.Label();
+            this.lblStatusResultWrong = new System.Windows.Forms.Label();
+            this.lblStatusResultRight = new System.Windows.Forms.Label();
+            this.lblStatusTotal = new System.Windows.Forms.Label();
+            this.lblStatusCurrent = new System.Windows.Forms.Label();
+            this.lblStatusScore = new System.Windows.Forms.Label();
+            this.lblStatusWrong = new System.Windows.Forms.Label();
+            this.lblStatusRight = new System.Windows.Forms.Label();
             this.lblLastAns = new System.Windows.Forms.Label();
-            this.txtLastResponseB = new System.Windows.Forms.TextBox();
-            this.txtLastResponseA = new System.Windows.Forms.TextBox();
+            this.txtLastAnswer = new System.Windows.Forms.TextBox();
+            this.txtLastAttempt = new System.Windows.Forms.TextBox();
+            this.txtAdditional = new System.Windows.Forms.TextBox();
+            this.txtLastQuery = new System.Windows.Forms.TextBox();
             this.grpbxQuestion.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnFinish
             // 
-            this.btnFinish.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFinish.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnFinish.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFinish.Location = new System.Drawing.Point(353, 163);
+            this.btnFinish.Location = new System.Drawing.Point(133, 314);
             this.btnFinish.Margin = new System.Windows.Forms.Padding(2);
             this.btnFinish.Name = "btnFinish";
             this.btnFinish.Size = new System.Drawing.Size(81, 24);
@@ -68,9 +70,9 @@ namespace jflash
             // 
             // btnAbandon
             // 
-            this.btnAbandon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAbandon.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnAbandon.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAbandon.Location = new System.Drawing.Point(353, 193);
+            this.btnAbandon.Location = new System.Drawing.Point(233, 314);
             this.btnAbandon.Margin = new System.Windows.Forms.Padding(2);
             this.btnAbandon.Name = "btnAbandon";
             this.btnAbandon.Size = new System.Drawing.Size(81, 24);
@@ -81,47 +83,46 @@ namespace jflash
             // 
             // grpbxQuestion
             // 
-            this.grpbxQuestion.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpbxQuestion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpbxQuestion.Controls.Add(this.lblQuestion);
-            this.grpbxQuestion.Controls.Add(this.lblPrompt);
+            this.grpbxQuestion.Controls.Add(this.lblQuestionQuery);
+            this.grpbxQuestion.Controls.Add(this.lblQuestionPrompt);
             this.grpbxQuestion.Controls.Add(this.txtAnswer);
             this.grpbxQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpbxQuestion.Location = new System.Drawing.Point(7, 6);
             this.grpbxQuestion.Margin = new System.Windows.Forms.Padding(2);
             this.grpbxQuestion.Name = "grpbxQuestion";
             this.grpbxQuestion.Padding = new System.Windows.Forms.Padding(2);
-            this.grpbxQuestion.Size = new System.Drawing.Size(300, 129);
+            this.grpbxQuestion.Size = new System.Drawing.Size(300, 156);
             this.grpbxQuestion.TabIndex = 0;
             this.grpbxQuestion.TabStop = false;
             this.grpbxQuestion.Text = "Question";
             // 
-            // lblQuestion
+            // lblQuestionQuery
             // 
-            this.lblQuestion.AutoSize = true;
-            this.lblQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblQuestion.Location = new System.Drawing.Point(9, 43);
-            this.lblQuestion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblQuestion.Name = "lblQuestion";
-            this.lblQuestion.Size = new System.Drawing.Size(35, 13);
-            this.lblQuestion.TabIndex = 2;
-            this.lblQuestion.Text = "label1";
+            this.lblQuestionQuery.AutoSize = true;
+            this.lblQuestionQuery.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblQuestionQuery.Location = new System.Drawing.Point(9, 45);
+            this.lblQuestionQuery.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblQuestionQuery.Name = "lblQuestionQuery";
+            this.lblQuestionQuery.Size = new System.Drawing.Size(35, 13);
+            this.lblQuestionQuery.TabIndex = 2;
+            this.lblQuestionQuery.Text = "Query";
             // 
-            // lblPrompt
+            // lblQuestionPrompt
             // 
-            this.lblPrompt.AutoSize = true;
-            this.lblPrompt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrompt.Location = new System.Drawing.Point(9, 23);
-            this.lblPrompt.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblPrompt.Name = "lblPrompt";
-            this.lblPrompt.Size = new System.Drawing.Size(35, 13);
-            this.lblPrompt.TabIndex = 1;
-            this.lblPrompt.Text = "label1";
+            this.lblQuestionPrompt.AutoSize = true;
+            this.lblQuestionPrompt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblQuestionPrompt.Location = new System.Drawing.Point(9, 23);
+            this.lblQuestionPrompt.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblQuestionPrompt.Name = "lblQuestionPrompt";
+            this.lblQuestionPrompt.Size = new System.Drawing.Size(40, 13);
+            this.lblQuestionPrompt.TabIndex = 1;
+            this.lblQuestionPrompt.Text = "Prompt";
             // 
             // txtAnswer
             // 
-            this.txtAnswer.Location = new System.Drawing.Point(6, 102);
+            this.txtAnswer.Location = new System.Drawing.Point(6, 127);
             this.txtAnswer.Margin = new System.Windows.Forms.Padding(2);
             this.txtAnswer.Name = "txtAnswer";
             this.txtAnswer.Size = new System.Drawing.Size(288, 20);
@@ -130,183 +131,211 @@ namespace jflash
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.lblTotal);
-            this.groupBox2.Controls.Add(this.lblAttempted);
-            this.groupBox2.Controls.Add(this.lblScore);
-            this.groupBox2.Controls.Add(this.lblWrong);
-            this.groupBox2.Controls.Add(this.lblRight);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.lblStatusResultTotal);
+            this.groupBox2.Controls.Add(this.lblStatusResultAttempted);
+            this.groupBox2.Controls.Add(this.lblStatusResultScore);
+            this.groupBox2.Controls.Add(this.lblStatusResultWrong);
+            this.groupBox2.Controls.Add(this.lblStatusResultRight);
+            this.groupBox2.Controls.Add(this.lblStatusTotal);
+            this.groupBox2.Controls.Add(this.lblStatusCurrent);
+            this.groupBox2.Controls.Add(this.lblStatusScore);
+            this.groupBox2.Controls.Add(this.lblStatusWrong);
+            this.groupBox2.Controls.Add(this.lblStatusRight);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(314, 6);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(123, 129);
+            this.groupBox2.Size = new System.Drawing.Size(123, 156);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Status";
             // 
-            // lblTotal
+            // lblStatusResultTotal
             // 
-            this.lblTotal.AutoSize = true;
-            this.lblTotal.Location = new System.Drawing.Point(88, 107);
-            this.lblTotal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(13, 13);
-            this.lblTotal.TabIndex = 9;
-            this.lblTotal.Text = "0";
-            this.lblTotal.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblStatusResultTotal.AutoSize = true;
+            this.lblStatusResultTotal.Location = new System.Drawing.Point(88, 115);
+            this.lblStatusResultTotal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblStatusResultTotal.Name = "lblStatusResultTotal";
+            this.lblStatusResultTotal.Size = new System.Drawing.Size(13, 13);
+            this.lblStatusResultTotal.TabIndex = 9;
+            this.lblStatusResultTotal.Text = "0";
+            this.lblStatusResultTotal.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // lblAttempted
+            // lblStatusResultAttempted
             // 
-            this.lblAttempted.AutoSize = true;
-            this.lblAttempted.Location = new System.Drawing.Point(88, 85);
-            this.lblAttempted.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblAttempted.Name = "lblAttempted";
-            this.lblAttempted.Size = new System.Drawing.Size(13, 13);
-            this.lblAttempted.TabIndex = 8;
-            this.lblAttempted.Text = "0";
-            this.lblAttempted.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblStatusResultAttempted.AutoSize = true;
+            this.lblStatusResultAttempted.Location = new System.Drawing.Point(88, 91);
+            this.lblStatusResultAttempted.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblStatusResultAttempted.Name = "lblStatusResultAttempted";
+            this.lblStatusResultAttempted.Size = new System.Drawing.Size(13, 13);
+            this.lblStatusResultAttempted.TabIndex = 8;
+            this.lblStatusResultAttempted.Text = "0";
+            this.lblStatusResultAttempted.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // lblScore
+            // lblStatusResultScore
             // 
-            this.lblScore.AutoSize = true;
-            this.lblScore.Location = new System.Drawing.Point(88, 64);
-            this.lblScore.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(13, 13);
-            this.lblScore.TabIndex = 7;
-            this.lblScore.Text = "0";
-            this.lblScore.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblStatusResultScore.AutoSize = true;
+            this.lblStatusResultScore.Location = new System.Drawing.Point(88, 68);
+            this.lblStatusResultScore.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblStatusResultScore.Name = "lblStatusResultScore";
+            this.lblStatusResultScore.Size = new System.Drawing.Size(13, 13);
+            this.lblStatusResultScore.TabIndex = 7;
+            this.lblStatusResultScore.Text = "0";
+            this.lblStatusResultScore.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // lblWrong
+            // lblStatusResultWrong
             // 
-            this.lblWrong.AutoSize = true;
-            this.lblWrong.Location = new System.Drawing.Point(88, 43);
-            this.lblWrong.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblWrong.Name = "lblWrong";
-            this.lblWrong.Size = new System.Drawing.Size(13, 13);
-            this.lblWrong.TabIndex = 6;
-            this.lblWrong.Text = "0";
-            this.lblWrong.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblStatusResultWrong.AutoSize = true;
+            this.lblStatusResultWrong.Location = new System.Drawing.Point(88, 45);
+            this.lblStatusResultWrong.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblStatusResultWrong.Name = "lblStatusResultWrong";
+            this.lblStatusResultWrong.Size = new System.Drawing.Size(13, 13);
+            this.lblStatusResultWrong.TabIndex = 6;
+            this.lblStatusResultWrong.Text = "0";
+            this.lblStatusResultWrong.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // lblRight
+            // lblStatusResultRight
             // 
-            this.lblRight.AutoSize = true;
-            this.lblRight.Location = new System.Drawing.Point(88, 24);
-            this.lblRight.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblRight.Name = "lblRight";
-            this.lblRight.Size = new System.Drawing.Size(13, 13);
-            this.lblRight.TabIndex = 5;
-            this.lblRight.Text = "0";
-            this.lblRight.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblStatusResultRight.AutoSize = true;
+            this.lblStatusResultRight.Location = new System.Drawing.Point(88, 24);
+            this.lblStatusResultRight.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblStatusResultRight.Name = "lblStatusResultRight";
+            this.lblStatusResultRight.Size = new System.Drawing.Size(13, 13);
+            this.lblStatusResultRight.TabIndex = 5;
+            this.lblStatusResultRight.Text = "0";
+            this.lblStatusResultRight.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // label5
+            // lblStatusTotal
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(10, 106);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(34, 13);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Total:";
+            this.lblStatusTotal.AutoSize = true;
+            this.lblStatusTotal.Location = new System.Drawing.Point(10, 114);
+            this.lblStatusTotal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblStatusTotal.Name = "lblStatusTotal";
+            this.lblStatusTotal.Size = new System.Drawing.Size(34, 13);
+            this.lblStatusTotal.TabIndex = 4;
+            this.lblStatusTotal.Text = "Total:";
             // 
-            // label4
+            // lblStatusCurrent
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 84);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 13);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Current:";
+            this.lblStatusCurrent.AutoSize = true;
+            this.lblStatusCurrent.Location = new System.Drawing.Point(10, 90);
+            this.lblStatusCurrent.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblStatusCurrent.Name = "lblStatusCurrent";
+            this.lblStatusCurrent.Size = new System.Drawing.Size(44, 13);
+            this.lblStatusCurrent.TabIndex = 3;
+            this.lblStatusCurrent.Text = "Current:";
             // 
-            // label3
+            // lblStatusScore
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 63);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Score:";
+            this.lblStatusScore.AutoSize = true;
+            this.lblStatusScore.Location = new System.Drawing.Point(10, 67);
+            this.lblStatusScore.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblStatusScore.Name = "lblStatusScore";
+            this.lblStatusScore.Size = new System.Drawing.Size(38, 13);
+            this.lblStatusScore.TabIndex = 2;
+            this.lblStatusScore.Text = "Score:";
             // 
-            // label2
+            // lblStatusWrong
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 42);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(42, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Wrong:";
+            this.lblStatusWrong.AutoSize = true;
+            this.lblStatusWrong.Location = new System.Drawing.Point(10, 44);
+            this.lblStatusWrong.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblStatusWrong.Name = "lblStatusWrong";
+            this.lblStatusWrong.Size = new System.Drawing.Size(42, 13);
+            this.lblStatusWrong.TabIndex = 1;
+            this.lblStatusWrong.Text = "Wrong:";
             // 
-            // label1
+            // lblStatusRight
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 24);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Right:";
+            this.lblStatusRight.AutoSize = true;
+            this.lblStatusRight.Location = new System.Drawing.Point(10, 24);
+            this.lblStatusRight.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblStatusRight.Name = "lblStatusRight";
+            this.lblStatusRight.Size = new System.Drawing.Size(35, 13);
+            this.lblStatusRight.TabIndex = 0;
+            this.lblStatusRight.Text = "Right:";
             // 
             // lblLastAns
             // 
             this.lblLastAns.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblLastAns.AutoSize = true;
-            this.lblLastAns.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLastAns.Location = new System.Drawing.Point(4, 144);
+            this.lblLastAns.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLastAns.Location = new System.Drawing.Point(4, 165);
             this.lblLastAns.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblLastAns.Name = "lblLastAns";
-            this.lblLastAns.Size = new System.Drawing.Size(59, 17);
+            this.lblLastAns.Size = new System.Drawing.Size(112, 20);
             this.lblLastAns.TabIndex = 6;
-            this.lblLastAns.Text = "LastAns";
+            this.lblLastAns.Text = "Last Question:";
             // 
-            // txtLastResponseB
+            // txtLastAnswer
             // 
-            this.txtLastResponseB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtLastResponseB.BackColor = System.Drawing.SystemColors.Control;
-            this.txtLastResponseB.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtLastResponseB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLastResponseB.ForeColor = System.Drawing.Color.Red;
-            this.txtLastResponseB.Location = new System.Drawing.Point(18, 192);
-            this.txtLastResponseB.Margin = new System.Windows.Forms.Padding(2);
-            this.txtLastResponseB.Multiline = true;
-            this.txtLastResponseB.Name = "txtLastResponseB";
-            this.txtLastResponseB.Size = new System.Drawing.Size(331, 30);
-            this.txtLastResponseB.TabIndex = 7;
-            this.txtLastResponseB.Text = "Corrected\r\nor other correct";
+            this.txtLastAnswer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtLastAnswer.BackColor = System.Drawing.SystemColors.Control;
+            this.txtLastAnswer.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtLastAnswer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLastAnswer.ForeColor = System.Drawing.Color.Firebrick;
+            this.txtLastAnswer.Location = new System.Drawing.Point(18, 219);
+            this.txtLastAnswer.Margin = new System.Windows.Forms.Padding(2);
+            this.txtLastAnswer.Multiline = true;
+            this.txtLastAnswer.Name = "txtLastAnswer";
+            this.txtLastAnswer.Size = new System.Drawing.Size(419, 40);
+            this.txtLastAnswer.TabIndex = 7;
+            this.txtLastAnswer.Text = "Corrected\r\nor other answers";
             // 
-            // txtLastResponseA
+            // txtLastAttempt
             // 
-            this.txtLastResponseA.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtLastResponseA.BackColor = System.Drawing.SystemColors.Control;
-            this.txtLastResponseA.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtLastResponseA.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLastResponseA.ForeColor = System.Drawing.Color.Blue;
-            this.txtLastResponseA.Location = new System.Drawing.Point(18, 169);
-            this.txtLastResponseA.Margin = new System.Windows.Forms.Padding(2);
-            this.txtLastResponseA.Name = "txtLastResponseA";
-            this.txtLastResponseA.Size = new System.Drawing.Size(331, 16);
-            this.txtLastResponseA.TabIndex = 8;
-            this.txtLastResponseA.Text = "Wrong";
+            this.txtLastAttempt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtLastAttempt.BackColor = System.Drawing.SystemColors.Control;
+            this.txtLastAttempt.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtLastAttempt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLastAttempt.ForeColor = System.Drawing.Color.Blue;
+            this.txtLastAttempt.Location = new System.Drawing.Point(18, 192);
+            this.txtLastAttempt.Margin = new System.Windows.Forms.Padding(2);
+            this.txtLastAttempt.Name = "txtLastAttempt";
+            this.txtLastAttempt.Size = new System.Drawing.Size(419, 19);
+            this.txtLastAttempt.TabIndex = 8;
+            this.txtLastAttempt.Text = "Wrong";
+            // 
+            // txtAdditional
+            // 
+            this.txtAdditional.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtAdditional.BackColor = System.Drawing.SystemColors.Control;
+            this.txtAdditional.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtAdditional.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAdditional.ForeColor = System.Drawing.Color.Green;
+            this.txtAdditional.Location = new System.Drawing.Point(16, 266);
+            this.txtAdditional.Margin = new System.Windows.Forms.Padding(2);
+            this.txtAdditional.Multiline = true;
+            this.txtAdditional.Name = "txtAdditional";
+            this.txtAdditional.Size = new System.Drawing.Size(419, 40);
+            this.txtAdditional.TabIndex = 9;
+            this.txtAdditional.Text = "Additional";
+            // 
+            // txtLastQuery
+            // 
+            this.txtLastQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtLastQuery.BackColor = System.Drawing.SystemColors.Control;
+            this.txtLastQuery.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtLastQuery.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLastQuery.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.txtLastQuery.Location = new System.Drawing.Point(120, 166);
+            this.txtLastQuery.Margin = new System.Windows.Forms.Padding(2);
+            this.txtLastQuery.Name = "txtLastQuery";
+            this.txtLastQuery.Size = new System.Drawing.Size(315, 19);
+            this.txtLastQuery.TabIndex = 10;
+            this.txtLastQuery.Text = "Wrong";
             // 
             // JFQuestionaireForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(448, 234);
-            this.Controls.Add(this.txtLastResponseA);
-            this.Controls.Add(this.txtLastResponseB);
+            this.ClientSize = new System.Drawing.Size(448, 349);
+            this.Controls.Add(this.txtLastQuery);
+            this.Controls.Add(this.txtAdditional);
+            this.Controls.Add(this.txtLastAttempt);
+            this.Controls.Add(this.txtLastAnswer);
             this.Controls.Add(this.lblLastAns);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.grpbxQuestion);
@@ -314,7 +343,7 @@ namespace jflash
             this.Controls.Add(this.btnFinish);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.MinimumSize = new System.Drawing.Size(464, 273);
+            this.MinimumSize = new System.Drawing.Size(464, 388);
             this.Name = "JFQuestionaireForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
@@ -334,22 +363,24 @@ namespace jflash
         private System.Windows.Forms.Button btnFinish;
         private System.Windows.Forms.Button btnAbandon;
         private System.Windows.Forms.GroupBox grpbxQuestion;
-        private System.Windows.Forms.Label lblQuestion;
-        private System.Windows.Forms.Label lblPrompt;
+        private System.Windows.Forms.Label lblQuestionQuery;
+        private System.Windows.Forms.Label lblQuestionPrompt;
         private System.Windows.Forms.TextBox txtAnswer;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label lblTotal;
-        private System.Windows.Forms.Label lblAttempted;
-        private System.Windows.Forms.Label lblScore;
-        private System.Windows.Forms.Label lblWrong;
-        private System.Windows.Forms.Label lblRight;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblStatusResultTotal;
+        private System.Windows.Forms.Label lblStatusResultAttempted;
+        private System.Windows.Forms.Label lblStatusResultScore;
+        private System.Windows.Forms.Label lblStatusResultWrong;
+        private System.Windows.Forms.Label lblStatusResultRight;
+        private System.Windows.Forms.Label lblStatusTotal;
+        private System.Windows.Forms.Label lblStatusCurrent;
+        private System.Windows.Forms.Label lblStatusScore;
+        private System.Windows.Forms.Label lblStatusWrong;
+        private System.Windows.Forms.Label lblStatusRight;
         private System.Windows.Forms.Label lblLastAns;
-        private System.Windows.Forms.TextBox txtLastResponseB;
-        private System.Windows.Forms.TextBox txtLastResponseA;
+        private System.Windows.Forms.TextBox txtLastAnswer;
+        private System.Windows.Forms.TextBox txtLastAttempt;
+        private System.Windows.Forms.TextBox txtAdditional;
+        private System.Windows.Forms.TextBox txtLastQuery;
     }
 }

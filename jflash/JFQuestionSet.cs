@@ -8,7 +8,7 @@ namespace jflash
     class JFQuestionSet
     {
         public JFQuestion[] Questions;
-        public JFQuestion m_CurrentQuestion;
+        public JFQuestion CurrentQuestion;
         public int countAttempted, countCorrect, countWrong;
         public int questionNumber;
         public Boolean isFinished;
@@ -47,7 +47,7 @@ namespace jflash
         {
             JFQuestion temporary;
             int randomNum, last;
-            Random rnd = new Random();
+            Random rnd = new Random(DateTime.UtcNow.Millisecond);
 
             for (last = size; last > 1; last--)
             {
@@ -60,15 +60,15 @@ namespace jflash
 
         public JFQuestion NextQuestion()
         {
-            m_CurrentQuestion = Questions[questionNumber];
+            CurrentQuestion = Questions[questionNumber];
             isFinished = (++questionNumber >= countAttempted);
-            return m_CurrentQuestion;
+            return CurrentQuestion;
         }
 
         public Boolean IsEntryCorrect (String ans)
         {
             Boolean r;
-            r = m_CurrentQuestion.IsEntryCorrect(ans);
+            r = CurrentQuestion.IsEntryCorrect(ans);
             if (r)
                 countCorrect++;
             else

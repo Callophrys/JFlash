@@ -150,13 +150,13 @@
     <None Include="Questions\busy_people-e.jpf" />
     <None Include="Questions\busy_people-j.jpf" />
     <None Include="Questions\busy_people-t.jpf" />
-    <None Include="Questions\hiragan1.jpf" />
-    <None Include="Questions\hiragan2.jpf" />
-    <None Include="Questions\hiragan3.jpf" />
-    <None Include="Questions\katakan1.jpf" />
-    <None Include="Questions\katakan2.jpf" />
-    <None Include="Questions\katakan3.jpf" />
-    <None Include="Questions\katakan4.jpf" />
+    <None Include="Questions\hiragana1.jpf" />
+    <None Include="Questions\hiragana2.jpf" />
+    <None Include="Questions\hiragana3.jpf" />
+    <None Include="Questions\katakana1.jpf" />
+    <None Include="Questions\katakana2.jpf" />
+    <None Include="Questions\katakana3.jpf" />
+    <None Include="Questions\katakana4.jpf" />
     <None Include="Questions\monster-eng.jpf" />
     <None Include="Questions\monster-rom.jpf" />
     <None Include="Questions\monster-trx.jpf" />
@@ -264,7 +264,7 @@
     <None Include="Questions\y_katakan1-08.jpf" />
     <None Include="Questions\y_katakan1-09.jpf" />
     <None Include="Questions\y_katakan1-10.jpf" />
-    <None Include="Questions\z_hiragan.jpf" />
+    <None Include="Questions\z_hiragana.jpf" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

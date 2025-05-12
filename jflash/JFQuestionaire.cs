@@ -10,10 +10,10 @@ namespace jflash
 {
     public partial class JFQuestionaireForm : Form
     {
-        private JFQuestionSet m_QuestionSet;
+        private JFQuestionSet QuestionSet;
         private JFlashForm parentForm;
 
-        public JFQuestionaireForm(JFlashForm frm, int DesiredQuestionCount)
+        public JFQuestionaireForm(JFlashForm frm, int desiredQuestionCount)
         {
             parentForm = frm;
             parentForm.Hide();
@@ -22,15 +22,16 @@ namespace jflash
             int y = parentForm.Location.Y + (parentForm.Height - this.Height) / 2;
             this.Location = new Point(x, y);
             btnFinish.Enabled = false;
-            lblTotal.Text = DesiredQuestionCount.ToString();
-            lblLastAns.Text = "";
-            txtLastResponseA.Text = "";
-            txtLastResponseB.Text = "";
+            lblStatusResultTotal.Text = desiredQuestionCount.ToString();
+            txtLastQuery.Text = string.Empty;
+            txtLastAttempt.Text = string.Empty;
+            txtLastAnswer.Text = string.Empty;
+            txtAdditional.Text = string.Empty;
 
             // Also randomize font choice and font style
-            Random rnd = new Random();
-            lblQuestion.Font = new System.Drawing.Font(
-                  new String[9] { "Arial", "Batang", "Dotum", "DotumChe", "Gulim", "GulimChe", "NSimSun", "MS Mincho", "MSLingLiu" }[rnd.Next(0, 8)]
+            Random rnd = new Random(DateTime.UtcNow.Millisecond);
+            lblQuestionQuery.Font = new System.Drawing.Font(
+                  new String[6] { "0xProto", "Arial", "Bahnschrift", "Dubai", "Hasklug Nerd Font Mono", "Segoie UI" }[rnd.Next(0, 5)]
                 , (float)rnd.Next(12, 20)
                 , new System.Drawing.FontStyle[3] { System.Drawing.FontStyle.Regular, System.Drawing.FontStyle.Bold, System.Drawing.FontStyle.Italic }[rnd.Next(0, 2)]
                 , System.Drawing.GraphicsUnit.Point
@@ -40,9 +41,10 @@ namespace jflash
             // Need to set up randomized Question Set (q&a pairs)
             // and scores
             // Load first in set
-            m_QuestionSet = new JFQuestionSet(parentForm.SelectedQuestionFiles
+            QuestionSet = new JFQuestionSet(parentForm.SelectedQuestionFiles
                 , parentForm.QuestionCount
-                , DesiredQuestionCount );
+                , desiredQuestionCount );
+
             NextQuestion();
         }
 
@@ -54,56 +56,71 @@ namespace jflash
 
         public void NextQuestion()
         {
-            JFQuestion q = m_QuestionSet.NextQuestion();
-            lblPrompt.Text = q.m_strPrompt;
-            lblQuestion.Text = q.m_strQuestion;
+            JFQuestion q = QuestionSet.NextQuestion();
+            lblQuestionPrompt.Text = q.Prompt;
+            lblQuestionQuery.Text = q.Question;
 
-            lblAttempted.Text = m_QuestionSet.questionNumber.ToString();
-            lblScore.Text = (m_QuestionSet.questionNumber > 1 ? Convert.ToInt32(100 * m_QuestionSet.countCorrect / (m_QuestionSet.questionNumber - 1)) : 100 ) + "%";
+            lblStatusResultAttempted.Text = QuestionSet.questionNumber.ToString();
+            lblStatusResultScore.Text = (QuestionSet.questionNumber > 1 ? Convert.ToInt32(100 * QuestionSet.countCorrect / (QuestionSet.questionNumber - 1)) : 100 ) + "%";
 
-            grpbxQuestion.Text = $"Question {m_QuestionSet.questionNumber} of {m_QuestionSet.countAttempted}";
+            grpbxQuestion.Text = $"Question {QuestionSet.questionNumber} of {QuestionSet.countAttempted}";
         }
 
         private void txtAnswer_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == 13)
             {
-                lblLastAns.Text = m_QuestionSet.questionNumber + ") " + m_QuestionSet.m_CurrentQuestion.m_strQuestion;
-                if (m_QuestionSet.IsEntryCorrect(txtAnswer.Text))
+                txtLastQuery.Text = QuestionSet.CurrentQuestion.Question;
+
+                if (QuestionSet.IsEntryCorrect(txtAnswer.Text))
                 {
-                    lblRight.Text = m_QuestionSet.countCorrect.ToString();
-                    lblLastAns.ForeColor = System.Drawing.Color.Blue;
-                    txtLastResponseA.Text = $"Correct entry:  {txtAnswer.Text}";
-                    txtLastResponseA.ForeColor = System.Drawing.Color.Blue;
-                    if (m_QuestionSet.m_CurrentQuestion.HasMultipleAnswers())
+                    lblStatusResultRight.Text = QuestionSet.countCorrect.ToString();
+
+                    txtLastQuery.ForeColor = System.Drawing.Color.Blue;
+
+                    txtLastAttempt.Text = $"Correct entry: {txtAnswer.Text}";
+                    txtLastAttempt.ForeColor = System.Drawing.Color.Blue;
+
+                    if (QuestionSet.CurrentQuestion.HasMultipleAnswers)
                     {
-                        txtLastResponseB.Text = $"Others:  {m_QuestionSet.m_CurrentQuestion.m_strAnswer.Replace(txtAnswer.Text,"").Replace(",,",",").Trim(',').Replace(",",", ")}";
-                        txtLastResponseB.ForeColor = System.Drawing.Color.Blue;
+                        txtLastAnswer.Text = $"Others: {QuestionSet.CurrentQuestion.Answer.Replace(txtAnswer.Text,string.Empty).Replace(",,",",").Trim(',').Replace(",",", ")}";
+                        txtLastAnswer.ForeColor = System.Drawing.Color.Blue;
                     }
                     else
                     {
-                        txtLastResponseB.Text = "";
+                        txtLastAnswer.Text = string.Empty;
                     }
                 }
                 else
                 {
-                    lblWrong.Text = m_QuestionSet.countWrong.ToString();
-                    lblLastAns.ForeColor = System.Drawing.Color.Red;
-                    txtLastResponseA.Text = $"Wrong entry:  {txtAnswer.Text}";
-                    txtLastResponseA.ForeColor = System.Drawing.Color.Red;
-                    txtLastResponseB.Text = $"Correct is:  {m_QuestionSet.m_CurrentQuestion.m_strAnswer.Replace(",",", ")}";
-                    txtLastResponseB.ForeColor = System.Drawing.Color.Red;
+                    lblStatusResultWrong.Text = QuestionSet.countWrong.ToString();
+
+                    txtLastQuery.ForeColor = System.Drawing.Color.Firebrick;
+
+                    txtLastAttempt.Text = $"Wrong entry: {(!String.IsNullOrWhiteSpace(txtAnswer.Text) ? txtAnswer.Text : "[blank]")}";
+                    txtLastAttempt.ForeColor = System.Drawing.Color.Firebrick;
+
+                    txtLastAnswer.Text = $"Answer was: {QuestionSet.CurrentQuestion.Answer.Replace(",",", ")}";
+                    txtLastAnswer.ForeColor = System.Drawing.Color.Firebrick;
                 }
 
-                if (m_QuestionSet.isFinished)
+                if (!string.IsNullOrEmpty(QuestionSet.CurrentQuestion.Additional))
+                {
+                    txtAdditional.Text = QuestionSet.CurrentQuestion.Additional.Replace(",",", ");
+                }
+
+                if (QuestionSet.isFinished)
                 {
                     btnAbandon.Enabled = false;
                     btnFinish.Enabled = true;
                     txtAnswer.Enabled = false;
-                    lblScore.Text = Convert.ToInt32(100 * m_QuestionSet.countCorrect / parentForm.QuestionCount) + "%";
+
+                    lblStatusResultScore.Text = Convert.ToInt32(100 * QuestionSet.countCorrect / parentForm.QuestionCount) + "%";
                 }
                 else
+                {
                     NextQuestion();
+                }
 
                 txtAnswer.Clear();
             }
@@ -111,7 +128,7 @@ namespace jflash
 
         private void btnFinish_Click(object sender, EventArgs e)
         {
-            this.Close();  // JFQuestionaireForm_FormClosed will show main
+            this.Close();
         }
 
         private void JFQuestionaireForm_FormClosed(object sender, FormClosedEventArgs e)

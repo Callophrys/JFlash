@@ -15,9 +15,9 @@ namespace jflash
 
         private const String ALLQUESTIONSTITLE = "Test a&ll questions in selected sets: ";
         private IDictionary<string, JFQuestionFile> QuestionFiles = new Dictionary<string, JFQuestionFile>();
+        private List<CheckBox> AllCheckBoxes = new List<CheckBox>();
 
         private bool bSkipHandler = false;
-        private List<CheckBox>allCheckBoxes = new List<CheckBox>();
 
         public JFlashForm()
         {
@@ -170,7 +170,7 @@ namespace jflash
                     groupPanel.Controls.Add(cb);
                 }
 
-                // 4. Toggle visibility
+                // 4. Toggle expansion
                 toggle.Checked = true;
                 toggle.CheckedChanged += (s, e) =>
                 {
@@ -193,7 +193,7 @@ namespace jflash
                 flowTableQuestions.RowStyles.Add(new RowStyle(SizeType.AutoSize));
                 flowTableQuestions.Controls.Add(groupPanel, 0, flowTableQuestions.RowCount - 1);
 
-                allCheckBoxes.AddRange(checkBoxes.ToArray());
+                AllCheckBoxes.AddRange(checkBoxes.ToArray());
                 chkSelectAll.CheckedChanged += (s, e) =>
                 {
                     foreach (var cb in checkBoxes)

@@ -14,7 +14,7 @@ namespace jflash
         public List<JFQuestion> Questions = new List<JFQuestion>();
 
         public String m_Description;
-        public String m_strPrompt;
+        public String Prompt;
         public int m_iNumQuestions, m_iType;
 
         public JFQuestionFile(String filename)
@@ -48,7 +48,7 @@ namespace jflash
                     }
                     else
                     {
-                        m_strPrompt = input.Substring(7);
+                        Prompt = input.Substring(7);
                     }
 
                     if ((input = sr.ReadLine()) != null && String.Compare(input, 0, "Type", 0, 4 ) != 0)
