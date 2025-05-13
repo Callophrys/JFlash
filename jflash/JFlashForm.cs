@@ -64,7 +64,12 @@ namespace JFlash
 
             nsUpDown.Minimum = nsUpDown.Maximum = 0;
 
-            DirectoryInfo dir = new DirectoryInfo(@"..\JFlash\Questions");
+            string questionPath = RegistryHelper.LoadSetting("questions", @"..\JFlash\Questions");
+
+            // TODO: this needs to be a user-editable setting via some form control.
+            //RegistryHelper.SaveSetting("questions", questionPath);
+
+            DirectoryInfo dir = new DirectoryInfo(questionPath);
 
             var groups = new SortedDictionary<string, List<string>>();
 
@@ -182,7 +187,6 @@ namespace JFlash
                     {
                         if (cb.Checked)
                         {
-                            // TODO: If no entry exists for type of entry then skip
                             QuestionFiles.Add(item, new JFQuestionFile(cb.Text, JpStringToChoiceIndex(cmbFrom.Text), JpStringToChoiceIndex(cmbTo.Text)));
                         }
                         else
