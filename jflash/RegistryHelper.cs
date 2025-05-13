@@ -9,7 +9,7 @@ namespace JFlash
 {
     internal static class RegistryHelper
     {
-        private const string RegistryPath = @"Software\NateDawg\JFlash";
+        private const string RegistryPath = @"Software\Callophrys\JFlash";
 
         public static void SaveSetting(string keyName, string value)
         {

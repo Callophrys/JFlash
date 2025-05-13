@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text.RegularExpressions;
@@ -22,11 +23,11 @@ namespace JFlash
         public List<JFQuestionFile> SelectedQuestionFiles = new List<JFQuestionFile>();
         public int QuestionCount = 0;
 
-        private const string ALLQUESTIONSTITLE = "Test a&ll questions in selected sets: ";
+        private const string ALLQUESTIONSTITLE = "Test &all questions in selected sets: ";
         private IDictionary<string, JFQuestionFile> QuestionFiles = new Dictionary<string, JFQuestionFile>();
         private List<CheckBox> AllCheckBoxes = new List<CheckBox>();
 
-        private bool bSkipHandler = false;
+        private string questionPath = string.Empty;
 
         private string[] choices = 
         {
@@ -64,10 +65,19 @@ namespace JFlash
 
             nsUpDown.Minimum = nsUpDown.Maximum = 0;
 
-            string questionPath = RegistryHelper.LoadSetting("questions", @"..\JFlash\Questions");
+            var temp = RegistryHelper.LoadSetting("from");
+            cmbFrom.Text = choices.Contains(temp) ? temp : "Kanji";
 
-            // TODO: this needs to be a user-editable setting via some form control.
-            //RegistryHelper.SaveSetting("questions", questionPath);
+            temp = RegistryHelper.LoadSetting("to");
+            cmbTo.Text = choices.Contains(temp) ? temp : "Romaji";
+
+            questionPath = RegistryHelper.LoadSetting("questions", @"..\JFlash\Questions");
+            BuildQuestions();
+        }
+
+        private void BuildQuestions()
+        {
+            pnlQuestionFiles.Controls.Clear();
 
             DirectoryInfo dir = new DirectoryInfo(questionPath);
 
@@ -85,7 +95,7 @@ namespace JFlash
             }
             dir = null;
 
-            int panelWidth = this.panel1.Width - 26;
+            int panelWidth = this.pnlQuestionFiles.Width - 26;
 
             var flowTableQuestions = new TableLayoutPanel
             {
@@ -100,7 +110,7 @@ namespace JFlash
             };
             flowTableQuestions.SuspendLayout();
 
-            this.panel1.Controls.Add(flowTableQuestions);
+            this.pnlQuestionFiles.Controls.Add(flowTableQuestions);
 
             bool firstCheckboxCreated = false;
 
@@ -246,12 +256,6 @@ namespace JFlash
                 };
             }
 
-            var temp = RegistryHelper.LoadSetting("from");
-            cmbFrom.Text = choices.Contains(temp) ? temp : "Kanji";
-
-            temp = RegistryHelper.LoadSetting("to");
-            cmbTo.Text = choices.Contains(temp) ? temp : "Romaji";
-
             flowTableQuestions.ResumeLayout();
         }
 
@@ -264,16 +268,17 @@ namespace JFlash
                 var match = Regex.Match(baseName, @"^(.*?)(\d+.*|[ -_][^ -_]+)$");
                 if (match.Success)
                 {
-                    Console.WriteLine("this on");
+                    //Console.WriteLine("this on");
                     return match.Groups[1].Value.TrimEnd(' ', '-');
                 }
 
-                match = Regex.Match(baseName, @"(.*?)( |-)(\p{L}+)$");
-                if (match.Success)
-                {
-                    Console.WriteLine("that one");
-                    return match.Groups[1].Value.TrimEnd(' ', '-');
-                }
+                // TODO: never reached...
+                //match = Regex.Match(baseName, @"(.*?)( |-)(\p{L}+)$");
+                //if (match.Success)
+                //{
+                //    Console.WriteLine("that one");
+                //    return match.Groups[1].Value.TrimEnd(' ', '-');
+                //}
             }
 
             return string.Empty;
@@ -345,5 +350,28 @@ namespace JFlash
             RegistryHelper.SaveSetting("to", cmbTo.Text);
             UpdateQuestionFiles();
         }
-   }
+
+        private void btnQuestionPath_Click(object sender, EventArgs e)
+        {
+            var dialog = new CommonOpenFileDialog
+            {
+                IsFolderPicker = true,
+                Title = "Select a folder",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+            };
+
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                questionPath = dialog.FileName;
+                RegistryHelper.SaveSetting("questions", questionPath);
+                //Console.WriteLine($"Selected folder: {questionPath}");
+
+                BuildQuestions();
+            }
+            //else
+            //{
+            //    Console.WriteLine("No folder selected.");
+            //}
+        }
+    }
 }

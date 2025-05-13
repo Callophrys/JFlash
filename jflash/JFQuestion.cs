@@ -10,17 +10,17 @@ namespace JFlash
         /// <summary>
         /// Correct answer. This is the value to be entered by the user.
         /// </summary>
-        public String Answer;
+        public String Answer = string.Empty;
 
         /// <summary>
         /// Source question. This is read by the user and requires a response.
         /// </summary>
-        public String Question;
+        public String Question = string.Empty;
 
         /// <summary>
         /// All remaining information to show and/or assist the user.
         /// </summary>
-        public String Additional;
+        public String Additional = string.Empty;
 
         public Boolean HasMultipleAnswers => Answer.Contains(',') || Answer.Contains('，');
         public IList<string> sourceParts;
