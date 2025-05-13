@@ -79,6 +79,7 @@
     <Compile Include="JFQuestionSet.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistryHelper.cs" />
     <EmbeddedResource Include="JFlashForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>JFlashForm.cs</DependentUpon>
@@ -198,7 +199,7 @@
     <None Include="Questions\y_katakan1-08.jpf" />
     <None Include="Questions\y_katakan1-09.jpf" />
     <None Include="Questions\y_katakan1-10.jpf" />
-    <None Include="Questions\z_hiragana.jpf" />
+    <None Include="Questions\z_hiragana-00.jpf" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

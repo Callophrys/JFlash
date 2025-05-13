@@ -242,6 +242,12 @@ namespace JFlash
                 };
             }
 
+            var temp = RegistryHelper.LoadSetting("from");
+            cmbFrom.Text = choices.Contains(temp) ? temp : "Kanji";
+
+            temp = RegistryHelper.LoadSetting("to");
+            cmbTo.Text = choices.Contains(temp) ? temp : "Romaji";
+
             flowTableQuestions.ResumeLayout();
         }
 
@@ -269,6 +275,17 @@ namespace JFlash
             return string.Empty;
         }
 
+        private void UpdateQuestionFiles()
+        {
+            foreach (var question in QuestionFiles.Values)
+            {
+                foreach (var q in question.Questions)
+                {
+                    q.UpdateQuestion(JpStringToChoiceIndex(cmbFrom.Text), JpStringToChoiceIndex(cmbTo.Text));
+                }
+            }
+        }
+ 
         private void UpdateQuestionFileSets() //int iInsert, bool bAdd)
         {
             int total = QuestionFiles.Sum((kvp) => kvp.Value.m_iNumQuestions);
@@ -313,23 +330,14 @@ namespace JFlash
 
         private void cmbFrom_SelectedIndexChanged(object sender, EventArgs e)
         {
-            updateQuestionFiles();
+            RegistryHelper.SaveSetting("from", cmbFrom.Text);
+            UpdateQuestionFiles();
         }
 
         private void cmbTo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            updateQuestionFiles();
+            RegistryHelper.SaveSetting("to", cmbTo.Text);
+            UpdateQuestionFiles();
         }
-
-        private void updateQuestionFiles()
-        {
-            foreach (var question in QuestionFiles.Values)
-            {
-                foreach (var q in question.Questions)
-                {
-                    q.UpdateQuestion(JpStringToChoiceIndex(cmbFrom.Text), JpStringToChoiceIndex(cmbTo.Text));
-                }
-            }
-        }
-    }
+   }
 }
