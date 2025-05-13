@@ -32,7 +32,7 @@ namespace JFlash
 
             // Also randomize font choice and font style
             Random rnd = new Random(DateTime.UtcNow.Millisecond);
-            string[] fonts = new String[] {
+            string[] fonts = new string[] {
                 "0xProto",
                 "Arial",
                 "Bahnschrift",
@@ -98,7 +98,7 @@ namespace JFlash
 
                 if (QuestionSet.CurrentQuestion.HasMultipleAnswers)
                 {
-                    txtLastAnswer.Text = $"Others: {QuestionSet.CurrentQuestion.Answer.Replace(txtAnswer.Text,string.Empty).Replace(",,",",").Trim(',').Replace(",",", ")}";
+                    txtLastAnswer.Text = $"Others: {QuestionSet.CurrentQuestion.Answer.Replace(txtAnswer.Text, string.Empty).Replace(",,",",").Trim(',').Replace(",",", ")}";
                     txtLastAnswer.ForeColor = System.Drawing.Color.Blue;
                 }
                 else
@@ -112,7 +112,7 @@ namespace JFlash
 
                 txtLastQuery.ForeColor = System.Drawing.Color.Firebrick;
 
-                txtLastAttempt.Text = $"Wrong entry: {(!String.IsNullOrWhiteSpace(txtAnswer.Text) ? txtAnswer.Text : "[ blank ]")}";
+                txtLastAttempt.Text = $"Wrong entry: {(!string.IsNullOrWhiteSpace(txtAnswer.Text) ? txtAnswer.Text : "[ blank ]")}";
                 txtLastAttempt.ForeColor = System.Drawing.Color.Firebrick;
 
                 txtLastAnswer.Text = $"Answer was: {QuestionSet.CurrentQuestion.Answer.Replace(",",", ")}";

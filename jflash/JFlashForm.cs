@@ -22,7 +22,7 @@ namespace JFlash
         public List<JFQuestionFile> SelectedQuestionFiles = new List<JFQuestionFile>();
         public int QuestionCount = 0;
 
-        private const String ALLQUESTIONSTITLE = "Test a&ll questions in selected sets: ";
+        private const string ALLQUESTIONSTITLE = "Test a&ll questions in selected sets: ";
         private IDictionary<string, JFQuestionFile> QuestionFiles = new Dictionary<string, JFQuestionFile>();
         private List<CheckBox> AllCheckBoxes = new List<CheckBox>();
 
@@ -288,7 +288,7 @@ namespace JFlash
  
         private void UpdateQuestionFileSets() //int iInsert, bool bAdd)
         {
-            int total = QuestionFiles.Sum((kvp) => kvp.Value.m_iNumQuestions);
+            int total = QuestionFiles.Sum((kvp) => kvp.Value.Questions.Count);
             SelectedQuestionFiles = QuestionFiles.Values.ToList();
 
             rbAllQuestions.Text = ALLQUESTIONSTITLE + total;
@@ -296,7 +296,9 @@ namespace JFlash
 
             nsUpDown.Maximum = total;
             if (nsUpDown.Minimum < 1)
+            {
                 nsUpDown.Value = total;
+            }
 
             nsUpDown.Minimum = Math.Sign(total);
 

@@ -7,10 +7,21 @@ namespace JFlash
 {
     public class JFQuestion
     {
+        /// <summary>
+        /// Correct answer. This is the value to be entered by the user.
+        /// </summary>
         public String Answer;
+
+        /// <summary>
+        /// Source question. This is read by the user and requires a response.
+        /// </summary>
         public String Question;
+
+        /// <summary>
+        /// All remaining information to show and/or assist the user.
+        /// </summary>
         public String Additional;
-        //public String Prompt;
+
         public Boolean HasMultipleAnswers => Answer.Contains(',') || Answer.Contains('，');
         public IList<string> sourceParts;
 

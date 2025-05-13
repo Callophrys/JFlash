@@ -179,27 +179,17 @@
     <None Include="Questions\x_baskan6-2.jpf" />
     <None Include="Questions\x_baskan6-3.jpf" />
     <None Include="Questions\x_baskan6-4.jpf" />
-    <None Include="Questions\y_hiragan1-01.jpf" />
-    <None Include="Questions\y_hiragan1-02.jpf" />
-    <None Include="Questions\y_hiragan1-03.jpf" />
-    <None Include="Questions\y_hiragan1-04.jpf" />
-    <None Include="Questions\y_hiragan1-05.jpf" />
-    <None Include="Questions\y_hiragan1-06.jpf" />
-    <None Include="Questions\y_hiragan1-07.jpf" />
-    <None Include="Questions\y_hiragan1-08.jpf" />
-    <None Include="Questions\y_hiragan1-09.jpf" />
-    <None Include="Questions\y_hiragan1-10.jpf" />
-    <None Include="Questions\y_katakan1-01.jpf" />
-    <None Include="Questions\y_katakan1-02.jpf" />
-    <None Include="Questions\y_katakan1-03.jpf" />
-    <None Include="Questions\y_katakan1-04.jpf" />
-    <None Include="Questions\y_katakan1-05.jpf" />
-    <None Include="Questions\y_katakan1-06.jpf" />
-    <None Include="Questions\y_katakan1-07.jpf" />
-    <None Include="Questions\y_katakan1-08.jpf" />
-    <None Include="Questions\y_katakan1-09.jpf" />
-    <None Include="Questions\y_katakan1-10.jpf" />
-    <None Include="Questions\z_hiragana-00.jpf" />
+    <None Include="Questions\y_hiragana_katakana-01.jpf" />
+    <None Include="Questions\y_hiragana_katakana-02.jpf" />
+    <None Include="Questions\y_hiragana_katakana-03.jpf" />
+    <None Include="Questions\y_hiragana_katakana-04.jpf" />
+    <None Include="Questions\y_hiragana_katakana-05.jpf" />
+    <None Include="Questions\y_hiragana_katakana-06.jpf" />
+    <None Include="Questions\y_hiragana_katakana-07.jpf" />
+    <None Include="Questions\y_hiragana_katakana-08.jpf" />
+    <None Include="Questions\y_hiragana_katakana-09.jpf" />
+    <None Include="Questions\y_hiragana_katakana-10.jpf" />
+    <None Include="Questions\z_hiragana_katakana-00.jpf" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

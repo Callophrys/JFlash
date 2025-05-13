@@ -34,7 +34,7 @@ namespace JFlash
             k=0;
             for (int i = 0; i < Files.Count; i++)
             {
-                for (int j = 0; j < Files[i].m_iNumQuestions; j++)
+                for (int j = 0; j < Files[i].Questions.Count; j++)
                 {
                     Questions[k] = Files[i].Questions[j];
                     k++;
@@ -66,7 +66,7 @@ namespace JFlash
             return CurrentQuestion;
         }
 
-        public Boolean IsEntryCorrect (String ans)
+        public Boolean IsEntryCorrect (string ans)
         {
             Boolean r;
             r = CurrentQuestion.IsEntryCorrect(ans);
