@@ -32,8 +32,23 @@ namespace JFlash
 
             // Also randomize font choice and font style
             Random rnd = new Random(DateTime.UtcNow.Millisecond);
-            lblQuestionQuery.Font = new System.Drawing.Font(
-                  new String[6] { "0xProto", "Arial", "Bahnschrift", "Dubai", "Hasklug Nerd Font Mono", "Segoie UI" }[rnd.Next(0, 5)]
+            string[] fonts = new String[] {
+                "0xProto",
+                "Arial",
+                "Bahnschrift",
+                "BIZ UDGothic",
+                "BIZ UDMincho",
+                "BIZ UDPGothic",
+                "BIZ UDMincho",
+                "Dubai",
+                "Hasklug Nerd Font Mono",
+                "Meiryo",
+                "Meiryo UI",
+                "MS PMincho",
+                "UD Digi Kyokasho N",
+            };
+
+            lblQuestionQuery.Font = new System.Drawing.Font(fonts[rnd.Next(0, fonts.Length - 1)]
                 , (float)rnd.Next(12, 20)
                 , new System.Drawing.FontStyle[3] { System.Drawing.FontStyle.Regular, System.Drawing.FontStyle.Bold, System.Drawing.FontStyle.Italic }[rnd.Next(0, 2)]
                 , System.Drawing.GraphicsUnit.Point
@@ -68,63 +83,68 @@ namespace JFlash
             grpbxQuestion.Text = $"Question {QuestionSet.questionNumber} of {QuestionSet.countAttempted}";
         }
 
+        private void EvaluateAnswer()
+        {
+            txtLastQuery.Text = QuestionSet.CurrentQuestion.Question;
+
+            if (QuestionSet.IsEntryCorrect(txtAnswer.Text))
+            {
+                lblStatusResultRight.Text = QuestionSet.countCorrect.ToString();
+
+                txtLastQuery.ForeColor = System.Drawing.Color.Blue;
+
+                txtLastAttempt.Text = $"Correct entry: {txtAnswer.Text}";
+                txtLastAttempt.ForeColor = System.Drawing.Color.Blue;
+
+                if (QuestionSet.CurrentQuestion.HasMultipleAnswers)
+                {
+                    txtLastAnswer.Text = $"Others: {QuestionSet.CurrentQuestion.Answer.Replace(txtAnswer.Text,string.Empty).Replace(",,",",").Trim(',').Replace(",",", ")}";
+                    txtLastAnswer.ForeColor = System.Drawing.Color.Blue;
+                }
+                else
+                {
+                    txtLastAnswer.Text = string.Empty;
+                }
+            }
+            else
+            {
+                lblStatusResultWrong.Text = QuestionSet.countWrong.ToString();
+
+                txtLastQuery.ForeColor = System.Drawing.Color.Firebrick;
+
+                txtLastAttempt.Text = $"Wrong entry: {(!String.IsNullOrWhiteSpace(txtAnswer.Text) ? txtAnswer.Text : "[ blank ]")}";
+                txtLastAttempt.ForeColor = System.Drawing.Color.Firebrick;
+
+                txtLastAnswer.Text = $"Answer was: {QuestionSet.CurrentQuestion.Answer.Replace(",",", ")}";
+                txtLastAnswer.ForeColor = System.Drawing.Color.Firebrick;
+            }
+
+            if (!string.IsNullOrEmpty(QuestionSet.CurrentQuestion.Additional))
+            {
+                txtAdditional.Text = QuestionSet.CurrentQuestion.Additional.Replace(",",", ");
+            }
+
+            if (QuestionSet.isFinished)
+            {
+                btnAbandon.Enabled = false;
+                btnFinish.Enabled = true;
+                txtAnswer.Enabled = false;
+
+                lblStatusResultScore.Text = $"{(Convert.ToInt32(100 * QuestionSet.countCorrect / parentForm.QuestionCount))}%";
+            }
+            else
+            {
+                NextQuestion();
+            }
+
+            txtAnswer.Clear();
+        }
+
         private void txtAnswer_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == 13)
             {
-                txtLastQuery.Text = QuestionSet.CurrentQuestion.Question;
-
-                if (QuestionSet.IsEntryCorrect(txtAnswer.Text))
-                {
-                    lblStatusResultRight.Text = QuestionSet.countCorrect.ToString();
-
-                    txtLastQuery.ForeColor = System.Drawing.Color.Blue;
-
-                    txtLastAttempt.Text = $"Correct entry: {txtAnswer.Text}";
-                    txtLastAttempt.ForeColor = System.Drawing.Color.Blue;
-
-                    if (QuestionSet.CurrentQuestion.HasMultipleAnswers)
-                    {
-                        txtLastAnswer.Text = $"Others: {QuestionSet.CurrentQuestion.Answer.Replace(txtAnswer.Text,string.Empty).Replace(",,",",").Trim(',').Replace(",",", ")}";
-                        txtLastAnswer.ForeColor = System.Drawing.Color.Blue;
-                    }
-                    else
-                    {
-                        txtLastAnswer.Text = string.Empty;
-                    }
-                }
-                else
-                {
-                    lblStatusResultWrong.Text = QuestionSet.countWrong.ToString();
-
-                    txtLastQuery.ForeColor = System.Drawing.Color.Firebrick;
-
-                    txtLastAttempt.Text = $"Wrong entry: {(!String.IsNullOrWhiteSpace(txtAnswer.Text) ? txtAnswer.Text : "[blank]")}";
-                    txtLastAttempt.ForeColor = System.Drawing.Color.Firebrick;
-
-                    txtLastAnswer.Text = $"Answer was: {QuestionSet.CurrentQuestion.Answer.Replace(",",", ")}";
-                    txtLastAnswer.ForeColor = System.Drawing.Color.Firebrick;
-                }
-
-                if (!string.IsNullOrEmpty(QuestionSet.CurrentQuestion.Additional))
-                {
-                    txtAdditional.Text = QuestionSet.CurrentQuestion.Additional.Replace(",",", ");
-                }
-
-                if (QuestionSet.isFinished)
-                {
-                    btnAbandon.Enabled = false;
-                    btnFinish.Enabled = true;
-                    txtAnswer.Enabled = false;
-
-                    lblStatusResultScore.Text = Convert.ToInt32(100 * QuestionSet.countCorrect / parentForm.QuestionCount) + "%";
-                }
-                else
-                {
-                    NextQuestion();
-                }
-
-                txtAnswer.Clear();
+                EvaluateAnswer();
             }
         }
 

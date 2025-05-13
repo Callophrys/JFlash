@@ -33,7 +33,7 @@ namespace JFlash
             {
                 if (i != idxFrom && i != idxTo)
                 {
-                    extra.Prepend(sourceParts[i].Trim());
+                    extra.Add(sourceParts[i].Trim());
                 }
             }
 

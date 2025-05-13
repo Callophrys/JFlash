@@ -274,13 +274,13 @@ namespace JFlash
             this.txtLastAnswer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtLastAnswer.BackColor = System.Drawing.SystemColors.Control;
             this.txtLastAnswer.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtLastAnswer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLastAnswer.Font = new System.Drawing.Font("Meiryo", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLastAnswer.ForeColor = System.Drawing.Color.Firebrick;
-            this.txtLastAnswer.Location = new System.Drawing.Point(18, 219);
+            this.txtLastAnswer.Location = new System.Drawing.Point(18, 218);
             this.txtLastAnswer.Margin = new System.Windows.Forms.Padding(2);
             this.txtLastAnswer.Multiline = true;
             this.txtLastAnswer.Name = "txtLastAnswer";
-            this.txtLastAnswer.Size = new System.Drawing.Size(419, 40);
+            this.txtLastAnswer.Size = new System.Drawing.Size(419, 46);
             this.txtLastAnswer.TabIndex = 7;
             this.txtLastAnswer.Text = "Corrected\r\nor other answers";
             // 
@@ -289,12 +289,12 @@ namespace JFlash
             this.txtLastAttempt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtLastAttempt.BackColor = System.Drawing.SystemColors.Control;
             this.txtLastAttempt.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtLastAttempt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLastAttempt.Font = new System.Drawing.Font("Meiryo", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLastAttempt.ForeColor = System.Drawing.Color.Blue;
             this.txtLastAttempt.Location = new System.Drawing.Point(18, 192);
             this.txtLastAttempt.Margin = new System.Windows.Forms.Padding(2);
             this.txtLastAttempt.Name = "txtLastAttempt";
-            this.txtLastAttempt.Size = new System.Drawing.Size(419, 19);
+            this.txtLastAttempt.Size = new System.Drawing.Size(419, 24);
             this.txtLastAttempt.TabIndex = 8;
             this.txtLastAttempt.Text = "Wrong";
             // 
@@ -303,13 +303,13 @@ namespace JFlash
             this.txtAdditional.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtAdditional.BackColor = System.Drawing.SystemColors.Control;
             this.txtAdditional.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtAdditional.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAdditional.Font = new System.Drawing.Font("Meiryo", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAdditional.ForeColor = System.Drawing.Color.Green;
-            this.txtAdditional.Location = new System.Drawing.Point(16, 266);
+            this.txtAdditional.Location = new System.Drawing.Point(16, 268);
             this.txtAdditional.Margin = new System.Windows.Forms.Padding(2);
             this.txtAdditional.Multiline = true;
             this.txtAdditional.Name = "txtAdditional";
-            this.txtAdditional.Size = new System.Drawing.Size(419, 40);
+            this.txtAdditional.Size = new System.Drawing.Size(419, 44);
             this.txtAdditional.TabIndex = 9;
             this.txtAdditional.Text = "Additional";
             // 
@@ -318,12 +318,12 @@ namespace JFlash
             this.txtLastQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtLastQuery.BackColor = System.Drawing.SystemColors.Control;
             this.txtLastQuery.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtLastQuery.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLastQuery.Font = new System.Drawing.Font("Meiryo", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLastQuery.ForeColor = System.Drawing.SystemColors.WindowText;
             this.txtLastQuery.Location = new System.Drawing.Point(120, 166);
             this.txtLastQuery.Margin = new System.Windows.Forms.Padding(2);
             this.txtLastQuery.Name = "txtLastQuery";
-            this.txtLastQuery.Size = new System.Drawing.Size(315, 19);
+            this.txtLastQuery.Size = new System.Drawing.Size(315, 24);
             this.txtLastQuery.TabIndex = 10;
             this.txtLastQuery.Text = "Wrong";
             // 
