@@ -18,7 +18,7 @@ namespace JFlash
         {
             // Divide line into q & a, separated by semicolon
             //Prompt = Parent.Prompt;
-            sourceParts = SourceLine.Split(new char[]{';', '；' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            sourceParts = SourceLine.Split(new char[]{';', '；' }, StringSplitOptions.None).ToList();
 
             UpdateQuestion(idxFrom, idxTo);
         }

@@ -28,7 +28,7 @@ namespace JFlash
 
         private bool bSkipHandler = false;
 
-        private List<string> choices = new List<string>()
+        private string[] choices = 
         {
             "Kanji",
             "Hirigana",
@@ -37,55 +37,30 @@ namespace JFlash
             "English",
         };
 
-        public static string JpIntToChoiceString(int choice)
+        public static string JpIntToChoiceString(int choice) => choice switch
         {
-            return choice switch
-            {
-                1 => "Hirigana",
-                2 => "Katakana",
-                3 => "Romaji",
-                4 => "English",
-                _ => "Kanji",
-            };
-        }
+            1 => "Hirigana",
+            2 => "Katakana",
+            3 => "Romaji",
+            4 => "English",
+            _ => "Kanji",
+        };
 
-        public static JPCHOICES JpStringToChoice(string choice)
+        public static int JpStringToChoiceIndex(string choice) => (int)(choice switch
         {
-            return choice switch
-            {
-                "Hirigana" => JPCHOICES.Hirigana,
-                "Katakana" => JPCHOICES.Katakana,
-                "Romaji" => JPCHOICES.Romaji,
-                "English" => JPCHOICES.English,
-                _ => JPCHOICES.Kanji,
-            };
-        }
-
-        public static int JpStringToChoiceIndex(string choice)
-        {
-            return (int)(JpStringToChoice(choice)); 
-        }
-
-        //public static string JpChoiceToString(JPCHOICES choice)
-        //{
-        //    //switch (choice)
-        //    //{
-        //    //    case JPCHOICES.Kanji: return JPCHOICES.Kanji.ToString();
-        //    //    case JPCHOICES.Hirigana: return JPCHOICES.Romaji.ToString();
-        //    //    case JPCHOICES.Katakana: return JPCHOICES.Katakana.ToString();
-        //    //    case JPCHOICES.Romaji: return JPCHOICES.Romaji.ToString();
-        //    //    case JPCHOICES.English: return JPCHOICES.English.ToString();
-        //    //}
-        //    return choice.ToString();
-        //}
+            "Hirigana" => JPCHOICES.Hirigana,
+            "Katakana" => JPCHOICES.Katakana,
+            "Romaji" => JPCHOICES.Romaji,
+            "English" => JPCHOICES.English,
+            _ => JPCHOICES.Kanji,
+        });
 
         public JFlashForm()
         {
             InitializeComponent();
             rbAllQuestions.Text = ALLQUESTIONSTITLE + "0";
-            string[] langChoices = choices.ToArray();
-            this.cmbFrom.Items.AddRange(langChoices);
-            this.cmbTo.Items.AddRange(langChoices);
+            this.cmbFrom.Items.AddRange(choices);
+            this.cmbTo.Items.AddRange(choices);
 
             nsUpDown.Minimum = nsUpDown.Maximum = 0;
 
@@ -95,8 +70,6 @@ namespace JFlash
 
             foreach (FileInfo f in dir.GetFiles("*.jpf"))
             {
-                if (!f.Name.Contains("adj-01.jpf")) continue;
-
                 string groupName = GetFilenamePrefix(f.Name);
                 if (!groups.ContainsKey(groupName))
                 {
@@ -209,6 +182,7 @@ namespace JFlash
                     {
                         if (cb.Checked)
                         {
+                            // TODO: If no entry exists for type of entry then skip
                             QuestionFiles.Add(item, new JFQuestionFile(cb.Text, JpStringToChoiceIndex(cmbFrom.Text), JpStringToChoiceIndex(cmbTo.Text)));
                         }
                         else
