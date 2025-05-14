@@ -98,7 +98,7 @@ namespace JFlash
 
                 if (QuestionSet.CurrentQuestion.HasMultipleAnswers)
                 {
-                    txtLastAnswer.Text = $"Others: {QuestionSet.CurrentQuestion.Answer.Replace(txtAnswer.Text, string.Empty).Replace(",,",",").Trim(',').Replace(",",", ")}";
+                    txtLastAnswer.Text = $"Others: {QuestionSet.CurrentQuestion.ScrubbedAnswer(txtAnswer.Text)}";
                     txtLastAnswer.ForeColor = System.Drawing.Color.Blue;
                 }
                 else

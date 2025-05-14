@@ -81,17 +81,17 @@ namespace JFlash
 
             DirectoryInfo dir = new DirectoryInfo(questionPath);
 
-            var groups = new SortedDictionary<string, List<string>>();
+            var groupingSets = new SortedDictionary<string, List<string>>();
 
             foreach (FileInfo f in dir.GetFiles("*.jpf"))
             {
                 string groupName = GetFilenamePrefix(f.Name);
-                if (!groups.ContainsKey(groupName))
+                if (!groupingSets.ContainsKey(groupName))
                 {
-                    groups.Add(groupName, new List<string>());
+                    groupingSets.Add(groupName, new List<string>());
                 }
 
-                groups[groupName].Add(f.Name);
+                groupingSets[groupName].Add(f.Name);
             }
             dir = null;
 
@@ -114,7 +114,7 @@ namespace JFlash
 
             bool firstCheckboxCreated = false;
 
-            foreach (var group in groups)
+            foreach (var group in groupingSets)
             {
                 //int totalItems = group.Value.Count + 1; // +1 for "Select All"
                 //int itemHeight = 24; // or use cb.PreferredHeight
@@ -169,14 +169,15 @@ namespace JFlash
 
                 selectAllCheckBox.KeyDown += (s, e) => questions_KeyDown(s, e);
 
-                // Put this in since alt-A on label always takes to the first
-                // control, but not quite. This looks cleaner.
                 if (!firstCheckboxCreated)
                 {
+                    // Added since alt-A on label always sets to the first control,
+                    // but scroll position is askew. This produces a cleaner UI feel.
                     selectAllCheckBox.Enter += (s, e) =>
                     {
                         flowTableQuestions.ScrollControlIntoView(groupPanel);
                     };
+
                     firstCheckboxCreated = true;
                 }
 
@@ -199,12 +200,9 @@ namespace JFlash
                         {
                             QuestionFiles.Add(item, new JFQuestionFile(cb.Text, JpStringToChoiceIndex(cmbFrom.Text), JpStringToChoiceIndex(cmbTo.Text)));
                         }
-                        else
+                        else if (QuestionFiles.ContainsKey(item))
                         {
-                            if (QuestionFiles.ContainsKey(item))
-                            {
-                                QuestionFiles.Remove(item);
-                            }
+                            QuestionFiles.Remove(item);
                         }
 
                         UpdateQuestionFileSets();
@@ -235,6 +233,7 @@ namespace JFlash
                     {
                         toggle.Text = $"▶ {group.Key}"; 
                     }
+
                     groupPanel.Visible = toggle.Checked;
                 };
 
