@@ -10,7 +10,6 @@ namespace JFlash
         static int TYPE_ENTRY = 1;
         static int TYPE_CHOICE = 2;
 
-        public string Filename;
         public List<JFQuestion> Questions = new List<JFQuestion>();
 
         public string m_Description;
@@ -21,10 +20,9 @@ namespace JFlash
         public JFQuestionFile(string filename, int idxFrom, int idxTo)
         {
             string input;
-            Filename = $"..\\JFlash\\Questions\\{filename}";
-            if (File.Exists(Filename))
+            if (File.Exists(filename))
             {
-                using (StreamReader sr = File.OpenText(Filename))
+                using (StreamReader sr = File.OpenText(filename))
                 {
                     if ((input = sr.ReadLine()) != null && string.Compare(input, "JPFLASH") !=0 )
                     {

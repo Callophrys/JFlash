@@ -71,7 +71,40 @@ namespace JFlash
             temp = RegistryHelper.LoadSetting("to");
             cmbTo.Text = choices.Contains(temp) ? temp : "Romaji";
 
-            questionPath = RegistryHelper.LoadSetting("questions", @"..\JFlash\Questions");
+            // Should always work in normal circumstances.
+            questionPath = RegistryHelper.LoadSetting("questions");
+            if (Directory.Exists(questionPath))
+            {
+                BuildQuestions();
+                return;
+            }
+                
+            // Dev-oriented path based on where the pre-made questions exist.
+            questionPath = @"..\JFlash\Questions";
+            if (Directory.Exists(questionPath))
+            {
+                questionPath = Path.GetFullPath(questionPath);
+                RegistryHelper.SaveSetting("questions", questionPath);
+                BuildQuestions();
+                return;
+            }
+
+            // Check if folder of executable or any sub-folder has files. Use
+            // the folder path of the first found file. Yes this is arbitray if
+            // there are more than one folder containing question files.
+            questionPath = AppContext.BaseDirectory;
+            var fn = Directory.EnumerateFiles(".", "*.jpf", SearchOption.AllDirectories).FirstOrDefault();
+            if (fn != null)
+            {
+                questionPath = Path.GetDirectoryName(Path.GetFullPath(fn));
+                RegistryHelper.SaveSetting("questions", questionPath);
+                BuildQuestions();
+            }
+
+            // Just point to My Documents and hope there are files. Simply let
+            // the user pick the question files location from this point on.
+            questionPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            RegistryHelper.SaveSetting("questions", questionPath);
             BuildQuestions();
         }
 
@@ -198,7 +231,10 @@ namespace JFlash
                     {
                         if (cb.Checked)
                         {
-                            QuestionFiles.Add(item, new JFQuestionFile(cb.Text, JpStringToChoiceIndex(cmbFrom.Text), JpStringToChoiceIndex(cmbTo.Text)));
+                            QuestionFiles.Add(item, new JFQuestionFile(
+                                Path.Combine(questionPath, cb.Text),
+                                JpStringToChoiceIndex(cmbFrom.Text),
+                                JpStringToChoiceIndex(cmbTo.Text)));
                         }
                         else if (QuestionFiles.ContainsKey(item))
                         {
@@ -356,7 +392,7 @@ namespace JFlash
             {
                 IsFolderPicker = true,
                 Title = "Select a folder",
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                InitialDirectory = questionPath,
             };
 
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
