@@ -34,8 +34,10 @@ namespace JFlash
         public JFQuestion(String SourceLine, JFQuestionFile Parent, int idxFrom, int idxTo)
         {
             sourceParts = SourceLine.Split(new char[]{';', '；' }, StringSplitOptions.None).Select(x => x.Scrub()).ToList();
-
-            UpdateQuestion(idxFrom, idxTo);
+            if (idxFrom < sourceParts.Count && idxTo < sourceParts.Count)
+            {
+                UpdateQuestion(idxFrom, idxTo);
+            }
         }
 
         public string ScrubbedAnswer(string userEntry) => Answer.Replace(userEntry, string.Empty).Scrub();

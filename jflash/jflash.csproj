@@ -144,6 +144,8 @@
     <None Include="Questions\hiragana_katakana4.jpf" />
     <None Include="Questions\monster-01.jpf" />
     <None Include="Questions\nouns_all-00.jpf" />
+    <None Include="Questions\numerals-num.jpf" />
+    <None Include="Questions\ordinals-01.jpf" />
     <None Include="Questions\seasons-01.jpf" />
     <None Include="Questions\verb-01.jpf" />
     <None Include="Questions\verb-02.jpf" />

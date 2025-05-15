@@ -339,14 +339,14 @@ namespace JFlash
             QuestionCount = total;
 
             nsUpDown.Maximum = total;
-            if (nsUpDown.Minimum < 1)
-            {
-                nsUpDown.Value = total;
-            }
 
-            nsUpDown.Minimum = Math.Sign(total);
+            GoEnabled();
+        }
 
-            btnGo.Enabled = (total > 0);
+        private void GoEnabled()
+        {
+            btnGo.Enabled = (QuestionCount > 0 && rbAllQuestions.Checked
+                || nsUpDown.Value > 0 && rbLimitQuestions.Checked);
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -370,8 +370,7 @@ namespace JFlash
 
         private void questions_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyValue == 13)
-                btnGo_Click(sender, e);
+            if (e.KeyValue == 13) btnGo_Click(sender, e);
         }
 
         private void cmbFrom_SelectedIndexChanged(object sender, EventArgs e)
@@ -399,14 +398,24 @@ namespace JFlash
             {
                 questionPath = dialog.FileName;
                 RegistryHelper.SaveSetting("questions", questionPath);
-                //Console.WriteLine($"Selected folder: {questionPath}");
 
                 BuildQuestions();
             }
-            //else
-            //{
-            //    Console.WriteLine("No folder selected.");
-            //}
+        }
+
+        private void nsUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            GoEnabled();
+        }
+
+        private void rbAllQuestions_CheckedChanged(object sender, EventArgs e)
+        {
+            GoEnabled();
+        }
+
+        private void rbLimitQuestions_CheckedChanged(object sender, EventArgs e)
+        {
+            GoEnabled();
         }
     }
 }
