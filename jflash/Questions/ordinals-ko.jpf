@@ -1,0 +1,15 @@
+JPFLASH
+Desc=Numerals - Nihongo
+Prompt=Enter the ordinal of spheres and cubes (oranges, baseballs, boxes) (-ko) per the language option:
+Type=Entry
+一個;いっこ;イッコ;ikko;1
+一個;にこ;ニコ;niko;2
+三個;さんこ;サンコ;sanko;3
+四個;よんこ;ヨンコ;yonko;4
+五個;ごこ;ゴコ;goko;5
+六個;ろおっこ;ロッコ;rokko;6
+七個;ななこ;ナナコ;nanako;7
+八個;はっこ;ハッコ;hakko;8
+九個;きゅうこ;キュウコ;kyuuko;9
+十個;じっこ;ジッコ;jikko;10
+END

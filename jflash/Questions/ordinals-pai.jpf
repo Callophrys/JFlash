@@ -1,0 +1,15 @@
+JPFLASH
+Desc=Numerals - Nihongo
+Prompt=Enter the ordinal of containers (cups, bowls, glasses) (-hai,-pai) per the language option:
+Type=Entry
+一杯;いっぱい;イッパイ;ippai;1
+二杯;にはい;ヒハイ;nihai;2
+三杯;さんばい;サンバイ;sanbai;3
+四杯;よんはい;ヨンハイ;yonhai;4
+五杯;ごはい;ゴハイ;gohai;5
+六杯;ろっぱい;ロッパイ;roppai;6
+七杯;ななはい;ナナハイ;nanahai;7
+八杯;はちはい;ハチハイ;hachihai;8
+九杯;きゅうはい;キュウハイ;kyuuhai;9
+十杯;じっぱい;ジッパイ;jippai;10
+END

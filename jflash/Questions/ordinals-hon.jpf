@@ -1,0 +1,15 @@
+JPFLASH
+Desc=Numerals - Nihongo
+Prompt=Enter the ordinal of long and thin things (pencils, pens, bottles) (-hon, -pon) per the language option:
+Type=Entry
+一本;いっぽｎ;イッポン;ippon;1
+二本;にほん;ニホン;nihon;2
+三本;さんぼん;サンボン;sanbon;3
+四本;よんほん;ヨンホン;yonhon;4
+五本;ごほん;ゴホン;gohon;5
+六本;ろっぽん;ロッポン;roppon;6
+七本;ななほん;ナナホン;nanahon;7
+八本;はちほん;ハチホン;hachihon;8
+九本;きゅうほん;キュウホン;kyuuhon;9
+十本;じっぽん;ジッポン;jippon;10
+END

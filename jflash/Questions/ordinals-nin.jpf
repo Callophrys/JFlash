@@ -1,0 +1,15 @@
+JPFLASH
+Desc=Numerals - Nihongo
+Prompt=Enter the ordinal of people (-nin) per the language option:
+Type=Entry
+一人;ひとり;ヒトリ;hitori;1
+二人;ふあり;フタリ;futari;2
+三人;さんいん;サンニン;sannin,san-nin;3
+四人;よにん;ヨンニン;yonin,yo-nin;4
+五人;ごにん;ゴニン;gonin,go-nin;5
+六人;ろくにん;ロクニン;rokunin,roku-nin;6
+七人;ななにん;ナナニン;nananin,nana-nin;7
+八人;はちにん;ハチニン;hachinin,hachi-nin;8
+九人;きゅうにん;キュウニン;kyuunin,kyuu-nin;9
+十人;じゅうにん;ジュウニン;juunin,juu-nin;10
+END

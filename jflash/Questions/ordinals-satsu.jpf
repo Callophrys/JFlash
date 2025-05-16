@@ -1,0 +1,15 @@
+JPFLASH
+Desc=Numerals - Nihongo
+Prompt=Enter the ordinal of publications (books, magazines) (-satsu) per the language option:
+Type=Entry
+一冊;いっさつ;イサツ;issatsu;1
+二冊;にさつ;ニサツ;nisatsu;2
+三冊;さんさつ;サンサツ;sansatsu;3
+四冊;よんさつ;ヨンサツ;yonsatsu;4
+五冊;ごさつ;ゴサツ;gosatsu;5
+六冊;ろくさつ;ロクサツ;rokusatsu;6
+七冊;ななさつ;ナナサツ;nanasatsu;7
+八冊;はっさつ;ハッサツ;hassatsu;8
+九冊;きゅうさつ;キュウサツ;kyuusatsu;9
+十冊;じっさつ;ジッサツ;jissatsu;10
+END

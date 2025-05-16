@@ -1,0 +1,15 @@
+JPFLASH
+Desc=Numerals - Nihongo
+Prompt=Enter the ordinal of simple objects (-tsu) per the language option:
+Type=Entry
+一つ;ひとつ;ヒトツ;hitotsu;1
+二つ;ふたつ;フタツ;futatsu;2
+三つ;みっつ;ミッツ;mittsu;3
+四つ;よっつ;ヨッツ;yottsu;4
+五つ;いつつ;イツツ;itsutsu;5
+六つ;むっつ;ムッツ;muttsu;6
+七つ;ななつ;ナナツ;nanatsu;7
+八つ;やっつ;ヤッツ;yattsu;8
+九つ;ここのつ;ココノツ;kokonotsu;9
+十つ;とお;トオ;too;10
+END
