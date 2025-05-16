@@ -7,7 +7,7 @@ namespace JFlash
 {
     public static class StringExtensions
     {
-        public static string Scrub(this string item) => item.Replace(",,", ",").Trim(new char[]{',', ' '}).Replace(",", ", ");
+        public static string Scrub(this string item) => item.Replace(",,", ",").Trim([',', ' ']).Replace(",", ", ");
     }
 
     public class JFQuestion
@@ -20,20 +20,20 @@ namespace JFlash
         /// <summary>
         /// Source question. This is read by the user and requires a response.
         /// </summary>
-        public String Question = string.Empty;
+        public string Question = string.Empty;
 
         /// <summary>
         /// All remaining information to show and/or assist the user.
         /// </summary>
-        public String Additional = string.Empty;
+        public string Additional = string.Empty;
 
-        public Boolean HasMultipleAnswers => Answer.Contains(',') || Answer.Contains('，');
+        public bool HasMultipleAnswers => Answer.Contains(',') || Answer.Contains('，');
 
-        private IList<string> sourceParts;
+        private readonly List<string> sourceParts;
 
-        public JFQuestion(String SourceLine, JFQuestionFile Parent, int idxFrom, int idxTo)
+        public JFQuestion(string sourceLine, int idxFrom, int idxTo)
         {
-            sourceParts = SourceLine.Split(new char[]{';', '；' }, StringSplitOptions.None).Select(x => x.Scrub()).ToList();
+            sourceParts = [.. sourceLine.Split([';', '；'], StringSplitOptions.None).Select(x => x.Scrub())];
             if (idxFrom < sourceParts.Count && idxTo < sourceParts.Count)
             {
                 UpdateQuestion(idxFrom, idxTo);
@@ -59,10 +59,10 @@ namespace JFlash
             Additional = string.Join("  /  ", extra);
         }
 
-        public Boolean IsEntryCorrect(String ans)
+        public bool IsEntryCorrect(String ans)
         {
-            Boolean bCorrect = false;
-            foreach (String p in Answer.Split(new char[] { ',', '，'}))
+            bool bCorrect = false;
+            foreach (String p in Answer.Split([',', '，']))
             {
                 bCorrect |= (String.Compare(ans, p, true) == 0);
             }

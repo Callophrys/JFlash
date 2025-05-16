@@ -1,11 +1,5 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using System.IO;
-using System.Linq;
 
 namespace JFlash
 {
@@ -20,23 +14,23 @@ namespace JFlash
 
     public partial class JFlashForm : Form
     {
-        public List<JFQuestionFile> SelectedQuestionFiles = new List<JFQuestionFile>();
+        public List<JFQuestionFile> SelectedQuestionFiles = [];
         public int QuestionCount = 0;
 
         private const string ALLQUESTIONSTITLE = "Test &all questions in selected sets: ";
-        private IDictionary<string, JFQuestionFile> QuestionFiles = new Dictionary<string, JFQuestionFile>();
-        private List<CheckBox> AllCheckBoxes = new List<CheckBox>();
+        private readonly Dictionary<string, JFQuestionFile> QuestionFiles = [];
+        private readonly List<CheckBox> AllCheckBoxes = [];
 
         private string questionPath = string.Empty;
 
-        private string[] choices = 
-        {
+        private readonly string[] choices = 
+        [
             "Kanji",
             "Hirigana",
             "Katakana",
             "Romaji",
             "English",
-        };
+        ];
 
         public static string JpIntToChoiceString(int choice) => choice switch
         {
@@ -75,17 +69,17 @@ namespace JFlash
             questionPath = RegistryHelper.LoadSetting("questions");
             if (Directory.Exists(questionPath))
             {
-                BuildQuestions();
+                BuildQuestions(questionPath);
                 return;
             }
                 
             // Dev-oriented path based on where the pre-made questions exist.
-            questionPath = @"..\JFlash\Questions";
+            questionPath = @"..\Questions";
             if (Directory.Exists(questionPath))
             {
                 questionPath = Path.GetFullPath(questionPath);
                 RegistryHelper.SaveSetting("questions", questionPath);
-                BuildQuestions();
+                BuildQuestions(questionPath);
                 return;
             }
 
@@ -96,39 +90,51 @@ namespace JFlash
             var fn = Directory.EnumerateFiles(".", "*.jpf", SearchOption.AllDirectories).FirstOrDefault();
             if (fn != null)
             {
-                questionPath = Path.GetDirectoryName(Path.GetFullPath(fn));
-                RegistryHelper.SaveSetting("questions", questionPath);
-                BuildQuestions();
+                questionPath = Path.GetDirectoryName(Path.GetFullPath(fn)) ?? string.Empty;
+                if (questionPath != null)
+                {
+                    RegistryHelper.SaveSetting("questions", questionPath);
+                    BuildQuestions(questionPath);
+                }
             }
 
             // Just point to My Documents and hope there are files. Simply let
             // the user pick the question files location from this point on.
             questionPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             RegistryHelper.SaveSetting("questions", questionPath);
-            BuildQuestions();
+            BuildQuestions(questionPath);
         }
 
-        private void BuildQuestions()
+        private void BuildQuestionaire()
+        {
+            Form frm = new JFQuestionaireForm(this
+                , rbLimitQuestions.Checked ? Convert.ToInt16(nsUpDown.Value) : QuestionCount
+                , cmbFrom.Text
+                , cmbTo.Text);
+            frm.Show();
+        }
+
+        private void BuildQuestions(string qPath)
         {
             pnlQuestionFiles.Controls.Clear();
 
-            DirectoryInfo dir = new DirectoryInfo(questionPath);
+            DirectoryInfo dir = new(qPath);
 
             var groupingSets = new SortedDictionary<string, List<string>>();
 
             foreach (FileInfo f in dir.GetFiles("*.jpf"))
             {
                 string groupName = GetFilenamePrefix(f.Name);
-                if (!groupingSets.ContainsKey(groupName))
+                if (!groupingSets.TryGetValue(groupName, out List<string>? value))
                 {
-                    groupingSets.Add(groupName, new List<string>());
+                    value = [];
+                    groupingSets.Add(groupName, value);
                 }
 
-                groupingSets[groupName].Add(f.Name);
+                value.Add(f.Name);
             }
-            dir = null;
 
-            int panelWidth = this.pnlQuestionFiles.Width - 26;
+            int panelWidth = this.pnlQuestionFiles.Width - 16;
 
             var flowTableQuestions = new TableLayoutPanel
             {
@@ -147,36 +153,32 @@ namespace JFlash
 
             bool firstCheckboxCreated = false;
 
+            int counter = 0;
             foreach (var group in groupingSets)
             {
-                //int totalItems = group.Value.Count + 1; // +1 for "Select All"
-                //int itemHeight = 24; // or use cb.PreferredHeight
-
                 // 1. Create the toggle button or checkbox
                 var toggle = new CheckBox
                 {
                     Text = $"▼ {group.Key}",
                     Appearance = Appearance.Button,
-                    AutoSize = true,
-                    //FlatStyle = FlatStyle.Flat,
+                    Checked = true,
                     Font = new Font(DefaultFont, FontStyle.Bold),
                     BackColor = Color.LightSteelBlue,
-                    Dock = DockStyle.Top,
+                    //Dock = DockStyle.Top,
+
+                    Width = panelWidth,
                 };
 
                 // Collapsible panel
                 var groupPanel = new FlowLayoutPanel
                 {
-                    //Text = group.Key,
                     FlowDirection = FlowDirection.TopDown,
                     WrapContents = false,
-                    Dock = DockStyle.Top,
-                    //BackColor = SystemColors.ControlLightLight,
+                    //Dock = DockStyle.Top,
                     BackColor = Color.Azure,
-                    AutoSize = true,
-                    AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                    //Width = panelWidth,
-                    //Height = (totalItems * itemHeight) + 38 - (totalItems),
+                    //AutoSize = true,
+                    //AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                    Width = panelWidth,
                 };
 
                 var checkBoxes = new List<CheckBox>();
@@ -184,10 +186,10 @@ namespace JFlash
                 // "Select All" checkbox
                 var selectAllCheckBox = new CheckBox
                 {
-                    Text = "Select All",
+                    Text = $"Select All &{++counter}",
                     AutoSize = true,
-                    //BackColor = Color.ForestGreen,
-                    Font = new Font(DefaultFont, FontStyle.Bold)
+                    Font = new Font(DefaultFont, FontStyle.Bold),
+                    Width = panelWidth,
                 };
 
                 selectAllCheckBox.CheckedChanged += (s, e) =>
@@ -200,7 +202,7 @@ namespace JFlash
                     }
                 };
 
-                selectAllCheckBox.KeyDown += (s, e) => questions_KeyDown(s, e);
+                selectAllCheckBox.KeyDown += (s, e) => BuildQuestionaire();
 
                 if (!firstCheckboxCreated)
                 {
@@ -236,10 +238,7 @@ namespace JFlash
                                 JpStringToChoiceIndex(cmbFrom.Text),
                                 JpStringToChoiceIndex(cmbTo.Text)));
                         }
-                        else if (QuestionFiles.ContainsKey(item))
-                        {
-                            QuestionFiles.Remove(item);
-                        }
+                        else QuestionFiles.Remove(item);
 
                         UpdateQuestionFileSets();
 
@@ -258,19 +257,15 @@ namespace JFlash
                 }
 
                 // 4. Toggle expansion
-                toggle.Checked = true;
                 toggle.CheckedChanged += (s, e) =>
                 {
-                    if (toggle.Checked)
-                    {
-                        toggle.Text = $"▼ {group.Key}";
-                    }
-                    else
-                    {
-                        toggle.Text = $"▶ {group.Key}"; 
-                    }
-
+                    toggle.Text = $"{(toggle.Checked ? "▼" : "▶")} {group.Key}"; 
                     groupPanel.Visible = toggle.Checked;
+                };
+
+                toggle.KeyDown += (s, e) =>
+                {
+                    if (e.KeyValue == 13) toggle.Checked = !toggle.Checked;
                 };
 
                 // 5. Add both to the TableLayoutPanel
@@ -281,7 +276,7 @@ namespace JFlash
                 flowTableQuestions.RowStyles.Add(new RowStyle(SizeType.AutoSize));
                 flowTableQuestions.Controls.Add(groupPanel, 0, flowTableQuestions.RowCount - 1);
 
-                AllCheckBoxes.AddRange(checkBoxes.ToArray());
+                AllCheckBoxes.AddRange([.. checkBoxes]);
                 chkSelectAll.CheckedChanged += (s, e) =>
                 {
                     foreach (var cb in checkBoxes)
@@ -289,18 +284,21 @@ namespace JFlash
                         cb.Checked = chkSelectAll.Checked;
                     }
                 };
+
+                // Close up all groups except the first.
+                toggle.Checked = (counter <= 1);
             }
 
             flowTableQuestions.ResumeLayout();
         }
 
-        private string GetFilenamePrefix(string name)
+        private static string GetFilenamePrefix(string name)
         {
-            string fileName = System.IO.Path.GetFileName(name);
+            string fileName = Path.GetFileName(name);
             if (!string.IsNullOrEmpty(fileName))
             {
                 string baseName = Path.GetFileNameWithoutExtension(fileName);
-                var match = Regex.Match(baseName, @"^(.*?)(\d+.*|[ -_][^ -_]+)$");
+                Match match = Regex.Match(baseName, @"^(.*?)(\d+.*|[ -_][^ -_]+)$");
                 if (match.Success)
                 {
                     //Console.WriteLine("this on");
@@ -319,6 +317,36 @@ namespace JFlash
             return string.Empty;
         }
 
+        private const int ScrollBarWidth = 17; // standard scrollbar width on Windows
+        private int previousClientWidth;
+
+        private void HandlePanelSizing()
+        {
+            Console.WriteLine("resizing panel");
+
+            bool hasVerticalScrollBar = pnlQuestionFiles.VerticalScroll.Visible;
+            int widthAdjustment = hasVerticalScrollBar ? -ScrollBarWidth : ScrollBarWidth;
+
+            // Only adjust if there's a change in scrollbar visibility
+            if ((hasVerticalScrollBar && previousClientWidth == pnlQuestionFiles.ClientSize.Width + ScrollBarWidth) ||
+                (!hasVerticalScrollBar && previousClientWidth == pnlQuestionFiles.ClientSize.Width - ScrollBarWidth))
+            {
+                // No change
+                return;
+            }
+
+            // Adjust width of your target panel
+            //yourAdjustablePanel.Width = pnlQuestionFiles.ClientSize.Width;
+            //foreach (var ctrl in pnlQuestionFiles.Controls)
+            //{
+            //    if (ctrl is CheckBox or ctrl is Panel)
+            //    {
+
+            //    }
+            //}
+            previousClientWidth = pnlQuestionFiles.ClientSize.Width;
+        }
+
         private void UpdateQuestionFiles()
         {
             foreach (var question in QuestionFiles.Values)
@@ -333,7 +361,7 @@ namespace JFlash
         private void UpdateQuestionFileSets() //int iInsert, bool bAdd)
         {
             int total = QuestionFiles.Sum((kvp) => kvp.Value.Questions.Count);
-            SelectedQuestionFiles = QuestionFiles.Values.ToList();
+            SelectedQuestionFiles = [.. QuestionFiles.Values];
 
             rbAllQuestions.Text = ALLQUESTIONSTITLE + total;
             QuestionCount = total;
@@ -349,43 +377,39 @@ namespace JFlash
                 || nsUpDown.Value > 0 && rbLimitQuestions.Checked);
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
+        private void BtnExit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void btnGo_Click(object sender, EventArgs e)
+        private void BtnGo_Click(object sender, EventArgs e)
         {
-            Form frm = new JFQuestionaireForm(this
-                , rbLimitQuestions.Checked ? Convert.ToInt16(nsUpDown.Value) : QuestionCount
-                , cmbFrom.Text
-                , cmbTo.Text);
-            frm.Show();
+            BuildQuestionaire();
         }
 
-        private void nsUpDown_Enter(object sender, EventArgs e)
+        private void NsUpDown_Enter(object sender, EventArgs e)
         {
             rbLimitQuestions.Checked = true;
         }
 
-        private void questions_KeyDown(object sender, KeyEventArgs e)
+        private void Questions_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyValue == 13) btnGo_Click(sender, e);
+            if (e.KeyValue == 13) BtnGo_Click(sender, e);
         }
 
-        private void cmbFrom_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbFrom_SelectedIndexChanged(object sender, EventArgs e)
         {
             RegistryHelper.SaveSetting("from", cmbFrom.Text);
             UpdateQuestionFiles();
         }
 
-        private void cmbTo_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbTo_SelectedIndexChanged(object sender, EventArgs e)
         {
             RegistryHelper.SaveSetting("to", cmbTo.Text);
             UpdateQuestionFiles();
         }
 
-        private void btnQuestionPath_Click(object sender, EventArgs e)
+        private void BtnQuestionPath_Click(object sender, EventArgs e)
         {
             var dialog = new CommonOpenFileDialog
             {
@@ -399,23 +423,38 @@ namespace JFlash
                 questionPath = dialog.FileName;
                 RegistryHelper.SaveSetting("questions", questionPath);
 
-                BuildQuestions();
+                BuildQuestions(questionPath);
             }
         }
 
-        private void nsUpDown_ValueChanged(object sender, EventArgs e)
+        private void NsUpDown_ValueChanged(object sender, EventArgs e)
         {
             GoEnabled();
         }
 
-        private void rbAllQuestions_CheckedChanged(object sender, EventArgs e)
+        private void RbAllQuestions_CheckedChanged(object sender, EventArgs e)
         {
             GoEnabled();
         }
 
-        private void rbLimitQuestions_CheckedChanged(object sender, EventArgs e)
+        private void RbLimitQuestions_CheckedChanged(object sender, EventArgs e)
         {
             GoEnabled();
+        }
+
+        private void PnlQuestionFiles_ControlAdded(object sender, ControlEventArgs e)
+        {
+            HandlePanelSizing();
+        }
+
+        private void PnlQuestionFiles_ControlRemoved(object sender, ControlEventArgs e)
+        {
+            HandlePanelSizing();
+        }
+
+        private void PnlQuestionFiles_SizeChanged(object sender, EventArgs e)
+        {
+            HandlePanelSizing();
         }
     }
 }

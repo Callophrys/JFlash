@@ -1,20 +1,30 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 201Invalid 'nullable' value: 'Enable' for C# 7.3. Please use language version '8.0' or greater.7
-VisualStudioVersion = 17.13.5
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JFlash", "JFlash\JFlash.csproj", "{CA123ED9-98DE-4C94-A458-2453747A0C12}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.36105.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JFlash", "JFlash.csproj", "{EB64CCE8-FD26-49FC-AB84-10578AF30C62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CA123ED9-98DE-4C94-A458-2453747A0C12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA123ED9-98DE-4C94-A458-2453747A0C12}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA123ED9-98DE-4C94-A458-2453747A0C12}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA123ED9-98DE-4C94-A458-2453747A0C12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB64CCE8-FD26-49FC-AB84-10578AF30C62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB64CCE8-FD26-49FC-AB84-10578AF30C62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB64CCE8-FD26-49FC-AB84-10578AF30C62}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EB64CCE8-FD26-49FC-AB84-10578AF30C62}.Debug|x64.Build.0 = Debug|Any CPU
+		{EB64CCE8-FD26-49FC-AB84-10578AF30C62}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB64CCE8-FD26-49FC-AB84-10578AF30C62}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{EB64CCE8-FD26-49FC-AB84-10578AF30C62}.Release|x64.ActiveCfg = Debug|Any CPU
+		{EB64CCE8-FD26-49FC-AB84-10578AF30C62}.Release|x64.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2854E5DA-67F4-4411-8457-EF8FFA81DC6E}
 	EndGlobalSection
 EndGlobal

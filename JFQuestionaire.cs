@@ -10,8 +10,8 @@ namespace JFlash
 {
     public partial class JFQuestionaireForm : Form
     {
-        private JFQuestionSet QuestionSet;
-        private JFlashForm parentForm;
+        private readonly JFQuestionSet QuestionSet;
+        private readonly JFlashForm parentForm;
 
         public JFQuestionaireForm(JFlashForm frm, int desiredQuestionCount, string langFrom, string langTo)
         {
@@ -31,8 +31,8 @@ namespace JFlash
             lblQuestionPrompt.Text = string.Format("Enter the {1} for the presented {0}", langFrom, langTo);
 
             // Also randomize font choice and font style
-            Random rnd = new Random(DateTime.UtcNow.Millisecond);
-            string[] fonts = new string[] {
+            Random rnd = new(DateTime.UtcNow.Millisecond);
+            string[] fonts = [
                 "0xProto",
                 "Arial",
                 "Bahnschrift",
@@ -46,7 +46,7 @@ namespace JFlash
                 "Meiryo UI",
                 "MS PMincho",
                 "UD Digi Kyokasho N",
-            };
+            ];
 
             lblQuestionQuery.Font = new System.Drawing.Font(fonts[rnd.Next(0, fonts.Length - 1)]
                 , (float)rnd.Next(12, 20)
@@ -65,12 +65,6 @@ namespace JFlash
             NextQuestion();
         }
 
-        private void btnAbandon_Click(object sender, EventArgs e)
-        {
-            parentForm.Show();
-            this.Close();
-        }
-
         public void NextQuestion()
         {
             JFQuestion q = QuestionSet.NextQuestion();
@@ -85,16 +79,27 @@ namespace JFlash
 
         private void EvaluateAnswer()
         {
+            if (QuestionSet.CurrentQuestion == null)
+            {
+                txtLastQuery.Text = string.Empty;
+                return;
+            }
+
+            // Just to turn off might be null warnings.
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
+            JFQuestion question = QuestionSet.CurrentQuestion;
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
+
             txtLastQuery.Text = QuestionSet.CurrentQuestion.Question;
 
             if (QuestionSet.IsEntryCorrect(txtAnswer.Text))
             {
                 lblStatusResultRight.Text = QuestionSet.countCorrect.ToString();
 
-                txtLastQuery.ForeColor = System.Drawing.Color.Blue;
+                txtLastQuery.ForeColor = Color.Blue;
 
                 txtLastAttempt.Text = $"Correct entry: {txtAnswer.Text}";
-                txtLastAttempt.ForeColor = System.Drawing.Color.Blue;
+                txtLastAttempt.ForeColor = Color.Blue;
 
                 if (QuestionSet.CurrentQuestion.HasMultipleAnswers)
                 {
@@ -110,13 +115,13 @@ namespace JFlash
             {
                 lblStatusResultWrong.Text = QuestionSet.countWrong.ToString();
 
-                txtLastQuery.ForeColor = System.Drawing.Color.Firebrick;
+                txtLastQuery.ForeColor = Color.Firebrick;
 
                 txtLastAttempt.Text = $"Wrong entry: {(!string.IsNullOrWhiteSpace(txtAnswer.Text) ? txtAnswer.Text : "[ blank ]")}";
-                txtLastAttempt.ForeColor = System.Drawing.Color.Firebrick;
+                txtLastAttempt.ForeColor = Color.Firebrick;
 
                 txtLastAnswer.Text = $"Answer was: {QuestionSet.CurrentQuestion.Answer.Replace(",",", ")}";
-                txtLastAnswer.ForeColor = System.Drawing.Color.Firebrick;
+                txtLastAnswer.ForeColor = Color.Firebrick;
             }
 
             if (!string.IsNullOrEmpty(QuestionSet.CurrentQuestion.Additional))
@@ -140,7 +145,13 @@ namespace JFlash
             txtAnswer.Clear();
         }
 
-        private void txtAnswer_KeyDown(object sender, KeyEventArgs e)
+        private void BtnAbandon_Click(object sender, EventArgs e)
+        {
+            parentForm.Show();
+            this.Close();
+        }
+
+        private void TxtAnswer_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == 13)
             {
@@ -148,7 +159,7 @@ namespace JFlash
             }
         }
 
-        private void btnFinish_Click(object sender, EventArgs e)
+        private void BtnFinish_Click(object sender, EventArgs e)
         {
             this.Close();
         }

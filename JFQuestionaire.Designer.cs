@@ -66,7 +66,7 @@ namespace JFlash
             this.btnFinish.TabIndex = 1;
             this.btnFinish.Text = "&Finish";
             this.btnFinish.UseVisualStyleBackColor = true;
-            this.btnFinish.Click += new System.EventHandler(this.btnFinish_Click);
+            this.btnFinish.Click += new System.EventHandler(this.BtnFinish_Click);
             // 
             // btnAbandon
             // 
@@ -79,7 +79,7 @@ namespace JFlash
             this.btnAbandon.TabIndex = 2;
             this.btnAbandon.Text = "A&bandon";
             this.btnAbandon.UseVisualStyleBackColor = true;
-            this.btnAbandon.Click += new System.EventHandler(this.btnAbandon_Click);
+            this.btnAbandon.Click += new System.EventHandler(this.BtnAbandon_Click);
             // 
             // grpbxQuestion
             // 
@@ -127,7 +127,7 @@ namespace JFlash
             this.txtAnswer.Name = "txtAnswer";
             this.txtAnswer.Size = new System.Drawing.Size(288, 20);
             this.txtAnswer.TabIndex = 1;
-            this.txtAnswer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtAnswer_KeyDown);
+            this.txtAnswer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtAnswer_KeyDown);
             // 
             // groupBox2
             // 

@@ -1,26 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace JFlash
 {
     class JFQuestionSet
     {
         public JFQuestion[] Questions;
-        public JFQuestion CurrentQuestion;
+        public JFQuestion? CurrentQuestion;
         public int countAttempted, countCorrect, countWrong;
         public int questionNumber;
-        public Boolean isFinished;
+        public bool isFinished;
         public int Hours, Minutes, Seconds;
 
-        private JFQuestionFile[] QuestionFiles;
+        private readonly JFQuestionFile[] QuestionFiles;
 
         public JFQuestionSet(IList<JFQuestionFile> Files, int TotQs, int NumQs)
         {
             int k;
 
-            QuestionFiles = Files.ToArray();
+            QuestionFiles = [.. Files];
             countAttempted = NumQs;
             countCorrect = 0;
             countWrong = 0;
@@ -41,14 +36,14 @@ namespace JFlash
                 }
             }
 
-            shuffleElements(Questions, TotQs);
+            ShuffleElements(Questions, TotQs);
         }
 
-        void shuffleElements(JFQuestion[] theArr, int size)
+        static void ShuffleElements(JFQuestion[] theArr, int size)
         {
             JFQuestion temporary;
             int randomNum, last;
-            Random rnd = new Random(DateTime.UtcNow.Millisecond);
+            Random rnd = new(DateTime.UtcNow.Millisecond);
 
             for (last = size; last > 1; last--)
             {
@@ -66,15 +61,14 @@ namespace JFlash
             return CurrentQuestion;
         }
 
-        public Boolean IsEntryCorrect (string ans)
+        public bool IsEntryCorrect (string ans)
         {
-            Boolean r;
-            r = CurrentQuestion.IsEntryCorrect(ans);
-            if (r)
+            bool result = CurrentQuestion?.IsEntryCorrect(ans) ?? false;
+            if (result)
                 countCorrect++;
             else
                 countWrong++;
-            return r;
+            return result;
         }
     }
 }
