@@ -144,8 +144,6 @@ namespace JFlash
                 AutoSizeMode = AutoSizeMode.GrowAndShrink,
                 ColumnCount = 1,
                 RowCount = 0,
-                //BackColor = SystemColors.ControlLightLight,
-                //BackColor = Color.DarkOrange,
             };
             flowTableQuestions.SuspendLayout();
 
@@ -298,20 +296,11 @@ namespace JFlash
             if (!string.IsNullOrEmpty(fileName))
             {
                 string baseName = Path.GetFileNameWithoutExtension(fileName);
-                Match match = Regex.Match(baseName, @"^(.*?)(\d+.*|[ -_][^ -_]+)$");
+                Match match = RegexFilenamePrefix().Match(baseName);
                 if (match.Success)
                 {
-                    //Console.WriteLine("this on");
                     return match.Groups[1].Value.TrimEnd(' ', '-');
                 }
-
-                // TODO: never reached...
-                //match = Regex.Match(baseName, @"(.*?)( |-)(\p{L}+)$");
-                //if (match.Success)
-                //{
-                //    Console.WriteLine("that one");
-                //    return match.Groups[1].Value.TrimEnd(' ', '-');
-                //}
             }
 
             return string.Empty;
@@ -344,6 +333,7 @@ namespace JFlash
 
             //    }
             //}
+
             previousClientWidth = pnlQuestionFiles.ClientSize.Width;
         }
 
@@ -358,7 +348,7 @@ namespace JFlash
             }
         }
  
-        private void UpdateQuestionFileSets() //int iInsert, bool bAdd)
+        private void UpdateQuestionFileSets()
         {
             int total = QuestionFiles.Sum((kvp) => kvp.Value.Questions.Count);
             SelectedQuestionFiles = [.. QuestionFiles.Values];
@@ -373,9 +363,12 @@ namespace JFlash
 
         private void GoEnabled()
         {
-            btnGo.Enabled = (QuestionCount > 0 && rbAllQuestions.Checked
-                || nsUpDown.Value > 0 && rbLimitQuestions.Checked);
+            btnGo.Enabled = QuestionCount > 0 && rbAllQuestions.Checked
+                || nsUpDown.Value > 0 && rbLimitQuestions.Checked;
         }
+
+        [GeneratedRegex(@"^(.*?)(\d+.*|[ -_][^ -_]+)$")]
+        private static partial Regex RegexFilenamePrefix();
 
         private void BtnExit_Click(object sender, EventArgs e)
         {
@@ -420,7 +413,7 @@ namespace JFlash
 
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                questionPath = dialog.FileName;
+                questionPath = dialog.FileName ?? questionPath ?? string.Empty;
                 RegistryHelper.SaveSetting("questions", questionPath);
 
                 BuildQuestions(questionPath);

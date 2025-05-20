@@ -20,7 +20,7 @@ namespace JFlash
             InitializeComponent();
             int x = parentForm.Location.X + (parentForm.Width - this.Width) / 2;
             int y = parentForm.Location.Y + (parentForm.Height - this.Height) / 2;
-            this.Location = new Point(x, y);
+            Location = new Point(x, y);
             btnFinish.Enabled = false;
             lblStatusResultTotal.Text = desiredQuestionCount.ToString();
             txtLastQuery.Text = string.Empty;
@@ -68,7 +68,7 @@ namespace JFlash
         public void NextQuestion()
         {
             JFQuestion q = QuestionSet.NextQuestion();
-            //lblQuestionPrompt.Text = q.Prompt;
+            lblQuestionTitle.Text = q.Question.ToString();
             lblQuestionQuery.Text = q.Question;
 
             lblStatusResultAttempted.Text = QuestionSet.questionNumber.ToString();
