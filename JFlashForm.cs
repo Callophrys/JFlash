@@ -236,7 +236,10 @@ namespace JFlash
                                 JpStringToChoiceIndex(cmbFrom.Text),
                                 JpStringToChoiceIndex(cmbTo.Text)));
                         }
-                        else QuestionFiles.Remove(item);
+                        else
+                        {
+                            QuestionFiles.Remove(item);
+                        }
 
                         UpdateQuestionFileSets();
 
@@ -351,7 +354,6 @@ namespace JFlash
         private void UpdateQuestionFileSets()
         {
             int total = QuestionFiles.Sum((kvp) => kvp.Value.Questions.Count);
-            //SelectedQuestionFiles = QuestionFiles; // [.. QuestionFiles.Values];
 
             rbAllQuestions.Text = ALLQUESTIONSTITLE + total;
             QuestionCount = total;

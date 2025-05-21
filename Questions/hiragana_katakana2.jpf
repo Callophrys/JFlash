@@ -2,30 +2,30 @@ JPFLASH
 Desc=Hiragana 2 - Single Character plus Modifier
 Prompt=Enter the romaji equivalent of the Hiragana:
 Type=Entry
-;が;ガ;ga;
-;ぎ;ギ;gi;
-;ぐ;グ;gu;
-;げ;ゲ;ge;
-;ご;ゴ;go;
-;ざ;ザ;za;
-;じ,じ (x);ジ,ジ (x);ji;
-;ず,ず (x);ズ,ズ (x);zu;
-;ぜ;ゼ;ze;
-;ぞ;ゾ;zo;
-;だ;ダ;da;
-;じ,じ (y);ジ,ジ (y);dji;
-;ず,ず (y);ズ,ズ (y);dzu;
-;で;デ;de;
-;ど;ド;do;
-;ば;バ;ba;
-;び;ビ;bi;
-;ぶ;ブ;bu;
-;べ;ベ;be;
-;ぼ;ボ;bo;
-;ぱ;パ;pa;
-;ぴ;ピ;pi;
-;ぷ;プ;pu;
-;ぺ;ペ;pe;
-;ぽ;ポ;po;
+が;が;ガ;ga;ga
+ぎ;ぎ;ギ;gi;gi
+ぐ;ぐ;グ;gu;gu
+げ;げ;ゲ;ge;ge
+ご;ご;ゴ;go;go
+ざ;ざ;ザ;za;za
+じ,じ (x);じ,じ (x);ジ,ジ (x);ji;ji
+ず,ず (x);ず,ず (x);ズ,ズ (x);zu;zu
+ぜ;ぜ;ゼ;ze;ze
+ぞ;ぞ;ゾ;zo;zo
+だ;だ;ダ;da;da
+じ,じ (y);じ,じ (y);ジ,ジ (y);dji;dji
+ず,ず (y);ず,ず (y);ズ,ズ (y);dzu;dzu
+で;で;デ;de;de
+ど;ど;ド;do;do
+ば;ば;バ;ba;ba
+び;び;ビ;bi;bi
+ぶ;ぶ;ブ;bu;bu
+べ;べ;ベ;be;be
+ぼ;ぼ;ボ;bo;bo
+ぱ;ぱ;パ;pa;pa
+ぴ;ぴ;ピ;pi;pi
+ぷ;ぷ;プ;pu;pu
+ぺ;ぺ;ペ;pe;pe
+ぽ;ぽ;ポ;po;po
 END
 
