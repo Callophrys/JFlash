@@ -58,7 +58,7 @@ namespace JFlash
             // Need to set up randomized Question Set (q&a pairs)
             // and scores
             // Load first in set
-            QuestionSet = new JFQuestionSet(parentForm.SelectedQuestionFiles
+            QuestionSet = new JFQuestionSet(parentForm.QuestionFiles //.SelectedQuestionFiles
                 , parentForm.QuestionCount
                 , desiredQuestionCount);
 
@@ -68,7 +68,7 @@ namespace JFlash
         public void NextQuestion()
         {
             JFQuestion q = QuestionSet.NextQuestion();
-            lblQuestionTitle.Text = q.Question.ToString();
+            lblQuestionTitle.Text = q.Title;
             lblQuestionQuery.Text = q.Question;
 
             lblStatusResultAttempted.Text = QuestionSet.questionNumber.ToString();

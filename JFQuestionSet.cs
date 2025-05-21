@@ -2,21 +2,20 @@ namespace JFlash
 {
     class JFQuestionSet
     {
-        public JFQuestion[] Questions;
+        public List<JFQuestion> Questions = [];
         public JFQuestion? CurrentQuestion;
         public int countAttempted, countCorrect, countWrong;
         public int questionNumber;
         public bool isFinished;
         public int Hours, Minutes, Seconds;
 
-        private readonly JFQuestionFile[] QuestionFiles;
+        private readonly Dictionary<string, JFQuestionFile> QuestionFiles;
 
-        public JFQuestionSet(IList<JFQuestionFile> Files, int TotQs, int NumQs)
+        public JFQuestionSet(Dictionary<string, JFQuestionFile> questionFiles, int countQuestions, int countAttempted)
         {
-            int k;
+            QuestionFiles = questionFiles;
 
-            QuestionFiles = [.. Files];
-            countAttempted = NumQs;
+            this.countAttempted = countAttempted;
             countCorrect = 0;
             countWrong = 0;
 
@@ -24,22 +23,19 @@ namespace JFlash
             isFinished = false;
             Hours = Minutes = Seconds = 0;
 
-            Questions = new JFQuestion[TotQs];
-
-            k=0;
-            for (int i = 0; i < Files.Count; i++)
+            foreach (var qf in QuestionFiles)
             {
-                for (int j = 0; j < Files[i].Questions.Count; j++)
+                foreach (var q in qf.Value.Questions)
                 {
-                    Questions[k] = Files[i].Questions[j];
-                    k++;
+                    q.Title = qf.Value.Description;
+                    Questions.Add(q);
                 }
             }
 
-            ShuffleElements(Questions, TotQs);
+            ShuffleElements(Questions, countQuestions);
         }
 
-        static void ShuffleElements(JFQuestion[] theArr, int size)
+        static void ShuffleElements(IList<JFQuestion> questionsList, int size)
         {
             JFQuestion temporary;
             int randomNum, last;
@@ -48,11 +44,11 @@ namespace JFlash
             for (last = size; last > 1; last--)
             {
               randomNum = rnd.Next(size) % last;
-              temporary = theArr[randomNum];
-              theArr[randomNum] = theArr[last - 1];
-              theArr[last - 1] = temporary;
+              temporary = questionsList[randomNum];
+              questionsList[randomNum] = questionsList[last - 1];
+              questionsList[last - 1] = temporary;
             }
-        }// end shuffleElements( )
+        }
 
         public JFQuestion NextQuestion()
         {

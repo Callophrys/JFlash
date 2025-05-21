@@ -23,6 +23,11 @@ namespace JFlash
         public string Question = string.Empty;
 
         /// <summary>
+        /// Description heading of current question file.
+        /// </summary>
+        public string Title = string.Empty;
+
+        /// <summary>
         /// All remaining information to show and/or assist the user.
         /// </summary>
         public string Additional = string.Empty;

@@ -14,11 +14,10 @@ namespace JFlash
 
     public partial class JFlashForm : Form
     {
-        public List<JFQuestionFile> SelectedQuestionFiles = [];
+        public Dictionary<string, JFQuestionFile> QuestionFiles { get; private set; } = [];
         public int QuestionCount = 0;
 
         private const string ALLQUESTIONSTITLE = "Test &all questions in selected sets: ";
-        private readonly Dictionary<string, JFQuestionFile> QuestionFiles = [];
         private readonly List<CheckBox> AllCheckBoxes = [];
 
         private string questionPath = string.Empty;
@@ -172,11 +171,12 @@ namespace JFlash
                 {
                     FlowDirection = FlowDirection.TopDown,
                     WrapContents = false,
-                    //Dock = DockStyle.Top,
                     BackColor = Color.Azure,
-                    //AutoSize = true,
-                    //AutoSizeMode = AutoSizeMode.GrowAndShrink,
                     Width = panelWidth,
+
+                    Dock = DockStyle.Top,
+                    AutoSize = true,
+                    AutoSizeMode = AutoSizeMode.GrowAndShrink,
                 };
 
                 var checkBoxes = new List<CheckBox>();
@@ -314,7 +314,7 @@ namespace JFlash
             Console.WriteLine("resizing panel");
 
             bool hasVerticalScrollBar = pnlQuestionFiles.VerticalScroll.Visible;
-            int widthAdjustment = hasVerticalScrollBar ? -ScrollBarWidth : ScrollBarWidth;
+            //int widthAdjustment = hasVerticalScrollBar ? -ScrollBarWidth : ScrollBarWidth;
 
             // Only adjust if there's a change in scrollbar visibility
             if ((hasVerticalScrollBar && previousClientWidth == pnlQuestionFiles.ClientSize.Width + ScrollBarWidth) ||
@@ -351,7 +351,7 @@ namespace JFlash
         private void UpdateQuestionFileSets()
         {
             int total = QuestionFiles.Sum((kvp) => kvp.Value.Questions.Count);
-            SelectedQuestionFiles = [.. QuestionFiles.Values];
+            //SelectedQuestionFiles = QuestionFiles; // [.. QuestionFiles.Values];
 
             rbAllQuestions.Text = ALLQUESTIONSTITLE + total;
             QuestionCount = total;

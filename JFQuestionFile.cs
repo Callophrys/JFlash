@@ -7,6 +7,8 @@ namespace JFlash
 
         public List<JFQuestion> Questions = [];
 
+        public string FileName { get; set; }
+
         public string Description = string.Empty;
         public string Prompt = string.Empty;
 
@@ -17,6 +19,8 @@ namespace JFlash
             string? input;
             if (File.Exists(filename))
             {
+                FileName = filename;
+
                 using StreamReader sr = File.OpenText(filename);
                 if ((input = sr.ReadLine()) != null && string.Compare(input, "JPFLASH") != 0)
                 {
