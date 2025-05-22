@@ -22,7 +22,7 @@ namespace JFlash
 
         private string questionPath = string.Empty;
 
-        private readonly string[] choices = 
+        private readonly string[] choices =
         [
             "Kanji",
             "Hirigana",
@@ -71,7 +71,7 @@ namespace JFlash
                 BuildQuestions(questionPath);
                 return;
             }
-                
+
             // Dev-oriented path based on where the pre-made questions exist.
             questionPath = @"..\Questions";
             if (Directory.Exists(questionPath))
@@ -260,7 +260,7 @@ namespace JFlash
                 // 4. Toggle expansion
                 toggle.CheckedChanged += (s, e) =>
                 {
-                    toggle.Text = $"{(toggle.Checked ? "▼" : "▶")} {group.Key}"; 
+                    toggle.Text = $"{(toggle.Checked ? "▼" : "▶")} {group.Key}";
                     groupPanel.Visible = toggle.Checked;
                 };
 
@@ -350,7 +350,7 @@ namespace JFlash
                 }
             }
         }
- 
+
         private void UpdateQuestionFileSets()
         {
             int total = QuestionFiles.Sum((kvp) => kvp.Value.Questions.Count);
@@ -450,6 +450,16 @@ namespace JFlash
         private void PnlQuestionFiles_SizeChanged(object sender, EventArgs e)
         {
             HandlePanelSizing();
+        }
+
+        private void cmbFrom_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13) BtnGo_Click(sender, e);
+        }
+
+        private void cmbTo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13) BtnGo_Click(sender, e);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace JFlash
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JFQuestionaireForm));
             btnFinish = new Button();
             btnAbandon = new Button();
-            grpbxQuestion = new GroupBox();
+            groupBoxQuestion = new GroupBox();
             lblQuestionQuery = new Label();
             lblQuestionPrompt = new Label();
             txtAnswer = new TextBox();
@@ -52,7 +52,7 @@ namespace JFlash
             txtAdditional = new TextBox();
             txtLastQuery = new TextBox();
             lblQuestionTitle = new Label();
-            grpbxQuestion.SuspendLayout();
+            groupBoxQuestion.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
             // 
@@ -84,20 +84,20 @@ namespace JFlash
             // 
             // grpbxQuestion
             // 
-            grpbxQuestion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            grpbxQuestion.Controls.Add(lblQuestionTitle);
-            grpbxQuestion.Controls.Add(lblQuestionQuery);
-            grpbxQuestion.Controls.Add(lblQuestionPrompt);
-            grpbxQuestion.Controls.Add(txtAnswer);
-            grpbxQuestion.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            grpbxQuestion.Location = new Point(8, 7);
-            grpbxQuestion.Margin = new Padding(2);
-            grpbxQuestion.Name = "grpbxQuestion";
-            grpbxQuestion.Padding = new Padding(2);
-            grpbxQuestion.Size = new Size(350, 180);
-            grpbxQuestion.TabIndex = 0;
-            grpbxQuestion.TabStop = false;
-            grpbxQuestion.Text = "Question";
+            groupBoxQuestion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBoxQuestion.Controls.Add(lblQuestionTitle);
+            groupBoxQuestion.Controls.Add(lblQuestionQuery);
+            groupBoxQuestion.Controls.Add(lblQuestionPrompt);
+            groupBoxQuestion.Controls.Add(txtAnswer);
+            groupBoxQuestion.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            groupBoxQuestion.Location = new Point(8, 7);
+            groupBoxQuestion.Margin = new Padding(2);
+            groupBoxQuestion.Name = "grpbxQuestion";
+            groupBoxQuestion.Padding = new Padding(2);
+            groupBoxQuestion.Size = new Size(350, 180);
+            groupBoxQuestion.TabIndex = 0;
+            groupBoxQuestion.TabStop = false;
+            groupBoxQuestion.Text = "Question";
             // 
             // lblQuestionQuery
             // 
@@ -350,7 +350,7 @@ namespace JFlash
             Controls.Add(txtLastAnswer);
             Controls.Add(lblLastAns);
             Controls.Add(groupBox2);
-            Controls.Add(grpbxQuestion);
+            Controls.Add(groupBoxQuestion);
             Controls.Add(btnAbandon);
             Controls.Add(btnFinish);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -361,8 +361,8 @@ namespace JFlash
             StartPosition = FormStartPosition.Manual;
             Text = "Japanese Flash Cards - Questionaire";
             FormClosed += JFQuestionaireForm_FormClosed;
-            grpbxQuestion.ResumeLayout(false);
-            grpbxQuestion.PerformLayout();
+            groupBoxQuestion.ResumeLayout(false);
+            groupBoxQuestion.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             ResumeLayout(false);
@@ -374,7 +374,7 @@ namespace JFlash
 
         private System.Windows.Forms.Button btnFinish;
         private System.Windows.Forms.Button btnAbandon;
-        private System.Windows.Forms.GroupBox grpbxQuestion;
+        private System.Windows.Forms.GroupBox groupBoxQuestion;
         private System.Windows.Forms.Label lblQuestionQuery;
         private System.Windows.Forms.Label lblQuestionPrompt;
         private System.Windows.Forms.TextBox txtAnswer;

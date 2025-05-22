@@ -48,17 +48,23 @@ namespace JFlash
                 "UD Digi Kyokasho N",
             ];
 
-            lblQuestionQuery.Font = new System.Drawing.Font(fonts[rnd.Next(0, fonts.Length - 1)]
-                , (float)rnd.Next(12, 20)
-                , new System.Drawing.FontStyle[3] { System.Drawing.FontStyle.Regular, System.Drawing.FontStyle.Bold, System.Drawing.FontStyle.Italic }[rnd.Next(0, 2)]
-                , System.Drawing.GraphicsUnit.Point
-                , ((byte)(0)));
-
+            const int fontSizeMin = 20;
+            const int fontSizeMax = 28;
+            lblQuestionQuery.Font = new Font(
+                fonts[rnd.Next(0, fonts.Length - 1)],
+                rnd.Next(fontSizeMin, fontSizeMax),
+                new FontStyle[3] {
+                    FontStyle.Regular,
+                    FontStyle.Bold,
+                    FontStyle.Italic
+                }[rnd.Next(0, 2)],
+                GraphicsUnit.Point,
+                0);
 
             // Need to set up randomized Question Set (q&a pairs)
             // and scores
             // Load first in set
-            QuestionSet = new JFQuestionSet(parentForm.QuestionFiles //.SelectedQuestionFiles
+            QuestionSet = new JFQuestionSet(parentForm.QuestionFiles
                 , parentForm.QuestionCount
                 , desiredQuestionCount);
 
@@ -72,9 +78,11 @@ namespace JFlash
             lblQuestionQuery.Text = q.Question;
 
             lblStatusResultAttempted.Text = QuestionSet.questionNumber.ToString();
-            lblStatusResultScore.Text = (QuestionSet.questionNumber > 1 ? Convert.ToInt32(100 * QuestionSet.countCorrect / (QuestionSet.questionNumber - 1)) : 100 ) + "%";
-
-            grpbxQuestion.Text = $"Question {QuestionSet.questionNumber} of {QuestionSet.countAttempted}";
+            int result = QuestionSet.questionNumber > 1
+                ? Convert.ToInt32(100 * QuestionSet.countCorrect / (QuestionSet.questionNumber - 1))
+                : 100;
+            lblStatusResultScore.Text = $"{result}%";
+            groupBoxQuestion.Text = $"Question {QuestionSet.questionNumber} of {QuestionSet.countAttempted}";
         }
 
         private void EvaluateAnswer()
