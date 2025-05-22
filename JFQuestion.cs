@@ -67,7 +67,7 @@ namespace JFlash
         public bool IsEntryCorrect(String ans)
         {
             bool bCorrect = false;
-            foreach (String p in Answer.Split([',', '，']))
+            foreach (String p in Answer.Split([',', '，'], StringSplitOptions.TrimEntries))
             {
                 bCorrect |= (String.Compare(ans, p, true) == 0);
             }
