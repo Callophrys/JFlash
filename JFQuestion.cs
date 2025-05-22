@@ -64,12 +64,12 @@ namespace JFlash
             Additional = string.Join("  /  ", extra);
         }
 
-        public bool IsEntryCorrect(String ans)
+        public bool IsEntryCorrect(string ans)
         {
             bool bCorrect = false;
-            foreach (String p in Answer.Split([',', '，'], StringSplitOptions.TrimEntries))
+            foreach (string p in Answer.Split([',', '，'], StringSplitOptions.TrimEntries))
             {
-                bCorrect |= (String.Compare(ans, p, true) == 0);
+                bCorrect |= string.Equals(ans, p, StringComparison.CurrentCultureIgnoreCase);
             }
             return bCorrect;
         }

@@ -2,9 +2,9 @@ JPFLASH
 Desc=Hiragana - subset 1 - Single Characters
 Prompt=Enter the romaji equivalent of the Hiragana:
 Type=Entry
-;あ;ア;a;
-;い;イ;i;
-;う;ウ;u;
-;え;エ;e;
-;お;オ;o;
+あ;あ;ア;a;a
+い;い;イ;i;i
+う;う;ウ;u;u
+え;え;エ;e;e
+お;お;オ;o;o
 END

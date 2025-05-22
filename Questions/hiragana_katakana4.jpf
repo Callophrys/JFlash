@@ -2,17 +2,17 @@ JPFLASH
 Desc=Katakana 4 - Combinations for Foreign Sounds
 Prompt=Enter the romaji equivalent of the Katakana:
 Type=Entry
-;;ティ;ti;
-;;テゥ;tu;
-;;ディ;di;
-;;デゥ;du;
-;;ファ;fa;
-;;フィ;fi;
-;;フェ;fe;
-;;フォ;fo;
-;;ヴァ;va;
-;;ヴィ;vi;
-;;ヴ;vu;
-;;ヴェ;ve;
-;;ヴォ;vo;
+;;ティ;ti;ti
+;;テゥ;tu;tu
+;;ディ;di;di
+;;デゥ;du;du
+;;ファ;fa;fa
+;;フィ;fi;fi
+;;フェ;fe;fe
+;;フォ;fo;fo
+;;ヴァ;va;va
+;;ヴィ;vi;vi
+;;ヴ;vu;vu
+;;ヴェ;ve;ve
+;;ヴォ;vo;vo
 END
