@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationIcon>jpf256.ico</ApplicationIcon>
+    <ApplicationIcon>Media\jpf256.ico</ApplicationIcon>
 
     <OutputPath>bin\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="jpf256.ico" />
+    <Content Include="Media\jpf256.ico" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿namespace JFlash
+﻿namespace JFlash.Classes
 {
     public class GroupFiles
     {

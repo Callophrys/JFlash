@@ -1,6 +1,6 @@
 ﻿using Microsoft.Win32;
 
-namespace JFlash
+namespace JFlash.Classes
 {
     internal static class RegistryHelper
     {

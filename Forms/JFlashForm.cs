@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAPICodePack.Dialogs;
+﻿using JFlash.Classes;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 

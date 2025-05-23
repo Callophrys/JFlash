@@ -1,4 +1,4 @@
-namespace JFlash
+namespace JFlash.Classes
 {
     class JFQuestionSet
     {
@@ -53,7 +53,7 @@ namespace JFlash
         public JFQuestion NextQuestion()
         {
             CurrentQuestion = Questions[questionNumber];
-            isFinished = (++questionNumber >= countAttempted);
+            isFinished = ++questionNumber >= countAttempted;
             return CurrentQuestion;
         }
 
