@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace JFlash
 {
@@ -10,7 +11,7 @@ namespace JFlash
         public static string Scrub(this string item) => item.Replace(",,", ",").Trim([',', ' ']).Replace(",", ", ");
     }
 
-    public class JFQuestion
+    public partial class JFQuestion
     {
         /// <summary>
         /// Correct answer. This is the value to be entered by the user.
@@ -35,6 +36,20 @@ namespace JFlash
         public bool HasMultipleAnswers => Answer.Contains(',') || Answer.Contains('，');
 
         private readonly List<string> sourceParts;
+
+        /// <summary>
+        /// Regular expression for a comma or JP comma flanked by any number of spaces.
+        /// </summary>
+        /// <returns></returns>
+        [GeneratedRegex(" *[,，] *")]
+        private static partial Regex RegExCommas();
+
+        /// <summary>
+        /// Regular expression for two or more spaces.
+        /// </summary>
+        /// <returns></returns>
+        [GeneratedRegex("  +")]
+        private static partial Regex RegExSpaces();
 
         public JFQuestion(string sourceLine, int idxFrom, int idxTo)
         {
@@ -66,6 +81,14 @@ namespace JFlash
 
         public bool IsEntryCorrect(string ans)
         {
+            if (string.IsNullOrWhiteSpace(ans)) return false;
+
+            // Condition here since commas should be rare if at all.
+            ans = ans.IndexOfAny([',', '，']) > -1 ? RegExCommas().Replace(ans, ", ") : ans;
+
+            ans = RegExSpaces().Replace(ans, " ");
+            ans = ans.Trim([' ', ',', '，']);
+
             bool bCorrect = false;
             foreach (string p in Answer.Split([',', '，'], StringSplitOptions.TrimEntries))
             {
