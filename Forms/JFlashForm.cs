@@ -121,8 +121,8 @@ namespace JFlash
             pnlQuestionFiles.Controls.Clear();
 
             DirectoryInfo dir = new(questionPath);
-
             SortedDictionary<string, List<string>> groupingSets = [];
+            var savedGroupFiles = GetSavedSelectionOptions();
 
             foreach (FileInfo f in dir.GetFiles("*.jpf"))
             {
@@ -233,35 +233,50 @@ namespace JFlash
                 // Add item checkboxes
                 foreach (var item in group.Value)
                 {
+                    GroupFiles gp = savedGroupFiles.TryGetValue(group.Key, out GroupFiles? x) ? x : new GroupFiles();
+                    bool isFileSelected = gp.files.Contains(item);
+
                     var cb = new CheckBox
                     {
+                        Checked = isFileSelected,
                         Text = item,
                         AutoSize = true,
                         Padding = new Padding(10, 0, 0, 0)
                     };
+
+                    if (isFileSelected)
+                    {
+                        QuestionFiles.Add(cb.Text, new JFQuestionFile(
+                            Path.Combine(questionPath, cb.Text),
+                            JpStringToChoiceIndex(cmbFrom.Text),
+                            JpStringToChoiceIndex(cmbTo.Text)));
+
+                        gp.expanded = toggle.Checked;
+                        gp.files.Add(cb.Text);
+
+                        if (!selectedGroupFiles.ContainsKey(group.Key))
+                        {
+                            selectedGroupFiles.Add(group.Key, gp);
+                        }
+                    }
 
                     // If an item is unchecked, uncheck "Select All"
                     cb.CheckedChanged += (s, e) =>
                     {
                         if (cb.Checked)
                         {
-                            QuestionFiles.Add(item, new JFQuestionFile(
+                            /* cb.Text is same as item; both are the filename */
+
+                            QuestionFiles.Add(cb.Text, new JFQuestionFile(
                                 Path.Combine(questionPath, cb.Text),
                                 JpStringToChoiceIndex(cmbFrom.Text),
                                 JpStringToChoiceIndex(cmbTo.Text)));
 
-                            if (selectedGroupFiles.TryGetValue(group.Key, out GroupFiles? gp))
+                            gp.expanded = toggle.Checked;
+                            gp.files.Add(cb.Text);
+
+                            if (!selectedGroupFiles.ContainsKey(group.Key))
                             {
-                                gp.expanded = toggle.Checked;
-                                gp.files.Add(cb.Text);
-                            }
-                            else
-                            {
-                                gp = new GroupFiles()
-                                {
-                                    expanded = toggle.Checked,
-                                    files = [cb.Text],
-                                };
                                 selectedGroupFiles.Add(group.Key, gp);
                             }
 
@@ -296,6 +311,14 @@ namespace JFlash
                 }
 
                 // 4. Toggle expansion
+                //
+
+                // 4.a. Set checked and actual panel expansion before adding event
+                toggle.Checked = GetToggleState(savedGroupFiles, group.Key, counter);
+                toggle.Text = $"{(toggle.Checked ? "▼" : "▶")} {group.Key}";
+                groupPanel.Visible = toggle.Checked;
+
+                // 4.b. Add event
                 toggle.CheckedChanged += (s, e) =>
                 {
                     toggle.Text = $"{(toggle.Checked ? "▼" : "▶")} {group.Key}";
@@ -339,9 +362,6 @@ namespace JFlash
                         cb.Checked = chkSelectAll.Checked;
                     }
                 };
-
-                // Close up all groups except the first.
-                toggle.Checked = (counter <= 1);
             }
 
             flowTableQuestions.ResumeLayout();
@@ -361,6 +381,37 @@ namespace JFlash
             }
 
             return string.Empty;
+        }
+
+        private Dictionary<string, GroupFiles> GetSavedSelectionOptions()
+        {
+            string savedGroupFilesText = RegistryHelper.LoadSetting("selection", string.Empty);
+            object? tempSavedGroupFiles = JsonSerializer.Deserialize(savedGroupFilesText, typeof(Dictionary<string, GroupFiles>));
+
+            Dictionary<string, GroupFiles>? savedGroupFiles =
+                tempSavedGroupFiles != null ? tempSavedGroupFiles as Dictionary<string, GroupFiles> : null;
+
+            if (savedGroupFiles == null) return new Dictionary<string, GroupFiles>();
+
+            return savedGroupFiles;
+        }
+
+        private static bool GetToggleState(Dictionary<string, GroupFiles> dictionary, string key, int counter)
+        {
+            // If missing or post-reset, close up all groups except the first.
+            if (dictionary.Count < 1)
+            {
+                return (counter <= 1);
+            }
+
+            // If group is found then collapse or expand per value.
+            if (dictionary.TryGetValue(key, out var gp))
+            {
+                return gp.expanded;
+            }
+
+            // If group not found just collapse it.
+            return false;
         }
 
         private const int ScrollBarWidth = 17; // standard scrollbar width on Windows
