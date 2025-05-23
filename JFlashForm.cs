@@ -1,4 +1,5 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace JFlash
@@ -19,6 +20,7 @@ namespace JFlash
 
         private const string ALLQUESTIONSTITLE = "Test &all questions in selected sets: ";
         private readonly List<CheckBox> AllCheckBoxes = [];
+        private readonly Dictionary<string, GroupFiles> selectedGroupFiles = [];
 
         private string questionPath = string.Empty;
 
@@ -53,8 +55,8 @@ namespace JFlash
         {
             InitializeComponent();
             rbAllQuestions.Text = ALLQUESTIONSTITLE + "0";
-            this.cmbFrom.Items.AddRange(choices);
-            this.cmbTo.Items.AddRange(choices);
+            cmbFrom.Items.AddRange(choices);
+            cmbTo.Items.AddRange(choices);
 
             nsUpDown.Minimum = nsUpDown.Maximum = 0;
 
@@ -68,7 +70,7 @@ namespace JFlash
             questionPath = RegistryHelper.LoadSetting("questions");
             if (Directory.Exists(questionPath))
             {
-                BuildQuestions(questionPath);
+                BuildQuestions();
                 return;
             }
 
@@ -78,7 +80,7 @@ namespace JFlash
             {
                 questionPath = Path.GetFullPath(questionPath);
                 RegistryHelper.SaveSetting("questions", questionPath);
-                BuildQuestions(questionPath);
+                BuildQuestions();
                 return;
             }
 
@@ -93,7 +95,7 @@ namespace JFlash
                 if (questionPath != null)
                 {
                     RegistryHelper.SaveSetting("questions", questionPath);
-                    BuildQuestions(questionPath);
+                    BuildQuestions();
                 }
             }
 
@@ -101,7 +103,7 @@ namespace JFlash
             // the user pick the question files location from this point on.
             questionPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             RegistryHelper.SaveSetting("questions", questionPath);
-            BuildQuestions(questionPath);
+            BuildQuestions();
         }
 
         private void BuildQuestionaire()
@@ -113,13 +115,13 @@ namespace JFlash
             frm.Show();
         }
 
-        private void BuildQuestions(string qPath)
+        private void BuildQuestions()
         {
             pnlQuestionFiles.Controls.Clear();
 
-            DirectoryInfo dir = new(qPath);
+            DirectoryInfo dir = new(questionPath);
 
-            var groupingSets = new SortedDictionary<string, List<string>>();
+            SortedDictionary<string, List<string>> groupingSets = [];
 
             foreach (FileInfo f in dir.GetFiles("*.jpf"))
             {
@@ -146,7 +148,7 @@ namespace JFlash
             };
             flowTableQuestions.SuspendLayout();
 
-            this.pnlQuestionFiles.Controls.Add(flowTableQuestions);
+            pnlQuestionFiles.Controls.Add(flowTableQuestions);
 
             bool firstCheckboxCreated = false;
 
@@ -161,6 +163,7 @@ namespace JFlash
                     Checked = true,
                     Font = new Font(DefaultFont, FontStyle.Bold),
                     BackColor = Color.LightSteelBlue,
+                    Name = $"chkSelectSetToggle{group.Key}",
                     //Dock = DockStyle.Top,
 
                     Width = panelWidth,
@@ -192,7 +195,11 @@ namespace JFlash
 
                 selectAllCheckBox.CheckedChanged += (s, e) =>
                 {
-                    if (!selectAllCheckBox.Checked && checkBoxes.Count != checkBoxes.Count(c => c.Checked)) return;
+                    if (!selectAllCheckBox.Checked
+                        && checkBoxes.Count != checkBoxes.Count(c => c.Checked))
+                    {
+                        return;
+                    }
 
                     foreach (var cb in checkBoxes)
                     {
@@ -200,7 +207,13 @@ namespace JFlash
                     }
                 };
 
-                selectAllCheckBox.KeyDown += (s, e) => BuildQuestionaire();
+                selectAllCheckBox.KeyDown += (s, e) =>
+                {
+                    if (e.KeyValue == 13)
+                    {
+                        BuildQuestionaire();
+                    }
+                };
 
                 if (!firstCheckboxCreated)
                 {
@@ -235,6 +248,24 @@ namespace JFlash
                                 Path.Combine(questionPath, cb.Text),
                                 JpStringToChoiceIndex(cmbFrom.Text),
                                 JpStringToChoiceIndex(cmbTo.Text)));
+
+                            if (selectedGroupFiles.TryGetValue(group.Key, out GroupFiles? gp))
+                            {
+                                gp.expanded = toggle.Checked;
+                                gp.files.Add(cb.Text);
+                            }
+                            else
+                            {
+                                gp = new GroupFiles()
+                                {
+                                    expanded = toggle.Checked,
+                                    files = [cb.Text],
+                                };
+                                selectedGroupFiles.Add(group.Key, gp);
+                            }
+
+                            var selectedGroupFilesJson = JsonSerializer.Serialize(selectedGroupFiles);
+                            RegistryHelper.SaveSetting("selection", selectedGroupFilesJson);
                         }
                         else
                         {
@@ -262,6 +293,23 @@ namespace JFlash
                 {
                     toggle.Text = $"{(toggle.Checked ? "▼" : "▶")} {group.Key}";
                     groupPanel.Visible = toggle.Checked;
+
+                    if (selectedGroupFiles.TryGetValue(group.Key, out GroupFiles gp))
+                    {
+                        gp.expanded = toggle.Checked;
+                        //selectedGroupFiles[group.Key] = gp;
+                    }
+                    else
+                    {
+                        gp = new GroupFiles()
+                        {
+                            expanded = toggle.Checked,
+                        };
+                        selectedGroupFiles.Add(group.Key, gp);
+                    }
+
+                    var selectedGroupFilesJson = JsonSerializer.Serialize(selectedGroupFiles);
+                    RegistryHelper.SaveSetting("selection", selectedGroupFilesJson);
                 };
 
                 toggle.KeyDown += (s, e) =>
@@ -418,7 +466,7 @@ namespace JFlash
                 questionPath = dialog.FileName ?? questionPath ?? string.Empty;
                 RegistryHelper.SaveSetting("questions", questionPath);
 
-                BuildQuestions(questionPath);
+                BuildQuestions();
             }
         }
 
