@@ -271,6 +271,12 @@ namespace JFlash
                         else
                         {
                             QuestionFiles.Remove(item);
+
+                            if (selectedGroupFiles.TryGetValue(group.Key, out GroupFiles? gp))
+                            {
+                                gp.expanded = toggle.Checked;
+                                if (gp.files.Contains(cb.Text)) gp.files.Remove(cb.Text);
+                            }
                         }
 
                         UpdateQuestionFileSets();
@@ -295,10 +301,9 @@ namespace JFlash
                     toggle.Text = $"{(toggle.Checked ? "▼" : "▶")} {group.Key}";
                     groupPanel.Visible = toggle.Checked;
 
-                    if (selectedGroupFiles.TryGetValue(group.Key, out GroupFiles gp))
+                    if (selectedGroupFiles.TryGetValue(group.Key, out GroupFiles? gp))
                     {
                         gp.expanded = toggle.Checked;
-                        //selectedGroupFiles[group.Key] = gp;
                     }
                     else
                     {
@@ -431,28 +436,6 @@ namespace JFlash
             BuildQuestionaire();
         }
 
-        private void NsUpDown_Enter(object sender, EventArgs e)
-        {
-            rbLimitQuestions.Checked = true;
-        }
-
-        private void Questions_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyValue == 13) BtnGo_Click(sender, e);
-        }
-
-        private void CmbFrom_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            RegistryHelper.SaveSetting("from", cmbFrom.Text);
-            UpdateQuestionFiles();
-        }
-
-        private void CmbTo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            RegistryHelper.SaveSetting("to", cmbTo.Text);
-            UpdateQuestionFiles();
-        }
-
         private void BtnQuestionPath_Click(object sender, EventArgs e)
         {
             var dialog = new CommonOpenFileDialog
@@ -471,17 +454,41 @@ namespace JFlash
             }
         }
 
+        private void BtnSwapFormats_Click(object sender, EventArgs e)
+        {
+            if (cmbFrom.SelectedItem == null && cmbTo.SelectedItem == null) return;
+
+            (cmbTo.SelectedItem, cmbFrom.SelectedItem) = (cmbFrom.SelectedItem, cmbTo.SelectedItem);
+        }
+
+        private void CmbFrom_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13) BtnGo_Click(sender, e);
+        }
+
+        private void CmbFrom_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RegistryHelper.SaveSetting("from", cmbFrom.Text);
+            UpdateQuestionFiles();
+        }
+
+        private void CmbTo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13) BtnGo_Click(sender, e);
+        }
+
+        private void CmbTo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RegistryHelper.SaveSetting("to", cmbTo.Text);
+            UpdateQuestionFiles();
+        }
+
+        private void NsUpDown_Enter(object sender, EventArgs e)
+        {
+            rbLimitQuestions.Checked = true;
+        }
+
         private void NsUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            GoEnabled();
-        }
-
-        private void RbAllQuestions_CheckedChanged(object sender, EventArgs e)
-        {
-            GoEnabled();
-        }
-
-        private void RbLimitQuestions_CheckedChanged(object sender, EventArgs e)
         {
             GoEnabled();
         }
@@ -501,14 +508,19 @@ namespace JFlash
             HandlePanelSizing();
         }
 
-        private void cmbFrom_KeyDown(object sender, KeyEventArgs e)
+        private void Questions_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == 13) BtnGo_Click(sender, e);
         }
 
-        private void cmbTo_KeyDown(object sender, KeyEventArgs e)
+        private void RbAllQuestions_CheckedChanged(object sender, EventArgs e)
         {
-            if (e.KeyValue == 13) BtnGo_Click(sender, e);
+            GoEnabled();
+        }
+
+        private void RbLimitQuestions_CheckedChanged(object sender, EventArgs e)
+        {
+            GoEnabled();
         }
     }
 }
