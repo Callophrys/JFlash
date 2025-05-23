@@ -96,7 +96,7 @@ namespace JFlash.Classes
                     var question = new JFQuestion(q, idxFrom, idxTo);
 
                     // Make sure question is usable
-                    if (!string.IsNullOrEmpty(question.Question) && !string.IsNullOrEmpty(question.Answer))
+                    if (!string.IsNullOrEmpty(question.Prompt) && !string.IsNullOrEmpty(question.Answer))
                     {
                         Questions.Add(new JFQuestion(q, idxFrom, idxTo));
                     }

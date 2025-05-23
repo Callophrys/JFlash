@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace JFlash
 {
-    public static class StringExtensions
-    {
-        public static string Scrub(this string item) => item.Replace(",,", ",").Trim([',', ' ']).Replace(",", ", ");
-    }
-
     public partial class JFQuestion
     {
         /// <summary>
@@ -21,7 +12,7 @@ namespace JFlash
         /// <summary>
         /// Source question. This is read by the user and requires a response.
         /// </summary>
-        public string Question = string.Empty;
+        public string Prompt = string.Empty;
 
         /// <summary>
         /// Description heading of current question file.
@@ -64,7 +55,7 @@ namespace JFlash
 
         public void UpdateQuestion(int idxFrom, int idxTo)
         {
-            Question = sourceParts[idxFrom];
+            Prompt = sourceParts[idxFrom];
             Answer = sourceParts[idxTo];
 
             var extra = new List<string>();

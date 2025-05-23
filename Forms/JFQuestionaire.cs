@@ -76,7 +76,7 @@ namespace JFlash
         {
             JFQuestion q = QuestionSet.NextQuestion();
             lblQuestionTitle.Text = q.Title;
-            lblQuestionQuery.Text = q.Question;
+            lblQuestionQuery.Text = q.Prompt;
 
             lblStatusResultAttempted.Text = QuestionSet.questionNumber.ToString();
             int result = QuestionSet.questionNumber > 1
@@ -99,7 +99,7 @@ namespace JFlash
             JFQuestion question = QuestionSet.CurrentQuestion;
 #pragma warning restore IDE0059 // Unnecessary assignment of a value
 
-            txtLastQuery.Text = QuestionSet.CurrentQuestion.Question;
+            txtLastQuery.Text = QuestionSet.CurrentQuestion.Prompt;
 
             if (QuestionSet.IsEntryCorrect(txtAnswer.Text))
             {
