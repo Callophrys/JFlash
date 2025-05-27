@@ -23,6 +23,8 @@ namespace JFlash
         private readonly List<CheckBox> AllCheckBoxes = [];
         private readonly Dictionary<string, GroupFiles> selectedGroupFiles = [];
 
+        private bool skipEventsChkSelectAll = false;
+
         private string questionPath = string.Empty;
 
         private readonly string[] choices =
@@ -122,7 +124,10 @@ namespace JFlash
 
             DirectoryInfo dir = new(questionPath);
             SortedDictionary<string, List<string>> groupingSets = [];
-            var savedGroupFiles = GetSavedSelectionOptions();
+            Dictionary<string, GroupFiles> savedGroupFiles = GetSavedSelectionOptions();
+
+            var allCheckBoxes = new List<CheckBox>();
+            var allSelectAllCheckBoxes = new List<CheckBox>();
 
             foreach (FileInfo f in dir.GetFiles("*.jpf"))
             {
@@ -156,7 +161,10 @@ namespace JFlash
             int counter = 0;
             foreach (var group in groupingSets)
             {
-                // 1. Create the toggle button or checkbox
+                // 1. Toggle expansion
+                //
+
+                // 1.a. Create toggle checkbox 
                 var toggle = new CheckBox
                 {
                     Text = $"▼ {group.Key}",
@@ -170,7 +178,9 @@ namespace JFlash
                     Width = panelWidth,
                 };
 
-                // Collapsible panel
+
+                // 2. Collapsible panel
+                //
                 var groupPanel = new FlowLayoutPanel
                 {
                     FlowDirection = FlowDirection.TopDown,
@@ -183,9 +193,10 @@ namespace JFlash
                     AutoSizeMode = AutoSizeMode.GrowAndShrink,
                 };
 
-                var checkBoxes = new List<CheckBox>();
+                // 3. "Select All" checkbox
+                //
 
-                // "Select All" checkbox
+                // 3.a. Create and place in first position of group panel.
                 var selectAllCheckBox = new CheckBox
                 {
                     Text = $"Select All &{++counter}",
@@ -194,43 +205,15 @@ namespace JFlash
                     Width = panelWidth,
                 };
 
-                selectAllCheckBox.CheckedChanged += (s, e) =>
-                {
-                    if (!selectAllCheckBox.Checked
-                        && checkBoxes.Count != checkBoxes.Count(c => c.Checked))
-                    {
-                        return;
-                    }
-
-                    foreach (var cb in checkBoxes)
-                    {
-                        cb.Checked = selectAllCheckBox.Checked;
-                    }
-                };
-
-                selectAllCheckBox.KeyDown += (s, e) =>
-                {
-                    if (e.KeyValue == 13)
-                    {
-                        BuildQuestionaire();
-                    }
-                };
-
-                if (!firstCheckboxCreated)
-                {
-                    // Added since alt-A on label always sets to the first control,
-                    // but scroll position is askew. This produces a cleaner UI feel.
-                    selectAllCheckBox.Enter += (s, e) =>
-                    {
-                        flowTableQuestions.ScrollControlIntoView(groupPanel);
-                    };
-
-                    firstCheckboxCreated = true;
-                }
-
+                allSelectAllCheckBoxes.Add(selectAllCheckBox);
                 groupPanel.Controls.Add(selectAllCheckBox);
 
-                // Add item checkboxes
+                // 4. Add item checkboxes
+                //
+
+                // All checkboxes in grouping.
+                var groupCheckBoxes = new List<CheckBox>();
+
                 foreach (var item in group.Value)
                 {
                     GroupFiles gp = savedGroupFiles.TryGetValue(group.Key, out GroupFiles? x) ? x : new GroupFiles();
@@ -260,7 +243,6 @@ namespace JFlash
                         }
                     }
 
-                    // If an item is unchecked, uncheck "Select All"
                     cb.CheckedChanged += (s, e) =>
                     {
                         if (cb.Checked)
@@ -279,9 +261,6 @@ namespace JFlash
                             {
                                 selectedGroupFiles.Add(group.Key, gp);
                             }
-
-                            var selectedGroupFilesJson = JsonSerializer.Serialize(selectedGroupFiles);
-                            RegistryHelper.SaveSetting("selection", selectedGroupFilesJson);
                         }
                         else
                         {
@@ -294,31 +273,99 @@ namespace JFlash
                             }
                         }
 
+                        var selectedGroupFilesJson = JsonSerializer.Serialize(selectedGroupFiles);
+                        RegistryHelper.SaveSetting("selection", selectedGroupFilesJson);
+
                         UpdateQuestionFileSets();
 
+                        // If an item is unchecked, uncheck "Select All" for the grouping.
                         if (!cb.Checked && selectAllCheckBox.Checked)
                         {
                             selectAllCheckBox.Checked = false;
+
+                            // Update for the everything, all-groupsets, control.
+                            if (chkSelectAll.Checked)
+                            {
+                                skipEventsChkSelectAll = true;
+                                chkSelectAll.CheckState = allCheckBoxes.Any(c => c.Checked)
+                                    ? CheckState.Indeterminate
+                                    : CheckState.Unchecked;
+                                skipEventsChkSelectAll = false;
+                            }
                         }
-                        else if (checkBoxes.All(x => x.Checked))
+                        else if (groupCheckBoxes.All(x => x.Checked))
                         {
                             selectAllCheckBox.Checked = true;
+
+                            // Update for the everything, all-groupsets, control.
+                            if (allCheckBoxes.Count == allCheckBoxes.Count(c => c.Checked))
+                            {
+                                skipEventsChkSelectAll = true;
+                                chkSelectAll.CheckState = CheckState.Checked;
+                                skipEventsChkSelectAll = false;
+                            }
                         }
                     };
 
-                    checkBoxes.Add(cb);
+                    groupCheckBoxes.Add(cb);    // save ref in grouping list
+                    allCheckBoxes.Add(cb); // save ref to everything list
                     groupPanel.Controls.Add(cb);
                 }
 
-                // 4. Toggle expansion
-                //
+                // 3.b. (Select all continued) Check if "Select All" needs to be checked
+                selectAllCheckBox.Checked = groupCheckBoxes.Count == groupCheckBoxes.Count(c => c.Checked);
 
-                // 4.a. Set checked and actual panel expansion before adding event
+                // 3.c. Add event handler to "Select All"
+                selectAllCheckBox.CheckedChanged += (s, e) =>
+                {
+                    if (!selectAllCheckBox.Checked
+                        && groupCheckBoxes.Count != groupCheckBoxes.Count(c => c.Checked))
+                    {
+                        return;
+                    }
+
+                    foreach (var cb in groupCheckBoxes)
+                    {
+                        cb.Checked = selectAllCheckBox.Checked;
+                    }
+
+                    skipEventsChkSelectAll = true;
+                    chkSelectAll.CheckState = allSelectAllCheckBoxes.All(c => c.Checked)
+                        ? CheckState.Checked
+                        : chkSelectAll.Checked && allSelectAllCheckBoxes.Any(c => c.Checked)
+                            ? CheckState.Indeterminate
+                            : CheckState.Unchecked;
+                    ;
+                    skipEventsChkSelectAll = false;
+                };
+
+                selectAllCheckBox.KeyDown += (s, e) =>
+                {
+                    if (e.KeyValue == 13)
+                    {
+                        BuildQuestionaire();
+                    }
+                };
+
+                if (!firstCheckboxCreated)
+                {
+                    // Added since alt-A on label always sets to the first control,
+                    // but scroll position is askew. This produces a cleaner UI feel.
+                    selectAllCheckBox.Enter += (s, e) =>
+                    {
+                        flowTableQuestions.ScrollControlIntoView(groupPanel);
+                    };
+
+                    firstCheckboxCreated = true;
+                }
+
+                // 1.b. (Toggle continued) Set checked and actual panel
+                //      expansion of toggle before adding handlers.
                 toggle.Checked = GetToggleState(savedGroupFiles, group.Key, counter);
                 toggle.Text = $"{(toggle.Checked ? "▼" : "▶")} {group.Key}";
                 groupPanel.Visible = toggle.Checked;
 
-                // 4.b. Add event
+                // 1.c. Add event handlers.
                 toggle.CheckedChanged += (s, e) =>
                 {
                     toggle.Text = $"{(toggle.Checked ? "▼" : "▶")} {group.Key}";
@@ -346,7 +393,8 @@ namespace JFlash
                     if (e.KeyValue == 13) toggle.Checked = !toggle.Checked;
                 };
 
-                // 5. Add both to the TableLayoutPanel
+                // 5. Add toggle and groupPanel to the TableLayoutPanel
+                //
                 flowTableQuestions.RowCount += 2;
                 flowTableQuestions.RowStyles.Add(new RowStyle(SizeType.AutoSize));
                 flowTableQuestions.Controls.Add(toggle, 0, flowTableQuestions.RowCount - 2);
@@ -354,14 +402,35 @@ namespace JFlash
                 flowTableQuestions.RowStyles.Add(new RowStyle(SizeType.AutoSize));
                 flowTableQuestions.Controls.Add(groupPanel, 0, flowTableQuestions.RowCount - 1);
 
-                AllCheckBoxes.AddRange([.. checkBoxes]);
+                AllCheckBoxes.AddRange([.. groupCheckBoxes]);
+
+                // 6. Update handler for everything checkbox.
                 chkSelectAll.CheckedChanged += (s, e) =>
                 {
-                    foreach (var cb in checkBoxes)
+                    if (skipEventsChkSelectAll) return;
+
+                    foreach (var cb in groupCheckBoxes)
                     {
+                        // Checking all of these will update the select all for
+                        // the grouping.
+                        // TODO: Maybe check the group select all groupings
+                        // instead. Those events would automatically set the
+                        // for all the checkboxes in a group. Ugh -- too many
+                        // events raising more events!
                         cb.Checked = chkSelectAll.Checked;
                     }
+
+                    var selectedGroupFilesJson = JsonSerializer.Serialize(selectedGroupFiles);
+                    RegistryHelper.SaveSetting("selection", selectedGroupFilesJson);
                 };
+            }
+
+            if (allSelectAllCheckBoxes.All(x => x.Checked))
+            {
+                skipEventsChkSelectAll = true;
+                chkSelectAll.Checked = true;
+                chkSelectAll.CheckState = CheckState.Checked;
+                skipEventsChkSelectAll = false;
             }
 
             flowTableQuestions.ResumeLayout();
@@ -383,7 +452,7 @@ namespace JFlash
             return string.Empty;
         }
 
-        private Dictionary<string, GroupFiles> GetSavedSelectionOptions()
+        private static Dictionary<string, GroupFiles> GetSavedSelectionOptions()
         {
             string savedGroupFilesText = RegistryHelper.LoadSetting("selection", string.Empty);
             object? tempSavedGroupFiles = JsonSerializer.Deserialize(savedGroupFilesText, typeof(Dictionary<string, GroupFiles>));
