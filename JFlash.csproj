@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType> <!-- was WinExe before setting up to run standalone -->
+    <OutputType>WinExe</OutputType> <!-- Exe to run as standalone -->
 
     <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>enable</Nullable>

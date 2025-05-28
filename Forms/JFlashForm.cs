@@ -492,7 +492,7 @@ namespace JFlash
 
         private void HandlePanelSizing()
         {
-            Console.WriteLine("resizing panel");
+            //Console.WriteLine("resizing panel");
 
             bool hasVerticalScrollBar = pnlQuestionFiles.VerticalScroll.Visible;
             //int widthAdjustment = hasVerticalScrollBar ? -ScrollBarWidth : ScrollBarWidth;
