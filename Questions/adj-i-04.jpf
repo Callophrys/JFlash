@@ -1,6 +1,6 @@
 JPFLASH
-Desc=(set 4 of 6) I Adjectives - English
-Prompt=Enter the English equivalent of the Kanji:
+Desc=I Adjectives (set 4 of 6)
+Prompt=Enter the {0} equivalent of the {1}:
 Type=Entry
 難い;かたい;カタイ;katai;hard,tough
 柔らかい;やわらかい;ヤワラタイ;yawarakai;soft,mild

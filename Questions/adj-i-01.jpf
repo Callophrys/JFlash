@@ -1,5 +1,5 @@
 JPFLASH
-Desc=(set 1 of 6) I Adjectives - Nihongo
+Desc=I Adjectives (set 1 of 6)
 Prompt=Enter the {0} equivalent of the {1}:
 Type=Entry
 正しい;ただしい;タダシイ;tadashii;correct,right

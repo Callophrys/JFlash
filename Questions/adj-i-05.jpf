@@ -1,6 +1,6 @@
 JPFLASH
-Desc=(set 5 of 6) I Adjectives - English
-Prompt=Enter the English equivalent of the Kanji:
+Desc=I Adjectives (set 5 of 6)
+Prompt=Enter the {0} equivalent of the {1}:
 Type=Entry
 痛い;いたい;イタイ;itai;hurt,painful
 痒い;かゆい;カユイ;kayui;itchy

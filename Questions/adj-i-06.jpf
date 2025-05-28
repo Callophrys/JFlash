@@ -1,6 +1,6 @@
 JPFLASH
-Desc=(set 6 of 6) I Adjectives - English
-Prompt=Enter the English equivalent of the Kanji:
+Desc=I Adjectives (set 6 of 6)
+Prompt=Enter the {0} equivalent of the {1}:
 Type=Entry
 可笑しい;おかしい;オカシイ;okashii;strange,funny,amusing,ridiculous
 忙しい;いそがしい;イソガシイ;isogashii;busy,irritated

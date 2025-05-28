@@ -1,6 +1,6 @@
 JPFLASH
-Desc=(set 3 of 6) I Adjectives - English
-Prompt=Enter the English equivalent of the Kanji:
+Desc=I Adjectives (set 3 of 6)
+Prompt=Enter the {0} equivalent of the {1}:
 Type=Entry
 寒い;さむい;サムイ;samui;cold,chilly,freezing
 熱い;あつい;アツイ;atsui;hot

@@ -1,6 +1,6 @@
 JPFLASH
-Desc=(set 2 of 6) I Adjectives - English
-Prompt=Enter the English equivalent of the Kanji:
+Desc=I Adjectives (set 2 of 6)
+Prompt=Enter the {0} equivalent of the {1}:
 Type=Entry
 黒;くろい;クロイ;kuroi;black,dark
 灰い;はいい;ハイイ;haii;gray,ashen-colored

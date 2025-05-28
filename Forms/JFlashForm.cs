@@ -126,8 +126,8 @@ namespace JFlash
             SortedDictionary<string, List<string>> groupingSets = [];
             Dictionary<string, GroupFiles> savedGroupFiles = GetSavedSelectionOptions();
 
-            var allCheckBoxes = new List<CheckBox>();
-            var allSelectAllCheckBoxes = new List<CheckBox>();
+            List<CheckBox> questionFileCheckBoxes = [];
+            List<CheckBox> groupingCheckBoxes = [];
 
             foreach (FileInfo f in dir.GetFiles("*.jpf"))
             {
@@ -205,7 +205,7 @@ namespace JFlash
                     Width = panelWidth,
                 };
 
-                allSelectAllCheckBoxes.Add(selectAllCheckBox);
+                groupingCheckBoxes.Add(selectAllCheckBox);
                 groupPanel.Controls.Add(selectAllCheckBox);
 
                 // 4. Add item checkboxes
@@ -287,7 +287,7 @@ namespace JFlash
                             if (chkSelectAll.Checked)
                             {
                                 skipEventsChkSelectAll = true;
-                                chkSelectAll.CheckState = allCheckBoxes.Any(c => c.Checked)
+                                chkSelectAll.CheckState = questionFileCheckBoxes.Any(c => c.Checked)
                                     ? CheckState.Indeterminate
                                     : CheckState.Unchecked;
                                 skipEventsChkSelectAll = false;
@@ -298,7 +298,7 @@ namespace JFlash
                             selectAllCheckBox.Checked = true;
 
                             // Update for the everything, all-groupsets, control.
-                            if (allCheckBoxes.Count == allCheckBoxes.Count(c => c.Checked))
+                            if (questionFileCheckBoxes.Count == questionFileCheckBoxes.Count(c => c.Checked))
                             {
                                 skipEventsChkSelectAll = true;
                                 chkSelectAll.CheckState = CheckState.Checked;
@@ -308,7 +308,7 @@ namespace JFlash
                     };
 
                     groupCheckBoxes.Add(cb);    // save ref in grouping list
-                    allCheckBoxes.Add(cb); // save ref to everything list
+                    questionFileCheckBoxes.Add(cb); // save ref to everything list
                     groupPanel.Controls.Add(cb);
                 }
 
@@ -330,9 +330,9 @@ namespace JFlash
                     }
 
                     skipEventsChkSelectAll = true;
-                    chkSelectAll.CheckState = allSelectAllCheckBoxes.All(c => c.Checked)
+                    chkSelectAll.CheckState = groupingCheckBoxes.All(c => c.Checked)
                         ? CheckState.Checked
-                        : chkSelectAll.Checked && allSelectAllCheckBoxes.Any(c => c.Checked)
+                        : chkSelectAll.Checked && groupingCheckBoxes.Any(c => c.Checked)
                             ? CheckState.Indeterminate
                             : CheckState.Unchecked;
                     ;
@@ -423,9 +423,13 @@ namespace JFlash
                     var selectedGroupFilesJson = JsonSerializer.Serialize(selectedGroupFiles);
                     RegistryHelper.SaveSetting("selection", selectedGroupFilesJson);
                 };
+
+
+                // 7. Update total count and enable go button.
+                UpdateQuestionFileSets();
             }
 
-            if (allSelectAllCheckBoxes.All(x => x.Checked))
+            if (groupingCheckBoxes.All(x => x.Checked))
             {
                 skipEventsChkSelectAll = true;
                 chkSelectAll.Checked = true;
