@@ -1,0 +1,70 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "JFlash/1.0.0": {
+        "dependencies": {
+          "WindowsAPICodePackShell": "8.0.8"
+        },
+        "runtime": {
+          "JFlash.dll": {}
+        }
+      },
+      "Microsoft.NETCore.Platforms/7.0.4": {},
+      "WindowsAPICodePackCore/8.0.8": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "7.0.4"
+        },
+        "runtime": {
+          "lib/net8.0-windows7.0/Microsoft.WindowsAPICodePack.Core.dll": {
+            "assemblyVersion": "8.0.8.0",
+            "fileVersion": "8.0.8.0"
+          }
+        }
+      },
+      "WindowsAPICodePackShell/8.0.8": {
+        "dependencies": {
+          "WindowsAPICodePackCore": "8.0.8"
+        },
+        "runtime": {
+          "lib/net8.0-windows7.0/Microsoft.WindowsAPICodePack.Shell.dll": {
+            "assemblyVersion": "8.0.8.0",
+            "fileVersion": "8.0.8.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "JFlash/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.NETCore.Platforms/7.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-yLEHlNN7O5WiND89r42sepgVwy5W/ZoTiFEdJDV7MHR1lW02LL7Nipz2TD5qM/Kx9W3/k3NP+PAP2qUdOm+leg==",
+      "path": "microsoft.netcore.platforms/7.0.4",
+      "hashPath": "microsoft.netcore.platforms.7.0.4.nupkg.sha512"
+    },
+    "WindowsAPICodePackCore/8.0.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cH6ig6QlYhhk/YJyfzL1bQTgbsfxqx/21hDXrJpGGwMgD8fCL9MJWohfhcGQePBEletu1YAW3ZPB66HYaJ9jRA==",
+      "path": "windowsapicodepackcore/8.0.8",
+      "hashPath": "windowsapicodepackcore.8.0.8.nupkg.sha512"
+    },
+    "WindowsAPICodePackShell/8.0.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0GFa//vRTqnd06nlFIKTubKo4khsHPzJMpszHql33R9VUGrRc6yMEdH6Wp7LM9YrMz9NspiIWinR9WJ6fa4B7w==",
+      "path": "windowsapicodepackshell/8.0.8",
+      "hashPath": "windowsapicodepackshell.8.0.8.nupkg.sha512"
+    }
+  }
+}

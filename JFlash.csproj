@@ -1,12 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType> <!-- was WinExe before setting up to run standalone -->
+
     <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>Media\jpf256.ico</ApplicationIcon>
+
+	<!--   <PublishSingleFile>true</PublishSingleFile>
+	  <SelfContained>true</SelfContained>
+	  <RuntimeIdentifier>win-x64</RuntimeIdentifier> Or win-arm64, win-x86
+	  <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+	  <PublishDir>$(BaseOutputPath)\$(Configuration)\$(TargetFramework)\</PublishDir>
+ -->
 
     <OutputPath>bin\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
