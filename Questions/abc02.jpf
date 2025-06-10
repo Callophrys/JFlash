@@ -1,0 +1,12 @@
+JPFLASH
+Desc=Sundry words
+Prompt=Enter the {0} equivalent of the {1}:
+Type=Entry
+こちらこそ;こちらこそ;コチラコソ;kochirakoso;you're welcome
+どういたしまして;どういたしまして;ドウイタシマシテ;douitashimashite;you're welcome
+今夜;こんや;コンヤ;konya;tonight
+今朝;けさ;ケサ;kesa;this morning
+午後;ごご;ゴゴ;gogo;afternoon
+今日;きょう;キョウ;kyou;today
+昨日;きの;キノ;kino;yesterday
+END

@@ -1,0 +1,12 @@
+JPFLASH
+Desc=Sundry words
+Prompt=Enter the {0} equivalent of the {1}:
+Type=Entry
+多くの;おおくの;オオクノ;ookuno,ooku no;many
+多くの日々;おおくのびひ;オオクノヒビ;ookunohibi,ooku no hibi;many days
+ついて;ついて;ツイテ;tsuite;about
+名について;なにについて;ナニニツイテ;naninitsuite,nani ni tsuite;about what
+私について;わたしについて;ワタシニツイテ;watashinitsuite,watashi ni tsuite;about me
+何時頃;なんどきごろ;;nandokigoro,nan doki goro;about what time
+まだ;まだ;マダ;mada;still,yet
+END

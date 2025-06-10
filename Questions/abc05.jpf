@@ -1,0 +1,15 @@
+JPFLASH
+Desc=Sundry words
+Prompt=Enter the {0} equivalent of the {1}:
+Type=Entry
+いつもの;いつもの;イツモノ;itsumono,itsumo no;usual,usually
+ここ;ここ;ココ;koko;here
+そこ;そこ;ソコ;soko;there
+あそこ;あそこ;アソコ;asoko;(over) there,over there,there
+こちら;こちら;コチラ;kochira;here (polite),here
+そちら;そちら;ソチラ;sochira;there (polite),there
+あちら;あちら;アチラ;achira;(over) there (polite),over there,there
+時間;じかん;ジカン;jikan;hour
+分;ぶん;ブン;bun;minute
+半分,半;はんぶん,はん;ハンブン,ハン;han;30 minutes,30 min,half
+END
