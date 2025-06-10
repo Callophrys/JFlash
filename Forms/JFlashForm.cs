@@ -214,6 +214,7 @@ namespace JFlash
                 // All checkboxes in grouping.
                 var groupCheckBoxes = new List<CheckBox>();
 
+                // Populate with the actual questions.
                 foreach (var item in group.Value)
                 {
                     GroupFiles gp = savedGroupFiles.TryGetValue(group.Key, out GroupFiles? x) ? x : new GroupFiles();
@@ -307,6 +308,15 @@ namespace JFlash
                         }
                     };
 
+                    cb.KeyUp += (s, e) =>
+                    {
+                        if (e.KeyValue == 13)
+                        {
+                            if (cb.Checked) BuildQuestionaire();
+                            else cb.Checked = true;
+                        }
+                    };
+
                     groupCheckBoxes.Add(cb);    // save ref in grouping list
                     questionFileCheckBoxes.Add(cb); // save ref to everything list
                     groupPanel.Controls.Add(cb);
@@ -339,7 +349,7 @@ namespace JFlash
                     skipEventsChkSelectAll = false;
                 };
 
-                selectAllCheckBox.KeyDown += (s, e) =>
+                selectAllCheckBox.KeyUp += (s, e) =>
                 {
                     if (e.KeyValue == 13)
                     {

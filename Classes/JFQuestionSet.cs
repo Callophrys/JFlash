@@ -50,10 +50,14 @@ namespace JFlash.Classes
             }
         }
 
-        public JFQuestion NextQuestion()
+        public JFQuestion? NextQuestion()
         {
-            CurrentQuestion = Questions[questionNumber];
-            isFinished = ++questionNumber >= countAttempted;
+            if (questionNumber < Questions.Count)
+            {
+                CurrentQuestion = Questions[questionNumber];
+                isFinished = ++questionNumber >= countAttempted;
+            }
+
             return CurrentQuestion;
         }
 

@@ -44,16 +44,29 @@ namespace JFlash
 
             const int fontSizeMin = 20;
             const int fontSizeMax = 28;
-            lblQuestionQuery.Font = new Font(
-                fonts[rnd.Next(0, fonts.Length - 1)],
-                rnd.Next(fontSizeMin, fontSizeMax),
-                new FontStyle[3] {
+
+            if (langFrom == "English")
+            {
+                lblQuestionQuery.Font = new Font(
+                    "MS Sans Serif",
+                    16,
+                    FontStyle.Regular,
+                    GraphicsUnit.Point,
+                    0);
+            }
+            else
+            {
+                lblQuestionQuery.Font = new Font(
+                    fonts[rnd.Next(0, fonts.Length - 1)],
+                    rnd.Next(fontSizeMin, fontSizeMax),
+                    new FontStyle[3] {
                     FontStyle.Regular,
                     FontStyle.Bold,
                     FontStyle.Italic
-                }[rnd.Next(0, 2)],
-                GraphicsUnit.Point,
-                0);
+                    }[rnd.Next(0, 2)],
+                    GraphicsUnit.Point,
+                    0);
+            }
 
             // Need to set up randomized Question Set (q&a pairs)
             // and scores
@@ -65,9 +78,29 @@ namespace JFlash
             NextQuestion();
         }
 
+        public void ClearQuestion()
+        {
+            lblQuestionTitle.Text = "No more questions";
+            lblQuestionPrompt.Text = string.Empty;
+            lblQuestionQuery.Text = string.Empty;
+        }
+
         public void NextQuestion()
         {
-            JFQuestion q = QuestionSet.NextQuestion();
+            JFQuestion? q = QuestionSet.NextQuestion();
+            if (q == null)
+            {
+                ClearQuestion();
+                btnFinish.Enabled = true;
+                btnFinish.Focus();
+                txtAnswer.Enabled = false;
+                txtLastQuery.Enabled = false;
+                txtLastAttempt.Enabled = false;
+                txtLastAnswer.Enabled = false;
+                txtAdditional.Enabled = false;
+                return;
+            }
+
             lblQuestionTitle.Text = q.Title;
             lblQuestionQuery.Text = q.Prompt;
 
@@ -138,6 +171,8 @@ namespace JFlash
                 txtAnswer.Enabled = false;
 
                 lblStatusResultScore.Text = $"{(Convert.ToInt32(100 * QuestionSet.countCorrect / parentForm.QuestionCount))}%";
+
+                ClearQuestion();
             }
             else
             {
