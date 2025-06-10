@@ -1,5 +1,5 @@
 JPFLASH
-Desc=Numerals - Nihongo
+Desc=Ordinals - Nin Endings
 Prompt=Enter the ordinal of people (-nin) per the language option:
 Type=Entry
 一人;ひとり;ヒトリ;hitori;1

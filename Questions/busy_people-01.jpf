@@ -3,5 +3,5 @@ Desc=Japanese for Busy People - English to Nihongo
 Prompt=Enter English equivalent of the Kanji:
 Type=Entry
 奇想;きそう;キソウ;kisou;fantastic idea
-天外;たがい;タンガイ;tangai;beyond the heavens,farthest regions,furthest regions
+天外;たんがい;タンガイ;tangai;beyond the heavens,farthest regions,furthest regions
 END

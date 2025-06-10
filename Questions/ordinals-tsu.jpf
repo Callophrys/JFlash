@@ -1,5 +1,5 @@
 JPFLASH
-Desc=Numerals - Nihongo
+Desc=Ordinals - Tsu Endings
 Prompt=Enter the ordinal of simple objects (-tsu) per the language option:
 Type=Entry
 一つ;ひとつ;ヒトツ;hitotsu;1

@@ -80,12 +80,13 @@ namespace JFlash
             ans = RegExSpaces().Replace(ans, " ");
             ans = ans.Trim([' ', ',', '，']);
 
-            bool bCorrect = false;
+            bool result = false;
             foreach (string p in Answer.Split([',', '，'], StringSplitOptions.TrimEntries))
             {
-                bCorrect |= string.Equals(ans, p, StringComparison.CurrentCultureIgnoreCase);
+                result |= string.Equals(ans, p, StringComparison.CurrentCultureIgnoreCase);
             }
-            return bCorrect;
+
+            return result;
         }
     }
 }

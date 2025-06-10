@@ -1,5 +1,5 @@
 JPFLASH
-Desc=Numerals - Nihongo
+Desc=Ordinals - Satsu Endings
 Prompt=Enter the ordinal of publications (books, magazines) (-satsu) per the language option:
 Type=Entry
 一冊;いっさつ;イサツ;issatsu;1

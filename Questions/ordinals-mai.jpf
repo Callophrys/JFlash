@@ -1,5 +1,5 @@
 JPFLASH
-Desc=Numerals - Nihongo
+Desc=Ordinals - Mai Endings
 Prompt=Enter the ordinal of flat things (paper, cloth, pizza, window glass) (-mai) per the language option:
 Type=Entry
 一枚;いちまい;イチマイ;ichimai;1

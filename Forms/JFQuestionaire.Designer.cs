@@ -34,7 +34,7 @@ namespace JFlash
             groupBoxQuestion = new GroupBox();
             lblQuestionTitle = new Label();
             lblQuestionQuery = new Label();
-            lblQuestionPrompt = new Label();
+            lblQuestionInstruction = new Label();
             txtAnswer = new TextBox();
             groupBox2 = new GroupBox();
             lblStatusResultTotal = new Label();
@@ -87,7 +87,7 @@ namespace JFlash
             groupBoxQuestion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBoxQuestion.Controls.Add(lblQuestionTitle);
             groupBoxQuestion.Controls.Add(lblQuestionQuery);
-            groupBoxQuestion.Controls.Add(lblQuestionPrompt);
+            groupBoxQuestion.Controls.Add(lblQuestionInstruction);
             groupBoxQuestion.Controls.Add(txtAnswer);
             groupBoxQuestion.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             groupBoxQuestion.Location = new Point(8, 7);
@@ -124,14 +124,14 @@ namespace JFlash
             // 
             // lblQuestionPrompt
             // 
-            lblQuestionPrompt.AutoSize = true;
-            lblQuestionPrompt.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblQuestionPrompt.Location = new Point(10, 60);
-            lblQuestionPrompt.Margin = new Padding(2);
-            lblQuestionPrompt.Name = "lblQuestionPrompt";
-            lblQuestionPrompt.Size = new Size(40, 13);
-            lblQuestionPrompt.TabIndex = 1;
-            lblQuestionPrompt.Text = "Prompt";
+            lblQuestionInstruction.AutoSize = true;
+            lblQuestionInstruction.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblQuestionInstruction.Location = new Point(10, 60);
+            lblQuestionInstruction.Margin = new Padding(2);
+            lblQuestionInstruction.Name = "lblQuestionPrompt";
+            lblQuestionInstruction.Size = new Size(40, 13);
+            lblQuestionInstruction.TabIndex = 1;
+            lblQuestionInstruction.Text = "Prompt";
             // 
             // txtAnswer
             // 
@@ -293,6 +293,7 @@ namespace JFlash
             txtLastAnswer.Margin = new Padding(2);
             txtLastAnswer.Multiline = true;
             txtLastAnswer.Name = "txtLastAnswer";
+            txtLastAnswer.ReadOnly = true;
             txtLastAnswer.Size = new Size(489, 53);
             txtLastAnswer.TabIndex = 7;
             txtLastAnswer.Text = "Corrected\r\nor other answers";
@@ -307,6 +308,7 @@ namespace JFlash
             txtLastAttempt.Location = new Point(21, 222);
             txtLastAttempt.Margin = new Padding(2);
             txtLastAttempt.Name = "txtLastAttempt";
+            txtLastAttempt.ReadOnly = true;
             txtLastAttempt.Size = new Size(489, 24);
             txtLastAttempt.TabIndex = 8;
             txtLastAttempt.Text = "Wrong";
@@ -322,6 +324,7 @@ namespace JFlash
             txtAdditional.Margin = new Padding(2);
             txtAdditional.Multiline = true;
             txtAdditional.Name = "txtAdditional";
+            txtAdditional.ReadOnly = true;
             txtAdditional.Size = new Size(489, 51);
             txtAdditional.TabIndex = 9;
             txtAdditional.Text = "Additional";
@@ -336,6 +339,7 @@ namespace JFlash
             txtLastQuery.Location = new Point(140, 192);
             txtLastQuery.Margin = new Padding(2);
             txtLastQuery.Name = "txtLastQuery";
+            txtLastQuery.ReadOnly = true;
             txtLastQuery.Size = new Size(368, 24);
             txtLastQuery.TabIndex = 10;
             txtLastQuery.Text = "Wrong";
@@ -377,7 +381,7 @@ namespace JFlash
         private System.Windows.Forms.Button btnAbandon;
         private System.Windows.Forms.GroupBox groupBoxQuestion;
         private System.Windows.Forms.Label lblQuestionQuery;
-        private System.Windows.Forms.Label lblQuestionPrompt;
+        private System.Windows.Forms.Label lblQuestionInstruction;
         private System.Windows.Forms.TextBox txtAnswer;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label lblStatusResultTotal;

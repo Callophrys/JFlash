@@ -22,7 +22,7 @@ namespace JFlash
             txtLastAnswer.Text = string.Empty;
             txtAdditional.Text = string.Empty;
 
-            lblQuestionPrompt.Text = string.Format("Enter the {1} for the presented {0}", langFrom, langTo);
+            lblQuestionInstruction.Text = string.Format("Enter the {1} for the presented {0}", langFrom, langTo);
 
             // Also randomize font choice and font style
             Random rnd = new(DateTime.UtcNow.Millisecond);
@@ -45,28 +45,31 @@ namespace JFlash
             const int fontSizeMin = 20;
             const int fontSizeMax = 28;
 
-            if (langFrom == "English")
+            lblQuestionQuery.Font = langFrom switch
             {
-                lblQuestionQuery.Font = new Font(
-                    "MS Sans Serif",
-                    16,
-                    FontStyle.Regular,
-                    GraphicsUnit.Point,
-                    0);
-            }
-            else
-            {
-                lblQuestionQuery.Font = new Font(
-                    fonts[rnd.Next(0, fonts.Length - 1)],
-                    rnd.Next(fontSizeMin, fontSizeMax),
-                    new FontStyle[3] {
-                    FontStyle.Regular,
-                    FontStyle.Bold,
-                    FontStyle.Italic
-                    }[rnd.Next(0, 2)],
-                    GraphicsUnit.Point,
-                    0);
-            }
+                "English" => new Font(
+                                        "MS Sans Serif",
+                                        16,
+                                        FontStyle.Regular,
+                                        GraphicsUnit.Point,
+                                        0),
+                "Romaji" => new Font(
+                                        "Arial",
+                                        16,
+                                        FontStyle.Regular,
+                                        GraphicsUnit.Point,
+                                        0),
+                _ => new Font(
+                                            fonts[rnd.Next(0, fonts.Length - 1)],
+                                            rnd.Next(fontSizeMin, fontSizeMax),
+                                            new FontStyle[3] {
+                        FontStyle.Regular,
+                        FontStyle.Bold,
+                        FontStyle.Italic
+                                            }[rnd.Next(0, 2)],
+                                            GraphicsUnit.Point,
+                                            0),
+            };
 
             // Need to set up randomized Question Set (q&a pairs)
             // and scores
@@ -81,7 +84,7 @@ namespace JFlash
         public void ClearQuestion()
         {
             lblQuestionTitle.Text = "No more questions";
-            lblQuestionPrompt.Text = string.Empty;
+            lblQuestionInstruction.Text = string.Empty;
             lblQuestionQuery.Text = string.Empty;
         }
 
@@ -91,13 +94,10 @@ namespace JFlash
             if (q == null)
             {
                 ClearQuestion();
+                txtAnswer.Enabled = false;
                 btnFinish.Enabled = true;
                 btnFinish.Focus();
-                txtAnswer.Enabled = false;
-                txtLastQuery.Enabled = false;
-                txtLastAttempt.Enabled = false;
-                txtLastAnswer.Enabled = false;
-                txtAdditional.Enabled = false;
+
                 return;
             }
 

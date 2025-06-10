@@ -1,5 +1,5 @@
 JPFLASH
-Desc=Numerals - Nihongo
+Desc=Ordinals - Hon Endings
 Prompt=Enter the ordinal of long and thin things (pencils, pens, bottles) (-hon, -pon) per the language option:
 Type=Entry
 一本;いっぽｎ;イッポン;ippon;1

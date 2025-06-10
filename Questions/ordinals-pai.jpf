@@ -1,5 +1,5 @@
 JPFLASH
-Desc=Numerals - Nihongo
+Desc=Ordinals - Pai Endings
 Prompt=Enter the ordinal of containers (cups, bowls, glasses) (-hai,-pai) per the language option:
 Type=Entry
 一杯;いっぱい;イッパイ;ippai;1

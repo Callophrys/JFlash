@@ -7,7 +7,7 @@ namespace JFlash.Classes
 
         public List<JFQuestion> Questions = [];
 
-        public string FileName { get; set; }
+        public string FileName { get; set; } = string.Empty;
 
         public string Description = string.Empty;
         public string Prompt = string.Empty;
