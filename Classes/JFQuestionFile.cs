@@ -46,7 +46,7 @@ namespace JFlash.Classes
             }
             else if (input.Length > 6)
             {
-                Prompt = string.Format(input[7..], JFlashForm.JpIntToChoiceString(idxFrom), JFlashForm.JpIntToChoiceString(idxTo));
+                Prompt = string.Format(input[7..], QuestionTypes.JpIntToChoiceString(idxFrom), QuestionTypes.JpIntToChoiceString(idxTo));
             }
 
             input = (sr.ReadLine() ?? string.Empty).ToUpperInvariant();

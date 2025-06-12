@@ -3,660 +3,641 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
-namespace JFlash
+namespace JFlash.Forms;
+
+public partial class JFlashForm : Form
 {
-    public enum JPCHOICES
+    public Dictionary<string, JFQuestionFile> QuestionFiles { get; private set; } = [];
+    public int QuestionCount = 0;
+
+    private const string ALLQUESTIONSTITLE = "Test &all questions in selected sets: ";
+    private readonly List<CheckBox> AllCheckBoxes = [];
+    private readonly Dictionary<string, GroupFiles> selectedGroupFiles = [];
+
+    private bool skipEventsChkSelectAll = false;
+
+    private string questionPath = string.Empty;
+    public JFMistakes? MistakesForm;
+
+    private const int ScrollBarWidth = 17; // standard scrollbar width on Windows
+    private int previousClientWidth;
+
+    public JFlashForm()
     {
-        Kanji = 0,
-        Hirigana = 1,
-        Katakana = 2,
-        Romaji = 3,
-        English = 4,
-    }
+        InitializeComponent();
+        rbAllQuestions.Text = ALLQUESTIONSTITLE + "0";
+        cmbFrom.Items.AddRange(QuestionTypes.choices);
+        cmbTo.Items.AddRange(QuestionTypes.choices);
 
-    public partial class JFlashForm : Form
-    {
-        public Dictionary<string, JFQuestionFile> QuestionFiles { get; private set; } = [];
-        public int QuestionCount = 0;
+        nsUpDown.Minimum = nsUpDown.Maximum = 0;
 
-        private const string ALLQUESTIONSTITLE = "Test &all questions in selected sets: ";
-        private readonly List<CheckBox> AllCheckBoxes = [];
-        private readonly Dictionary<string, GroupFiles> selectedGroupFiles = [];
+        var temp = RegistryHelper.LoadSetting("from");
+        cmbFrom.Text = QuestionTypes.choices.Contains(temp) ? temp : "Kanji";
 
-        private bool skipEventsChkSelectAll = false;
+        temp = RegistryHelper.LoadSetting("to");
+        cmbTo.Text = QuestionTypes.choices.Contains(temp) ? temp : "Romaji";
 
-        private string questionPath = string.Empty;
-
-        private readonly string[] choices =
-        [
-            "Kanji",
-            "Hirigana",
-            "Katakana",
-            "Romaji",
-            "English",
-        ];
-
-        public static string JpIntToChoiceString(int choice) => choice switch
+        // Should always work in normal circumstances.
+        questionPath = RegistryHelper.LoadSetting("questions");
+        if (Directory.Exists(questionPath))
         {
-            1 => "Hirigana",
-            2 => "Katakana",
-            3 => "Romaji",
-            4 => "English",
-            _ => "Kanji",
-        };
+            BuildQuestions();
+            return;
+        }
 
-        public static int JpStringToChoiceIndex(string choice) => (int)(choice switch
+        // Dev-oriented path based on where the pre-made questions exist.
+        questionPath = @"..\Questions";
+        if (Directory.Exists(questionPath))
         {
-            "Hirigana" => JPCHOICES.Hirigana,
-            "Katakana" => JPCHOICES.Katakana,
-            "Romaji" => JPCHOICES.Romaji,
-            "English" => JPCHOICES.English,
-            _ => JPCHOICES.Kanji,
-        });
-
-        public JFlashForm()
-        {
-            InitializeComponent();
-            rbAllQuestions.Text = ALLQUESTIONSTITLE + "0";
-            cmbFrom.Items.AddRange(choices);
-            cmbTo.Items.AddRange(choices);
-
-            nsUpDown.Minimum = nsUpDown.Maximum = 0;
-
-            var temp = RegistryHelper.LoadSetting("from");
-            cmbFrom.Text = choices.Contains(temp) ? temp : "Kanji";
-
-            temp = RegistryHelper.LoadSetting("to");
-            cmbTo.Text = choices.Contains(temp) ? temp : "Romaji";
-
-            // Should always work in normal circumstances.
-            questionPath = RegistryHelper.LoadSetting("questions");
-            if (Directory.Exists(questionPath))
-            {
-                BuildQuestions();
-                return;
-            }
-
-            // Dev-oriented path based on where the pre-made questions exist.
-            questionPath = @"..\Questions";
-            if (Directory.Exists(questionPath))
-            {
-                questionPath = Path.GetFullPath(questionPath);
-                RegistryHelper.SaveSetting("questions", questionPath);
-                BuildQuestions();
-                return;
-            }
-
-            // Check if folder of executable or any sub-folder has files. Use
-            // the folder path of the first found file. Yes this is arbitray if
-            // there are more than one folder containing question files.
-            questionPath = AppContext.BaseDirectory;
-            var fn = Directory.EnumerateFiles(".", "*.jpf", SearchOption.AllDirectories).FirstOrDefault();
-            if (fn != null)
-            {
-                questionPath = Path.GetDirectoryName(Path.GetFullPath(fn)) ?? string.Empty;
-                if (questionPath != null)
-                {
-                    RegistryHelper.SaveSetting("questions", questionPath);
-                    BuildQuestions();
-                }
-            }
-
-            // Just point to My Documents and hope there are files. Simply let
-            // the user pick the question files location from this point on.
-            questionPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            questionPath = Path.GetFullPath(questionPath);
             RegistryHelper.SaveSetting("questions", questionPath);
             BuildQuestions();
+            return;
         }
 
-        private void BuildQuestionaire()
+        // Check if folder of executable or any sub-folder has files. Use
+        // the folder path of the first found file. Yes this is arbitray if
+        // there are more than one folder containing question files.
+        questionPath = AppContext.BaseDirectory;
+        var fn = Directory.EnumerateFiles(".", "*.jpf", SearchOption.AllDirectories).FirstOrDefault();
+        if (fn != null)
         {
-            Form frm = new JFQuestionaireForm(this
-                , rbLimitQuestions.Checked ? Convert.ToInt16(nsUpDown.Value) : QuestionCount
-                , cmbFrom.Text
-                , cmbTo.Text);
-            frm.Show();
-        }
-
-        private void BuildQuestions()
-        {
-            pnlQuestionFiles.Controls.Clear();
-
-            DirectoryInfo dir = new(questionPath);
-            SortedDictionary<string, List<string>> groupingSets = [];
-            Dictionary<string, GroupFiles> savedGroupFiles = GetSavedSelectionOptions();
-
-            List<CheckBox> questionFileCheckBoxes = [];
-            List<CheckBox> groupingCheckBoxes = [];
-
-            foreach (FileInfo f in dir.GetFiles("*.jpf"))
+            questionPath = Path.GetDirectoryName(Path.GetFullPath(fn)) ?? string.Empty;
+            if (questionPath != null)
             {
-                string groupName = GetFilenamePrefix(f.Name);
-                if (!groupingSets.TryGetValue(groupName, out List<string>? value))
-                {
-                    value = [];
-                    groupingSets.Add(groupName, value);
-                }
+                RegistryHelper.SaveSetting("questions", questionPath);
+                BuildQuestions();
+            }
+        }
 
-                value.Add(f.Name);
+        // Just point to My Documents and hope there are files. Simply let
+        // the user pick the question files location from this point on.
+        questionPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        RegistryHelper.SaveSetting("questions", questionPath);
+        BuildQuestions();
+    }
+
+    #region Public Methods
+
+    public void ToggleMistakesForm()
+    {
+        if (ShowForm)
+        {
+            if (MistakesForm != null && !MistakesForm.IsDisposed)
+            {
+                MistakesForm.Hide();
+            }
+            ShowForm = false;
+        }
+        else
+        {
+            if (MistakesForm == null || MistakesForm.IsDisposed) MistakesForm = new JFMistakes();
+            MistakesForm.Show();
+            ShowForm = true;
+        }
+    }
+
+    public void WriteMistakesLog(string query, string correctEntry, string wrongEntry)
+    {
+        MistakesForm?.WriteMistakesLog(query, correctEntry, wrongEntry);
+    }
+
+    #endregion Public Methods
+
+    #region Private Methods
+
+    private void BuildQuestionaire()
+    {
+        Form frm = new JFQuestionaireForm(this
+            , rbLimitQuestions.Checked ? Convert.ToInt16(nsUpDown.Value) : QuestionCount
+            , cmbFrom.Text
+            , cmbTo.Text);
+        frm.Show();
+    }
+
+    private void BuildQuestions()
+    {
+        pnlQuestionFiles.Controls.Clear();
+
+        DirectoryInfo dir = new(questionPath);
+        SortedDictionary<string, List<string>> groupingSets = [];
+        Dictionary<string, GroupFiles> savedGroupFiles = GetSavedSelectionOptions();
+
+        List<CheckBox> questionFileCheckBoxes = [];
+        List<CheckBox> groupingCheckBoxes = [];
+
+        foreach (FileInfo f in dir.GetFiles("*.jpf"))
+        {
+            string groupName = GetFilenamePrefix(f.Name);
+            if (!groupingSets.TryGetValue(groupName, out List<string>? value))
+            {
+                value = [];
+                groupingSets.Add(groupName, value);
             }
 
-            int panelWidth = this.pnlQuestionFiles.Width - 16;
+            value.Add(f.Name);
+        }
 
-            var flowTableQuestions = new TableLayoutPanel
+        int panelWidth = this.pnlQuestionFiles.Width - 16;
+
+        var flowTableQuestions = new TableLayoutPanel
+        {
+            Dock = DockStyle.Fill,
+            AutoScroll = true,
+            AutoSize = true,
+            AutoSizeMode = AutoSizeMode.GrowAndShrink,
+            ColumnCount = 1,
+            RowCount = 0,
+        };
+        flowTableQuestions.SuspendLayout();
+
+        pnlQuestionFiles.Controls.Add(flowTableQuestions);
+
+        bool firstCheckboxCreated = false;
+
+        int counter = 0;
+        foreach (var group in groupingSets)
+        {
+            // 1. Toggle expansion
+            //
+
+            // 1.a. Create toggle checkbox 
+            var toggle = new CheckBox
             {
-                Dock = DockStyle.Fill,
-                AutoScroll = true,
+                Text = $"▼ {group.Key}",
+                Appearance = Appearance.Button,
+                Checked = true,
+                Font = new Font(DefaultFont, FontStyle.Bold),
+                BackColor = Color.LightSteelBlue,
+                Name = $"chkSelectSetToggle{group.Key}",
+                //Dock = DockStyle.Top,
+
+                Width = panelWidth,
+            };
+
+
+            // 2. Collapsible panel
+            //
+            var groupPanel = new FlowLayoutPanel
+            {
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
+                BackColor = Color.Azure,
+                Width = panelWidth,
+
+                Dock = DockStyle.Top,
                 AutoSize = true,
                 AutoSizeMode = AutoSizeMode.GrowAndShrink,
-                ColumnCount = 1,
-                RowCount = 0,
             };
-            flowTableQuestions.SuspendLayout();
 
-            pnlQuestionFiles.Controls.Add(flowTableQuestions);
+            // 3. "Select All" checkbox
+            //
 
-            bool firstCheckboxCreated = false;
-
-            int counter = 0;
-            foreach (var group in groupingSets)
+            // 3.a. Create and place in first position of group panel.
+            var selectAllCheckBox = new CheckBox
             {
-                // 1. Toggle expansion
-                //
+                Text = $"Select All &{++counter}",
+                AutoSize = true,
+                Font = new Font(DefaultFont, FontStyle.Bold),
+                Width = panelWidth,
+            };
 
-                // 1.a. Create toggle checkbox 
-                var toggle = new CheckBox
+            groupingCheckBoxes.Add(selectAllCheckBox);
+            groupPanel.Controls.Add(selectAllCheckBox);
+
+            // 4. Add item checkboxes
+            //
+
+            // All checkboxes in grouping.
+            var groupCheckBoxes = new List<CheckBox>();
+
+            // Populate with the actual questions.
+            foreach (var item in group.Value)
+            {
+                GroupFiles gp = savedGroupFiles.TryGetValue(group.Key, out GroupFiles? x) ? x : new GroupFiles();
+                bool isFileSelected = gp.files.Contains(item);
+
+                var cb = new CheckBox
                 {
-                    Text = $"▼ {group.Key}",
-                    Appearance = Appearance.Button,
-                    Checked = true,
-                    Font = new Font(DefaultFont, FontStyle.Bold),
-                    BackColor = Color.LightSteelBlue,
-                    Name = $"chkSelectSetToggle{group.Key}",
-                    //Dock = DockStyle.Top,
-
-                    Width = panelWidth,
-                };
-
-
-                // 2. Collapsible panel
-                //
-                var groupPanel = new FlowLayoutPanel
-                {
-                    FlowDirection = FlowDirection.TopDown,
-                    WrapContents = false,
-                    BackColor = Color.Azure,
-                    Width = panelWidth,
-
-                    Dock = DockStyle.Top,
+                    Checked = isFileSelected,
+                    Text = item,
                     AutoSize = true,
-                    AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                    Padding = new Padding(10, 0, 0, 0)
                 };
 
-                // 3. "Select All" checkbox
-                //
-
-                // 3.a. Create and place in first position of group panel.
-                var selectAllCheckBox = new CheckBox
+                if (isFileSelected)
                 {
-                    Text = $"Select All &{++counter}",
-                    AutoSize = true,
-                    Font = new Font(DefaultFont, FontStyle.Bold),
-                    Width = panelWidth,
-                };
+                    var qf = new JFQuestionFile(
+                        Path.Combine(questionPath, cb.Text),
+                        QuestionTypes.JpStringToChoiceIndex(cmbFrom.Text),
+                        QuestionTypes.JpStringToChoiceIndex(cmbTo.Text));
 
-                groupingCheckBoxes.Add(selectAllCheckBox);
-                groupPanel.Controls.Add(selectAllCheckBox);
+                    QuestionFiles.Add(cb.Text, qf);
 
-                // 4. Add item checkboxes
-                //
+                    gp.expanded = toggle.Checked;
+                    gp.files.Add(cb.Text);
 
-                // All checkboxes in grouping.
-                var groupCheckBoxes = new List<CheckBox>();
+                    selectedGroupFiles.TryAdd(group.Key, gp);
+                }
 
-                // Populate with the actual questions.
-                foreach (var item in group.Value)
+                cb.CheckedChanged += (s, e) =>
                 {
-                    GroupFiles gp = savedGroupFiles.TryGetValue(group.Key, out GroupFiles? x) ? x : new GroupFiles();
-                    bool isFileSelected = gp.files.Contains(item);
-
-                    var cb = new CheckBox
+                    if (cb.Checked)
                     {
-                        Checked = isFileSelected,
-                        Text = item,
-                        AutoSize = true,
-                        Padding = new Padding(10, 0, 0, 0)
-                    };
+                        /* cb.Text is same as item; both are the filename */
 
-                    if (isFileSelected)
-                    {
-                        var qf = new JFQuestionFile(
+                        QuestionFiles.Add(cb.Text, new JFQuestionFile(
                             Path.Combine(questionPath, cb.Text),
-                            JpStringToChoiceIndex(cmbFrom.Text),
-                            JpStringToChoiceIndex(cmbTo.Text));
-
-                        QuestionFiles.Add(cb.Text, qf);
+                            QuestionTypes.JpStringToChoiceIndex(cmbFrom.Text),
+                            QuestionTypes.JpStringToChoiceIndex(cmbTo.Text)));
 
                         gp.expanded = toggle.Checked;
                         gp.files.Add(cb.Text);
 
-                        if (!selectedGroupFiles.ContainsKey(group.Key))
-                        {
-                            selectedGroupFiles.Add(group.Key, gp);
-                        }
-                    }
-
-                    cb.CheckedChanged += (s, e) =>
-                    {
-                        if (cb.Checked)
-                        {
-                            /* cb.Text is same as item; both are the filename */
-
-                            QuestionFiles.Add(cb.Text, new JFQuestionFile(
-                                Path.Combine(questionPath, cb.Text),
-                                JpStringToChoiceIndex(cmbFrom.Text),
-                                JpStringToChoiceIndex(cmbTo.Text)));
-
-                            gp.expanded = toggle.Checked;
-                            gp.files.Add(cb.Text);
-
-                            if (!selectedGroupFiles.ContainsKey(group.Key))
-                            {
-                                selectedGroupFiles.Add(group.Key, gp);
-                            }
-                        }
-                        else
-                        {
-                            QuestionFiles.Remove(item);
-
-                            if (selectedGroupFiles.TryGetValue(group.Key, out GroupFiles? gp))
-                            {
-                                gp.expanded = toggle.Checked;
-                                if (gp.files.Contains(cb.Text)) gp.files.Remove(cb.Text);
-                            }
-                        }
-
-                        var selectedGroupFilesJson = JsonSerializer.Serialize(selectedGroupFiles);
-                        RegistryHelper.SaveSetting("selection", selectedGroupFilesJson);
-
-                        UpdateQuestionFileSets();
-
-                        // If an item is unchecked, uncheck "Select All" for the grouping.
-                        if (!cb.Checked && selectAllCheckBox.Checked)
-                        {
-                            selectAllCheckBox.Checked = false;
-
-                            // Update for the everything, all-groupsets, control.
-                            if (chkSelectAll.Checked)
-                            {
-                                skipEventsChkSelectAll = true;
-                                chkSelectAll.CheckState = questionFileCheckBoxes.Any(c => c.Checked)
-                                    ? CheckState.Indeterminate
-                                    : CheckState.Unchecked;
-                                skipEventsChkSelectAll = false;
-                            }
-                        }
-                        else if (groupCheckBoxes.All(x => x.Checked))
-                        {
-                            selectAllCheckBox.Checked = true;
-
-                            // Update for the everything, all-groupsets, control.
-                            if (questionFileCheckBoxes.Count == questionFileCheckBoxes.Count(c => c.Checked))
-                            {
-                                skipEventsChkSelectAll = true;
-                                chkSelectAll.CheckState = CheckState.Checked;
-                                skipEventsChkSelectAll = false;
-                            }
-                        }
-                    };
-
-                    cb.KeyUp += (s, e) =>
-                    {
-                        if (e.KeyValue == 13)
-                        {
-                            if (cb.Checked) BuildQuestionaire();
-                            else cb.Checked = true;
-                        }
-                    };
-
-                    groupCheckBoxes.Add(cb);    // save ref in grouping list
-                    questionFileCheckBoxes.Add(cb); // save ref to everything list
-                    groupPanel.Controls.Add(cb);
-                }
-
-                // 3.b. (Select all continued) Check if "Select All" needs to be checked
-                selectAllCheckBox.Checked = groupCheckBoxes.Count == groupCheckBoxes.Count(c => c.Checked);
-
-                // 3.c. Add event handler to "Select All"
-                selectAllCheckBox.CheckedChanged += (s, e) =>
-                {
-                    if (!selectAllCheckBox.Checked
-                        && groupCheckBoxes.Count != groupCheckBoxes.Count(c => c.Checked))
-                    {
-                        return;
-                    }
-
-                    foreach (var cb in groupCheckBoxes)
-                    {
-                        cb.Checked = selectAllCheckBox.Checked;
-                    }
-
-                    skipEventsChkSelectAll = true;
-                    chkSelectAll.CheckState = groupingCheckBoxes.All(c => c.Checked)
-                        ? CheckState.Checked
-                        : chkSelectAll.Checked && groupingCheckBoxes.Any(c => c.Checked)
-                            ? CheckState.Indeterminate
-                            : CheckState.Unchecked;
-                    ;
-                    skipEventsChkSelectAll = false;
-                };
-
-                selectAllCheckBox.KeyUp += (s, e) =>
-                {
-                    if (e.KeyValue == 13)
-                    {
-                        BuildQuestionaire();
-                    }
-                };
-
-                if (!firstCheckboxCreated)
-                {
-                    // Added since alt-A on label always sets to the first control,
-                    // but scroll position is askew. This produces a cleaner UI feel.
-                    selectAllCheckBox.Enter += (s, e) =>
-                    {
-                        flowTableQuestions.ScrollControlIntoView(groupPanel);
-                    };
-
-                    firstCheckboxCreated = true;
-                }
-
-                // 1.b. (Toggle continued) Set checked and actual panel
-                //      expansion of toggle before adding handlers.
-                toggle.Checked = GetToggleState(savedGroupFiles, group.Key, counter);
-                toggle.Text = $"{(toggle.Checked ? "▼" : "▶")} {group.Key}";
-                groupPanel.Visible = toggle.Checked;
-
-                // 1.c. Add event handlers.
-                toggle.CheckedChanged += (s, e) =>
-                {
-                    toggle.Text = $"{(toggle.Checked ? "▼" : "▶")} {group.Key}";
-                    groupPanel.Visible = toggle.Checked;
-
-                    if (selectedGroupFiles.TryGetValue(group.Key, out GroupFiles? gp))
-                    {
-                        gp.expanded = toggle.Checked;
+                        selectedGroupFiles.TryAdd(group.Key, gp);
                     }
                     else
                     {
-                        gp = new GroupFiles()
+                        QuestionFiles.Remove(item);
+
+                        if (selectedGroupFiles.TryGetValue(group.Key, out GroupFiles? gp))
                         {
-                            expanded = toggle.Checked,
-                        };
-                        selectedGroupFiles.Add(group.Key, gp);
+                            gp.expanded = toggle.Checked;
+                            if (gp.files.Contains(cb.Text)) gp.files.Remove(cb.Text);
+                        }
                     }
 
                     var selectedGroupFilesJson = JsonSerializer.Serialize(selectedGroupFiles);
                     RegistryHelper.SaveSetting("selection", selectedGroupFilesJson);
-                };
 
-                toggle.KeyDown += (s, e) =>
-                {
-                    if (e.KeyValue == 13) toggle.Checked = !toggle.Checked;
-                };
+                    UpdateQuestionFileSets();
 
-                // 5. Add toggle and groupPanel to the TableLayoutPanel
-                //
-                flowTableQuestions.RowCount += 2;
-                flowTableQuestions.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-                flowTableQuestions.Controls.Add(toggle, 0, flowTableQuestions.RowCount - 2);
-
-                flowTableQuestions.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-                flowTableQuestions.Controls.Add(groupPanel, 0, flowTableQuestions.RowCount - 1);
-
-                AllCheckBoxes.AddRange([.. groupCheckBoxes]);
-
-                // 6. Update handler for everything checkbox.
-                chkSelectAll.CheckedChanged += (s, e) =>
-                {
-                    if (skipEventsChkSelectAll) return;
-
-                    foreach (var cb in groupCheckBoxes)
+                    // If an item is unchecked, uncheck "Select All" for the grouping.
+                    if (!cb.Checked && selectAllCheckBox.Checked)
                     {
-                        // Checking all of these will update the select all for
-                        // the grouping.
-                        // TODO: Maybe check the group select all groupings
-                        // instead. Those events would automatically set the
-                        // for all the checkboxes in a group. Ugh -- too many
-                        // events raising more events!
-                        cb.Checked = chkSelectAll.Checked;
-                    }
+                        selectAllCheckBox.Checked = false;
 
-                    var selectedGroupFilesJson = JsonSerializer.Serialize(selectedGroupFiles);
-                    RegistryHelper.SaveSetting("selection", selectedGroupFilesJson);
+                        // Update for the everything, all-groupsets, control.
+                        if (chkSelectAll.Checked)
+                        {
+                            skipEventsChkSelectAll = true;
+                            chkSelectAll.CheckState = questionFileCheckBoxes.Any(c => c.Checked)
+                                ? CheckState.Indeterminate
+                                : CheckState.Unchecked;
+                            skipEventsChkSelectAll = false;
+                        }
+                    }
+                    else if (groupCheckBoxes.All(x => x.Checked))
+                    {
+                        selectAllCheckBox.Checked = true;
+
+                        // Update for the everything, all-groupsets, control.
+                        if (questionFileCheckBoxes.Count == questionFileCheckBoxes.Count(c => c.Checked))
+                        {
+                            skipEventsChkSelectAll = true;
+                            chkSelectAll.CheckState = CheckState.Checked;
+                            skipEventsChkSelectAll = false;
+                        }
+                    }
                 };
 
+                cb.KeyUp += (s, e) =>
+                {
+                    if (e.KeyValue == 13)
+                    {
+                        if (cb.Checked) BuildQuestionaire();
+                        else cb.Checked = true;
+                    }
+                };
 
-                // 7. Update total count and enable go button.
-                UpdateQuestionFileSets();
+                groupCheckBoxes.Add(cb);    // save ref in grouping list
+                questionFileCheckBoxes.Add(cb); // save ref to everything list
+                groupPanel.Controls.Add(cb);
             }
 
-            if (groupingCheckBoxes.All(x => x.Checked))
+            // 3.b. (Select all continued) Check if "Select All" needs to be checked
+            selectAllCheckBox.Checked = groupCheckBoxes.Count == groupCheckBoxes.Count(c => c.Checked);
+
+            // 3.c. Add event handler to "Select All"
+            selectAllCheckBox.CheckedChanged += (s, e) =>
             {
+                if (!selectAllCheckBox.Checked
+                    && groupCheckBoxes.Count != groupCheckBoxes.Count(c => c.Checked))
+                {
+                    return;
+                }
+
+                foreach (var cb in groupCheckBoxes)
+                {
+                    cb.Checked = selectAllCheckBox.Checked;
+                }
+
                 skipEventsChkSelectAll = true;
-                chkSelectAll.Checked = true;
-                chkSelectAll.CheckState = CheckState.Checked;
+                chkSelectAll.CheckState = groupingCheckBoxes.All(c => c.Checked)
+                    ? CheckState.Checked
+                    : chkSelectAll.Checked && groupingCheckBoxes.Any(c => c.Checked)
+                        ? CheckState.Indeterminate
+                        : CheckState.Unchecked;
+                ;
                 skipEventsChkSelectAll = false;
-            }
-
-            flowTableQuestions.ResumeLayout();
-        }
-
-        private static string GetFilenamePrefix(string name)
-        {
-            string fileName = Path.GetFileName(name);
-            if (!string.IsNullOrEmpty(fileName))
-            {
-                string baseName = Path.GetFileNameWithoutExtension(fileName);
-                Match match = RegexFilenamePrefix().Match(baseName);
-                if (match.Success)
-                {
-                    return match.Groups[1].Value.TrimEnd(' ', '-');
-                }
-            }
-
-            return string.Empty;
-        }
-
-        private static Dictionary<string, GroupFiles> GetSavedSelectionOptions()
-        {
-            string savedGroupFilesText = RegistryHelper.LoadSetting("selection", string.Empty);
-            object? tempSavedGroupFiles = JsonSerializer.Deserialize(savedGroupFilesText, typeof(Dictionary<string, GroupFiles>));
-
-            Dictionary<string, GroupFiles>? savedGroupFiles =
-                tempSavedGroupFiles != null ? tempSavedGroupFiles as Dictionary<string, GroupFiles> : null;
-
-            if (savedGroupFiles == null) return new Dictionary<string, GroupFiles>();
-
-            return savedGroupFiles;
-        }
-
-        private static bool GetToggleState(Dictionary<string, GroupFiles> dictionary, string key, int counter)
-        {
-            // If missing or post-reset, close up all groups except the first.
-            if (dictionary.Count < 1)
-            {
-                return (counter <= 1);
-            }
-
-            // If group is found then collapse or expand per value.
-            if (dictionary.TryGetValue(key, out var gp))
-            {
-                return gp.expanded;
-            }
-
-            // If group not found just collapse it.
-            return false;
-        }
-
-        private const int ScrollBarWidth = 17; // standard scrollbar width on Windows
-        private int previousClientWidth;
-
-        private void HandlePanelSizing()
-        {
-            //Console.WriteLine("resizing panel");
-
-            bool hasVerticalScrollBar = pnlQuestionFiles.VerticalScroll.Visible;
-            //int widthAdjustment = hasVerticalScrollBar ? -ScrollBarWidth : ScrollBarWidth;
-
-            // Only adjust if there's a change in scrollbar visibility
-            if ((hasVerticalScrollBar && previousClientWidth == pnlQuestionFiles.ClientSize.Width + ScrollBarWidth) ||
-                (!hasVerticalScrollBar && previousClientWidth == pnlQuestionFiles.ClientSize.Width - ScrollBarWidth))
-            {
-                // No change
-                return;
-            }
-
-            // Adjust width of your target panel
-            //yourAdjustablePanel.Width = pnlQuestionFiles.ClientSize.Width;
-            //foreach (var ctrl in pnlQuestionFiles.Controls)
-            //{
-            //    if (ctrl is CheckBox or ctrl is Panel)
-            //    {
-
-            //    }
-            //}
-
-            previousClientWidth = pnlQuestionFiles.ClientSize.Width;
-        }
-
-        private void UpdateQuestionFiles()
-        {
-            foreach (var question in QuestionFiles.Values)
-            {
-                foreach (var q in question.Questions)
-                {
-                    q.UpdateQuestion(JpStringToChoiceIndex(cmbFrom.Text), JpStringToChoiceIndex(cmbTo.Text));
-                }
-            }
-        }
-
-        private void UpdateQuestionFileSets()
-        {
-            int total = QuestionFiles.Sum((kvp) => kvp.Value.Questions.Count);
-
-            rbAllQuestions.Text = ALLQUESTIONSTITLE + total;
-            QuestionCount = total;
-
-            nsUpDown.Maximum = total;
-
-            GoEnabled();
-        }
-
-        private void GoEnabled()
-        {
-            btnGo.Enabled = QuestionCount > 0 && rbAllQuestions.Checked
-                || nsUpDown.Value > 0 && rbLimitQuestions.Checked;
-        }
-
-        [GeneratedRegex(@"^(.*?)(\d+.*|[ -_][^ -_]+)$")]
-        private static partial Regex RegexFilenamePrefix();
-
-        private void BtnExit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void BtnGo_Click(object sender, EventArgs e)
-        {
-            BuildQuestionaire();
-        }
-
-        private void BtnQuestionPath_Click(object sender, EventArgs e)
-        {
-            var dialog = new CommonOpenFileDialog
-            {
-                IsFolderPicker = true,
-                Title = "Select a folder",
-                InitialDirectory = questionPath,
             };
 
-            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            selectAllCheckBox.KeyUp += (s, e) =>
             {
-                questionPath = dialog.FileName ?? questionPath ?? string.Empty;
-                RegistryHelper.SaveSetting("questions", questionPath);
+                if (e.KeyValue == 13)
+                {
+                    BuildQuestionaire();
+                }
+            };
 
-                BuildQuestions();
+            if (!firstCheckboxCreated)
+            {
+                // Added since alt-A on label always sets to the first control,
+                // but scroll position is askew. This produces a cleaner UI feel.
+                selectAllCheckBox.Enter += (s, e) =>
+                {
+                    flowTableQuestions.ScrollControlIntoView(groupPanel);
+                };
+
+                firstCheckboxCreated = true;
+            }
+
+            // 1.b. (Toggle continued) Set checked and actual panel
+            //      expansion of toggle before adding handlers.
+            toggle.Checked = GetToggleState(savedGroupFiles, group.Key, counter);
+            toggle.Text = $"{(toggle.Checked ? "▼" : "▶")} {group.Key}";
+            groupPanel.Visible = toggle.Checked;
+
+            // 1.c. Add event handlers.
+            toggle.CheckedChanged += (s, e) =>
+            {
+                toggle.Text = $"{(toggle.Checked ? "▼" : "▶")} {group.Key}";
+                groupPanel.Visible = toggle.Checked;
+
+                if (selectedGroupFiles.TryGetValue(group.Key, out GroupFiles? gp))
+                {
+                    gp.expanded = toggle.Checked;
+                }
+                else
+                {
+                    gp = new GroupFiles()
+                    {
+                        expanded = toggle.Checked,
+                    };
+                    selectedGroupFiles.Add(group.Key, gp);
+                }
+
+                var selectedGroupFilesJson = JsonSerializer.Serialize(selectedGroupFiles);
+                RegistryHelper.SaveSetting("selection", selectedGroupFilesJson);
+            };
+
+            toggle.KeyDown += (s, e) =>
+            {
+                if (e.KeyValue == 13) toggle.Checked = !toggle.Checked;
+            };
+
+            // 5. Add toggle and groupPanel to the TableLayoutPanel
+            //
+            flowTableQuestions.RowCount += 2;
+            flowTableQuestions.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            flowTableQuestions.Controls.Add(toggle, 0, flowTableQuestions.RowCount - 2);
+
+            flowTableQuestions.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            flowTableQuestions.Controls.Add(groupPanel, 0, flowTableQuestions.RowCount - 1);
+
+            AllCheckBoxes.AddRange([.. groupCheckBoxes]);
+
+            // 6. Update handler for everything checkbox.
+            chkSelectAll.CheckedChanged += (s, e) =>
+            {
+                if (skipEventsChkSelectAll) return;
+
+                foreach (var cb in groupCheckBoxes)
+                {
+                    // Checking all of these will update the select all for
+                    // the grouping.
+                    // TODO: Maybe check the group select all groupings
+                    // instead. Those events would automatically set the
+                    // for all the checkboxes in a group. Ugh -- too many
+                    // events raising more events!
+                    cb.Checked = chkSelectAll.Checked;
+                }
+
+                var selectedGroupFilesJson = JsonSerializer.Serialize(selectedGroupFiles);
+                RegistryHelper.SaveSetting("selection", selectedGroupFilesJson);
+            };
+
+
+            // 7. Update total count and enable go button.
+            UpdateQuestionFileSets();
+        }
+
+        if (groupingCheckBoxes.All(x => x.Checked))
+        {
+            skipEventsChkSelectAll = true;
+            chkSelectAll.Checked = true;
+            chkSelectAll.CheckState = CheckState.Checked;
+            skipEventsChkSelectAll = false;
+        }
+
+        flowTableQuestions.ResumeLayout();
+    }
+
+    private static string GetFilenamePrefix(string name)
+    {
+        string fileName = Path.GetFileName(name);
+        if (!string.IsNullOrEmpty(fileName))
+        {
+            string baseName = Path.GetFileNameWithoutExtension(fileName);
+            Match match = RegexFilenamePrefix().Match(baseName);
+            if (match.Success)
+            {
+                return match.Groups[1].Value.TrimEnd(' ', '-');
             }
         }
 
-        private void BtnSwapFormats_Click(object sender, EventArgs e)
-        {
-            if (cmbFrom.SelectedItem == null && cmbTo.SelectedItem == null) return;
+        return string.Empty;
+    }
 
-            (cmbTo.SelectedItem, cmbFrom.SelectedItem) = (cmbFrom.SelectedItem, cmbTo.SelectedItem);
+    private static Dictionary<string, GroupFiles> GetSavedSelectionOptions()
+    {
+        string savedGroupFilesText = RegistryHelper.LoadSetting("selection", string.Empty);
+        object? tempSavedGroupFiles = JsonSerializer.Deserialize(savedGroupFilesText, typeof(Dictionary<string, GroupFiles>));
+
+        Dictionary<string, GroupFiles>? savedGroupFiles =
+            tempSavedGroupFiles != null ? tempSavedGroupFiles as Dictionary<string, GroupFiles> : null;
+
+        if (savedGroupFiles == null) return [];
+
+        return savedGroupFiles;
+    }
+
+    private static bool GetToggleState(Dictionary<string, GroupFiles> dictionary, string key, int counter)
+    {
+        // If missing or post-reset, close up all groups except the first.
+        if (dictionary.Count < 1)
+        {
+            return (counter <= 1);
         }
 
-        private void CmbFrom_KeyDown(object sender, KeyEventArgs e)
+        // If group is found then collapse or expand per value.
+        if (dictionary.TryGetValue(key, out var gp))
         {
-            if (e.KeyValue == 13) BtnGo_Click(sender, e);
+            return gp.expanded;
         }
 
-        private void CmbFrom_SelectedIndexChanged(object sender, EventArgs e)
+        // If group not found just collapse it.
+        return false;
+    }
+
+    private void HandlePanelSizing()
+    {
+        //Console.WriteLine("resizing panel");
+
+        bool hasVerticalScrollBar = pnlQuestionFiles.VerticalScroll.Visible;
+        //int widthAdjustment = hasVerticalScrollBar ? -ScrollBarWidth : ScrollBarWidth;
+
+        // Only adjust if there's a change in scrollbar visibility
+        if ((hasVerticalScrollBar && previousClientWidth == pnlQuestionFiles.ClientSize.Width + ScrollBarWidth) ||
+            (!hasVerticalScrollBar && previousClientWidth == pnlQuestionFiles.ClientSize.Width - ScrollBarWidth))
         {
-            RegistryHelper.SaveSetting("from", cmbFrom.Text);
-            UpdateQuestionFiles();
+            // No change
+            return;
         }
 
-        private void CmbTo_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyValue == 13) BtnGo_Click(sender, e);
-        }
+        // Adjust width of your target panel
+        //yourAdjustablePanel.Width = pnlQuestionFiles.ClientSize.Width;
+        //foreach (var ctrl in pnlQuestionFiles.Controls)
+        //{
+        //    if (ctrl is CheckBox or ctrl is Panel)
+        //    {
 
-        private void CmbTo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            RegistryHelper.SaveSetting("to", cmbTo.Text);
-            UpdateQuestionFiles();
-        }
+        //    }
+        //}
 
-        private void NsUpDown_Enter(object sender, EventArgs e)
-        {
-            rbLimitQuestions.Checked = true;
-        }
+        previousClientWidth = pnlQuestionFiles.ClientSize.Width;
+    }
 
-        private void NsUpDown_ValueChanged(object sender, EventArgs e)
+    private void UpdateQuestionFiles()
+    {
+        foreach (var question in QuestionFiles.Values)
         {
-            GoEnabled();
-        }
-
-        private void PnlQuestionFiles_ControlAdded(object sender, ControlEventArgs e)
-        {
-            HandlePanelSizing();
-        }
-
-        private void PnlQuestionFiles_ControlRemoved(object sender, ControlEventArgs e)
-        {
-            HandlePanelSizing();
-        }
-
-        private void PnlQuestionFiles_SizeChanged(object sender, EventArgs e)
-        {
-            HandlePanelSizing();
-        }
-
-        private void Questions_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyValue == 13) BtnGo_Click(sender, e);
-        }
-
-        private void RbAllQuestions_CheckedChanged(object sender, EventArgs e)
-        {
-            GoEnabled();
-        }
-
-        private void RbLimitQuestions_CheckedChanged(object sender, EventArgs e)
-        {
-            GoEnabled();
+            foreach (var q in question.Questions)
+            {
+                q.UpdateQuestion(
+                    QuestionTypes.JpStringToChoiceIndex(cmbFrom.Text),
+                    QuestionTypes.JpStringToChoiceIndex(cmbTo.Text));
+            }
         }
     }
+
+    private void UpdateQuestionFileSets()
+    {
+        int total = QuestionFiles.Sum((kvp) => kvp.Value.Questions.Count);
+
+        rbAllQuestions.Text = ALLQUESTIONSTITLE + total;
+        QuestionCount = total;
+
+        nsUpDown.Maximum = total;
+
+        GoEnabled();
+    }
+
+    private void GoEnabled()
+    {
+        btnGo.Enabled = QuestionCount > 0 && rbAllQuestions.Checked
+            || nsUpDown.Value > 0 && rbLimitQuestions.Checked;
+    }
+
+    [GeneratedRegex(@"^(.*?)(\d+.*|[ -_][^ -_]+)$")]
+    private static partial Regex RegexFilenamePrefix();
+
+    #endregion Private Methods
+
+    #region Event Handlers
+
+    private void BtnExit_Click(object sender, EventArgs e)
+    {
+        this.Close();
+    }
+
+    private void BtnGo_Click(object sender, EventArgs e)
+    {
+        BuildQuestionaire();
+    }
+
+    private void BtnQuestionPath_Click(object sender, EventArgs e)
+    {
+        var dialog = new CommonOpenFileDialog
+        {
+            IsFolderPicker = true,
+            Title = "Select a folder",
+            InitialDirectory = questionPath,
+        };
+
+        if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+        {
+            questionPath = dialog.FileName ?? questionPath ?? string.Empty;
+            RegistryHelper.SaveSetting("questions", questionPath);
+
+            BuildQuestions();
+        }
+    }
+
+    private void BtnSwapFormats_Click(object sender, EventArgs e)
+    {
+        if (cmbFrom.SelectedItem == null && cmbTo.SelectedItem == null) return;
+
+        (cmbTo.SelectedItem, cmbFrom.SelectedItem) = (cmbFrom.SelectedItem, cmbTo.SelectedItem);
+    }
+
+    private void CmbFrom_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyValue == 13) BtnGo_Click(sender, e);
+    }
+
+    private void CmbFrom_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        RegistryHelper.SaveSetting("from", cmbFrom.Text);
+        UpdateQuestionFiles();
+    }
+
+    private void CmbTo_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyValue == 13) BtnGo_Click(sender, e);
+    }
+
+    private void CmbTo_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        RegistryHelper.SaveSetting("to", cmbTo.Text);
+        UpdateQuestionFiles();
+    }
+
+    private void NsUpDown_Enter(object sender, EventArgs e)
+    {
+        rbLimitQuestions.Checked = true;
+    }
+
+    private void NsUpDown_ValueChanged(object sender, EventArgs e) => GoEnabled();
+
+    private void PnlQuestionFiles_ControlAdded(object sender, ControlEventArgs e) => HandlePanelSizing();
+
+    private void PnlQuestionFiles_ControlRemoved(object sender, ControlEventArgs e) => HandlePanelSizing();
+
+    private void PnlQuestionFiles_SizeChanged(object sender, EventArgs e) => HandlePanelSizing();
+
+    private void Questions_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyValue == 13) BtnGo_Click(sender, e);
+    }
+
+    private void RbAllQuestions_CheckedChanged(object sender, EventArgs e) => GoEnabled();
+
+    private void RbLimitQuestions_CheckedChanged(object sender, EventArgs e) => GoEnabled();
+
+    bool ShowForm;
+
+    private void BtnMistakes_Click(object sender, EventArgs e) => ToggleMistakesForm();
+
+    #endregion Event Handlers
 }

@@ -11,6 +11,11 @@ namespace JFlash
         public string Answer = string.Empty;
 
         /// <summary>
+        /// The correct multi-answer formatted for display. 
+        /// </summary>
+        public string FormattedAnswer => Answer.Replace(",", ", ");
+
+        /// <summary>
         /// Source question. This is read by the user and requires a response.
         /// </summary>
         public string Prompt = string.Empty;
@@ -24,6 +29,11 @@ namespace JFlash
         /// All remaining information to show and/or assist the user.
         /// </summary>
         public string Additional = string.Empty;
+
+        /// <summary>
+        /// The additional with commas formatted for display. 
+        /// </summary>
+        public string FormattedAdditional => Answer.Replace(",", ", ");
 
         /// <summary>
         /// Pointer to meaning of desired word. E.g. provide help when there is

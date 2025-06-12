@@ -1,4 +1,4 @@
-namespace JFlash
+namespace JFlash.Forms
 {
     partial class JFQuestionaireForm
     {
@@ -37,7 +37,7 @@ namespace JFlash
             lblQuestionQuery = new Label();
             lblQuestionInstruction = new Label();
             txtAnswer = new TextBox();
-            groupBox2 = new GroupBox();
+            groupStatus = new GroupBox();
             lblStatusResultTotal = new Label();
             lblStatusResultAttempted = new Label();
             lblStatusResultScore = new Label();
@@ -48,23 +48,26 @@ namespace JFlash
             lblStatusScore = new Label();
             lblStatusWrong = new Label();
             lblStatusRight = new Label();
-            lblLastAns = new Label();
-            txtLastAnswer = new TextBox();
-            txtLastAttempt = new TextBox();
-            txtAdditional = new TextBox();
+            btnMistakes = new Button();
+            groupResult = new GroupBox();
             txtLastQuery = new TextBox();
+            txtAdditional = new TextBox();
+            txtLastAttempt = new TextBox();
+            txtLastAnswer = new TextBox();
+            lblLastAns = new Label();
             groupBoxQuestion.SuspendLayout();
-            groupBox2.SuspendLayout();
+            groupStatus.SuspendLayout();
+            groupResult.SuspendLayout();
             SuspendLayout();
             // 
             // btnFinish
             // 
-            btnFinish.Anchor = AnchorStyles.Bottom;
+            btnFinish.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnFinish.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnFinish.Location = new Point(155, 428);
+            btnFinish.Location = new Point(5, 440);
             btnFinish.Margin = new Padding(2);
             btnFinish.Name = "btnFinish";
-            btnFinish.Size = new Size(94, 28);
+            btnFinish.Size = new Size(90, 28);
             btnFinish.TabIndex = 1;
             btnFinish.Text = "&Finish";
             btnFinish.UseVisualStyleBackColor = true;
@@ -72,12 +75,12 @@ namespace JFlash
             // 
             // btnAbandon
             // 
-            btnAbandon.Anchor = AnchorStyles.Bottom;
+            btnAbandon.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnAbandon.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnAbandon.Location = new Point(272, 428);
+            btnAbandon.Location = new Point(104, 440);
             btnAbandon.Margin = new Padding(2);
             btnAbandon.Name = "btnAbandon";
-            btnAbandon.Size = new Size(94, 28);
+            btnAbandon.Size = new Size(90, 28);
             btnAbandon.TabIndex = 2;
             btnAbandon.Text = "A&bandon";
             btnAbandon.UseVisualStyleBackColor = true;
@@ -156,28 +159,28 @@ namespace JFlash
             txtAnswer.TabIndex = 5;
             txtAnswer.KeyDown += TxtAnswer_KeyDown;
             // 
-            // groupBox2
+            // groupStatus
             // 
-            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            groupBox2.Controls.Add(lblStatusResultTotal);
-            groupBox2.Controls.Add(lblStatusResultAttempted);
-            groupBox2.Controls.Add(lblStatusResultScore);
-            groupBox2.Controls.Add(lblStatusResultWrong);
-            groupBox2.Controls.Add(lblStatusResultRight);
-            groupBox2.Controls.Add(lblStatusTotal);
-            groupBox2.Controls.Add(lblStatusCurrent);
-            groupBox2.Controls.Add(lblStatusScore);
-            groupBox2.Controls.Add(lblStatusWrong);
-            groupBox2.Controls.Add(lblStatusRight);
-            groupBox2.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            groupBox2.Location = new Point(366, 7);
-            groupBox2.Margin = new Padding(2);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new Padding(2);
-            groupBox2.Size = new Size(144, 224);
-            groupBox2.TabIndex = 3;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Status";
+            groupStatus.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            groupStatus.Controls.Add(lblStatusResultTotal);
+            groupStatus.Controls.Add(lblStatusResultAttempted);
+            groupStatus.Controls.Add(lblStatusResultScore);
+            groupStatus.Controls.Add(lblStatusResultWrong);
+            groupStatus.Controls.Add(lblStatusResultRight);
+            groupStatus.Controls.Add(lblStatusTotal);
+            groupStatus.Controls.Add(lblStatusCurrent);
+            groupStatus.Controls.Add(lblStatusScore);
+            groupStatus.Controls.Add(lblStatusWrong);
+            groupStatus.Controls.Add(lblStatusRight);
+            groupStatus.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            groupStatus.Location = new Point(366, 7);
+            groupStatus.Margin = new Padding(2);
+            groupStatus.Name = "groupStatus";
+            groupStatus.Padding = new Padding(2);
+            groupStatus.Size = new Size(144, 224);
+            groupStatus.TabIndex = 3;
+            groupStatus.TabStop = false;
+            groupStatus.Text = "Status";
             // 
             // lblStatusResultTotal
             // 
@@ -284,67 +287,33 @@ namespace JFlash
             lblStatusRight.TabIndex = 0;
             lblStatusRight.Text = "Right:";
             // 
-            // lblLastAns
+            // btnMistakes
             // 
-            lblLastAns.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            lblLastAns.AutoSize = true;
-            lblLastAns.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblLastAns.Location = new Point(5, 255);
-            lblLastAns.Margin = new Padding(2, 0, 2, 0);
-            lblLastAns.Name = "lblLastAns";
-            lblLastAns.Size = new Size(112, 20);
-            lblLastAns.TabIndex = 6;
-            lblLastAns.Text = "Last Question:";
+            btnMistakes.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnMistakes.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnMistakes.Location = new Point(423, 440);
+            btnMistakes.Margin = new Padding(2);
+            btnMistakes.Name = "btnMistakes";
+            btnMistakes.Size = new Size(90, 28);
+            btnMistakes.TabIndex = 11;
+            btnMistakes.Text = "&Mistakes";
+            btnMistakes.UseVisualStyleBackColor = true;
+            btnMistakes.Click += BtnMistakes_Click;
             // 
-            // txtLastAnswer
+            // groupResult
             // 
-            txtLastAnswer.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            txtLastAnswer.BackColor = SystemColors.Control;
-            txtLastAnswer.BorderStyle = BorderStyle.None;
-            txtLastAnswer.Font = new Font("Meiryo", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtLastAnswer.ForeColor = Color.Firebrick;
-            txtLastAnswer.Location = new Point(21, 318);
-            txtLastAnswer.Margin = new Padding(2);
-            txtLastAnswer.Multiline = true;
-            txtLastAnswer.Name = "txtLastAnswer";
-            txtLastAnswer.ReadOnly = true;
-            txtLastAnswer.Size = new Size(489, 53);
-            txtLastAnswer.TabIndex = 9;
-            txtLastAnswer.TabStop = false;
-            txtLastAnswer.Text = "Corrected\r\nor other answers";
-            // 
-            // txtLastAttempt
-            // 
-            txtLastAttempt.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            txtLastAttempt.BackColor = SystemColors.Control;
-            txtLastAttempt.BorderStyle = BorderStyle.None;
-            txtLastAttempt.Font = new Font("Meiryo", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtLastAttempt.ForeColor = Color.Blue;
-            txtLastAttempt.Location = new Point(21, 288);
-            txtLastAttempt.Margin = new Padding(2);
-            txtLastAttempt.Name = "txtLastAttempt";
-            txtLastAttempt.ReadOnly = true;
-            txtLastAttempt.Size = new Size(489, 24);
-            txtLastAttempt.TabIndex = 8;
-            txtLastAttempt.TabStop = false;
-            txtLastAttempt.Text = "Wrong";
-            // 
-            // txtAdditional
-            // 
-            txtAdditional.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            txtAdditional.BackColor = SystemColors.Control;
-            txtAdditional.BorderStyle = BorderStyle.None;
-            txtAdditional.Font = new Font("Meiryo", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtAdditional.ForeColor = Color.Green;
-            txtAdditional.Location = new Point(19, 375);
-            txtAdditional.Margin = new Padding(2);
-            txtAdditional.Multiline = true;
-            txtAdditional.Name = "txtAdditional";
-            txtAdditional.ReadOnly = true;
-            txtAdditional.Size = new Size(489, 51);
-            txtAdditional.TabIndex = 10;
-            txtAdditional.TabStop = false;
-            txtAdditional.Text = "Additional";
+            groupResult.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            groupResult.Controls.Add(txtLastQuery);
+            groupResult.Controls.Add(txtAdditional);
+            groupResult.Controls.Add(txtLastAttempt);
+            groupResult.Controls.Add(txtLastAnswer);
+            groupResult.Controls.Add(lblLastAns);
+            groupResult.Location = new Point(8, 231);
+            groupResult.Name = "groupResult";
+            groupResult.Size = new Size(503, 204);
+            groupResult.TabIndex = 12;
+            groupResult.TabStop = false;
+            groupResult.Text = "Result";
             // 
             // txtLastQuery
             // 
@@ -353,32 +322,91 @@ namespace JFlash
             txtLastQuery.BorderStyle = BorderStyle.None;
             txtLastQuery.Font = new Font("Meiryo", 20F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtLastQuery.ForeColor = SystemColors.WindowText;
-            txtLastQuery.Location = new Point(140, 250);
+            txtLastQuery.Location = new Point(156, 16);
             txtLastQuery.Margin = new Padding(2);
             txtLastQuery.Name = "txtLastQuery";
             txtLastQuery.ReadOnly = true;
-            txtLastQuery.Size = new Size(368, 40);
-            txtLastQuery.TabIndex = 7;
+            txtLastQuery.Size = new Size(344, 40);
+            txtLastQuery.TabIndex = 12;
             txtLastQuery.TabStop = false;
             txtLastQuery.Text = "Wrong";
+            // 
+            // txtAdditional
+            // 
+            txtAdditional.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            txtAdditional.BackColor = SystemColors.Control;
+            txtAdditional.BorderStyle = BorderStyle.None;
+            txtAdditional.Font = new Font("Meiryo", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtAdditional.ForeColor = Color.Green;
+            txtAdditional.Location = new Point(37, 149);
+            txtAdditional.Margin = new Padding(2);
+            txtAdditional.Multiline = true;
+            txtAdditional.Name = "txtAdditional";
+            txtAdditional.ReadOnly = true;
+            txtAdditional.Size = new Size(465, 51);
+            txtAdditional.TabIndex = 15;
+            txtAdditional.TabStop = false;
+            txtAdditional.Text = "Additional";
+            // 
+            // txtLastAttempt
+            // 
+            txtLastAttempt.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            txtLastAttempt.BackColor = SystemColors.Control;
+            txtLastAttempt.BorderStyle = BorderStyle.None;
+            txtLastAttempt.Font = new Font("Meiryo", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtLastAttempt.ForeColor = Color.Blue;
+            txtLastAttempt.Location = new Point(37, 62);
+            txtLastAttempt.Margin = new Padding(2);
+            txtLastAttempt.Name = "txtLastAttempt";
+            txtLastAttempt.ReadOnly = true;
+            txtLastAttempt.Size = new Size(465, 24);
+            txtLastAttempt.TabIndex = 13;
+            txtLastAttempt.TabStop = false;
+            txtLastAttempt.Text = "Wrong";
+            // 
+            // txtLastAnswer
+            // 
+            txtLastAnswer.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            txtLastAnswer.BackColor = SystemColors.Control;
+            txtLastAnswer.BorderStyle = BorderStyle.None;
+            txtLastAnswer.Font = new Font("Meiryo", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtLastAnswer.ForeColor = Color.Firebrick;
+            txtLastAnswer.Location = new Point(37, 90);
+            txtLastAnswer.Margin = new Padding(2);
+            txtLastAnswer.Multiline = true;
+            txtLastAnswer.Name = "txtLastAnswer";
+            txtLastAnswer.ReadOnly = true;
+            txtLastAnswer.Size = new Size(465, 55);
+            txtLastAnswer.TabIndex = 14;
+            txtLastAnswer.TabStop = false;
+            txtLastAnswer.Text = "Corrected\r\nor other answers";
+            // 
+            // lblLastAns
+            // 
+            lblLastAns.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblLastAns.AutoSize = true;
+            lblLastAns.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblLastAns.Location = new Point(4, 24);
+            lblLastAns.Margin = new Padding(2, 0, 2, 0);
+            lblLastAns.Name = "lblLastAns";
+            lblLastAns.Size = new Size(112, 20);
+            lblLastAns.TabIndex = 11;
+            lblLastAns.Text = "Last Question:";
             // 
             // JFQuestionaireForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(523, 463);
-            Controls.Add(txtLastQuery);
-            Controls.Add(txtAdditional);
-            Controls.Add(txtLastAttempt);
-            Controls.Add(txtLastAnswer);
-            Controls.Add(lblLastAns);
-            Controls.Add(groupBox2);
+            ClientSize = new Size(523, 473);
+            Controls.Add(groupResult);
+            Controls.Add(btnMistakes);
+            Controls.Add(groupStatus);
             Controls.Add(groupBoxQuestion);
             Controls.Add(btnAbandon);
             Controls.Add(btnFinish);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(2);
-            MinimumSize = new Size(539, 442);
+            MinimumSize = new Size(539, 464);
             Name = "JFQuestionaireForm";
             SizeGripStyle = SizeGripStyle.Show;
             StartPosition = FormStartPosition.Manual;
@@ -386,10 +414,11 @@ namespace JFlash
             FormClosed += JFQuestionaireForm_FormClosed;
             groupBoxQuestion.ResumeLayout(false);
             groupBoxQuestion.PerformLayout();
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
+            groupStatus.ResumeLayout(false);
+            groupStatus.PerformLayout();
+            groupResult.ResumeLayout(false);
+            groupResult.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
 
         }
 
@@ -401,7 +430,7 @@ namespace JFlash
         private System.Windows.Forms.Label lblQuestionQuery;
         private System.Windows.Forms.Label lblQuestionInstruction;
         private System.Windows.Forms.TextBox txtAnswer;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupStatus;
         private System.Windows.Forms.Label lblStatusResultTotal;
         private System.Windows.Forms.Label lblStatusResultAttempted;
         private System.Windows.Forms.Label lblStatusResultScore;
@@ -412,12 +441,14 @@ namespace JFlash
         private System.Windows.Forms.Label lblStatusScore;
         private System.Windows.Forms.Label lblStatusWrong;
         private System.Windows.Forms.Label lblStatusRight;
-        private System.Windows.Forms.Label lblLastAns;
-        private System.Windows.Forms.TextBox txtLastAnswer;
-        private System.Windows.Forms.TextBox txtLastAttempt;
-        private System.Windows.Forms.TextBox txtAdditional;
-        private System.Windows.Forms.TextBox txtLastQuery;
         private Label lblQuestionTitle;
         private Label lblQuestionHint;
+        private Button btnMistakes;
+        private GroupBox groupResult;
+        private TextBox txtLastQuery;
+        private TextBox txtAdditional;
+        private TextBox txtLastAttempt;
+        private TextBox txtLastAnswer;
+        private Label lblLastAns;
     }
 }
