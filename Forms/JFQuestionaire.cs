@@ -7,11 +7,18 @@ namespace JFlash
         private readonly JFQuestionSet QuestionSet;
         private readonly JFlashForm parentForm;
 
+        private readonly string LangFrom;
+        private readonly string LangTo;
+
         public JFQuestionaireForm(JFlashForm frm, int desiredQuestionCount, string langFrom, string langTo)
         {
+            LangFrom = langFrom;
+            LangTo = langTo;
+
             parentForm = frm;
             parentForm.Hide();
             InitializeComponent();
+            lblQuestionHint.Text = string.Empty;
             int x = parentForm.Location.X + (parentForm.Width - this.Width) / 2;
             int y = parentForm.Location.Y + (parentForm.Height - this.Height) / 2;
             Location = new Point(x, y);
@@ -103,13 +110,18 @@ namespace JFlash
 
             lblQuestionTitle.Text = q.Title;
             lblQuestionQuery.Text = q.Prompt;
+            if ((LangFrom == "Hirigana" || LangFrom == "Katakana" || LangFrom == "Romaji") &&
+                (LangTo == "Kanji" || LangTo == "English"))
+            {
+                lblQuestionHint.Text = q.Hint;
+            }
 
             lblStatusResultAttempted.Text = QuestionSet.questionNumber.ToString();
             int result = QuestionSet.questionNumber > 1
                 ? Convert.ToInt32(100 * QuestionSet.countCorrect / (QuestionSet.questionNumber - 1))
                 : 100;
             lblStatusResultScore.Text = $"{result}%";
-            groupBoxQuestion.Text = $"Question {QuestionSet.questionNumber} of {QuestionSet.countAttempted}";
+            groupBoxQuestion.Text = $"&Question {QuestionSet.questionNumber} of {QuestionSet.countAttempted}";
         }
 
         private void EvaluateAnswer()
@@ -139,7 +151,7 @@ namespace JFlash
                 if (QuestionSet.CurrentQuestion.HasMultipleAnswers)
                 {
                     txtLastAnswer.Text = $"Others: {QuestionSet.CurrentQuestion.ScrubbedAnswer(txtAnswer.Text)}";
-                    txtLastAnswer.ForeColor = System.Drawing.Color.Blue;
+                    txtLastAnswer.ForeColor = Color.Blue;
                 }
                 else
                 {

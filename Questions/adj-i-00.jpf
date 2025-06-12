@@ -1,0 +1,75 @@
+JPFLASH
+Desc=I Adjectives (All)
+Prompt=Enter the {0} equivalent of the {1}:
+Type=Entry
+正しい;ただしい;タダシイ;tadashii;correct,right
+大きい;おおきい;オオキイ;ookii;big
+小さい;ちいさい;チイサイ;chiisai;small
+新しい;あたらしい;アタラシイ;atarashii;new
+遅い;おそい;オソイ;osoi;slow,late
+速い,速い;はやい;ハヤイ;hayai;fast,rapid,quick;Rate which something happens.
+早い,早い;はやい;ハヤイ;hayai;early,soon;Timeframe of some event.
+甘い;あまい;アマイ;amai;sweet
+白い;しろい;シロイ;shiroi;white
+赤い;あかい;アカイ;akai;red
+黄色い;きいろい;キイロイ;kiiroi;yellow
+黒;くろい;クロイ;kuroi;black,dark
+灰い;はいい;ハイイ;haii;gray,ashen-colored
+紫い;むらさき;ムラサキ;murasaki;purple
+青い;あおい;アオイ;aoi;blue
+緑;みどりい;ミドリイ;midorii;green
+茶色い;かひろい;;chairoi;brown
+良い;よい,いい,よく;ヨイ,イイ,ヨク;yoi,ii,yoku;good,right,nice,pleasant,fine,excellent,agreeable,ok
+悪い;わるい;ワルイ;warui;bad,inferior
+美しい;うつくしい;ルツクシイ;utsukushii;beautiful,lovely
+醜い;みにくい;ミニクイ;minikui;ugly
+暑い;あつい;アツイ;atsui;hot
+寒い;さむい;サムイ;samui;cold,chilly,freezing
+熱い;あつい;アツイ;atsui;hot
+冷たい;つめたい;ツメタイ;tsumetai;cold,chilly,icy,coldhearted
+厚い;あつい;アツイ;atsui;thick,deep,cordial,kind,warm hearted
+濃い;にい;ニイ;nii;dense,deep,thickcolor,thickliquid,strong
+薄い;うすい;ウスイ;usui;thin,light,weak,watery,diluted
+遠い;とおい;トオイ;tooi;far,distant
+近い;ちかい;チカイ;chikai;near,close by
+高い;たかい;タカイ;takai;high,tall,expensive
+低い;ひくい;ヒクイ;hikui;low,short,lowvoiced,humble
+安い;やすい;ヤスイ;yasui;cheap,inexpensive
+難い;かたい;カタイ;katai;hard,tough
+柔らかい;やわらかい;ヤワラタイ;yawarakai;soft,mild
+長い;ながい;ナガイ;nagai;long,lengthy
+短い;みじかい;ミジタイ;mijikai;short,brief
+強い;つよい;ツヨイ;tsuyoi;strong,powerful
+弱い;よわい;ヨワイ;yowai;weak
+明るい;あかるい;アタルイ;akarui;light,bright,cheerful
+暗い;くらい;クライ;kurai;dark,shady,gloomy
+浅い;あさい;アサイ;asai;shallow
+深い;ふかい;フタイ;fukai;deep,dense,laden,profound
+円い;まるい;マルイ;marui;round,circular
+四角い;しかくい;シタクイ;shikakui;square,rectangular
+痛い;いたい;イタイ;itai;hurt,painful
+痒い;かゆい;カユイ;kayui;itchy
+臭い;くさい;クサイ;kusai;smell,stink,suspicious
+怖い;にわい;ニワイ;niwai;dreadful,terrible,tearful
+涼しい;すずしい;スズシイ;suzushii;cool
+面白い;おもしろい;オモシロイ;omoshiroi;interesting,amusing
+美味しい;おいしい;オイシイ;oishii;delicious
+易しい;やさひい;ヤサシイ;yasashii;easy,plain,simple
+難しい;むずかしい;ムズカシイ;muzukashii;difficult
+若い;わかい;ワカイ;wakai;young
+楽しい;たのしい;タノシイ;tanoshii;enjoyable,fun
+可笑しい;おかしい;オカシイ;okashii;strange,funny,amusing,ridiculous
+忙しい;いそがしい;イソガシイ;isogashii;busy,irritated
+嬉しい;うれしい;ウレシイ;ureshii;happy,glad,pleasant
+悲しい;かなしい;カナシイ;kanashii;sad,sorrowful
+眠い;ねむい;ネムイ;nemui;sleepy,drowsy
+鋭い;するどい;スルドイ;surudoi;sharp,pointed
+小恥ずかしい;こはずかしい;コハズカシイ;kohazukashii;feeling embarrassed,shameful
+恥ずかしい;はずかしい;ハズカシイ;hazukashii;shy,ashamed,embarrassed
+煙い;けむい;ケムイ;kemui;smoky
+古い;ふるい;フルイ;furui;old
+いい;いい;イイ;ii;good
+ダサイ;ださい;ダサイ;dasai;hideous,lame
+欲しい;ほしい;ホシイ;hoshii;want
+頭いい;あたまいい;アタマイイ;atamaii;smart
+END

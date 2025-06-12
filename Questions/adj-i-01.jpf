@@ -7,10 +7,10 @@ Type=Entry
 小さい;ちいさい;チイサイ;chiisai;small
 新しい;あたらしい;アタラシイ;atarashii;new
 遅い;おそい;オソイ;osoi;slow,late
-速い;はやい;ハヤイ;hayai;fast,rapid,quick
-早い;はやい;ハヤイ;hayai;early,soon
+速い,速い;はやい;ハヤイ;hayai;fast,rapid,quick;Rate which something happens.
+早い,早い;はやい;ハヤイ;hayai;early,soon;Timeframe of some event.
 甘い;あまい;アマイ;amai;sweet
 白い;しろい;シロイ;shiroi;white
-赤い;あかい;アイ;akai;red
+赤い;あかい;アカイ;akai;red
 黄色い;きいろい;キイロイ;kiiroi;yellow
 END

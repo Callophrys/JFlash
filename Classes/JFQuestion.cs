@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 namespace JFlash
 {
@@ -23,6 +24,12 @@ namespace JFlash
         /// All remaining information to show and/or assist the user.
         /// </summary>
         public string Additional = string.Empty;
+
+        /// <summary>
+        /// Pointer to meaning of desired word. E.g. provide help when there is
+        /// the same answer for more than one kanji.
+        /// </summary>
+        public string Hint = string.Empty;
 
         public bool HasMultipleAnswers => Answer.Contains(',') || Answer.Contains('，');
 
@@ -57,6 +64,11 @@ namespace JFlash
         {
             Prompt = sourceParts[idxFrom];
             Answer = sourceParts[idxTo];
+
+            if (sourceParts.Count > 5)
+            {
+                Hint = sourceParts[5];
+            }
 
             var extra = new List<string>();
             for (var i = 0; i < sourceParts.Count; ++i)

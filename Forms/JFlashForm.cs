@@ -230,10 +230,12 @@ namespace JFlash
 
                     if (isFileSelected)
                     {
-                        QuestionFiles.Add(cb.Text, new JFQuestionFile(
+                        var qf = new JFQuestionFile(
                             Path.Combine(questionPath, cb.Text),
                             JpStringToChoiceIndex(cmbFrom.Text),
-                            JpStringToChoiceIndex(cmbTo.Text)));
+                            JpStringToChoiceIndex(cmbTo.Text));
+
+                        QuestionFiles.Add(cb.Text, qf);
 
                         gp.expanded = toggle.Checked;
                         gp.files.Add(cb.Text);
