@@ -1,7 +1,4 @@
-﻿using JFlash.Components;
-using Microsoft.VisualBasic.Logging;
-
-namespace JFlash.Forms;
+﻿namespace JFlash.Forms;
 
 //// 
 //// listView1
@@ -22,11 +19,10 @@ public partial class JFMistakes : Form
     public JFMistakes()
     {
         InitializeComponent();
-    }
 
-    public void StartLogging(string logfile)
-    {
-        jfListViewMistakes.Start(logfile);
+        // Start logging on construction.
+        // TODO: move this out to JFForm.
+        jfListViewMistakes.Start(JFlashForm.LogFile);
     }
 
     public void WriteMistakesLog(string query, string correctEntry, string wrongEntry)
@@ -34,7 +30,7 @@ public partial class JFMistakes : Form
         jfListViewMistakes.WriteLogLine(query, correctEntry, wrongEntry);
     }
 
-    private void btnClear_Click(object sender, EventArgs e)
+    private void BtnClear_Click(object sender, EventArgs e)
     {
         DialogResult result = MessageBox.Show(
             "Do you want to clear the entire mistake history?",
@@ -50,7 +46,7 @@ public partial class JFMistakes : Form
         }
     }
 
-    private void btnClose_Click(object sender, EventArgs e)
+    private void BtnClose_Click(object sender, EventArgs e)
     {
         Close();
     }

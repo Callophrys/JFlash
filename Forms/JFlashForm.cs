@@ -22,6 +22,11 @@ public partial class JFlashForm : Form
     private const int ScrollBarWidth = 17; // standard scrollbar width on Windows
     private int previousClientWidth;
 
+    public static readonly string LogFile = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+        "jflash",
+        "mistakes.log"); 
+
     public JFlashForm()
     {
         InitializeComponent();

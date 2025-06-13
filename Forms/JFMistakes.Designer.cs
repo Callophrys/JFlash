@@ -72,7 +72,7 @@ partial class JFMistakes
         btnClear.TabIndex = 1;
         btnClear.Text = "C&lear";
         btnClear.UseVisualStyleBackColor = true;
-        btnClear.Click += btnClear_Click;
+        btnClear.Click += BtnClear_Click;
         // 
         // btnClose
         // 
@@ -83,7 +83,7 @@ partial class JFMistakes
         btnClose.TabIndex = 1;
         btnClose.Text = "&Close";
         btnClose.UseVisualStyleBackColor = true;
-        btnClose.Click += btnClose_Click;
+        btnClose.Click += BtnClose_Click;
         // 
         // JFMistakes
         // 
@@ -105,5 +105,4 @@ partial class JFMistakes
     private Button btnClose;
     private JFListView jfListViewMistakes;
     private Button btnClear;
-    private ListViewGroup listViewGroup1;
 }

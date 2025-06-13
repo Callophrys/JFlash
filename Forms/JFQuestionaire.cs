@@ -96,8 +96,6 @@ public partial class JFQuestionaireForm : Form
             MistakesForm = new JFMistakes();
         }
 
-        MistakesForm.StartLogging(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "jflash", "mistakes.log")); 
-
         NextQuestion();
     }
 

@@ -11,7 +11,7 @@ namespace JFlash
         public string Answer = string.Empty;
 
         /// <summary>
-        /// The correct multi-answer formatted for display. 
+        /// The correct answer formatted cleaned up, if multi-answer, for display. 
         /// </summary>
         public string FormattedAnswer => Answer.Replace(",", ", ");
 
@@ -33,7 +33,7 @@ namespace JFlash
         /// <summary>
         /// The additional with commas formatted for display. 
         /// </summary>
-        public string FormattedAdditional => Answer.Replace(",", ", ");
+        public string FormattedAdditional => Additional.Replace(",", ", ");
 
         /// <summary>
         /// Pointer to meaning of desired word. E.g. provide help when there is
@@ -42,6 +42,11 @@ namespace JFlash
         public string Hint = string.Empty;
 
         public bool HasMultipleAnswers => Answer.Contains(',') || Answer.Contains('，');
+
+        /// <summary>
+        /// This limits parsing to non-hint and non-extra data.
+        /// </summary>
+        const int LimitForQuestionData = 5;
 
         private readonly List<string> sourceParts;
 
@@ -72,16 +77,23 @@ namespace JFlash
 
         public void UpdateQuestion(int idxFrom, int idxTo)
         {
+            // Set the prompt/query to the user.
             Prompt = sourceParts[idxFrom];
+
+            // Set the correct answer.
             Answer = sourceParts[idxTo];
 
-            if (sourceParts.Count > 5)
+            // If hints are present. Set them.
+            if (sourceParts.Count > LimitForQuestionData)
             {
                 Hint = sourceParts[5];
             }
 
+            // Build the "Additional" which means all other
+            // question-answer-related data MINUS then ones
+            // actually being queried and answered.
             var extra = new List<string>();
-            for (var i = 0; i < sourceParts.Count; ++i)
+            for (var i = 0; i < Math.Min(sourceParts.Count, LimitForQuestionData); ++i)
             {
                 if (i != idxFrom && i != idxTo)
                 {
@@ -89,7 +101,8 @@ namespace JFlash
                 }
             }
 
-            Additional = string.Join("  /  ", extra);
+            // Set Additional here.
+            Additional = string.Join("  /  ", extra.Distinct());
         }
 
         public bool IsEntryCorrect(string ans)
