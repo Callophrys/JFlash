@@ -6,6 +6,8 @@ namespace JFlash.Components;
 
 public class JFListView : ListView
 {
+    const int MaxItems = 600;
+
     private long LastFileSize = 0;
     private string LogFilePath = string.Empty;
     private FileSystemWatcher? fsWatcher;
@@ -103,8 +105,6 @@ public class JFListView : ListView
 
         BeginUpdate();
 
-        const int MaxItems = 600;
-
         string[] logData = logEntry.Split(';');
 
         if (logData.Length < Columns.Count)
@@ -165,25 +165,27 @@ public class JFListView : ListView
 
     private long ReadAllLinesToListView()
     {
+        if (!File.Exists(LogFilePath))
+            return 0;
+
         try
         {
-            if (!File.Exists(LogFilePath))
-            {
-                return 0;
-            }
+            var logEntries = File.ReadAllLines(LogFilePath);
+            var recentItems = logEntries
+                .Reverse()
+                .Take(MaxItems)
+                .Select(entry => CreateListViewItem(entry, MistakesListViewGroup))
+                .ToArray();
 
-            string[] logEntry = File.ReadAllLines(LogFilePath);
-            Items.AddRange([.. logEntry.Reverse().Select(x => CreateListViewItem(x, MistakesListViewGroup))]);
+            Items.AddRange(recentItems);
 
             return new FileInfo(LogFilePath).Length;
         }
         catch (IOException ex)
         {
-            // Handle error (e.g., log to debug output)
-            Debug.WriteLine("Error reading log file: " + ex.Message);
+            Debug.WriteLine($"Error reading log file: {ex.Message}");
+            return 0;
         }
-
-        return 0;
     }
 
     public void ClearLogs()
