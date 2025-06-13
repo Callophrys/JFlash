@@ -25,7 +25,7 @@ public partial class JFlashForm : Form
     public static readonly string LogFile = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
         "jflash",
-        "mistakes.log"); 
+        "mistakes.log");
 
     public JFlashForm()
     {
@@ -431,7 +431,6 @@ public partial class JFlashForm : Form
                 RegistryHelper.SaveSetting("selection", selectedGroupFilesJson);
             };
 
-
             // 7. Update total count and enable go button.
             UpdateQuestionFileSets();
         }
@@ -644,4 +643,42 @@ public partial class JFlashForm : Form
     private void BtnMistakes_Click(object sender, EventArgs e) => ToggleMistakesForm();
 
     #endregion Event Handlers
+
+    private void JFlashForm_Shown(object sender, EventArgs e)
+    {
+        return; 
+
+        TableLayoutPanel? tlp = null;
+        foreach (Control ctrl in pnlQuestionFiles.Controls)
+            if (ctrl is TableLayoutPanel cb)
+                tlp = ctrl as TableLayoutPanel;
+
+        if (tlp != null)
+        {
+            //foreach (Control ctrl in tlp.Controls)
+
+            int h = tlp.Margin.Vertical;
+            foreach (Control ctrl in tlp.Controls)
+            {
+                h += ctrl.Height;
+                if (ctrl is CheckBox cb && cb.Checked)
+                {
+                    //pnlQuestionFiles.ScrollControlIntoView(cb); // Scroll to the first checked checkbox
+                    //var offset = h - pnlQuestionFiles.Height - cb.Height;
+                    //tlp.ScrollControlIntoView(cb);
+
+                    /* Bottom */
+                    //var offset = tlp.DisplayRectangle.Height - tlp.ClientRectangle.Height + cb.ClientRectangle.Height;
+
+                    var offset = tlp.DisplayRectangle.Height - tlp.ClientRectangle.Height; // - cb.ClientRectangle.Height;
+                    tlp.AutoScrollPosition = new Point(0, h); // h - tlp.DisplayRectangle.Height);
+
+                    //var offset = cb.Top - pnlQuestionFiles.Top;
+                    //pnlQuestionFiles.AutoScroll = true;
+                    //pnlQuestionFiles.AutoScrollPosition = new Point(0, 300);
+                    break;
+                }
+            }
+        }
+    }
 }

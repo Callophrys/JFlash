@@ -27,6 +27,7 @@ namespace JFlash
 
         /// <summary>
         /// All remaining information to show and/or assist the user.
+        /// This basically is all the answers minus those being used.
         /// </summary>
         public string Additional = string.Empty;
 

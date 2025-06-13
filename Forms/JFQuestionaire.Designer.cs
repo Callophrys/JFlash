@@ -322,11 +322,11 @@ namespace JFlash.Forms
             txtLastQuery.BorderStyle = BorderStyle.None;
             txtLastQuery.Font = new Font("Meiryo", 20F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtLastQuery.ForeColor = SystemColors.WindowText;
-            txtLastQuery.Location = new Point(156, 16);
+            txtLastQuery.Location = new Point(120, 16);
             txtLastQuery.Margin = new Padding(2);
             txtLastQuery.Name = "txtLastQuery";
             txtLastQuery.ReadOnly = true;
-            txtLastQuery.Size = new Size(344, 40);
+            txtLastQuery.Size = new Size(380, 40);
             txtLastQuery.TabIndex = 12;
             txtLastQuery.TabStop = false;
             txtLastQuery.Text = "Wrong";
