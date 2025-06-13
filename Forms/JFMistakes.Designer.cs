@@ -30,7 +30,9 @@ partial class JFMistakes
     /// </summary>
     private void InitializeComponent()
     {
+        ListViewGroup listViewGroup1 = new ListViewGroup("Mistakes", HorizontalAlignment.Left);
         ListViewGroup listViewGroup2 = new ListViewGroup("Results", HorizontalAlignment.Left);
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JFMistakes));
         groupBox1 = new GroupBox();
         jfListViewMistakes = new JFListView();
         btnClear = new Button();
@@ -52,10 +54,13 @@ partial class JFMistakes
         // jfListViewMistakes
         // 
         jfListViewMistakes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        listViewGroup1.Header = "Mistakes";
+        listViewGroup1.Name = "mistakes";
+        listViewGroup1.Subtitle = "Kanji to English";
         listViewGroup2.Header = "Results";
         listViewGroup2.Name = "listViewGroup1";
         listViewGroup2.Subtitle = "Kanji to English";
-        jfListViewMistakes.Groups.AddRange(new ListViewGroup[] { listViewGroup2 });
+        jfListViewMistakes.Groups.AddRange(new ListViewGroup[] { listViewGroup1, listViewGroup2 });
         jfListViewMistakes.Location = new Point(6, 22);
         jfListViewMistakes.Name = "jfListViewMistakes";
         jfListViewMistakes.Size = new Size(308, 274);
@@ -92,6 +97,7 @@ partial class JFMistakes
         ClientSize = new Size(352, 388);
         Controls.Add(btnClose);
         Controls.Add(groupBox1);
+        Icon = (Icon)resources.GetObject("$this.Icon");
         Name = "JFMistakes";
         SizeGripStyle = SizeGripStyle.Show;
         Text = "JFMistakes";

@@ -103,7 +103,7 @@ public class JFListView : ListView
 
         BeginUpdate();
 
-        const int MaxItems = 8;
+        const int MaxItems = 600;
 
         string[] logData = logEntry.Split(';');
 
