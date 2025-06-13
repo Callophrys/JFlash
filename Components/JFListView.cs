@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 namespace JFlash.Components;
 
@@ -7,11 +9,21 @@ public class JFListView : ListView
     private long LastFileSize = 0;
     private string LogFilePath = string.Empty;
     private FileSystemWatcher? fsWatcher;
+    private readonly ListViewGroup MistakesListViewGroup;
 
     public JFListView()
     {
         SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
         UpdateStyles();
+
+        MistakesListViewGroup = new()
+        {
+            Header = "Mistakes",
+            Name = "mistakes",
+            Subtitle = "Kanji to English"
+        };
+
+        Groups.Add(MistakesListViewGroup);
 
         CreateColumns();
     }
@@ -91,50 +103,64 @@ public class JFListView : ListView
 
         BeginUpdate();
 
-        if (Columns.Count == 0)
-        {
-            CreateColumns();
-        }
+        const int MaxItems = 8;
 
         string[] logData = logEntry.Split(';');
-        //Debug.WriteLine($"[AddLog] Columns: {Columns.Count}, Items: {Items.Count}, Split Count: {x.Length}");
 
         if (logData.Length < Columns.Count)
         {
             Debug.WriteLine($"Skipping malformed log line: {logEntry}");
+            EndUpdate();
             return;
         }
 
-        // Trim or pad the array to exactly Columns.Count
         if (logData.Length != Columns.Count)
         {
             Array.Resize(ref logData, Columns.Count);
         }
 
-        // Limit to last N entries
-        const int mxItems = 1000;
-        if (Items.Count > mxItems) Items.RemoveAt(Items.Count - 1);
+        // Build new item list starting with the new entry
+        var updatedItems = new List<string[]>
+        {
+            logData
+        };
 
-        int itemsToKeep = Math.Min(Items.Count, mxItems - 1); // Subtract 1 to allow for insert to top.
-        ListViewItem[] temp = new ListViewItem[itemsToKeep + 1];
-        temp[0] = new([..logData]);
-        for (int i = 0; i < itemsToKeep; i++)
-            temp[i + 1] = Items[i];
+        foreach (ListViewItem item in Items.OfType<ListViewItem>().Take(MaxItems - 1))
+        {
+            if (item.Tag is string[] existingData)
+            {
+                updatedItems.Add(existingData);
+            }
+        }
 
         Items.Clear();
-        Items.AddRange(temp);
 
-        Items[0].EnsureVisible();
+        var newItems = updatedItems
+            .Select(data => CreateListViewItem(data, MistakesListViewGroup))
+            .ToArray();
+
+        Items.AddRange(newItems);
+
+        if (MistakesListViewGroup.Items.Count > 0)
+        {
+            MistakesListViewGroup.Items[0].EnsureVisible();
+        }
 
         EndUpdate();
     }
 
-    private static ListViewItem CreateListViewItem(string entry)
+    private static ListViewItem CreateListViewItem(string[] entry, ListViewGroup group)
+    {
+        return new([.. entry], group)
+        {
+            Tag = entry,
+        };
+    }
+
+    private static ListViewItem CreateListViewItem(string entry, ListViewGroup group)
     {
         string[] x = entry.Split(';');
-        //Debug.WriteLine($"[AddLog] Columns: {Columns.Count}, Items: {Items.Count}, Split Count: {x.Length}");
-
-        return new([..x]);
+        return CreateListViewItem(x, group);
     }
 
     private long ReadAllLinesToListView()
@@ -147,7 +173,7 @@ public class JFListView : ListView
             }
 
             string[] logEntry = File.ReadAllLines(LogFilePath);
-            Items.AddRange(logEntry.Reverse().Select(x => CreateListViewItem(x)).ToArray());
+            Items.AddRange([.. logEntry.Reverse().Select(x => CreateListViewItem(x, MistakesListViewGroup))]);
 
             return new FileInfo(LogFilePath).Length;
         }

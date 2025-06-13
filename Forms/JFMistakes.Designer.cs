@@ -96,7 +96,6 @@ partial class JFMistakes
         SizeGripStyle = SizeGripStyle.Show;
         Text = "JFMistakes";
         FormClosing += JFMistakes_FormClosing;
-        FormClosed += JFMistakes_FormClosed;
         groupBox1.ResumeLayout(false);
         ResumeLayout(false);
     }

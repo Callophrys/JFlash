@@ -2,20 +2,6 @@
 
 namespace JFlash.Forms;
 
-//// 
-//// listView1
-//// 
-//listViewGroup2.Header = "Results";
-//listViewGroup2.Name = "listViewGroup1";
-//listViewGroup2.Subtitle = "Kanji to English";
-//listView1.Groups.AddRange(new ListViewGroup[] { listViewGroup2 });
-//listView1.Location = new Point(6, 22);
-//listView1.Name = "listView1";
-//listview1.size = new size(267, 247);
-//listView1.TabIndex = 0;
-//listView1.UseCompatibleStateImageBehavior = false;
-
-
 public partial class JFMistakes : Form
 {
     public JFMistakes(string logFile)
@@ -25,7 +11,6 @@ public partial class JFMistakes : Form
         Debug.WriteLine("JFMistakes constructor");
 
         // Start logging on construction.
-        // TODO: move this out to JFForm.
         jfListViewMistakes.Start(logFile);
     }
 
@@ -57,13 +42,9 @@ public partial class JFMistakes : Form
 
     private void JFMistakes_FormClosing(object sender, FormClosingEventArgs e)
     {
-        // Might use to pause file watcher.
+        // Might want pause file watcher.
 
         e.Cancel = true;
         Hide();
-    }
-
-    private void JFMistakes_FormClosed(object sender, FormClosedEventArgs e)
-    {
     }
 }
