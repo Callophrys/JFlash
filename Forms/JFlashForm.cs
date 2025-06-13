@@ -86,25 +86,24 @@ public partial class JFlashForm : Form
 
     public void ToggleMistakesForm()
     {
-        if (ShowForm)
+        bool mistakesFormMissingOrDown = MistakesForm == null || MistakesForm.IsDisposed;
+
+        if (!ShowForm)
         {
-            if (MistakesForm != null && !MistakesForm.IsDisposed)
-            {
-                MistakesForm.Hide();
-            }
-            ShowForm = false;
-        }
-        else
-        {
-            if (MistakesForm == null || MistakesForm.IsDisposed) MistakesForm = new JFMistakes();
+            if (mistakesFormMissingOrDown) MistakesForm = new JFMistakes(LogFile);
             MistakesForm.Show();
-            ShowForm = true;
         }
+        else if (!mistakesFormMissingOrDown)
+        {
+            MistakesForm.Hide();
+        }
+
+        ShowForm = !ShowForm;
     }
 
-    public void WriteMistakesLog(string query, string correctEntry, string wrongEntry)
+    public void WriteMistakesLog(string query, string correctEntry, string wrongEntry, string setName)
     {
-        MistakesForm?.WriteMistakesLog(query, correctEntry, wrongEntry);
+        MistakesForm?.WriteMistakesLog(query, correctEntry, wrongEntry, setName);
     }
 
     #endregion Public Methods

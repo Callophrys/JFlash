@@ -36,6 +36,11 @@ namespace JFlash
         public string FormattedAdditional => Additional.Replace(",", ", ");
 
         /// <summary>
+        /// Name of the set. Taken from basename of respective source file.
+        /// </summary>
+        public string SetName = string.Empty;
+
+        /// <summary>
         /// Pointer to meaning of desired word. E.g. provide help when there is
         /// the same answer for more than one kanji.
         /// </summary>

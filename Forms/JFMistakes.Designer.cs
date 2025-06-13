@@ -30,7 +30,7 @@ partial class JFMistakes
     /// </summary>
     private void InitializeComponent()
     {
-        ListViewGroup listViewGroup1 = new ListViewGroup("Results", HorizontalAlignment.Left);
+        ListViewGroup listViewGroup2 = new ListViewGroup("Results", HorizontalAlignment.Left);
         groupBox1 = new GroupBox();
         jfListViewMistakes = new JFListView();
         btnClear = new Button();
@@ -52,10 +52,10 @@ partial class JFMistakes
         // jfListViewMistakes
         // 
         jfListViewMistakes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-        listViewGroup1.Header = "Results";
-        listViewGroup1.Name = "listViewGroup1";
-        listViewGroup1.Subtitle = "Kanji to English";
-        jfListViewMistakes.Groups.AddRange(new ListViewGroup[] { listViewGroup1 });
+        listViewGroup2.Header = "Results";
+        listViewGroup2.Name = "listViewGroup1";
+        listViewGroup2.Subtitle = "Kanji to English";
+        jfListViewMistakes.Groups.AddRange(new ListViewGroup[] { listViewGroup2 });
         jfListViewMistakes.Location = new Point(6, 22);
         jfListViewMistakes.Name = "jfListViewMistakes";
         jfListViewMistakes.Size = new Size(308, 274);
@@ -95,6 +95,8 @@ partial class JFMistakes
         Name = "JFMistakes";
         SizeGripStyle = SizeGripStyle.Show;
         Text = "JFMistakes";
+        FormClosing += JFMistakes_FormClosing;
+        FormClosed += JFMistakes_FormClosed;
         groupBox1.ResumeLayout(false);
         ResumeLayout(false);
     }

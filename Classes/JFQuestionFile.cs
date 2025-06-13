@@ -9,6 +9,7 @@ namespace JFlash.Classes
 
         public string Description = string.Empty;
         public string Prompt = string.Empty;
+        public string SetName = string.Empty;
 
         public int questionType;
 
@@ -92,6 +93,8 @@ namespace JFlash.Classes
             }
 
             sr.Close();
+
+            SetName = Path.GetFileNameWithoutExtension(filename);
         }
     }
 }

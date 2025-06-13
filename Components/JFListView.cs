@@ -1,4 +1,6 @@
-﻿namespace JFlash.Components;
+﻿using System.Diagnostics;
+
+namespace JFlash.Components;
 
 public class JFListView : ListView
 {
@@ -8,10 +10,18 @@ public class JFListView : ListView
 
     public JFListView()
     {
-        //this.View = View.Details;
+        SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+        UpdateStyles();
+
+        CreateColumns();
+    }
+
+    private void CreateColumns()
+    {
         Columns.Add("Prompt", 80);
         Columns.Add("Answer", 80);
         Columns.Add("Attempt", 80);
+        Columns.Add("Source", 80);
     }
 
     public void Start(string logFile)
@@ -66,9 +76,9 @@ public class JFListView : ListView
         File.AppendAllText(LogFilePath, heading);
     }
 
-    public void WriteLogLine(string query, string correctEntry, string wrongEntry)
+    public void WriteLogLine(string query, string correctEntry, string wrongEntry, string setName)
     {
-        File.AppendAllText(LogFilePath, $"{query};{correctEntry};{wrongEntry};{DateTime.Now}{Environment.NewLine}");
+        File.AppendAllText(LogFilePath, $"{query};{correctEntry};{wrongEntry};{setName}{Environment.NewLine}");
     }
 
     public void InsertLineToListViewTop(string logEntry)
@@ -79,17 +89,52 @@ public class JFListView : ListView
             return;
         }
 
-        // Example: Parse line into columns
-        string timestamp = DateTime.Now.ToString("HH:mm:ss");
+        BeginUpdate();
 
-        string[] x = logEntry.Split(';');
+        if (Columns.Count == 0)
+        {
+            CreateColumns();
+        }
 
-        ListViewItem item = new([..x]);
-        Items.Insert(0, item); // Most recent at top
+        string[] logData = logEntry.Split(';');
+        //Debug.WriteLine($"[AddLog] Columns: {Columns.Count}, Items: {Items.Count}, Split Count: {x.Length}");
 
-        // Optional: Limit to last N entries
-        if (Items.Count > 1000)
-            Items.RemoveAt(Items.Count - 1);
+        if (logData.Length < Columns.Count)
+        {
+            Debug.WriteLine($"Skipping malformed log line: {logEntry}");
+            return;
+        }
+
+        // Trim or pad the array to exactly Columns.Count
+        if (logData.Length != Columns.Count)
+        {
+            Array.Resize(ref logData, Columns.Count);
+        }
+
+        // Limit to last N entries
+        const int mxItems = 1000;
+        if (Items.Count > mxItems) Items.RemoveAt(Items.Count - 1);
+
+        int itemsToKeep = Math.Min(Items.Count, mxItems - 1); // Subtract 1 to allow for insert to top.
+        ListViewItem[] temp = new ListViewItem[itemsToKeep + 1];
+        temp[0] = new([..logData]);
+        for (int i = 0; i < itemsToKeep; i++)
+            temp[i + 1] = Items[i];
+
+        Items.Clear();
+        Items.AddRange(temp);
+
+        Items[0].EnsureVisible();
+
+        EndUpdate();
+    }
+
+    private static ListViewItem CreateListViewItem(string entry)
+    {
+        string[] x = entry.Split(';');
+        //Debug.WriteLine($"[AddLog] Columns: {Columns.Count}, Items: {Items.Count}, Split Count: {x.Length}");
+
+        return new([..x]);
     }
 
     private long ReadAllLinesToListView()
@@ -102,17 +147,14 @@ public class JFListView : ListView
             }
 
             string[] logEntry = File.ReadAllLines(LogFilePath);
-            foreach (string entry in logEntry)
-            {
-                InsertLineToListViewTop(entry);
-            }
+            Items.AddRange(logEntry.Reverse().Select(x => CreateListViewItem(x)).ToArray());
 
             return new FileInfo(LogFilePath).Length;
         }
         catch (IOException ex)
         {
             // Handle error (e.g., log to debug output)
-            Console.WriteLine("Error reading log file: " + ex.Message);
+            Debug.WriteLine("Error reading log file: " + ex.Message);
         }
 
         return 0;

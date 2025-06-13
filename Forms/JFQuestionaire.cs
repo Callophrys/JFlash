@@ -87,13 +87,14 @@ public partial class JFQuestionaireForm : Form
         // Need to set up randomized Question Set (q&a pairs)
         // and scores
         // Load first in set
-        QuestionSet = new JFQuestionSet(parentForm.QuestionFiles
-            , parentForm.QuestionCount
-            , desiredQuestionCount);
+        QuestionSet = new JFQuestionSet(
+            parentForm.QuestionFiles,
+            parentForm.QuestionCount,
+            desiredQuestionCount);
 
         if (MistakesForm == null || MistakesForm.IsDisposed)
         {
-            MistakesForm = new JFMistakes();
+            MistakesForm = new JFMistakes(JFlashForm.LogFile);
         }
 
         NextQuestion();
@@ -184,7 +185,8 @@ public partial class JFQuestionaireForm : Form
             parentForm.WriteMistakesLog(
                 QuestionSet.CurrentQuestion.Prompt,
                 QuestionSet.CurrentQuestion.Answer,
-                txtAnswer.Text);
+                txtAnswer.Text,
+                QuestionSet.CurrentQuestion.SetName);
         }
 
         if (!string.IsNullOrEmpty(QuestionSet.CurrentQuestion.Additional))
@@ -238,5 +240,4 @@ public partial class JFQuestionaireForm : Form
     {
         parentForm.ToggleMistakesForm();
     }
-
 }

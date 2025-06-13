@@ -23,12 +23,13 @@ namespace JFlash.Classes
             isFinished = false;
             Hours = Minutes = Seconds = 0;
 
-            foreach (var qf in QuestionFiles)
+            foreach (KeyValuePair<string, JFQuestionFile> qf in QuestionFiles)
             {
-                foreach (var q in qf.Value.Questions)
+                foreach (JFQuestion question in qf.Value.Questions)
                 {
-                    q.Title = qf.Value.Description;
-                    Questions.Add(q);
+                    question.SetName = Path.GetFileNameWithoutExtension(qf.Key);
+                    question.Title = qf.Value.Description;
+                    Questions.Add(question);
                 }
             }
 
