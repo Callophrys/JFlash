@@ -48,7 +48,7 @@ Type=Entry
 遊ぶ;あそぶ;アソブ;asobu;to play
 死ぬ;しぬ;シヌ;shinu;to die
 泳ぐ;およぐ;オヨグ;oyogu;to swim
-消す;けす;ケス;kesu;to erase,turn off
+消す;けす;ケス;kesu;to erase,to turn off
 開ける;あける;アケル;akeru;to open
 閉める;しめる;シメル;shimeru;to close,to shut
 努める;つとめる;ツトメル;tsutomeru;to work for,to serve
@@ -57,14 +57,13 @@ Type=Entry
 覚える;おぼえる;オボエル;oboeru;to remember,to recollect,to memorize,to memorise
 慣れる;なれる;ナレル;nareru;to get used to,to grow accustomed,to become tame,to get too familiar with
 飼う;かう;カウ;kau;to keep,to raise,to feed
-諮る;はかる;ハカル;hakaru;to consult with,to confer
-計る;はかる;ハカル;hakaru;to measure,to weigh,to survey,to gauge
-建てる;たてる;タテル;tateru;to build,to construct
-立てる;たてる;タテル;tateru;to erect,to stand (something) up,to erect something
+計る;はかる;ハカル;hakaru;to measure,to weigh,to survey,to guage
+建てる;たてる;タテル;tateru;to build,to construct;assembling action
+立てる;たてる;タテル;tateru;to erect,to stand something up,to stand (something) up,to erect something;positioning action
 止める;とめる;トメル;tomeru;to stop something
 止まる;とまる;トマル;tomaru;to remain,to abide,to stay in place,to come to a halt,to stop
-彫る;ほる;ホル;horu;to carve,to engrave,to sculpt,to sculpture,to chisel
-掘る;ほる;ホル;horu;to dig,to excavate
+彫る;ほる;ホル;horu;to carve,to engrave,to sculpt,to sculpture,to chisel;some artistic action
+掘る;ほる;ホル;horu;to dig,to excavate;some construction action
 堪える;こたえる;コタエル;kotaeru;to bear,to stand,to endure,to put up with
 頭抜ける;ずぬける;ズヌケル;zunukeru;to stand out,to tower above
 立ち上がる;たちあがる;タチアガル;tachiagaru;to stand up

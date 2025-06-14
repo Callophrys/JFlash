@@ -2,11 +2,11 @@ JPFLASH
 Desc=Verbs - English (9)
 Prompt=Enter English equivalent of the Kanji:
 Type=Entry
-計る;はかる;ハカル;hakaru;to measure,to weigh,to survey,to gauge
-建てる;たてる;タテル;tateru;to build,to construct
-立てる;たてる;タテル;tateru;to erect,to stand (something) up,to erect something
+計る;はかる;ハカル;hakaru;to measure,to weigh,to survey,to guage
+建てる;たてる;タテル;tateru;to build,to construct;assembling action
+立てる;たてる;タテル;tateru;to erect,to stand something up,to stand (something) up,to erect something;positioning action
 止める;とめる;トメル;tomeru;to stop something
 止まる;とまる;トマル;tomaru;to remain,to abide,to stay in place,to come to a halt,to stop
-彫る;ほる;ホル;horu;to carve,to engrave,to sculpt,to sculpture,to chisel
-掘る;ほる;ホル;horu;to dig,to excavate
+彫る;ほる;ホル;horu;to carve,to engrave,to sculpt,to sculpture,to chisel;some artistic action
+掘る;ほる;ホル;horu;to dig,to excavate;some construction action
 END
