@@ -80,6 +80,8 @@ public partial class JFlashForm : Form
         questionPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         RegistryHelper.SaveSetting("questions", questionPath);
         BuildQuestions();
+
+        this.AcceptButton = btnGo;
     }
 
     #region Public Methods
