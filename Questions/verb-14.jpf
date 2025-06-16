@@ -1,5 +1,5 @@
 JPFLASH
-Desc=Verbs - English (14)
+Desc=Verbs (Subset 14: 92 - 98)
 Prompt=Enter English equivalent of the Kanji:
 Type=Entry
 忍ぶ;しのぶ;シノブ;shinobu;to conceal oneself,to hide,to endure
@@ -8,5 +8,5 @@ Type=Entry
 注ぐ;そそぐ;ソソグ;sosogu;to pour,to pour (into),to irrigate,to pay,to fill,to feed (e.g. a fire)
 凝らす;こらす;コラス;korasu;to concentrate,to devote,to apply,to strain,to rack
 疑う;うたがう;ウタガウ;utagau;to doubt,to distrust,to suspect,to be suspicious of
-練習;れんしょう;レンショウ;renshou;practice
+練習;れんしょう;レンショウ;renshou;to practice
 END

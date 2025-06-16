@@ -98,7 +98,7 @@ Type=Entry
 注ぐ;そそぐ;ソソグ;sosogu;to pour,to pour (into),to irrigate,to pay,to fill,to feed (e.g. a fire)
 凝らす;こらす;コラス;korasu;to concentrate,to devote,to apply,to strain,to rack
 疑う;うたがう;ウタガウ;utagau;to doubt,to distrust,to suspect,to be suspicious of
-練習;れんしょう;レンショウ;renshou;practice
+練習;れんしょう;レンショウ;renshou;to practice
 開く;ひらく;ヒラク;hiraku;to open,to open (e.g. a bank-account, festival, etc)
 閉じる;とじる;トジル;tojiru;to close,to close (e.g. book, eyes, meeting, etc.), to shut
 間違う;まちがう;マチガウ;machigau;to make a mistake,to be incorrect,to be mistaken
@@ -109,4 +109,7 @@ Type=Entry
 訳す;やくす;ヤクス;yakusu;to translate
 判じる;まんじる;マンジル;manjiru;to judge,to decide,to guess,to solve,to decipher,to interpret,to divine
 翻訳;ほんやく;ホンヤク;honyaku,hon'yaku;translation,de-encryption,deciphering;翻訳 【ほんやく】 (n,vs)
+遊び丸;あそびまる;アソビマル;asobimaru,asobimasu;to hang out with,to take, to take (a shower), to undertake with
+作る;つくる;ツクル;tsukuru,tsukurimasu;to make,to make (a meal)
+出かける;でかける;デカケル;dekakeru,dekakemasu;to go out, to go out with
 END

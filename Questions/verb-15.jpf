@@ -1,5 +1,5 @@
 JPFLASH
-Desc=Verbs - English (15)
+Desc=Verbs (Subset 15: 99 - 105)
 Prompt=Enter English equivalent of the Kanji:
 Type=Entry
 開く;ひらく;ヒラク;hiraku;to open,to open (e.g. a bank-account, festival, etc)
@@ -9,10 +9,4 @@ Type=Entry
 笑う;わらう;ワラウ;warau;to laugh,to smile
 借りる;かりる;カリル;kariru;to borrow,to have a loan,to take a loan,to hire,to rent,to buy on credit
 書く;かく;カク;kaku;to write
-訳す;やくす;ヤクス;yakusu;to translate
-判じる;まんじる;マンジル;manjiru;to judge,to decide,to guess,to solve,to decipher,to interpret,to divine
-翻訳;ほんやく;ホンヤク;honyaku,hon'yaku;translation,de-encryption,deciphering;翻訳 【ほんやく】 (n,vs)
-遊び丸;あそびまる;アソビマル;asobimaru,asobimasu;to hang out with,to take, to take (a shower), to undertake with
-作る;つくる;ツクル;tsukuru,tsukurimasu;to make,to make (a meal)
-出かける;でかける;デカケル;dekakeru,dekakemasu;to go out, to go out with
 END
