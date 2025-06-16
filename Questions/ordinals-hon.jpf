@@ -1,15 +1,15 @@
 JPFLASH
 Desc=Ordinals - Hon Endings
-Prompt=Enter the ordinal of long and thin things (pencils, pens, bottles) (-hon, -pon) per the language option:
+Prompt=Enter the ordinal of long and thin things (pencils, pens, bottles) (-hon, -pon):
 Type=Entry
-一本;いっぽｎ;イッポン;ippon;1
-二本;にほん;ニホン;nihon;2
-三本;さんぼん;サンボン;sanbon;3
-四本;よんほん;ヨンホン;yonhon;4
-五本;ごほん;ゴホン;gohon;5
-六本;ろっぽん;ロッポン;roppon;6
-七本;ななほん;ナナホン;nanahon;7
-八本;はちほん;ハチホン;hachihon;8
-九本;きゅうほん;キュウホン;kyuuhon;9
-十本;じっぽん;ジッポン;jippon;10
+Ordinals - Hon;0-HON;一本;いっぽｎ;イッポン;ippon;1
+Ordinals - Hon;0-HON;二本;にほん;ニホン;nihon;2
+Ordinals - Hon;0-HON;三本;さんぼん;サンボン;sanbon;3
+Ordinals - Hon;0-HON;四本;よんほん;ヨンホン;yonhon;4
+Ordinals - Hon;0-HON;五本;ごほん;ゴホン;gohon;5
+Ordinals - Hon;0-HON;六本;ろっぽん;ロッポン;roppon;6
+Ordinals - Hon;0-HON;七本;ななほん;ナナホン;nanahon;7
+Ordinals - Hon;0-HON;八本;はちほん;ハチホン;hachihon;8
+Ordinals - Hon;0-HON;九本;きゅうほん;キュウホン;kyuuhon;9
+Ordinals - Hon;0-HON;十本;じっぽん;ジッポン;jippon;10
 END

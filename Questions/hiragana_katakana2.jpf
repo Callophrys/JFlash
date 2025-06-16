@@ -1,31 +1,31 @@
 JPFLASH
-Desc=Hiragana 2 - Single Character plus Modifier
-Prompt=Enter the romaji equivalent of the Hiragana:
+Desc=Single Character plus Modifier
+Prompt=
 Type=Entry
-が;が;ガ;ga;ga
-ぎ;ぎ;ギ;gi;gi
-ぐ;ぐ;グ;gu;gu
-げ;げ;ゲ;ge;ge
-ご;ご;ゴ;go;go
-ざ;ざ;ザ;za;za
-じ,じ (x);じ,じ (x);ジ,ジ (x);ji;ji
-ず,ず (x);ず,ず (x);ズ,ズ (x);zu;zu
-ぜ;ぜ;ゼ;ze;ze
-ぞ;ぞ;ゾ;zo;zo
-だ;だ;ダ;da;da
-じ,じ (y);じ,じ (y);ジ,ジ (y);dji;dji
-ず,ず (y);ず,ず (y);ズ,ズ (y);dzu;dzu
-で;で;デ;de;de
-ど;ど;ド;do;do
-ば;ば;バ;ba;ba
-び;び;ビ;bi;bi
-ぶ;ぶ;ブ;bu;bu
-べ;べ;ベ;be;be
-ぼ;ぼ;ボ;bo;bo
-ぱ;ぱ;パ;pa;pa
-ぴ;ぴ;ピ;pi;pi
-ぷ;ぷ;プ;pu;pu
-ぺ;ぺ;ペ;pe;pe
-ぽ;ぽ;ポ;po;po
+Kana + Modifier;KANM;;が;ガ;ga
+Kana + Modifier;KANM;;ぎ;ギ;gi
+Kana + Modifier;KANM;;ぐ;グ;gu
+Kana + Modifier;KANM;;げ;ゲ;ge
+Kana + Modifier;KANM;;ご;ゴ;go
+Kana + Modifier;KANM;;ざ;ザ;za
+Kana + Modifier;KANM;;じ,じ (x);ジ,ジ (x);ji
+Kana + Modifier;KANM;;ず,ず (x);ズ,ズ (x);zu
+Kana + Modifier;KANM;;ぜ;ゼ;ze
+Kana + Modifier;KANM;;ぞ;ゾ;zo
+Kana + Modifier;KANM;;だ;ダ;da
+Kana + Modifier;KANM;;じ,じ (y);ジ,ジ (y);dji
+Kana + Modifier;KANM;;ず,ず (y);ズ,ズ (y);dzu
+Kana + Modifier;KANM;;で;デ;de
+Kana + Modifier;KANM;;ど;ド;do
+Kana + Modifier;KANM;;ば;バ;ba
+Kana + Modifier;KANM;;び;ビ;bi
+Kana + Modifier;KANM;;ぶ;ブ;bu
+Kana + Modifier;KANM;;べ;ベ;be
+Kana + Modifier;KANM;;ぼ;ボ;bo
+Kana + Modifier;KANM;;ぱ;パ;pa
+Kana + Modifier;KANM;;ぴ;ピ;pi
+Kana + Modifier;KANM;;ぷ;プ;pu
+Kana + Modifier;KANM;;ぺ;ペ;pe
+Kana + Modifier;KANM;;ぽ;ポ;po
 END
 

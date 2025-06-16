@@ -2,14 +2,12 @@ JPFLASH
 Desc=Ordinals - Ko Endings
 Prompt=Enter the ordinal of spheres and cubes (oranges, baseballs, boxes) (-ko) per the language option:
 Type=Entry
-一個;いかい;;ikkai;1
-一個;にかい;;nikai;2
-
-かいだん;かいだん;;kaidan;stairs
-じはんき;じはんきい;;jihanki;vending machines
-のりかえ;のりかえ;;norikae;transfer;bus transfer,train transfer
-ちか;ちか;;chika;underground;underground level
-;;;kaisatsu;ticket gate
-;;;itsumo;always,all the time,never
-
+;0-KAI;一個;いかい;;ikkai;1
+;0-KAI;一個;にかい;;nikai;2
+;NOUN;かいだん;かいだん;;kaidan;stairs
+;NOUN;じはんき;じはんきい;;jihanki;vending machines
+;NOUN;のりかえ;のりかえ;;norikae;transfer;bus transfer,train transfer
+;;ちか;ちか;;chika;underground;underground level
+;NOUN;;;;kaisatsu;ticket gate
+;;;;;itsumo;always,all the time,never
 END

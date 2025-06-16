@@ -13,8 +13,14 @@ namespace JFlash.Classes
 
         public int questionType;
 
-        public JFQuestionFile(string filename, int idxFrom, int idxTo)
+        public JFQuestionFile(string filename, int idxFrom, int idxTo, int subsetSize)
         {
+            /* TODO fix this ugly hack */
+            idxFrom += 2;
+            idxTo += 2;
+
+            /* TODO if idxTo is type NUM then say Numeral instead of English */
+
             if (!File.Exists(filename))
             {
                 return;

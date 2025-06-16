@@ -1,7 +1,7 @@
 JPFLASH
-Desc=Nouns - English to Nihongo
-Prompt=Enter romaji equivalent of the Kanji:
+Desc=Nouns
+Prompt=
 Type=Entry
-奇想;きそう;キソウ;kisou;fantastic idea
-天外;たんがい;タンガイ;tangai;beyond the heavens,farthest regions,furthest regions
+Nouns;NOUN;奇想;きそう;キソウ;kisou;fantastic idea
+Nouns;NOUN;天外;たんがい;タンガイ;tangai;beyond the heavens,farthest regions,furthest regions
 END

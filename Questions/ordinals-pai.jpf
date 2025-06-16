@@ -1,15 +1,15 @@
 JPFLASH
 Desc=Ordinals - Pai Endings
-Prompt=Enter the ordinal of containers (cups, bowls, glasses) (-hai,-pai) per the language option:
+Prompt=Enter the ordinal of containers (cups, bowls, glasses) (-hai,-pai):
 Type=Entry
-一杯;いっぱい;イッパイ;ippai;1
-二杯;にはい;ヒハイ;nihai;2
-三杯;さんばい;サンバイ;sanbai;3
-四杯;よんはい;ヨンハイ;yonhai;4
-五杯;ごはい;ゴハイ;gohai;5
-六杯;ろっぱい;ロッパイ;roppai;6
-七杯;ななはい;ナナハイ;nanahai;7
-八杯;はちはい;ハチハイ;hachihai;8
-九杯;きゅうはい;キュウハイ;kyuuhai;9
-十杯;じっぱい;ジッパイ;jippai;10
+Ordinals - Pai;0-PAI;一杯;いっぱい;イッパイ;ippai;1
+Ordinals - Pai;0-PAI;二杯;にはい;ヒハイ;nihai;2
+Ordinals - Pai;0-PAI;三杯;さんばい;サンバイ;sanbai;3
+Ordinals - Pai;0-PAI;四杯;よんはい;ヨンハイ;yonhai;4
+Ordinals - Pai;0-PAI;五杯;ごはい;ゴハイ;gohai;5
+Ordinals - Pai;0-PAI;六杯;ろっぱい;ロッパイ;roppai;6
+Ordinals - Pai;0-PAI;七杯;ななはい;ナナハイ;nanahai;7
+Ordinals - Pai;0-PAI;八杯;はちはい;ハチハイ;hachihai;8
+Ordinals - Pai;0-PAI;九杯;きゅうはい;キュウハイ;kyuuhai;9
+Ordinals - Pai;0-PAI;十杯;じっぱい;ジッパイ;jippai;10
 END

@@ -1,51 +1,51 @@
 JPFLASH
-Desc=Hiragana 1 - Single Characters
-Prompt=Enter the romaji equivalent of the Hiragana:
+Desc=Single Characters
+Prompt=
 Type=Entry
-あ;あ;ア;a;a
-い;い;イ;i;i
-う;う;ウ;u;u
-え;え;エ;e;e
-お;お;オ;o;o
-か;か;カ;ka;ka
-き;き;キ;ki;ki
-く;く;ク;ku;ku
-け;け;ケ;ke;ke
-こ;こ;コ;ko;ko
-さ;さ;サ;sa;sa
-し;し;シ;shi;shi
-す;す;ス;su;su
-せ;せ;セ;se;se
-そ;そ;ソ;so;so
-た;た;タ;ta;ta
-ち;ち;チ;chi;chi
-つ;つ;ツ;tsu;tsu
-て;て;テ;te;te
-と;と;ト;to;to
-な;な;ナ;na;na
-に;に;ニ;ni;ni
-ぬ;ぬ;ヌ;nu;nu
-ね;ね;ネ;ne;ne
-の;の;ノ;no;no
-は;は;ハ;ha;ha
-ひ;ひ;ヒ;hi;hi
-ふ;ふ;フ;fu,hu;fu,hu
-へ;へ;ヘ;he;he
-ほ;ほ;ホ;ho;ho
-ま;ま;マ;ma;ma
-み;み;ミ;mi;mi
-む;む;ム;mu;mu
-め;め;メ;me;me
-も;も;モ;mo;mo
-や;や;ヤ;ya;ya
-ゆ;ゆ;ユ;yu;yu
-よ;よ;ヨ;yo;yo
-ら;ら;ラ;ra;ra
-り;り;リ;ri;ri
-る;る;ル;ru;ru
-れ;れ;レ;re;re
-ろ;ろ;ロ;ro;ro
-わ;わ;ワ;wa;wa
-を;を;オ;wo,o;wo,o
-ん;ん;ン;n,nn,m;n,nn,m
+Kana - Vowel sounds;KAN;;あ;ア;a
+Kana - Vowel sounds;KAN;;い;イ;i
+Kana - Vowel sounds;KAN;;う;ウ;u
+Kana - Vowel sounds;KAN;;え;エ;e
+Kana - Vowel sounds;KAN;;お;オ;o
+Kana - K sounds;KAN;;か;カ;ka
+Kana - K sounds;KAN;;き;キ;ki
+Kana - K sounds;KAN;;く;ク;ku
+Kana - K sounds;KAN;;け;ケ;ke
+Kana - K sounds;KAN;;こ;コ;ko
+Kana - S sounds;KAN;;さ;サ;sa
+Kana - S sounds;KAN;;し;シ;shi
+Kana - S sounds;KAN;;す;ス;su
+Kana - S sounds;KAN;;せ;セ;se
+Kana - S sounds;KAN;;そ;ソ;so
+Kana - T sounds;KAN;;た;タ;ta
+Kana - T sounds;KAN;;ち;チ;chi
+Kana - T sounds;KAN;;つ;ツ;tsu
+Kana - T sounds;KAN;;て;テ;te
+Kana - T sounds;KAN;;と;ト;to
+Kana - N sounds;KAN;;な;ナ;na
+Kana - N sounds;KAN;;に;ニ;ni
+Kana - N sounds;KAN;;ぬ;ヌ;nu
+Kana - N sounds;KAN;;ね;ネ;ne
+Kana - N sounds;KAN;;の;ノ;no
+Kana - K sounds;KAN;;は;ハ;ha
+Kana - K sounds;KAN;;ひ;ヒ;hi
+Kana - K sounds;KAN;;ふ;フ;fu,hu
+Kana - K sounds;KAN;;へ;ヘ;he
+Kana - K sounds;KAN;;ほ;ホ;ho
+Kana - M sounds;KAN;;ま;マ;ma
+Kana - M sounds;KAN;;み;ミ;mi
+Kana - M sounds;KAN;;む;ム;mu
+Kana - M sounds;KAN;;め;メ;me
+Kana - M sounds;KAN;;も;モ;mo
+Kana - Y sounds;KAN;;や;ヤ;ya
+Kana - Y sounds;KAN;;ゆ;ユ;yu
+Kana - Y sounds;KAN;;よ;ヨ;yo
+Kana - R sounds;KAN;;ら;ラ;ra
+Kana - R sounds;KAN;;り;リ;ri
+Kana - R sounds;KAN;;る;ル;ru
+Kana - R sounds;KAN;;れ;レ;re
+Kana - R sounds;KAN;;ろ;ロ;ro
+Kana - Singlet Sounds;KAN;;わ;ワ;wa
+Kana - Singlet Sounds;KAN;;を;オ;wo,o
+Kana - Singlet Sounds;KAN;;ん;ン;n,nn,m
 END

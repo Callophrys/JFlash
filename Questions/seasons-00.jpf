@@ -1,0 +1,19 @@
+JPFLASH
+Desc=Seasons
+Prompt=
+Type=Entry
+Nouns reguarding season;NOUN;春;はる;ハル;haru;spring
+Nouns reguarding season;NOUN;夏;なつ;ナツ;natsu;summer
+Nouns reguarding season;NOUN;秋;あき;アキ;aki;autumn,fall
+Nouns reguarding season;NOUN;冬;ふゆ;フユ;fuyu;winter
+Nouns reguarding season;NOUN;春季;しゅんき;シュンキ;shunki;spring,(season of) spring,springtime
+Nouns reguarding season;NOUN;夏季;かき;カキ;kaki;summer season;summertime
+Nouns reguarding season;NOUN;秋季;しゅうき;シュウキ;shuuki;fall,autumn,fall season
+Nouns reguarding season;NOUN;冬季;とうき;トウキ;touki;winter,(season of) winter,wintertime
+Nouns reguarding season;NOUN;季;き;キ;ki;season
+Nouns reguarding season;NOUN;期;き;キ;ki;period,time
+Nouns reguarding season;NOUN;乾期;かんき;カンキ;kanki;dry period
+Nouns reguarding season;NOUN;乾季;かんき;カンキ;kanki;dry season
+Nouns reguarding season;NOUN;乾燥季;かんそうき;カンソウキ;kanseuki;dry period,dry season,dry spell, dry period (short)
+Nouns reguarding season;NOUN;乾燥期;かんそうき;カンソウキ;kanseuki;dry season,dry period,dry spell
+END

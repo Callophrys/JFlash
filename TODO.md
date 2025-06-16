@@ -8,4 +8,4 @@ Maybe an arrow or button that can be clicked to go next. E.g. when just browsing
 Maybe a cheat/peek control.
 Leave kanji field blank if unknown. Default to hirigana if missing; even if hirigana is the response format.
 Up-down question amount jumps by 5. Please fix.
-Think big files of a type and subset via app somehow.
+Think big files of a type and subset via first column and by count via app setting.

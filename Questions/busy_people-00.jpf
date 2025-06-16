@@ -1,0 +1,7 @@
+JPFLASH
+Desc=Japanese for Busy People
+Prompt=Enter English equivalent of the Kanji:
+Type=Entry
+;ANY;奇想;きそう;キソウ;kisou;fantastic idea
+;ANY;天外;たんがい;タンガイ;tangai;beyond the heavens,farthest regions,furthest regions
+END

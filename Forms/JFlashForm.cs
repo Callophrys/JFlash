@@ -234,7 +234,8 @@ public partial class JFlashForm : Form
                     var qf = new JFQuestionFile(
                         Path.Combine(questionPath, cb.Text),
                         QuestionTypes.JpStringToChoiceIndex(cmbFrom.Text),
-                        QuestionTypes.JpStringToChoiceIndex(cmbTo.Text));
+                        QuestionTypes.JpStringToChoiceIndex(cmbTo.Text),
+                        (int)nsSubsetSize.Value);
 
                     QuestionFiles.Add(cb.Text, qf);
 
@@ -253,7 +254,8 @@ public partial class JFlashForm : Form
                         QuestionFiles.Add(cb.Text, new JFQuestionFile(
                             Path.Combine(questionPath, cb.Text),
                             QuestionTypes.JpStringToChoiceIndex(cmbFrom.Text),
-                            QuestionTypes.JpStringToChoiceIndex(cmbTo.Text)));
+                            QuestionTypes.JpStringToChoiceIndex(cmbTo.Text),
+                            (int)nsSubsetSize.Value));
 
                         gp.expanded = toggle.Checked;
                         gp.files.Add(cb.Text);
@@ -642,11 +644,9 @@ public partial class JFlashForm : Form
 
     private void BtnMistakes_Click(object sender, EventArgs e) => ToggleMistakesForm();
 
-    #endregion Event Handlers
-
     private void JFlashForm_Shown(object sender, EventArgs e)
     {
-        return; 
+        return;
 
         TableLayoutPanel? tlp = null;
         foreach (Control ctrl in pnlQuestionFiles.Controls)
@@ -680,5 +680,11 @@ public partial class JFlashForm : Form
                 }
             }
         }
+    }
+
+    #endregion Event Handlers
+
+    private void NsSubsetSize_ValueChanged(object sender, EventArgs e)
+    {
     }
 }

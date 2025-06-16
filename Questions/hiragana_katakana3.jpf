@@ -1,39 +1,39 @@
 JPFLASH
-Desc=Hiragana 3 - Character + Small Character
-Prompt=Enter the romaji equivalent of the Hiragana:
+Desc=Character + Small Character
+Prompt=
 Type=Entry
-きゃ;きゃ;キャ;kya;kya
-きゅ;きゅ;キュ;kyu;kyu
-きょ;きょ;キョ;kyo;kyo
-しゃ;しゃ;シャ;sha;sha
-しゅ;しゅ;シュ;shu;shu
-しょ;しょ;ショ;sho;sho
-ちゃ;ちゃ;チャ;cha;cha
-ちゅ;ちゅ;チュ;chu;chu
-ちょ;ちょ;チョ;cho;cho
-にゃ;にゃ;ニャ;nya;nya
-にゅ;にゅ;ニュ;nyu;nyu
-にょ;にょ;ニョ;nyo;nyo
-ひゃ;ひゃ;ヒャ;hya;hya
-ひゅ;ひゅ;ヒュ;hyu;hyu
-ひょ;ひょ;ヒョ;hyo;hyo
-みゃ;みゃ;ミャ;mya;mya
-みゅ;みゅ;ミュ;myu;myu
-みょ;みょ;ミョ;myo;myo
-りゃ;りゃ;リャ;rya;rya
-りゅ;りゅ;リュ;ryu;ryu
-りょ;りょ;リョ;ryo;ryo
-ぎゃ;ぎゃ;ギャ;gya;gya
-ぎゅ;ぎゅ;ギュ;gyu;gyu
-ぎょ;ぎょ;ギョ;gyo;gyo
-じゃ;じゃ;ジャ;ja;ja
-じゅ;じゅ;ジュ;ju;ju
-じょ;じょ;ジョ;jo;jo
-びゃ;びゃ;ビャ;bya;bya
-びゅ;びゅ;ビュ;byu;byu
-びょ;びょ;ビョ;byo;byo
-ぴゃ;ぴゃ;ピャ;pya;pya
-ぴゅ;ぴゅ;ピュ;pyu;pyu
-ぴょ;ぴょ;ピョ;pyo;pyo
+Kana + Vowel;KANV;;きゃ;キャ;kya
+Kana + Vowel;KANV;;きゅ;キュ;kyu
+Kana + Vowel;KANV;;きょ;キョ;kyo
+Kana + Vowel;KANV;;しゃ;シャ;sha
+Kana + Vowel;KANV;;しゅ;シュ;shu
+Kana + Vowel;KANV;;しょ;ショ;sho
+Kana + Vowel;KANV;;ちゃ;チャ;cha
+Kana + Vowel;KANV;;ちゅ;チュ;chu
+Kana + Vowel;KANV;;ちょ;チョ;cho
+Kana + Vowel;KANV;;にゃ;ニャ;nya
+Kana + Vowel;KANV;;にゅ;ニュ;nyu
+Kana + Vowel;KANV;;にょ;ニョ;nyo
+Kana + Vowel;KANV;;ひゃ;ヒャ;hya
+Kana + Vowel;KANV;;ひゅ;ヒュ;hyu
+Kana + Vowel;KANV;;ひょ;ヒョ;hyo
+Kana + Vowel;KANV;;みゃ;ミャ;mya
+Kana + Vowel;KANV;;みゅ;ミュ;myu
+Kana + Vowel;KANV;;みょ;ミョ;myo
+Kana + Vowel;KANV;;りゃ;リャ;rya
+Kana + Vowel;KANV;;りゅ;リュ;ryu
+Kana + Vowel;KANV;;りょ;リョ;ryo
+Kana + Vowel;KANV;;ぎゃ;ギャ;gya
+Kana + Vowel;KANV;;ぎゅ;ギュ;gyu
+Kana + Vowel;KANV;;ぎょ;ギョ;gyo
+Kana + Vowel;KANV;;じゃ;ジャ;ja
+Kana + Vowel;KANV;;じゅ;ジュ;ju
+Kana + Vowel;KANV;;じょ;ジョ;jo
+Kana + Vowel;KANV;;びゃ;ビャ;bya
+Kana + Vowel;KANV;;びゅ;ビュ;byu
+Kana + Vowel;KANV;;びょ;ビョ;byo
+Kana + Vowel;KANV;;ぴゃ;ピャ;pya
+Kana + Vowel;KANV;;ぴゅ;ピュ;pyu
+Kana + Vowel;KANV;;ぴょ;ピョ;pyo
 END
 

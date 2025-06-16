@@ -1,0 +1,215 @@
+JPFLASH
+Desc=Nouns in 6 Lessons
+Prompt=
+Type=Entry
+Lession 1;Noun;日;ひ;ヒ;hi;sun,day,sunshine
+Lession 1;Noun;日本;にほん;ニホン;nihon,nippon;Japan
+Lession 1;Noun;日曜日;にちようび;ニチヨウビ;nichiyoubi;Sunday
+Lession 1;Noun;３日;みっか;ミッカ;mikka;third date,three days
+Lession 1;Noun;月;つき;ツキ;tsuki;moon,month
+Lession 1;Noun;月曜日;げつようび;ゲツヨウビ;getsuyoubi;Monday
+Lession 1;Noun;１月;いちがつ;イチガツ;ichigatsu;January
+Lession 1;Noun;１か月;いっかげつ;イッカゲツ;ikkagetsu;one month
+Lession 1;Noun;木;き;キ;ki;tree,wood,timber
+Lession 1;Noun;木曜日;もくようび;モクヨウビ;mokuyoubi;Thursday
+Lession 1;Noun;木村;きむら;キムラ;kimura;Kimura
+Lession 1;Noun;山;やま;ヤマ;yama;mountain,pile,head,climax,critical point
+Lession 1;Noun;富士山;ふじさｎ;フジサン;fujisan;Mt Fuji
+Lession 1;Noun;山下;やました;ヤマシタ;yamashita;Yamashita
+Lession 1;Noun;火山;かざん;カザン;kazan;volcano
+Lession 1;Noun;川;かわ;カワ;kawa;river,stream
+Lession 1;Noun;ナイル川;ないるがわ;ナイルガワ;nairugawa;Nile,Nile river
+Lession 1;Noun;田んぼ;たんぼ;タンボ;tanbo;paddy field,farm
+Lession 1;Noun;田中;たなか;タナカ;tanaka;Tanaka
+Lession 1;Noun;山田;やまだ;ヤマダ;yamada;Yamada
+Lession 1;Noun;人;ひと;ヒト;hito;man,person,people
+Lession 1;Noun;３人;さんいん;サンイン;sannin;three people
+Lession 1;Noun;三人;さんいん;サンイン;sannin;three people
+Lession 1;Noun;日本人;にほんじん;ニホンジン;nihonjin;Japanese person
+Lession 1;Noun;口;くち;クチ;kuchi;mouth,orifice,opening
+Lession 1;Noun;入口;いりぐち;イリグチ;iriguchi;entrance,gate,approach,mouth
+Lession 1;Noun;出口;でぐち;デグチ;deguchi;exit,gateway,way out,outlet,leak,vent
+Lession 1;Noun;人口;じんこう;ジンコウ;jinkou;population,common talk
+Lession 1;Noun;車;くるま;クルマ;kuruma;car,vehicle,wheel
+Lession 1;Noun;電車;でんしゃ;デンシャ;densha;eletric train
+Lession 1;Noun;自動車;じどうしゃ;ジドウシャ;jidousha;automobile
+Lession 1;Noun;門;もん;モン;mon;gate
+Lession 1;Noun;問題;もんだい;モンダイ;mondai;problem,question
+Lession 1;Noun;専門;せっもん;セッモン;semmon;speciality,specialty,subject of study,expert
+Lession 2;Noun;火;ひ;ヒ;hi;fire,flame
+Lession 2;Noun;火曜日;かようび;カヨウビ;kayoubi;Tuesday
+Lession 2;Noun;水;みず;ミズ;mizu;water
+Lession 2;Noun;水曜日;すいようび;スイヨウビ;suiyoubi;Wednesday
+Lession 2;Noun;水田;すいでｎ;スイデン;suiden;paddy field
+Lession 2;Noun;お金;おかね;オカネ;okane;money
+Lession 2;Noun;金;きん;キン;kin;gold
+Lession 2;Noun;金田;かねだ;カネダ;kaneda;Kaneda,kaneda
+Lession 2;Noun;金曜日;きにょうび;キンヨウビ;kinyoubi;Friday
+Lession 2;Noun;土;つち;ツチ;tsuchi;earth,soil
+Lession 2;Noun;土曜日;どようび;ドヨウビ;doyoubi;Saturday
+Lession 2;Noun;土木;どぼく;ドボク;doboku;public works
+Lession 2;Noun;子ども;こども;コドモ;kodomo;child,children
+Lession 2;Noun;女子学生;じょしがくせい;ジョシガクセイ;joshigakusei;female student,school girl
+Lession 2;Noun;女の子;おんなのこ;オンナノコ;onnanoko;girl
+Lession 2;Noun;女;おんな;オンナ;onna;woman
+Lession 2;Noun;彼女;かのじょ;カノジョ;kanojo;she,girlfriend,sweetheart
+Lession 2;Noun;彼氏;かれし;カレシ;kareshi;boyfriend
+Lession 2;Noun;女の人;おんなのひと;オンナノヒト;onnanohito;woman
+Lession 2;Noun;学生;がくせい;ガクセイ;gakusei;student
+Lession 2;Noun;学校;がっこうｔ;ガッコウ;gakkou;school
+Lession 2;Noun;大学;だいがく;ダイガク;daigaku;university
+Lession 2;Noun;生きる;いきる;イキル;ikiru;live,exist
+Lession 2;Noun;先生;せんせい;センセイ;sensei;teacher,master,doctor
+Lession 2;Noun;生まれる;うまれる;ウマレル;umareru;be born
+Lession 2;Noun;先;さき;サキ;saki;previous,prior,former,point,tip,end
+Lession 2;Noun;先月;せんげつ;センゲツ;sengetsu;last month
+Lession 2;Noun;私;わたし;ワタシ;watashi;me,myself,I
+Lession 2;Noun;私立大学;しりつだいがく;シリツダイガク;shiritsudaigaku;private university
+Lession 3;Ordinal;一つ;ひとつ;ヒトツ;hitotsu;
+Lession 3;Ordinal;一月;いちがつ;イチガツ;ichigatsu;
+Lession 3;Ordinal;一人;ひとり;ヒトリ;hitori;
+Lession 3;Ordinal;一年;いちねん;イチネン;ichinen;
+Lession 3;Ordinal;二つ;ふたつ;フタツ;futatsu;
+Lession 3;Ordinal;二月;にがつす;ニガツ;nigatsu;
+Lession 3;Ordinal;二人;ふたり;フタリ;futari;
+Lession 3;Ordinal;二年;にねん;ニネン;ninen;
+Lession 3;Ordinal;三つ;みっつ;ミッツ;mittsu;
+Lession 3;Ordinal;三日;みっか;ミッカ;mikka;
+Lession 3;Ordinal;三月;さんがつ;サンガツ;sangatsu;
+Lession 3;Ordinal;三年;さんねん;サンネン;sannen;
+Lession 3;Ordinal;四つ;よっつ;ヨッツ;yottsu;
+Lession 3;Ordinal;四月;しがつ;シガツ;shigatsu;
+Lession 3;Ordinal;四日;よっか;ヨッカ;yokka;
+Lession 3;Ordinal;四年;よんねん;ヨネン;yonen;
+Lession 3;Ordinal;五つ;いつつ;イツツ;itsutsu;
+Lession 3;Ordinal;五月;ごがつ;ゴガツ;gogatsu;
+Lession 3;Ordinal;五日;いつか;イツカ;itsuka;
+Lession 3;Ordinal;五年;ごんねん;ゴネン;gonen;
+Lession 3;Ordinal;六つ;むっつ;ムッツ;muttsu;
+Lession 3;Ordinal;六月;ろくがつ;ロクガツ;rokugatsu;
+Lession 3;Ordinal;六日;むいか;ムイカ;muika;
+Lession 3;Ordinal;六年;ろくねん;ロクネン;rokunen;
+Lession 3;Ordinal;七つ;ななつ;ナナツ;nanatsu;
+Lession 3;Ordinal;七月;しちがつ;シチガツ;shichigatsu;
+Lession 3;Ordinal;七日;なのか;ナノカ;nanoka;
+Lession 3;Ordinal;七年;しちねん;シチネン;shichinen;
+Lession 3;Ordinal;八つ;やっつ;ヤッツ;yattsu;
+Lession 3;Ordinal;八月;はちがつ;ハチガツ;hachigatsu;
+Lession 3;Ordinal;八日;ようか;ヨウカ;youka;
+Lession 3;Ordinal;八年;はちねん;ハチネン;hachinen;
+Lession 3;Ordinal;九つ;ここのつ;ココノツ;kokonotsu;
+Lession 3;Ordinal;九月;くがつ;クガツ;kugatsu;
+Lession 3;Ordinal;九日;ここのか;ココノカ;kokonoka;
+Lession 3;Ordinal;九百;きゅうひゃく;キュウヒャク;kyuuhyaku;
+Lession 3;Ordinal;十;とお;トオ;too;
+Lession 3;Ordinal;十月;じゅうがつ;ジュウガツ;juugatsu;
+Lession 3;Ordinal;十日;とおか;トオカ;tooka;
+Lession 3;Ordinal;十年;じゅうねん;ジュウネン;juunen;
+Lession 3;Ordinal;二百;にひゃく;ニヒャク;nihyaku;
+Lession 3;Ordinal;三百;さんびゃく;サンビャク;sanbyaku;
+Lession 3;Ordinal;六百;ろっぴゃく;ロッピャク;roppyaku;
+Lession 3;Ordinal;八百;はっぴゃく;ハッピャク;happyaku;
+Lession 3;Ordinal;千円;せんえん;センエン;sen'en;
+Lession 3;Ordinal;三千;さんぜｎ;サンゼン;sanzen;
+Lession 3;Ordinal;一万円;いちまんえん;イチマンエン;ichiman'en;
+Lession 3;Ordinal;万国;ばんこく;バンコク;bankoku;
+Lession 3;Ordinal;円;えん;エン;en;
+Lession 3;Ordinal;年;ねん;ネン;nen;
+Lession 3;Ordinal;去年;きょねん;キョネン;kyonen;
+Lession 3;Ordinal;年上;としうえ;トシウエ;toshiue;
+Lession 3;Ordinal;来年;らいねん;ライネン;rainen;
+Lession 4;Noun;上;うえ;ウエ;ue;above,over,on top of,up,upper,surface,after,superior
+Lession 4;Noun;上がる;あがる;アガル;agaru;enter,go up,rise,climb up,advance,appreciate,be promoted,improve,V
+Lession 4;Noun;上る;のぼる;ノボル;noboru;rise,ascend,go up,climb,be promoted,add up to,advance price,sail up,arise,V
+Lession 4;Noun;上手な;じょうずな;ジョウズナ;jouzuna;skill,skillful,dexterity
+Lession 4;Noun;下;した;シタ;shita;under,below,beneath
+Lession 4;Noun;年下;としした;トシシタ;toshishita;younger,junior
+Lession 4;Noun;下がる;さがる;サガル;sagaru;hang down,abate,retire,fall,step back,V
+Lession 4;Noun;下車する;げしゃする;ゲシャスル;geshasuru;alight,get off,V
+Lession 4;Noun;中;なか;ナカ;naka;inside,middle,among
+Lession 4;Noun;一日中;いちにちじゅう;イチニチジュウ;ichinichijuu;throught the day,all day
+Lession 4;Noun;中心;ちゅうしん;チュウシン;chuushin;center,centre,middle,heart,pivot,core,focus
+Lession 4;Noun;大きい;おおきい;オオキイ;ookii;big,large,great
+Lession 4;Noun;大学;だいがく;ダイガク;daigaku;university
+Lession 4;Noun;大切な;たいせつな;タイセツナ;taisetsuna;important,valuable,worthy
+Lession 4;Noun;大人;おとな;オトナ;otona;adult
+Lession 4;Noun;小さい;ちいさい;チイサイ;chiisai;small,tiny,little
+Lession 4;Noun;小学校;しょうがっこう;ショウガッコウ;shougakkou;primary school,elementary school
+Lession 4;Noun;小川;おがわ;オガワ;ogawa;streamlet,stream,brook,Ogawa
+Lession 4;Noun;子人;こども;コドモ;kodomo;child,children
+Lession 4;Noun;山本;やまもと;ヤマモト;yamamoto;Yamamoto
+Lession 4;Noun;本日;ほんじつ;ホンジツ;honjitsu;today
+Lession 4;Noun;本;ほん;ホン;hon;book
+Lession 4;Noun;本店;ほんてん;ホンテン;honten;head office
+Lession 4;Noun;半ば;なかば;ナカバ;nakaba;middle,half,semi,halfway,partly
+Lession 4;Noun;半年;はんとし;ハントシ;hantoshi;half year
+Lession 4;Noun;半分;はんぶｎ;ハンブン;hanbun;half minute,half
+Lession 4;Noun;三時半;さんじはん;サンジハン;sanjihan;3 oclock
+Lession 4;Noun;分ける;わける;ワケル;wakeru;divide,separate,make distinction,differentiate,V
+Lession 4;Noun;五分;ごふん;ゴフン;gofun;half,tie,evenness,50%
+Lession 4;Noun;分かる;わかる;ワカル;wakaru;understand,know,realize,V
+Lession 4;Noun;六分;ろっぷん;ロップン;roppun;six minutes
+Lession 4;Noun;力;ちから;チカラ;chikara;force,strenght,energy,might,power
+Lession 4;Noun;力学;りきがく;リキガク;rikigaku;mechanics,dynamics
+Lession 4;Noun;実力;じつりょく;ジツリョク;jitsuryoku;merit,efficiency,arms,force
+Lession 4;Noun;何;なに;ナニ;nani;what
+Lession 4;Noun;何人;なんにん;ナンニン;nannin;who,how many people
+Lession 4;Noun;何ですか;なんですか;ナンデスカ;nandesuka;what is it
+Lession 4;Noun;何年;なんねん;ナンネン;nannen;what year,how many years
+Lession 5;Noun;明るい;あかるい;アカルイ;akarui;bright,cheerful
+Lession 5;Noun;明ける;あける;アケル;akeru;dawn,become daylight,V
+Lession 5;Noun;休む;やすむ;ヤスム;yasumu;rest,take break,retire,finished,be absent,sleep,V
+Lession 5;Noun;休日;きゅうじつ;キュウジツ;kyuujitsu;holiday,day off
+Lession 5;Noun;休み;やすみ;ヤスミ;yasumi;rest,recess,respite,vacation,holiday
+Lession 5;Noun;体;からだ;カラダ;karada;body,health
+Lession 5;Noun;体力;たいりょく;タイリョク;tairyoku;physical strength
+Lession 5;Noun;体育;たいいく;タイイク;taiiku;PE,gymnastics,athletics
+Lession 5;Noun;好きな;すきな;スキナ;sukina;liking,fondness,love
+Lession 5;Noun;好かれる;すかれる;スカレル;sukareru;like,love,fond,V
+Lession 5;Noun;男;おとこ;オトコ;otoko;man
+Lession 5;Noun;男子学生;だんしがくせい;ダンシガクセイ;danshigakusei;boy student
+Lession 5;Noun;男の子;おとこのこ;オトコノコ;otokonoko;boy
+Lession 5;Noun;林;はやし;ハヤシ;hayashi;woods,forest,copse,thicket
+Lession 5;Noun;林業;りんぎょう;リンギョウ;ringyou;forestry
+Lession 5;Noun;小林;こばやし;コバヤシ;kobayashi;Kobayashi
+Lession 5;Noun;森;もり;モリ;mori;forest
+Lession 5;Noun;森林;しんりん;シンリン;shinrin;forest,woods
+Lession 5;Noun;森田;もりた;モリタ;morita;Morita
+Lession 5;Noun;間;あいだ;アイダ;aida;space,interval
+Lession 5;Noun;一年間;いちねんかｎ;イチネンカン;ichinenkan;ichinenkan
+Lession 5;Noun;間に合う;まにあう;マニアウ;maniau;in time for,serve the purpose,good enough,suit
+Lession 5;Noun;時間;じかん;ジカン;jikan;time
+Lession 5;Noun;畑;はたけ;ハタケ;hatake;field
+Lession 5;Noun;田畑;たはた;タハタ;tahata;fields
+Lession 5;Noun;岩;いわ;イワ;iwa;rock
+Lession 5;Noun;岩石;がんせき;ガンセキ;ganseki;rock
+Lession 5;Noun;岩山;いわやま;イワヤマ;iwayama;Iwayama,rocky mountain
+Lession 6;Noun;目;め;メ;me;eye
+Lession 6;Noun;目次;もｋじ;モクジ;mokuji;table of contents
+Lession 6;Noun;目上;めうえ;メウエ;meue;superior,senior
+Lession 6;Noun;耳;みみ;ミミ;mimi;ear,hearing
+Lession 6;Noun;耳鼻科;じびか;ジビカ;jibika;otolaryngology
+Lession 6;Noun;手;て;テ;te;hand
+Lession 6;Noun;上手な;じょうずな;ジョウズナ;jouzuna;skillful
+Lession 6;Noun;手紙;てがみ;テガミ;tegami;letter
+Lession 6;Noun;下手な;へたな;ヘタナ;hetana;unskillful
+Lession 6;Noun;足;あし;アシ;ashi;foot
+Lession 6;Noun;二足;にそうく;ニソク;nisoku;two pairs
+Lession 6;Noun;足りる;たりる;タリル;tariru;to be sufficient, to be enough
+Lession 6;Noun;雨;あめ;アメ;ame;rain
+Lession 6;Noun;雨天;うてん;ウテン;uten;rainy weather
+Lession 6;Noun;竹;たけ;タケ;take;bamboo
+Lession 6;Noun;竹田;たけだ;タケダ;takeda;Takeda
+Lession 6;Noun;竹の子;たけのこ;タケノコ;takenoko;bamboo shoot
+Lession 6;Noun;米;こめ;コメ;kome;rice
+Lession 6;Noun;中米;くうべい;チュウベイ;chuubei;Central America
+Lession 6;Noun;米国;べいこく;ベイコク;beikoku;America,U.S.A.
+Lession 6;Noun;貝;かい;カイ;kai;shell,shellfish
+Lession 6;Noun;貝がら;かいがら;カイガラ;kaigara;shell
+Lession 6;Noun;石;いし;イシ;ishi;stone
+Lession 6;Noun;石油;せきゆ;セキユ;sekiyu;oil,petro,gasoline
+Lession 6;Noun;石川;いしかわ;イシカワ;ishikawa;Ishikawa
+Lession 6;Noun;化石;かせき;カセキ;kaseki;fossil
+Lession 6;Noun;糸;いと;イト;ito;thread,yarn
+Lession 6;Noun;毛糸;けいと;ケイト;keito;knitting yarn,knitting wool
+END

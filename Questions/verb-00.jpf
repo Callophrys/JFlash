@@ -1,115 +1,115 @@
 JPFLASH
-Desc=Verbs - Kanji to Romaji
-Prompt=Enter Romaji equivalent of the Kanji:
+Desc=Verbs
+Prompt=
 Type=Entry
-食べる;たべる;タベル;taberu;to eat
-見る;みる;ミル;miru;to see,to look
-出る;でる;デル;deru;to leave,to go out
-着る;きる;キル;kiru;to put on
-起きる;おきる;オキル;okiru;to wake up
-寝る;ねる;ネル;neru;to sleep
-忘れる;わすれる;ワスレル;wasureru;to forget
-落ちる;おちる;オチル;ochiru;to drop,to fall
-始める;はじめる;ハジメル;hajimeru;to start,to begin
-上げる;あげる;アゲル;ageru;to give
-会う;あう;アウ;au;to meet
-言う;いう;イウ;iu;to say
-思う;おもう;オモウ;omou;to think
-買う;かう;カウ;kau;to buy
-習う;ならう;ナラウ;narau;to learn
-飲む;のむ;ノム;nomu;to drink
-読む;よむ;ヨム;yomu;to read
-住む;すむ;スム;sumu;to live
-休む;やすむ;ヤスム;yasumu;to rest
-選ぶ;えらぶ;エラブ;erabu;to choose
-急ぐ;いそぐ;イソグ;isogu;to hurry
-話す;はなす;ハナス;hanasu;to speak,to talk
-聞く;きく;キク;kiku;to hear,to listen
-行く;いく;イク;iku;to go
-引く;ひく;ヒク;hiku;to pull
-泣く;なく;ナク;naku;to cry
-待つ;まつ;マツ;matsu;to wait
-持つ;もつ;モツ;motsu;to hold,to have
-ある;ある;アル;aru;to exist
-入る;はいる;ハイル;hairu;to enter
-知る;しる;シル;shiru;to know
-分かる;わかる;ワカル;wakaru;to understand
-走る;はしる;ハシル;hashiru;to run
-来る;くる;クル;kuru;to come
-する;する;スル;suru;to do
-歩く;あるく;アルク;aruku;to walk
-受ける;うける;ウケル;ukeru;to be received,to catch on,to become popular
-当たる;あたる;アタル;ataru;to be hit,to confront,to be successful
-成る;なる;ナル;naru;to become
-切る;きる;キル;kiru;to cut
-帰る;かえる;カエル;kaeru;to go home
-滑る;すべる;スベル;suberu;to glide,to slide,to slip
-蹴る;ける;ケル;keru;to kick
-遊ぶ;あそぶ;アソブ;asobu;to play
-死ぬ;しぬ;シヌ;shinu;to die
-泳ぐ;およぐ;オヨグ;oyogu;to swim
-消す;けす;ケス;kesu;to erase,to turn off
-開ける;あける;アケル;akeru;to open
-閉める;しめる;シメル;shimeru;to close,to shut
-努める;つとめる;ツトメル;tsutomeru;to work for,to serve
-書きとめる;かきとめる;カキトメル;kakitomeru;to write down,to leave a note,to record,to chronicle
-感じる;かんじる;カンジル;kanjiru;to feel,to sense,to experience
-覚える;おぼえる;オボエル;oboeru;to remember,to recollect,to memorize,to memorise
-慣れる;なれる;ナレル;nareru;to get used to,to grow accustomed,to become tame,to get too familiar with
-飼う;かう;カウ;kau;to keep,to raise,to feed
-計る;はかる;ハカル;hakaru;to measure,to weigh,to survey,to guage
-建てる;たてる;タテル;tateru;to build,to construct;assembling action
-立てる;たてる;タテル;tateru;to erect,to stand something up,to stand (something) up,to erect something;positioning action
-止める;とめる;トメル;tomeru;to stop something
-止まる;とまる;トマル;tomaru;to remain,to abide,to stay in place,to come to a halt,to stop
-彫る;ほる;ホル;horu;to carve,to engrave,to sculpt,to sculpture,to chisel;some artistic action
-掘る;ほる;ホル;horu;to dig,to excavate;some construction action
-堪える;こたえる;コタエル;kotaeru;to bear,to stand,to endure,to put up with
-頭抜ける;ずぬける;ズヌケル;zunukeru;to stand out,to tower above
-立ち上がる;たちあがる;タチアガル;tachiagaru;to stand up
-腰掛ける;こしかける;コシカケル;koshikakeru;to sit
-描く;えがく;エガク;egaku;to draw,to paint,to sketch,to depict,to describe
-旅する;たびする;タビスル;tabisuru;to travel,to take a trip
-繕う;つくろう;ツクロウ;tsukurou;to mend,to repair,to fix,to patch up,to darn,to tidy up,to adjust,to trim
-取り合わせる;とりあわせる;トリアワセル;toriawaseru;to assemble,to put together
-使う;つかう;ツカウ;tsukau;to utilize,to use,to handle,to manipulate,to employ,to need,to want,to spend,to consume,to speak (English), to take (one's lunch),to circulate (bad money)
-教える;おしえる;オシエル;oshieru;to teach,to inform,to instruct
-押し付ける;おしける;オシケル;oshikeru;to press,to push,to force
-乗回す;のりまわす;ノリマワス;norimawasu;to ride around,to drive (a car) around,to ride (a bicycle) around
-馳せる;はせる;ハセル;haseru;to drive,to drive (car),to ride (horse),to win (fame)
-追い出す;おいだす;オイダス;oidasu;to expel,to drive out
-追い込む;おいこむ;オイコム;oikomu;to herd,to corner,to drive
-飛込む;とびこむ;トビコム;tobikomu;to jump in,to leap in,to plunge into,to dive
-乗り戻す;のりもどす;ノリモドス;norimodosu;to ride (a horse) back,to drive (a car) back
-飛び越える;とびこえる;トビコエル;tobikoeru;to jump over,to clear,to walk over (someone)
-跳ねる;けねる;ケネル;keneru;to jump,to leap,to prance,to spring up,to bound,to hop
-翔る;かける;カケル;kakeru;to soar,to fly
-博す;はくす;ハクス;hakusu;to win,to gain
-勝ち得る;かちえる;カチエル;kachieru;to achieve,to win,to gain,to attain
-説き付ける;ときつける;トキツケル;tokitsukeru;to persuade
-復習う;さらう;サラウ;sarau;to review,to rehearse,to practise,to practice
-学ぶ;まなぶ;マナブ;manabu;to study (in depth),to learn,to take lessons in
-修める;おさめる;オサメル;osameru;to study,to complete (a course),to cultivate,to master,to order (one's life),to repair one's fault
-浚う;さらう;サラウ;sarau;to sweep away,to wash away,to dredge
-脱する;だっする;ダッスル;dassuru;to escape from,to get out
-忍ぶ;しのぶ;シノブ;shinobu;to conceal oneself,to hide,to endure
-吃る;どもる;ドモル;domoru;to stammer,to stutter
-触れ合う;ふれあう;フレアウ;fureau;to come into contact with,to touch (each other),to touch
-注ぐ;そそぐ;ソソグ;sosogu;to pour,to pour (into),to irrigate,to pay,to fill,to feed (e.g. a fire)
-凝らす;こらす;コラス;korasu;to concentrate,to devote,to apply,to strain,to rack
-疑う;うたがう;ウタガウ;utagau;to doubt,to distrust,to suspect,to be suspicious of
-練習;れんしょう;レンショウ;renshou;to practice
-開く;ひらく;ヒラク;hiraku;to open,to open (e.g. a bank-account, festival, etc)
-閉じる;とじる;トジル;tojiru;to close,to close (e.g. book, eyes, meeting, etc.), to shut
-間違う;まちがう;マチガウ;machigau;to make a mistake,to be incorrect,to be mistaken
-笑む;えむ;エム;emu;to smile
-笑う;わらう;ワラウ;warau;to laugh,to smile
-借りる;かりる;カリル;kariru;to borrow,to have a loan,to take a loan,to hire,to rent,to buy on credit
-書く;かく;カク;kaku;to write
-訳す;やくす;ヤクス;yakusu;to translate
-判じる;まんじる;マンジル;manjiru;to judge,to decide,to guess,to solve,to decipher,to interpret,to divine
-翻訳;ほんやく;ホンヤク;honyaku,hon'yaku;translation,de-encryption,deciphering;翻訳 【ほんやく】 (n,vs)
-遊び丸;あそびまる;アソビマル;asobimaru,asobimasu;to hang out with,to take, to take (a shower), to undertake with
-作る;つくる;ツクル;tsukuru,tsukurimasu;to make,to make (a meal)
-出かける;でかける;デカケル;dekakeru,dekakemasu;to go out, to go out with
+Verbs;VERB;食べる;たべる;タベル;taberu;to eat
+Verbs;VERB;見る;みる;ミル;miru;to see,to look
+Verbs;VERB;出る;でる;デル;deru;to leave,to go out
+Verbs;VERB;着る;きる;キル;kiru;to put on
+Verbs;VERB;起きる;おきる;オキル;okiru;to wake up
+Verbs;VERB;寝る;ねる;ネル;neru;to sleep
+Verbs;VERB;忘れる;わすれる;ワスレル;wasureru;to forget
+Verbs;VERB;落ちる;おちる;オチル;ochiru;to drop,to fall
+Verbs;VERB;始める;はじめる;ハジメル;hajimeru;to start,to begin
+Verbs;VERB;上げる;あげる;アゲル;ageru;to give
+Verbs;VERB;会う;あう;アウ;au;to meet
+Verbs;VERB;言う;いう;イウ;iu;to say
+Verbs;VERB;思う;おもう;オモウ;omou;to think
+Verbs;VERB;買う;かう;カウ;kau;to buy
+Verbs;VERB;習う;ならう;ナラウ;narau;to learn
+Verbs;VERB;飲む;のむ;ノム;nomu;to drink
+Verbs;VERB;読む;よむ;ヨム;yomu;to read
+Verbs;VERB;住む;すむ;スム;sumu;to live
+Verbs;VERB;休む;やすむ;ヤスム;yasumu;to rest
+Verbs;VERB;選ぶ;えらぶ;エラブ;erabu;to choose
+Verbs;VERB;急ぐ;いそぐ;イソグ;isogu;to hurry
+Verbs;VERB;話す;はなす;ハナス;hanasu;to speak,to talk
+Verbs;VERB;聞く;きく;キク;kiku;to hear,to listen
+Verbs;VERB;行く;いく;イク;iku;to go
+Verbs;VERB;引く;ひく;ヒク;hiku;to pull
+Verbs;VERB;泣く;なく;ナク;naku;to cry
+Verbs;VERB;待つ;まつ;マツ;matsu;to wait
+Verbs;VERB;持つ;もつ;モツ;motsu;to hold,to have
+Verbs;VERB;ある;ある;アル;aru;to exist
+Verbs;VERB;入る;はいる;ハイル;hairu;to enter
+Verbs;VERB;知る;しる;シル;shiru;to know
+Verbs;VERB;分かる;わかる;ワカル;wakaru;to understand
+Verbs;VERB;走る;はしる;ハシル;hashiru;to run
+Verbs;VERB;来る;くる;クル;kuru;to come
+Verbs;VERB;する;する;スル;suru;to do
+Verbs;VERB;歩く;あるく;アルク;aruku;to walk
+Verbs;VERB;受ける;うける;ウケル;ukeru;to be received,to catch on,to become popular
+Verbs;VERB;当たる;あたる;アタル;ataru;to be hit,to confront,to be successful
+Verbs;VERB;成る;なる;ナル;naru;to become
+Verbs;VERB;切る;きる;キル;kiru;to cut
+Verbs;VERB;帰る;かえる;カエル;kaeru;to go home
+Verbs;VERB;滑る;すべる;スベル;suberu;to glide,to slide,to slip
+Verbs;VERB;蹴る;ける;ケル;keru;to kick
+Verbs;VERB;遊ぶ;あそぶ;アソブ;asobu;to play
+Verbs;VERB;死ぬ;しぬ;シヌ;shinu;to die
+Verbs;VERB;泳ぐ;およぐ;オヨグ;oyogu;to swim
+Verbs;VERB;消す;けす;ケス;kesu;to erase,to turn off
+Verbs;VERB;開ける;あける;アケル;akeru;to open
+Verbs;VERB;閉める;しめる;シメル;shimeru;to close,to shut
+Verbs;VERB;努める;つとめる;ツトメル;tsutomeru;to work for,to serve
+Verbs;VERB;書きとめる;かきとめる;カキトメル;kakitomeru;to write down,to leave a note,to record,to chronicle
+Verbs;VERB;感じる;かんじる;カンジル;kanjiru;to feel,to sense,to experience
+Verbs;VERB;覚える;おぼえる;オボエル;oboeru;to remember,to recollect,to memorize,to memorise
+Verbs;VERB;慣れる;なれる;ナレル;nareru;to get used to,to grow accustomed,to become tame,to get too familiar with
+Verbs;VERB;飼う;かう;カウ;kau;to keep,to raise,to feed
+Verbs;VERB;計る;はかる;ハカル;hakaru;to measure,to weigh,to survey,to guage
+Verbs;VERB;建てる;たてる;タテル;tateru;to build,to construct;assembling action
+Verbs;VERB;立てる;たてる;タテル;tateru;to erect,to stand something up,to stand (something) up,to erect something;positioning action
+Verbs;VERB;止める;とめる;トメル;tomeru;to stop something
+Verbs;VERB;止まる;とまる;トマル;tomaru;to remain,to abide,to stay in place,to come to a halt,to stop
+Verbs;VERB;彫る;ほる;ホル;horu;to carve,to engrave,to sculpt,to sculpture,to chisel;some artistic action
+Verbs;VERB;掘る;ほる;ホル;horu;to dig,to excavate;some construction action
+Verbs;VERB;堪える;こたえる;コタエル;kotaeru;to bear,to stand,to endure,to put up with
+Verbs;VERB;頭抜ける;ずぬける;ズヌケル;zunukeru;to stand out,to tower above
+Verbs;VERB;立ち上がる;たちあがる;タチアガル;tachiagaru;to stand up
+Verbs;VERB;腰掛ける;こしかける;コシカケル;koshikakeru;to sit
+Verbs;VERB;描く;えがく;エガク;egaku;to draw,to paint,to sketch,to depict,to describe
+Verbs;VERB;旅する;たびする;タビスル;tabisuru;to travel,to take a trip
+Verbs;VERB;繕う;つくろう;ツクロウ;tsukurou;to mend,to repair,to fix,to patch up,to darn,to tidy up,to adjust,to trim
+Verbs;VERB;取り合わせる;とりあわせる;トリアワセル;toriawaseru;to assemble,to put together
+Verbs;VERB;使う;つかう;ツカウ;tsukau;to utilize,to use,to handle,to manipulate,to employ,to need,to want,to spend,to consume,to speak (English), to take (one's lunch),to circulate (bad money)
+Verbs;VERB;教える;おしえる;オシエル;oshieru;to teach,to inform,to instruct
+Verbs;VERB;押し付ける;おしける;オシケル;oshikeru;to press,to push,to force
+Verbs;VERB;乗回す;のりまわす;ノリマワス;norimawasu;to ride around,to drive (a car) around,to ride (a bicycle) around
+Verbs;VERB;馳せる;はせる;ハセル;haseru;to drive,to drive (car),to ride (horse),to win (fame)
+Verbs;VERB;追い出す;おいだす;オイダス;oidasu;to expel,to drive out
+Verbs;VERB;追い込む;おいこむ;オイコム;oikomu;to herd,to corner,to drive
+Verbs;VERB;飛込む;とびこむ;トビコム;tobikomu;to jump in,to leap in,to plunge into,to dive
+Verbs;VERB;乗り戻す;のりもどす;ノリモドス;norimodosu;to ride (a horse) back,to drive (a car) back
+Verbs;VERB;飛び越える;とびこえる;トビコエル;tobikoeru;to jump over,to clear,to walk over (someone)
+Verbs;VERB;跳ねる;けねる;ケネル;keneru;to jump,to leap,to prance,to spring up,to bound,to hop
+Verbs;VERB;翔る;かける;カケル;kakeru;to soar,to fly
+Verbs;VERB;博す;はくす;ハクス;hakusu;to win,to gain
+Verbs;VERB;勝ち得る;かちえる;カチエル;kachieru;to achieve,to win,to gain,to attain
+Verbs;VERB;説き付ける;ときつける;トキツケル;tokitsukeru;to persuade
+Verbs;VERB;復習う;さらう;サラウ;sarau;to review,to rehearse,to practise,to practice
+Verbs;VERB;学ぶ;まなぶ;マナブ;manabu;to study (in depth),to learn,to take lessons in
+Verbs;VERB;修める;おさめる;オサメル;osameru;to study,to complete (a course),to cultivate,to master,to order (one's life),to repair one's fault
+Verbs;VERB;浚う;さらう;サラウ;sarau;to sweep away,to wash away,to dredge
+Verbs;VERB;脱する;だっする;ダッスル;dassuru;to escape from,to get out
+Verbs;VERB;忍ぶ;しのぶ;シノブ;shinobu;to conceal oneself,to hide,to endure
+Verbs;VERB;吃る;どもる;ドモル;domoru;to stammer,to stutter
+Verbs;VERB;触れ合う;ふれあう;フレアウ;fureau;to come into contact with,to touch (each other),to touch
+Verbs;VERB;注ぐ;そそぐ;ソソグ;sosogu;to pour,to pour (into),to irrigate,to pay,to fill,to feed (e.g. a fire)
+Verbs;VERB;凝らす;こらす;コラス;korasu;to concentrate,to devote,to apply,to strain,to rack
+Verbs;VERB;疑う;うたがう;ウタガウ;utagau;to doubt,to distrust,to suspect,to be suspicious of
+Verbs;VERB;練習;れんしょう;レンショウ;renshou;to practice
+Verbs;VERB;開く;ひらく;ヒラク;hiraku;to open,to open (e.g. a bank-account, festival, etc)
+Verbs;VERB;閉じる;とじる;トジル;tojiru;to close,to close (e.g. book, eyes, meeting, etc.), to shut
+Verbs;VERB;間違う;まちがう;マチガウ;machigau;to make a mistake,to be incorrect,to be mistaken
+Verbs;VERB;笑む;えむ;エム;emu;to smile
+Verbs;VERB;笑う;わらう;ワラウ;warau;to laugh,to smile
+Verbs;VERB;借りる;かりる;カリル;kariru;to borrow,to have a loan,to take a loan,to hire,to rent,to buy on credit
+Verbs;VERB;書く;かく;カク;kaku;to write
+Verbs;VERB;訳す;やくす;ヤクス;yakusu;to translate
+Verbs;VERB;判じる;まんじる;マンジル;manjiru;to judge,to decide,to guess,to solve,to decipher,to interpret,to divine
+Verbs;VERB;翻訳;ほんやく;ホンヤク;honyaku,hon'yaku;translation,de-encryption,deciphering;翻訳 【ほんやく】 (n,vs)
+Verbs;VERB;遊び丸;あそびまる;アソビマル;asobimaru,asobimasu;to hang out with,to take, to take (a shower), to undertake with
+Verbs;VERB;作る;つくる;ツクル;tsukuru,tsukurimasu;to make,to make (a meal)
+Verbs;VERB;出かける;でかける;デカケル;dekakeru,dekakemasu;to go out, to go out with
 END

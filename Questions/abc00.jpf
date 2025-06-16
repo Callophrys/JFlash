@@ -1,51 +1,51 @@
 JPFLASH
 Desc=Sundry words
-Prompt=Enter the {0} equivalent of the {1}:
+Prompt=
 Type=Entry
-ダイジョブ;だいじょぶ;ダイジョブ;daijobu;okay then
-とても;とても;トテモ;totemo;very, extremely, real, terribly, awfully, badly
-毎日;まいにち;マイニチ;mainichi;every day
-毎朝;まいあさ;マイアサ;maiasa;every morning
-毎晩;まいばん;マイバン;maiban;every night
-正午;しょうご;ショウゴ;shougo;noon
-夜中;よなか;ヨナカ;yonaka;midnight
-こちらこそ;こちらこそ;コチラコソ;kochirakoso;you're welcome,you're welcome here
-どういたしまして;どういたしまして;ドウイタシマシテ;douitashimashite;you're welcome,it's nothing
-今夜;こんや;コンヤ;konya;tonight
-今朝;けさ;ケサ;kesa;this morning
-午後;ごご;ゴゴ;gogo;afternoon
-今日;きょう;キョウ;kyou;today
-昨日;きの;キノ;kino;yesterday
-明日;あした;アシタ;ashita;tomorrow
-夜;よる;ヨル;yoru;night
-日;ひ;ヒ;hi;day
-少し;すこし;スコシ;sukoshi;few
-少ない;すくない;スクナイ;sukunai;fewer,less
-もっと;もっと;モット;motto;more
-数日;すうじつ;スウジツ;suujitsu;few days
-多くの;おおくの;オオクノ;ookuno,ooku no;many
-多くの日々;おおくのびひ;オオクノヒビ;ookunohibi,ooku no hibi;many days
-ついて;ついて;ツイテ;tsuite;about
-名について;なにについて;ナニニツイテ;naninitsuite,nani ni tsuite;about what
-私について;わたしについて;ワタシニツイテ;watashinitsuite,watashi ni tsuite;about me
-何時頃;なんどきごろ;;nandokigoro,nan doki goro;about what time
-まだ;まだ;マダ;mada;still,yet
-いつもの;いつもの;イツモノ;itsumono,itsumo no;usual,usually
-ここ;ここ;ココ;koko;here
-そこ;そこ;ソコ;soko;there
-あそこ;あそこ;アソコ;asoko;(over) there,over there,there
-こちら;こちら;コチラ;kochira;here (polite),here
-そちら;そちら;ソチラ;sochira;there (polite),there
-あちら;あちら;アチラ;achira;(over) there (polite),over there,there
-時間;じかん;ジカン;jikan;hour
-分;ぶん;ブン;bun;minute
-半分,半;はん;ハン;han;30 minutes,30 min,half
-全部;ぜんぶ;ゼンブ;zenbu;All,altogether
-全て;すべて;スベテ;subete;all,everything
-最高;さいこう;サイク;saikou;best
-まで;まで;マデ;still
-まず;まず;マズ;mazu;first of all
-次に;つぎに;ツギ;tsugi;next
-じゃ,じゃあ;じゃ,じゃあ;ジャジャア;ja,jaa;then
-それから;それから;ソレカラ;sorekara;after that
+Sundry;ANY;ダイジョブ;だいじょぶ;ダイジョブ;daijobu;okay then
+Sundry;ANY;とても;とても;トテモ;totemo;very, extremely, real, terribly, awfully, badly
+Sundry;ANY;毎日;まいにち;マイニチ;mainichi;every day
+Sundry;ANY;毎朝;まいあさ;マイアサ;maiasa;every morning
+Sundry;ANY;毎晩;まいばん;マイバン;maiban;every night
+Sundry;ANY;正午;しょうご;ショウゴ;shougo;noon
+Sundry;ANY;夜中;よなか;ヨナカ;yonaka;midnight
+Sundry;ANY;こちらこそ;こちらこそ;コチラコソ;kochirakoso;you're welcome,you're welcome here
+Sundry;ANY;どういたしまして;どういたしまして;ドウイタシマシテ;douitashimashite;you're welcome,it's nothing
+Sundry;ANY;今夜;こんや;コンヤ;konya;tonight
+Sundry;ANY;今朝;けさ;ケサ;kesa;this morning
+Sundry;ANY;午後;ごご;ゴゴ;gogo;afternoon
+Sundry;ANY;今日;きょう;キョウ;kyou;today
+Sundry;ANY;昨日;きの;キノ;kino;yesterday
+Sundry;ANY;明日;あした;アシタ;ashita;tomorrow
+Sundry;ANY;夜;よる;ヨル;yoru;night
+Sundry;ANY;日;ひ;ヒ;hi;day
+Sundry;ANY;少し;すこし;スコシ;sukoshi;few
+Sundry;ANY;少ない;すくない;スクナイ;sukunai;fewer,less
+Sundry;ANY;もっと;もっと;モット;motto;more
+Sundry;ANY;数日;すうじつ;スウジツ;suujitsu;few days
+Sundry;ANY;多くの;おおくの;オオクノ;ookuno,ooku no;many
+Sundry;ANY;多くの日々;おおくのびひ;オオクノヒビ;ookunohibi,ooku no hibi;many days
+Sundry;ANY;ついて;ついて;ツイテ;tsuite;about
+Sundry;ANY;名について;なにについて;ナニニツイテ;naninitsuite,nani ni tsuite;about what
+Sundry;ANY;私について;わたしについて;ワタシニツイテ;watashinitsuite,watashi ni tsuite;about me
+Sundry;ANY;何時頃;なんどきごろ;;nandokigoro,nan doki goro;about what time
+Sundry;ANY;まだ;まだ;マダ;mada;still,yet
+Sundry;ANY;いつもの;いつもの;イツモノ;itsumono,itsumo no;usual,usually
+Sundry;ANY;ここ;ここ;ココ;koko;here
+Sundry;ANY;そこ;そこ;ソコ;soko;there
+Sundry;ANY;あそこ;あそこ;アソコ;asoko;(over) there,over there,there
+Sundry;ANY;こちら;こちら;コチラ;kochira;here (polite),here
+Sundry;ANY;そちら;そちら;ソチラ;sochira;there (polite),there
+Sundry;ANY;あちら;あちら;アチラ;achira;(over) there (polite),over there,there
+Sundry;ANY;時間;じかん;ジカン;jikan;hour
+Sundry;ANY;分;ぶん;ブン;bun;minute
+Sundry;ANY;半分,半;はん;ハン;han;30 minutes,30 min,half
+Sundry;ANY;全部;ぜんぶ;ゼンブ;zenbu;All,altogether
+Sundry;ANY;全て;すべて;スベテ;subete;all,everything
+Sundry;ANY;最高;さいこう;サイク;saikou;best
+Sundry;ANY;まで;まで;マデ;still
+Sundry;ANY;まず;まず;マズ;mazu;first of all
+Sundry;ANY;次に;つぎに;ツギ;tsugi;next
+Sundry;ANY;じゃ,じゃあ;じゃ,じゃあ;ジャジャア;ja,jaa;then
+Sundry;ANY;それから;それから;ソレカラ;sorekara;after that
 END

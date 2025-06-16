@@ -1,15 +1,15 @@
 JPFLASH
 Desc=Ordinals - Tsu Endings
-Prompt=Enter the ordinal of simple objects (-tsu) per the language option:
+Prompt=Enter the ordinal of simple objects (-tsu):
 Type=Entry
-一つ;ひとつ;ヒトツ;hitotsu;1
-二つ;ふたつ;フタツ;futatsu;2
-三つ;みっつ;ミッツ;mittsu;3
-四つ;よっつ;ヨッツ;yottsu;4
-五つ;いつつ;イツツ;itsutsu;5
-六つ;むっつ;ムッツ;muttsu;6
-七つ;ななつ;ナナツ;nanatsu;7
-八つ;やっつ;ヤッツ;yattsu;8
-九つ;ここのつ;ココノツ;kokonotsu;9
-十つ;とお;トオ;too;10
+Ordinals - Tsu;0-TSU;一つ;ひとつ;ヒトツ;hitotsu;1
+Ordinals - Tsu;0-TSU;二つ;ふたつ;フタツ;futatsu;2
+Ordinals - Tsu;0-TSU;三つ;みっつ;ミッツ;mittsu;3
+Ordinals - Tsu;0-TSU;四つ;よっつ;ヨッツ;yottsu;4
+Ordinals - Tsu;0-TSU;五つ;いつつ;イツツ;itsutsu;5
+Ordinals - Tsu;0-TSU;六つ;むっつ;ムッツ;muttsu;6
+Ordinals - Tsu;0-TSU;七つ;ななつ;ナナツ;nanatsu;7
+Ordinals - Tsu;0-TSU;八つ;やっつ;ヤッツ;yattsu;8
+Ordinals - Tsu;0-TSU;九つ;ここのつ;ココノツ;kokonotsu;9
+Ordinals - Tsu;0-TSU;十つ;とお;トオ;too;10
 END
