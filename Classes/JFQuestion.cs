@@ -1,24 +1,15 @@
-﻿using System.Runtime.CompilerServices;
+﻿using JFlash.Classes;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 namespace JFlash
 {
-    public partial class JFQuestion
+    public partial class JFQuestion : QuestionEntries
     {
-        /// <summary>
-        /// Correct answer. This is the value to be entered by the user.
-        /// </summary>
-        public string Answer = string.Empty;
-
         /// <summary>
         /// The correct answer formatted cleaned up, if multi-answer, for display. 
         /// </summary>
         public string FormattedAnswer => Answer.Replace(",", ", ");
-
-        /// <summary>
-        /// Source question. This is read by the user and requires a response.
-        /// </summary>
-        public string Prompt = string.Empty;
 
         /// <summary>
         /// Description heading of current question file.
@@ -45,16 +36,21 @@ namespace JFlash
         /// Pointer to meaning of desired word. E.g. provide help when there is
         /// the same answer for more than one kanji.
         /// </summary>
-        public string Hint = string.Empty;
+        public string Hint => BriefHint.Scrub();
 
         public bool HasMultipleAnswers => Answer.Contains(',') || Answer.Contains('，');
 
         /// <summary>
-        /// This limits parsing to non-hint and non-extra data.
+        /// TOP. This limit parsing to non-hint and non-extra data.
         /// </summary>
-        const int LimitForQuestionData = 5;
+        const int LimitForQuestionDataTop = 7;
 
-        private readonly List<string> sourceParts;
+        /// <summary>
+        /// BOTTOM. This limit parsing to non-hint and non-extra data.
+        /// </summary>
+        const int LimitForQuestionDataBottom = 2;
+
+        private readonly List<string>? sourceParts;
 
         /// <summary>
         /// Regular expression for a comma or JP comma flanked by any number of spaces.
@@ -70,40 +66,31 @@ namespace JFlash
         [GeneratedRegex("  +")]
         private static partial Regex RegExSpaces();
 
-        public JFQuestion(string sourceLine, int idxFrom, int idxTo)
+        [GeneratedRegex("^[tT][oO] +")]
+        private static partial Regex RegExTo();
+
+        public JFQuestion(string sourceLine, int idxFrom, int idxTo) :
+            base(sourceLine.Trim(), idxFrom, idxTo)
         {
-            sourceParts = [.. sourceLine.Split([';', '；'], StringSplitOptions.None).Select(x => x.Scrub())];
-            if (idxFrom < sourceParts.Count && idxTo < sourceParts.Count)
-            {
-                UpdateQuestion(idxFrom, idxTo);
-            }
+            sourceParts = [.. sourceEntry.Select(x => x.Scrub())];
+            UpdateQuestion();
         }
 
         public string ScrubbedAnswer(string userEntry) => Answer.Replace(userEntry, string.Empty).Scrub();
 
-        public void UpdateQuestion(int idxFrom, int idxTo)
+        public void UpdateQuestion()
         {
-            // Set the prompt/query to the user.
-            Prompt = sourceParts[idxFrom];
-
-            // Set the correct answer.
-            Answer = sourceParts[idxTo];
-
-            // If hints are present. Set them.
-            if (sourceParts.Count > LimitForQuestionData)
-            {
-                Hint = sourceParts[5];
-            }
+            if (sourceEntry.Length < 1) return;
 
             // Build the "Additional" which means all other
             // question-answer-related data MINUS then ones
             // actually being queried and answered.
             var extra = new List<string>();
-            for (var i = 0; i < Math.Min(sourceParts.Count, LimitForQuestionData); ++i)
+            for (var i = LimitForQuestionDataBottom; i < LimitForQuestionDataTop; ++i)
             {
-                if (i != idxFrom && i != idxTo)
+                if (i != indexFrom && i != indexTo)
                 {
-                    extra.Add(sourceParts[i]);
+                    extra.Add(sourceEntry[i]);
                 }
             }
 
@@ -124,7 +111,14 @@ namespace JFlash
             bool result = false;
             foreach (string p in Answer.Split([',', '，'], StringSplitOptions.TrimEntries))
             {
-                result |= string.Equals(ans, p, StringComparison.CurrentCultureIgnoreCase);
+                if (indexTo == QuestionFields.English && Structure == "VERB")
+                {
+                    result |= string.Equals(RegExTo().Replace(ans, string.Empty), RegExTo().Replace(p, string.Empty), StringComparison.CurrentCultureIgnoreCase);
+                }
+                else
+                {
+                    result |= string.Equals(ans, p, StringComparison.CurrentCultureIgnoreCase);
+                }
             }
 
             return result;

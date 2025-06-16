@@ -4,11 +4,11 @@ public static class QuestionTypes
 {
     public enum JPCHOICES
     {
-        Kanji = 0,
-        Hirigana = 1,
-        Katakana = 2,
-        Romaji = 3,
-        English = 4,
+        Kanji = QuestionFields.Kanji,
+        Hirigana = QuestionFields.Hirigana,
+        Katakana = QuestionFields.Katakana,
+        Romaji = QuestionFields.Romaji,
+        English = QuestionFields.English,
     }
 
     public static readonly string[] choices =
@@ -22,10 +22,10 @@ public static class QuestionTypes
 
     public static string JpIntToChoiceString(int choice) => choice switch
     {
-        1 => "Hirigana",
-        2 => "Katakana",
-        3 => "Romaji",
-        4 => "English",
+        QuestionFields.Hirigana => "Hirigana",
+        QuestionFields.Katakana => "Katakana",
+        QuestionFields.Romaji => "Romaji",
+        QuestionFields.English => "English",
         _ => "Kanji",
     };
 

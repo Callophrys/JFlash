@@ -2,6 +2,7 @@
 {
     public static class StringExtensions
     {
+        // TODO use a reg ex at some point...maybe
         public static string Scrub(this string item) => item
             .Replace(",,", ",")
             .Replace(", ,", ", ")

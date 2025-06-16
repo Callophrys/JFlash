@@ -529,9 +529,7 @@ public partial class JFlashForm : Form
         {
             foreach (var q in question.Questions)
             {
-                q.UpdateQuestion(
-                    QuestionTypes.JpStringToChoiceIndex(cmbFrom.Text),
-                    QuestionTypes.JpStringToChoiceIndex(cmbTo.Text));
+                q.UpdateQuestion();
             }
         }
     }

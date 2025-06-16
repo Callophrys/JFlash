@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace JFlash.Classes
 {
     public class JFQuestionFile
@@ -15,10 +17,6 @@ namespace JFlash.Classes
 
         public JFQuestionFile(string filename, int idxFrom, int idxTo, int subsetSize)
         {
-            /* TODO fix this ugly hack */
-            idxFrom += 2;
-            idxTo += 2;
-
             /* TODO if idxTo is type NUM then say Numeral instead of English */
 
             if (!File.Exists(filename))
@@ -85,14 +83,15 @@ namespace JFlash.Classes
                 return;
             }
 
-            IEnumerable<string> qss = input.Split('\n').TakeWhile(x => x.ToUpperInvariant() != "END");
+            IEnumerable<string> qss = input
+                .Split(["\r\n", "\n"], StringSplitOptions.RemoveEmptyEntries)
+                .TakeWhile(x => x.ToUpperInvariant() != "END");
             foreach (string question in qss)
             {
-                JFQuestion? jfQuestion = new JFQuestion(question.Trim(), idxFrom, idxTo);
+                JFQuestion? jfQuestion = new(question.Trim(), idxFrom, idxTo);
 
                 // Make sure question is usable
-                if (!string.IsNullOrEmpty(jfQuestion.Prompt) &&
-                    !string.IsNullOrEmpty(jfQuestion.Answer))
+                if (!string.IsNullOrEmpty(jfQuestion.Answer))
                 {
                     Questions.Add(jfQuestion);
                 }
