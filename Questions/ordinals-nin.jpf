@@ -1,6 +1,6 @@
 JPFLASH
 Desc=Ordinals - Nin Endings
-Prompt=Enter the ordinal of people (-nin) per the language option:
+Prompt=Enter the ordinal of people (-nin).
 Type=Entry
 Ordinals - Nin;0-NIN;一人;ひとり;ヒトリ;hitori;1
 Ordinals - Nin;0-NIN;二人;ふあり;フタリ;futari;2

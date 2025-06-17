@@ -28,8 +28,7 @@ Sundry;ANY;多くの日々;おおくのびひ;オオクノヒビ;ookunohibi,ooku
 Sundry;ANY;ついて;ついて;ツイテ;tsuite;about
 Sundry;ANY;名について;なにについて;ナニニツイテ;naninitsuite,nani ni tsuite;about what
 Sundry;ANY;私について;わたしについて;ワタシニツイテ;watashinitsuite,watashi ni tsuite;about me
-Sundry;ANY;何時頃;なんどきごろ;;nandokigoro,nan doki goro;about what time
-Sundry;ANY;まだ;まだ;マダ;mada;still,yet
+Sundry;ANY;何時頃;なんどきごろ;ナンドキゴロ;nandokigoro,nan doki goro;about what time
 Sundry;ANY;いつもの;いつもの;イツモノ;itsumono,itsumo no;usual,usually
 Sundry;ANY;ここ;ここ;ココ;koko;here
 Sundry;ANY;そこ;そこ;ソコ;soko;there
@@ -43,9 +42,17 @@ Sundry;ANY;半分,半;はん;ハン;han;30 minutes,30 min,half
 Sundry;ANY;全部;ぜんぶ;ゼンブ;zenbu;All,altogether
 Sundry;ANY;全て;すべて;スベテ;subete;all,everything
 Sundry;ANY;最高;さいこう;サイク;saikou;best
-Sundry;ANY;まで;まで;マデ;made;still;;Why two?
+Sundry;ANY;まで;まで;マデ;made;still
 Sundry;ANY;まず;まず;マズ;mazu;first of all
 Sundry;ANY;次に;つぎに;ツギ;tsugi;next
 Sundry;ANY;じゃ,じゃあ;じゃ,じゃあ;ジャジャア;ja,jaa;then
 Sundry;ANY;それから;それから;ソレカラ;sorekara;after that
+Sundry;0-KAI;一個;いかい;;ikkai;1
+Sundry;0-KAI;一個;にかい;;nikai;2
+Sundry;NOUN;かいだん;かいだん;;kaidan;stairs
+Sundry;NOUN;じはんき;じはんきい;;jihanki;vending machines
+Sundry;NOUN;のりかえ;のりかえ;;norikae;transfer;bus transfer,train transfer
+Sundry;;ちか;ちか;;chika;underground;underground level
+Sundry;NOUN;;;;kaisatsu;ticket gate
+Sundry;;;;;itsumo;always,all the time,never
 END

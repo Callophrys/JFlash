@@ -1,5 +1,5 @@
 JPFLASH
-Desc=I Adjectives
+Desc=I-Adjectives
 Prompt=
 Type=Entry
 Adjectives;ADJ-I;正しい;ただしい;タダシイ;tadashii;correct,right
@@ -18,7 +18,7 @@ Adjectives;ADJ-I;灰い;はいい;ハイイ;haii;gray,ashen-colored
 Adjectives;ADJ-I;紫い;むらさき;ムラサキ;murasaki;purple
 Adjectives;ADJ-I;青い;あおい;アオイ;aoi;blue
 Adjectives;ADJ-I;緑;みどりい;ミドリイ;midorii;green
-Adjectives;ADJ-I;茶色い;かひろい;;chairoi;brown
+Adjectives;ADJ-I;茶色い;ちゃいろい;チャイロイ;chairoi;brown
 Adjectives;ADJ-I;良い;よい,いい,よく;ヨイ,イイ,ヨク;yoi,ii,yoku;good,right,nice,pleasant,fine,excellent,agreeable,ok
 Adjectives;ADJ-I;悪い;わるい;ワルイ;warui;bad,inferior
 Adjectives;ADJ-I;美しい;うつくしい;ルツクシイ;utsukushii;beautiful,lovely

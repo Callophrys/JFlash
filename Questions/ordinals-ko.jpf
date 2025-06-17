@@ -1,0 +1,22 @@
+JPFLASH
+Desc=Ordinals - Ko Endings
+Prompt=Enter the ordinal of small round items. E.g. spheres and also cubes (oranges, baseballs, boxes) (-ko)
+Type=Entry
+Ordinals - Ko;0-KO;一個;いっこ;イッコ;ikko;1
+Ordinals - Ko;0-KO;二個;にこ;ニコ;niko;2
+Ordinals - Ko;0-KO;三個;さんこ;サンコ;sanko;3
+Ordinals - Ko;0-KO;四個;よんこ;ヨンコ;yonko;4
+Ordinals - Ko;0-KO;五個;ごこ;ゴコ;goko;5
+Ordinals - Ko;0-KO;六個;ろっこ;ロッコ;rokko;6
+Ordinals - Ko;0-KO;七個;ななこ,しちこ;ハハコ,シチコ;nanako,shichiko;7
+Ordinals - Ko;0-KO;八個;はちこ,はっこ;ハチコ,ハッコ;hachiko,hakko;8
+Ordinals - Ko;0-KO;九個;きゅうこ;キュウコ;kyuuko;9
+Ordinals - Ko;0-KO;十個;じゅっこ,じっこ;ジュウコ,ジュコ;juuko;10
+Ordinals - Ko;0-KO;十一個;じゅういっこ;ジュウイッコ;juuikko;11
+Ordinals - Ko;0-KO;十二個;じゅうにこ;ジュウニコ;juuniko;12
+Ordinals - Ko;0-KO;二十個;にじゅうこ;ニジュウコ;nijuuko;20
+Ordinals - Ko;0-KO;百個;ひゃっこ;ヒャッコ;hyakko;100
+Ordinals - Ko;0-KO;千個;せんこ;センコ;senko;1000,1.000
+Ordinals - Ko;0-KO;一万個;いちまんこ;イチセンコ;ichisenko;10000,10.000
+Ordinals - Ko;0-KO;何個;なんこ;ナンコ;nanko,nan ko;How many
+END

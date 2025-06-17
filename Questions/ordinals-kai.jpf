@@ -1,13 +1,15 @@
 JPFLASH
-Desc=Ordinals - Ko Endings
-Prompt=Enter the ordinal of spheres and cubes (oranges, baseballs, boxes) (-ko) per the language option:
+Desc=Counter - Kai Endings
+Prompt=Frequency or number of times of something happening.
 Type=Entry
-;0-KAI;一個;いかい;;ikkai;1
-;0-KAI;一個;にかい;;nikai;2
-;NOUN;かいだん;かいだん;;kaidan;stairs
-;NOUN;じはんき;じはんきい;;jihanki;vending machines
-;NOUN;のりかえ;のりかえ;;norikae;transfer;bus transfer,train transfer
-;;ちか;ちか;;chika;underground;underground level
-;NOUN;;;;kaisatsu;ticket gate
-;;;;;itsumo;always,all the time,never
+Counter - Kai;0-KAI;一回;いっかい;イッカイ;ikkai;1 time, one time
+Counter - Kai;0-KAI;二回;にかい;ニカイ;nikai;2 times, two times
+Counter - Kai;0-KAI;三回;さんかい;サンカイ;sankai;3 times,three times
+Counter - Kai;0-KAI;四回;よんかい;ヨンカイ;yonkai;4 times,four times
+Counter - Kai;0-KAI;五回;ごかい;ゴカイ;gokai;5 times,five times
+Counter - Kai;0-KAI;六回;ろっかい;ロッカイ;rokkai;6 times,six times
+Counter - Kai;0-KAI;七回;ななかい;ナナカイ;nanakai;7 times,seven times
+Counter - Kai;0-KAI;八回;はちかい,はっかい;ハチカイ,ハッカイ;hachikai,hakkai;8 times,eight times
+Counter - Kai;0-KAI;九回;きゅうかい;キュウカイ;kyuukai;9 times,nine times
+Counter - Kai;0-KAI;十回;じゅっかい;ジュッカイ;jukkai;10 times,ten times
 END
