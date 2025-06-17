@@ -61,27 +61,27 @@ public partial class JFQuestionaireForm : Form
         lblQuestionQuery.Font = langFrom switch
         {
             "English" => new Font(
-                                    "MS Sans Serif",
-                                    16,
-                                    FontStyle.Regular,
-                                    GraphicsUnit.Point,
-                                    0),
+                "MS Sans Serif",
+                16,
+                FontStyle.Regular,
+                GraphicsUnit.Point,
+                0),
             "Romaji" => new Font(
-                                    "Arial",
-                                    16,
-                                    FontStyle.Regular,
-                                    GraphicsUnit.Point,
-                                    0),
+                "Arial",
+                16,
+                FontStyle.Regular,
+                GraphicsUnit.Point,
+                0),
             _ => new Font(
-                                        fonts[rnd.Next(0, fonts.Length - 1)],
-                                        rnd.Next(fontSizeMin, fontSizeMax),
-                                        new FontStyle[3] {
-                    FontStyle.Regular,
-                    FontStyle.Bold,
-                    FontStyle.Italic
-                                        }[rnd.Next(0, 2)],
-                                        GraphicsUnit.Point,
-                                        0),
+                    fonts[rnd.Next(0, fonts.Length - 1)],
+                    rnd.Next(fontSizeMin, fontSizeMax),
+                    new FontStyle[3] {
+                        FontStyle.Regular,
+                        FontStyle.Bold,
+                        FontStyle.Italic
+                    }[rnd.Next(0, 2)],
+                    GraphicsUnit.Point,
+                    0),
         };
 
         // Need to set up randomized Question Set (q&a pairs)
@@ -222,6 +222,7 @@ public partial class JFQuestionaireForm : Form
     {
         if (e.KeyValue == 13)
         {
+            e.SuppressKeyPress = true;
             EvaluateAnswer();
         }
     }
@@ -239,5 +240,10 @@ public partial class JFQuestionaireForm : Form
     private void BtnMistakes_Click(object sender, EventArgs e)
     {
         parentForm.ToggleMistakesForm();
+    }
+
+    private void BtnSubmit_Click(object sender, EventArgs e)
+    {
+        EvaluateAnswer();
     }
 }

@@ -55,6 +55,7 @@ namespace JFlash.Forms
             txtLastAttempt = new TextBox();
             txtLastAnswer = new TextBox();
             lblLastAns = new Label();
+            btnSubmit = new Button();
             groupBoxQuestion.SuspendLayout();
             groupStatus.SuspendLayout();
             groupResult.SuspendLayout();
@@ -89,6 +90,7 @@ namespace JFlash.Forms
             // groupBoxQuestion
             // 
             groupBoxQuestion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBoxQuestion.Controls.Add(btnSubmit);
             groupBoxQuestion.Controls.Add(lblQuestionHint);
             groupBoxQuestion.Controls.Add(lblQuestionTitle);
             groupBoxQuestion.Controls.Add(lblQuestionQuery);
@@ -155,7 +157,7 @@ namespace JFlash.Forms
             txtAnswer.Location = new Point(7, 195);
             txtAnswer.Margin = new Padding(2);
             txtAnswer.Name = "txtAnswer";
-            txtAnswer.Size = new Size(335, 20);
+            txtAnswer.Size = new Size(320, 20);
             txtAnswer.TabIndex = 5;
             txtAnswer.KeyDown += TxtAnswer_KeyDown;
             // 
@@ -393,6 +395,16 @@ namespace JFlash.Forms
             lblLastAns.TabIndex = 11;
             lblLastAns.Text = "Last Question:";
             // 
+            // btnSubmit
+            // 
+            btnSubmit.Location = new Point(323, 194);
+            btnSubmit.Name = "btnSubmit";
+            btnSubmit.Size = new Size(20, 23);
+            btnSubmit.TabIndex = 6;
+            btnSubmit.Text = "\u276F";
+            btnSubmit.UseVisualStyleBackColor = true;
+            btnSubmit.Click += BtnSubmit_Click;
+            // 
             // JFQuestionaireForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -450,5 +462,6 @@ namespace JFlash.Forms
         private TextBox txtLastAttempt;
         private TextBox txtLastAnswer;
         private Label lblLastAns;
+        private Button btnSubmit;
     }
 }
