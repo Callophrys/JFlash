@@ -38,14 +38,16 @@ public partial class JFlashForm : Form
 
         nsUpDown.Minimum = nsUpDown.Maximum = 0;
 
-        var temp = RegistryHelper.LoadSetting("from");
+        string temp = RegistryHelper.LoadSetting("from", "Kanji");
         cmbFrom.Text = QuestionTypes.choices.Contains(temp) ? temp : "Kanji";
 
-        temp = RegistryHelper.LoadSetting("to");
+        temp = RegistryHelper.LoadSetting("to", "Romaji");
         cmbTo.Text = QuestionTypes.choices.Contains(temp) ? temp : "Romaji";
 
+        nsSubsetSize.Value = Convert.ToDecimal(RegistryHelper.LoadSetting("subsetsize", 7));
+
         // Should always work in normal circumstances.
-        questionPath = RegistryHelper.LoadSetting("questions");
+        questionPath = RegistryHelper.LoadSetting("questions", string.Empty);
         if (Directory.Exists(questionPath))
         {
             BuildQuestions();
@@ -84,6 +86,7 @@ public partial class JFlashForm : Form
         // the user pick the question files location from this point on.
         questionPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         RegistryHelper.SaveSetting("questions", questionPath);
+
         BuildQuestions();
         UpdateChkExpandAllOnceWithoutEffects();
 
@@ -92,7 +95,6 @@ public partial class JFlashForm : Form
 
     #region Public Methods
 
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
     public void ToggleMistakesForm()
     {
         bool mistakesFormMissingOrDown = MistakesForm == null || MistakesForm.IsDisposed;
@@ -100,16 +102,15 @@ public partial class JFlashForm : Form
         if (!ShowForm)
         {
             if (mistakesFormMissingOrDown) MistakesForm = new JFMistakes(LogFile);
-            MistakesForm.Show();
+            MistakesForm!.Show();
         }
         else if (!mistakesFormMissingOrDown)
         {
-            MistakesForm.Hide();
+            MistakesForm!.Hide();
         }
 
         ShowForm = !ShowForm;
     }
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
     public void WriteMistakesLog(string query, string correctEntry, string wrongEntry, string setName)
     {
@@ -132,6 +133,7 @@ public partial class JFlashForm : Form
     private void BuildQuestions()
     {
         pnlQuestionFiles.Controls.Clear();
+        QuestionFiles.Clear();
 
         DirectoryInfo dir = new(questionPath);
         SortedDictionary<string, List<string>> groupingSets = [];
@@ -242,11 +244,13 @@ public partial class JFlashForm : Form
 
                 if (isFileSelected)
                 {
-                    var qf = new JFQuestionFile(
+                    var test = new QuestionFile(Path.Combine(questionPath, cb.Text));
+                    var testD = test.GenerateSubsets(Math.Min(test.QuestionCount, (int)nsSubsetSize.Value));
+
+                    var qf = JFQuestionFileFactory.GenerateQuestionFile(
                         Path.Combine(questionPath, cb.Text),
                         QuestionTypes.JpStringToChoiceIndex(cmbFrom.Text),
-                        QuestionTypes.JpStringToChoiceIndex(cmbTo.Text),
-                        (int)nsSubsetSize.Value);
+                        QuestionTypes.JpStringToChoiceIndex(cmbTo.Text));
 
                     QuestionFiles.Add(cb.Text, qf);
 
@@ -261,12 +265,12 @@ public partial class JFlashForm : Form
                     if (cb.Checked)
                     {
                         /* cb.Text is same as item; both are the filename */
-
-                        QuestionFiles.Add(cb.Text, new JFQuestionFile(
+                        var qf = JFQuestionFileFactory.GenerateQuestionFile(
                             Path.Combine(questionPath, cb.Text),
                             QuestionTypes.JpStringToChoiceIndex(cmbFrom.Text),
-                            QuestionTypes.JpStringToChoiceIndex(cmbTo.Text),
-                            (int)nsSubsetSize.Value));
+                            QuestionTypes.JpStringToChoiceIndex(cmbTo.Text));
+
+                        QuestionFiles.Add(cb.Text, qf);
 
                         gp.expanded = toggle.Checked;
                         gp.files.Add(cb.Text);
@@ -554,7 +558,7 @@ public partial class JFlashForm : Form
     {
         foreach (var question in QuestionFiles.Values)
         {
-            foreach (var q in question.Questions)
+            foreach (var q in question.JFQuestions)
             {
                 q.UpdateQuestion();
             }
@@ -563,7 +567,7 @@ public partial class JFlashForm : Form
 
     private void UpdateQuestionFileSets()
     {
-        int total = QuestionFiles.Sum((kvp) => kvp.Value.Questions.Count);
+        int total = QuestionFiles.Sum((kvp) => kvp.Value.JFQuestions.Count);
 
         rbAllQuestions.Text = ALLQUESTIONSTITLE + total;
         QuestionCount = total;
@@ -717,8 +721,13 @@ public partial class JFlashForm : Form
         }
     }
 
+    private int subsetSize = 7; 
+
     private void NsSubsetSize_ValueChanged(object sender, EventArgs e)
     {
+        subsetSize = (int)nsSubsetSize.Value;
+        RegistryHelper.SaveSetting("subsetsize", subsetSize.ToString());
+        BuildQuestions();
     }
 
     #endregion Event Handlers

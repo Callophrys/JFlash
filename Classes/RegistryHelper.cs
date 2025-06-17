@@ -12,6 +12,12 @@ namespace JFlash.Classes
             key.SetValue(keyName, value);
         }
 
+        public static int LoadSetting(string keyName, int defaultValue = 0)
+        {
+            using RegistryKey? key = Registry.CurrentUser.OpenSubKey(RegistryPath);
+            return Convert.ToInt32(key?.GetValue(keyName, defaultValue));
+        }
+
         public static string LoadSetting(string keyName, string defaultValue = "")
         {
             using RegistryKey? key = Registry.CurrentUser.OpenSubKey(RegistryPath);
