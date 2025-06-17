@@ -13,11 +13,13 @@ public partial class JFlashForm : Form
     private const string ALLQUESTIONSTITLE = "Test &all questions in selected sets: ";
     private readonly List<CheckBox> AllCheckBoxes = [];
     private readonly Dictionary<string, GroupFiles> selectedGroupFiles = [];
+    private readonly List<CheckBox> toggleCheckBoxes = [];
 
     private bool skipEventsChkSelectAll = false;
+    private bool skipEventsChkToggleAll = false;
 
     private string questionPath = string.Empty;
-    public JFMistakes? MistakesForm;
+    public JFMistakes? MistakesForm { get; set; }
 
     private const int ScrollBarWidth = 17; // standard scrollbar width on Windows
     private int previousClientWidth;
@@ -47,6 +49,7 @@ public partial class JFlashForm : Form
         if (Directory.Exists(questionPath))
         {
             BuildQuestions();
+            UpdateChkExpandAllOnceWithoutEffects();
             return;
         }
 
@@ -57,6 +60,7 @@ public partial class JFlashForm : Form
             questionPath = Path.GetFullPath(questionPath);
             RegistryHelper.SaveSetting("questions", questionPath);
             BuildQuestions();
+            UpdateChkExpandAllOnceWithoutEffects();
             return;
         }
 
@@ -72,6 +76,7 @@ public partial class JFlashForm : Form
             {
                 RegistryHelper.SaveSetting("questions", questionPath);
                 BuildQuestions();
+                UpdateChkExpandAllOnceWithoutEffects();
             }
         }
 
@@ -80,12 +85,14 @@ public partial class JFlashForm : Form
         questionPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         RegistryHelper.SaveSetting("questions", questionPath);
         BuildQuestions();
+        UpdateChkExpandAllOnceWithoutEffects();
 
         this.AcceptButton = btnGo;
     }
 
     #region Public Methods
 
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
     public void ToggleMistakesForm()
     {
         bool mistakesFormMissingOrDown = MistakesForm == null || MistakesForm.IsDisposed;
@@ -102,6 +109,7 @@ public partial class JFlashForm : Form
 
         ShowForm = !ShowForm;
     }
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
     public void WriteMistakesLog(string query, string correctEntry, string wrongEntry, string setName)
     {
@@ -181,6 +189,7 @@ public partial class JFlashForm : Form
                 Width = panelWidth,
             };
 
+            toggleCheckBoxes.Add(toggle);
 
             // 2. Collapsible panel
             //
@@ -397,6 +406,8 @@ public partial class JFlashForm : Form
 
                 var selectedGroupFilesJson = JsonSerializer.Serialize(selectedGroupFiles);
                 RegistryHelper.SaveSetting("selection", selectedGroupFilesJson);
+
+                UpdateChkExpandAllOnceWithoutEffects();
             };
 
             toggle.KeyDown += (s, e) =>
@@ -525,6 +536,20 @@ public partial class JFlashForm : Form
         previousClientWidth = pnlQuestionFiles.ClientSize.Width;
     }
 
+    private void UpdateChkExpandAllOnceWithoutEffects()
+    {
+        bool expand = toggleCheckBoxes.All(c => c.Checked);
+        if (!skipEventsChkToggleAll && chkExpandAll.Checked != expand)
+        {
+            skipEventsChkToggleAll = true;
+
+            chkExpandAll.Checked = expand;
+            chkExpandAll.Text = expand ? "▼" : "▶";
+
+            skipEventsChkToggleAll = false;
+        }
+    }
+
     private void UpdateQuestionFiles()
     {
         foreach (var question in QuestionFiles.Values)
@@ -561,15 +586,11 @@ public partial class JFlashForm : Form
 
     #region Event Handlers
 
-    private void BtnExit_Click(object sender, EventArgs e)
-    {
-        this.Close();
-    }
+    private void BtnExit_Click(object sender, EventArgs e) => Close();
 
-    private void BtnGo_Click(object sender, EventArgs e)
-    {
-        BuildQuestionaire();
-    }
+    private void BtnGo_Click(object sender, EventArgs e) => BuildQuestionaire();
+
+    private void BtnMistakes_Click(object sender, EventArgs e) => ToggleMistakesForm();
 
     private void BtnQuestionPath_Click(object sender, EventArgs e)
     {
@@ -594,6 +615,22 @@ public partial class JFlashForm : Form
         if (cmbFrom.SelectedItem == null && cmbTo.SelectedItem == null) return;
 
         (cmbTo.SelectedItem, cmbFrom.SelectedItem) = (cmbFrom.SelectedItem, cmbTo.SelectedItem);
+    }
+
+    private void ChkExpandAll_CheckedChanged(object sender, EventArgs e)
+    {
+        if (skipEventsChkToggleAll) return;
+
+        skipEventsChkToggleAll = true;
+
+        chkExpandAll.Text = chkExpandAll.Checked ? "▼" : "▶";
+        RegistryHelper.SaveSetting("expanded", chkExpandAll.Checked.ToString());
+        foreach (CheckBox cb in toggleCheckBoxes.Where(x => x.Checked != chkExpandAll.Checked))
+        {
+            cb.Checked = chkExpandAll.Checked;
+        }
+
+        skipEventsChkToggleAll = false;
     }
 
     private void CmbFrom_KeyDown(object sender, KeyEventArgs e)
@@ -642,8 +679,6 @@ public partial class JFlashForm : Form
 
     bool ShowForm;
 
-    private void BtnMistakes_Click(object sender, EventArgs e) => ToggleMistakesForm();
-
     private void JFlashForm_Shown(object sender, EventArgs e)
     {
         return;
@@ -682,9 +717,10 @@ public partial class JFlashForm : Form
         }
     }
 
-    #endregion Event Handlers
-
     private void NsSubsetSize_ValueChanged(object sender, EventArgs e)
     {
     }
+
+    #endregion Event Handlers
 }
+

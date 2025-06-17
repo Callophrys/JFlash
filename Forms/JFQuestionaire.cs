@@ -9,8 +9,8 @@ public partial class JFQuestionaireForm : Form
 
     private JFMistakes? MistakesForm
     {
-        get { return parentForm.MistakesForm; }
-        set { parentForm.MistakesForm = value; }
+        get => parentForm.MistakesForm;
+        set => parentForm.MistakesForm = value;
     }
 
     private readonly string LangFrom;
