@@ -1,12 +1,10 @@
-﻿using System.Web;
-
-namespace JFlash.Classes;
+﻿namespace JFlash.Classes;
 
 public static class QuestionFields
 {
     public const int FieldCount   = 9;
-    public const int MinQuestion = 2;
-    public const int MaxQuestion = 6;
+    public const int MinQuestion  = 2;
+    public const int MaxQuestion  = 6;
 
     public const int Lesson       = 0;
     public const int Structure    = 1;
@@ -42,25 +40,25 @@ readonly record struct QuestionEntry(string[] Parts)
 
 public class QuestionEntries
 {
-    public string Lesson { get; set; } = string.Empty;
-    public string Structure { get; set; } = string.Empty;
-    public string Kanji { get; set; } = string.Empty;
-    public string Hirigana { get; set; } = string.Empty;
-    public string Katakana { get; set; } = string.Empty;
-    public string Romaji { get; set; } = string.Empty;
-    public string English { get; set; } = string.Empty;
-    public string BriefHint { get; set; } = string.Empty;
-    public string DetailedHint { get; set; } = string.Empty;
+    public string Lesson { get; } = string.Empty;
+    public string Structure { get; } = string.Empty;
+    public string Kanji { get; } = string.Empty;
+    public string Hirigana { get; } = string.Empty;
+    public string Katakana { get; } = string.Empty;
+    public string Romaji { get; } = string.Empty;
+    public string English { get; } = string.Empty;
+    public string BriefHint { get; } = string.Empty;
+    public string DetailedHint { get; } = string.Empty;
 
     /// <summary>
     /// Correct answer. This is the value to be entered by the user.
     /// </summary>
-    public string Answer => indexTo <= QuestionFields.MaxQuestion ? sourceEntry[indexTo] : string.Empty;
+    public string Answer { get; } = string.Empty;
 
     /// <summary>
     /// Source question. This is read by the user and requires a response.
     /// </summary>
-    public string Prompt => indexFrom <= QuestionFields.MaxQuestion ? sourceEntry[indexFrom] : string.Empty;
+    public string Prompt { get; } = string.Empty;
 
     protected readonly int indexFrom;
     protected readonly int indexTo;
@@ -85,14 +83,17 @@ public class QuestionEntries
         QuestionEntry questionEntry = new();
         if (!QuestionEntry.TryParse(sourceEntry, ref questionEntry)) return;
 
-        this.Lesson = questionEntry.Lesson;
-        this.Structure = questionEntry.Structure;
-        this.Kanji = questionEntry.Kanji;
-        this.Hirigana = questionEntry.Hirigana;
-        this.Katakana = questionEntry.Katakana;
-        this.Romaji = questionEntry.Romaji;
-        this.English = questionEntry.English;
-        this.BriefHint = questionEntry.BriefHint;
-        this.DetailedHint = questionEntry.DetailedHint;
+        Lesson = questionEntry.Lesson;
+        Structure = questionEntry.Structure;
+        Kanji = questionEntry.Kanji;
+        Hirigana = questionEntry.Hirigana;
+        Katakana = questionEntry.Katakana;
+        Romaji = questionEntry.Romaji;
+        English = questionEntry.English;
+        BriefHint = questionEntry.BriefHint;
+        DetailedHint = questionEntry.DetailedHint;
+
+        Prompt = questionEntry[indexFrom];
+        Answer = questionEntry[indexTo];
     }
 } 

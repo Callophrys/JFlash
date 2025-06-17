@@ -47,12 +47,12 @@ Sundry;ANY;まず;まず;マズ;mazu;first of all
 Sundry;ANY;次に;つぎに;ツギ;tsugi;next
 Sundry;ANY;じゃ,じゃあ;じゃ,じゃあ;ジャジャア;ja,jaa;then
 Sundry;ANY;それから;それから;ソレカラ;sorekara;after that
-Sundry;0-KAI;一個;いかい;;ikkai;1
-Sundry;0-KAI;一個;にかい;;nikai;2
-Sundry;NOUN;かいだん;かいだん;;kaidan;stairs
-Sundry;NOUN;じはんき;じはんきい;;jihanki;vending machines
-Sundry;NOUN;のりかえ;のりかえ;;norikae;transfer;bus transfer,train transfer
-Sundry;;ちか;ちか;;chika;underground;underground level
-Sundry;NOUN;;;;kaisatsu;ticket gate
-Sundry;;;;;itsumo;always,all the time,never
+Sundry;NOUN;かいだん;かいだん;カイダｎ;kaidan;stairs
+Sundry;NOUN;じはんき;じはんきい;ヒハンキ;jihanki;vending machines
+Sundry;NOUN;のりかえ;のりかえ;ノリカエ;norikae;transfer;bus transfer,train transfer
+Sundry;;ちか;ちか;チカ;chika;underground;underground level
+Sundry;NOUN;改札,改札口;かいさつ;カイサツ;kaisatsu;ticket gate
+Sundry;いつも;いつも;イツモ;itsumo;always,every time,all the time,never
+Sundry;;もう寝なきゃ;もうねなきゃ;モウネナキャ;moonenakya,moo nenakya;I need to go to bed now.
+Sundry;;もう寝なきゃ;ねなきゃ;ネナキャ;nenakya;I need to go to bed.
 END
