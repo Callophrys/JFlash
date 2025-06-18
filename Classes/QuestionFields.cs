@@ -3,8 +3,8 @@
 public static class QuestionFields
 {
     public const int FieldCount   = 9;
-    public const int MinQuestion  = 2;
-    public const int MaxQuestion  = 6;
+    public const int MinQuesIdx   = 2;
+    public const int MaxQuesInx   = 6;
 
     public const int Lesson       = 0;
     public const int Structure    = 1;
@@ -71,14 +71,14 @@ public class QuestionEntries
         this.indexTo = indexTo;
 
         sourceEntry = line.Split([';', '；'], StringSplitOptions.None);
-        if (sourceEntry.Length <= QuestionFields.MaxQuestion)
+        if (sourceEntry.Length <= QuestionFields.MaxQuesInx)
         {
-            Array.Resize(ref sourceEntry, QuestionFields.MaxQuestion);
+            Array.Resize(ref sourceEntry, QuestionFields.MaxQuesInx + 1);
         }
 
-        if (sourceEntry.Length < QuestionFields.MinQuestion) return;
-        if (indexFrom < QuestionFields.MinQuestion || indexFrom > QuestionFields.MaxQuestion) return;
-        if (indexTo < QuestionFields.MinQuestion || indexTo > QuestionFields.MaxQuestion) return;
+        if (sourceEntry.Length < QuestionFields.MinQuesIdx) return;
+        if (indexFrom < QuestionFields.MinQuesIdx || indexFrom > QuestionFields.MaxQuesInx) return;
+        if (indexTo < QuestionFields.MinQuesIdx || indexTo > QuestionFields.MaxQuesInx) return;
 
         QuestionEntry questionEntry = new();
         if (!QuestionEntry.TryParse(sourceEntry, ref questionEntry)) return;

@@ -1,105 +1,58 @@
-using System.Diagnostics;
+namespace JFlash.Classes;
 
-namespace JFlash.Classes
+public class JFQuestionFile(string filename) : QuestionFile(filename)
 {
-    public class JFQuestionFile
+    public List<JFQuestion> JfQuestions = [];
+
+    public void GenerateQuestions(int idxFrom, int idxTo)
     {
-        static readonly int TYPE_ENTRY = 1;
-        static readonly int TYPE_CHOICE = 2;
-
-        public List<JFQuestion> Questions = [];
-
-        public string Description = string.Empty;
-        public string Prompt = string.Empty;
-        public string SetName = string.Empty;
-
-        public int questionType;
-
-        public JFQuestionFile(string filename, int idxFrom, int idxTo, int subsetSize)
+        foreach (string question in Questions)
         {
-            /* TODO if idxTo is type NUM then say Numeral instead of English */
+            JFQuestion? jfQuestion = new(question.Trim(), idxFrom, idxTo);
 
-            if (!File.Exists(filename))
+            // Make sure question is usable
+            if (!string.IsNullOrEmpty(jfQuestion.Answer))
             {
-                return;
+                JfQuestions.Add(jfQuestion);
             }
-
-            using StreamReader sr = File.OpenText(filename);
-
-            if (string.Compare((sr.ReadLine() ?? string.Empty).ToUpperInvariant(), 0, "JPFLASH", 0, 7, true) != 0)
-            {
-                sr.Close();
-                return;
-            }
-
-            string? input = sr.ReadLine() ?? string.Empty;
-            if (string.Compare(input.ToUpperInvariant(), 0, "DESC", 0, 4, true) != 0)
-            {
-                sr.Close();
-                return;
-            }
-            else if (input.Length > 4)
-            {
-                Description = input[5..];
-            }
-
-            input = sr.ReadLine() ?? string.Empty;
-            if (string.Compare(input.ToUpperInvariant(), 0, "PROMPT", 0, 6, true) != 0)
-            {
-                sr.Close();
-                return;
-            }
-            else if (input.Length > 6)
-            {
-                Prompt = string.Format(input[7..], QuestionTypes.JfIntToChoiceString(idxFrom), QuestionTypes.JfIntToChoiceString(idxTo));
-            }
-
-            input = (sr.ReadLine() ?? string.Empty).ToUpperInvariant();
-            if (string.Compare(input, 0, "TYPE", 0, 4) != 0)
-            {
-                sr.Close();
-                return;
-            }
-            else
-            {
-                if (string.Compare(input, 5, "ENTRY", 0, 5, StringComparison.Ordinal) == 0)
-                {
-                    questionType = TYPE_ENTRY;
-                }
-                else if (string.Compare(input, 5, "CHOICE", 0, 6, StringComparison.Ordinal) == 0)
-                {
-                    questionType = TYPE_CHOICE;
-                }
-                else
-                {
-                    sr.Close();
-                    return;
-                }
-            }
-
-            if ((input = sr.ReadToEnd()) == null)
-            {
-                sr.Close();
-                return;
-            }
-
-            IEnumerable<string> qss = input
-                .Split(["\r\n", "\n"], StringSplitOptions.RemoveEmptyEntries)
-                .TakeWhile(x => x.ToUpperInvariant() != "END");
-            foreach (string question in qss)
-            {
-                JFQuestion? jfQuestion = new(question.Trim(), idxFrom, idxTo);
-
-                // Make sure question is usable
-                if (!string.IsNullOrEmpty(jfQuestion.Answer))
-                {
-                    Questions.Add(jfQuestion);
-                }
-            }
-
-            sr.Close();
-
-            SetName = Path.GetFileNameWithoutExtension(filename);
         }
+    }
+}
+
+public static class JFQuestionFileFactory
+{
+    public static JFQuestionFile GenerateQuestionFile(
+        string filename,
+        int idxFrom,
+        int idxTo)
+    {
+        var qf = new JFQuestionFile(filename);
+        qf.GenerateQuestions(idxFrom, idxTo);
+        return qf;
+    }
+
+    public static JFQuestionFile GenerateQuestionFile(
+        List<string> questions,
+        int idxFrom,
+        int idxTo)
+    {
+        var qf = new JFQuestionFile("");
+        qf.Questions.AddRange(questions);
+        qf.GenerateQuestions(idxFrom, idxTo);
+        return qf;
+    }
+
+    public static Dictionary<string, JFQuestionFile> GenerateQuestionFiles(
+        Dictionary<string, List<string>> source,
+        int idxFrom,
+        int idxTo)
+    {
+        Dictionary<string, JFQuestionFile> result = [];
+        foreach (string key in source.Keys)
+        {
+            result.Add(key, GenerateQuestionFile(source[key], idxFrom, idxTo));
+        }
+
+        return result;
     }
 }

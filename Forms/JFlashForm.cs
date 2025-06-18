@@ -21,6 +21,7 @@ public partial class JFlashForm : Form
     private string questionPath = string.Empty;
     public JFMistakes? MistakesForm { get; set; }
 
+    private int subsetSize = 7;
     private const int ScrollBarWidth = 17; // standard scrollbar width on Windows
     private int previousClientWidth;
 
@@ -32,20 +33,23 @@ public partial class JFlashForm : Form
     public JFlashForm()
     {
         InitializeComponent();
+        AcceptButton = btnGo;
         rbAllQuestions.Text = ALLQUESTIONSTITLE + "0";
         cmbFrom.Items.AddRange(QuestionTypes.choices);
         cmbTo.Items.AddRange(QuestionTypes.choices);
 
         nsUpDown.Minimum = nsUpDown.Maximum = 0;
 
-        var temp = RegistryHelper.LoadSetting("from");
+        string temp = RegistryHelper.LoadSetting("from", "Kanji");
         cmbFrom.Text = QuestionTypes.choices.Contains(temp) ? temp : "Kanji";
 
-        temp = RegistryHelper.LoadSetting("to");
+        temp = RegistryHelper.LoadSetting("to", "Romaji");
         cmbTo.Text = QuestionTypes.choices.Contains(temp) ? temp : "Romaji";
 
+        nsSubsetSize.Value = Convert.ToDecimal(RegistryHelper.LoadSetting("subsetsize", 7));
+
         // Should always work in normal circumstances.
-        questionPath = RegistryHelper.LoadSetting("questions");
+        questionPath = RegistryHelper.LoadSetting("questions", string.Empty);
         if (Directory.Exists(questionPath))
         {
             BuildQuestions();
@@ -84,15 +88,13 @@ public partial class JFlashForm : Form
         // the user pick the question files location from this point on.
         questionPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         RegistryHelper.SaveSetting("questions", questionPath);
+
         BuildQuestions();
         UpdateChkExpandAllOnceWithoutEffects();
-
-        this.AcceptButton = btnGo;
     }
 
     #region Public Methods
 
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
     public void ToggleMistakesForm()
     {
         bool mistakesFormMissingOrDown = MistakesForm == null || MistakesForm.IsDisposed;
@@ -100,16 +102,15 @@ public partial class JFlashForm : Form
         if (!ShowForm)
         {
             if (mistakesFormMissingOrDown) MistakesForm = new JFMistakes(LogFile);
-            MistakesForm.Show();
+            MistakesForm!.Show();
         }
         else if (!mistakesFormMissingOrDown)
         {
-            MistakesForm.Hide();
+            MistakesForm!.Hide();
         }
 
         ShowForm = !ShowForm;
     }
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
     public void WriteMistakesLog(string query, string correctEntry, string wrongEntry, string setName)
     {
@@ -122,6 +123,8 @@ public partial class JFlashForm : Form
 
     private void BuildQuestionaire()
     {
+        UpdateQuestionFiles();
+
         Form frm = new JFQuestionaireForm(this
             , rbLimitQuestions.Checked ? Convert.ToInt16(nsUpDown.Value) : QuestionCount
             , cmbFrom.Text
@@ -131,25 +134,35 @@ public partial class JFlashForm : Form
 
     private void BuildQuestions()
     {
+        QuestionFiles.Clear();
+        toggleCheckBoxes.Clear();
+        selectedGroupFiles.Clear();
+        AllCheckBoxes.Clear();
         pnlQuestionFiles.Controls.Clear();
+
+        if (string.IsNullOrEmpty(questionPath)) return;
 
         DirectoryInfo dir = new(questionPath);
         SortedDictionary<string, List<string>> groupingSets = [];
+        SortedDictionary<string, Dictionary<string, JFQuestionFile>> testGroupingSets = [];
         Dictionary<string, GroupFiles> savedGroupFiles = GetSavedSelectionOptions();
+        Dictionary<string, Dictionary<string, JFQuestionFile>> testGroupSubGroups = [];
 
         List<CheckBox> questionFileCheckBoxes = [];
         List<CheckBox> groupingCheckBoxes = [];
 
-        foreach (FileInfo f in dir.GetFiles("*.jpf"))
-        {
-            string groupName = GetFilenamePrefix(f.Name);
-            if (!groupingSets.TryGetValue(groupName, out List<string>? value))
-            {
-                value = [];
-                groupingSets.Add(groupName, value);
-            }
+        SortedDictionary<string, List<string>> testD = [];
 
-            value.Add(f.Name);
+        foreach (FileInfo fi in dir.GetFiles("*.jpf"))
+        {
+            var groupingName = Path.GetFileNameWithoutExtension(fi.Name);
+            var tempQuestionFile = new QuestionFile(fi.FullName);
+            var dictionaryOfSubsets = tempQuestionFile.GenerateSubsets(Math.Min(tempQuestionFile.QuestionCount, (int)nsSubsetSize.Value));
+
+            // Convert subsets of "file" QuestionFile into set of subsets.
+            var subsetQuestionFiles = JFQuestionFileFactory.GenerateQuestionFiles(dictionaryOfSubsets, 2, 3);
+
+            testGroupSubGroups.Add(groupingName, subsetQuestionFiles);
         }
 
         int panelWidth = this.pnlQuestionFiles.Width - 16;
@@ -170,7 +183,7 @@ public partial class JFlashForm : Form
         bool firstCheckboxCreated = false;
 
         int counter = 0;
-        foreach (var group in groupingSets)
+        foreach (var group in testGroupSubGroups.Keys)
         {
             // 1. Toggle expansion
             //
@@ -178,12 +191,12 @@ public partial class JFlashForm : Form
             // 1.a. Create toggle checkbox 
             var toggle = new CheckBox
             {
-                Text = $"▼ {group.Key}",
+                Text = $"▼ {group}",
                 Appearance = Appearance.Button,
                 Checked = true,
                 Font = new Font(DefaultFont, FontStyle.Bold),
                 BackColor = Color.LightSteelBlue,
-                Name = $"chkSelectSetToggle{group.Key}",
+                Name = $"chkSelectSetToggle{group}",
                 //Dock = DockStyle.Top,
 
                 Width = panelWidth,
@@ -227,33 +240,30 @@ public partial class JFlashForm : Form
             var groupCheckBoxes = new List<CheckBox>();
 
             // Populate with the actual questions.
-            foreach (var item in group.Value)
+            //foreach (var item in group.Value)
+            foreach (var item in testGroupSubGroups[group])
             {
-                GroupFiles gp = savedGroupFiles.TryGetValue(group.Key, out GroupFiles? x) ? x : new GroupFiles();
-                bool isFileSelected = gp.files.Contains(item);
+                GroupFiles gp = savedGroupFiles.TryGetValue(item.Key, out GroupFiles? x) ? x : new GroupFiles();
+                bool isFileSelected = gp.files.Contains(item.Key);
 
                 var cb = new CheckBox
                 {
                     Checked = isFileSelected,
-                    Text = item,
+                    Text = item.Key,
                     AutoSize = true,
                     Padding = new Padding(10, 0, 0, 0)
                 };
 
                 if (isFileSelected)
                 {
-                    var qf = new JFQuestionFile(
-                        Path.Combine(questionPath, cb.Text),
-                        QuestionTypes.JfStringToChoiceIndex(cmbFrom.Text),
-                        QuestionTypes.JfStringToChoiceIndex(cmbTo.Text),
-                        (int)nsSubsetSize.Value);
+                    var qf = item.Value;
 
                     QuestionFiles.Add(cb.Text, qf);
 
-                    gp.expanded = toggle.Checked;
+                    gp.Expanded = toggle.Checked;
                     gp.files.Add(cb.Text);
 
-                    selectedGroupFiles.TryAdd(group.Key, gp);
+                    selectedGroupFiles.TryAdd(item.Key, gp);
                 }
 
                 cb.CheckedChanged += (s, e) =>
@@ -261,25 +271,26 @@ public partial class JFlashForm : Form
                     if (cb.Checked)
                     {
                         /* cb.Text is same as item; both are the filename */
+                        var qf = item.Value;
 
-                        QuestionFiles.Add(cb.Text, new JFQuestionFile(
-                            Path.Combine(questionPath, cb.Text),
-                            QuestionTypes.JfStringToChoiceIndex(cmbFrom.Text),
-                            QuestionTypes.JfStringToChoiceIndex(cmbTo.Text),
-                            (int)nsSubsetSize.Value));
+                        QuestionFiles.Add(cb.Text, qf);
 
-                        gp.expanded = toggle.Checked;
+                        // NOTE: gp from the outside checkbox creation method
+                        gp.Expanded = toggle.Checked;
                         gp.files.Add(cb.Text);
 
-                        selectedGroupFiles.TryAdd(group.Key, gp);
+                        selectedGroupFiles.TryAdd(group, gp);
                     }
                     else
                     {
-                        QuestionFiles.Remove(item);
+                        QuestionFiles.Remove(item.Key);
 
-                        if (selectedGroupFiles.TryGetValue(group.Key, out GroupFiles? gp))
+                        // NOTE: gp seached for inside this handler method.
+                        //       Perhaps needed since gp could be destroyed
+                        //       by now.
+                        if (selectedGroupFiles.TryGetValue(group, out GroupFiles? gp))
                         {
-                            gp.expanded = toggle.Checked;
+                            gp.Expanded = toggle.Checked;
                             if (gp.files.Contains(cb.Text)) gp.files.Remove(cb.Text);
                         }
                     }
@@ -327,7 +338,7 @@ public partial class JFlashForm : Form
                     }
                 };
 
-                groupCheckBoxes.Add(cb);    // save ref in grouping list
+                groupCheckBoxes.Add(cb);        // save ref in grouping list
                 questionFileCheckBoxes.Add(cb); // save ref to everything list
                 groupPanel.Controls.Add(cb);
             }
@@ -381,27 +392,27 @@ public partial class JFlashForm : Form
 
             // 1.b. (Toggle continued) Set checked and actual panel
             //      expansion of toggle before adding handlers.
-            toggle.Checked = GetToggleState(savedGroupFiles, group.Key, counter);
-            toggle.Text = $"{(toggle.Checked ? "▼" : "▶")} {group.Key}";
+            toggle.Checked = GetToggleState(savedGroupFiles, group, counter);
+            toggle.Text = $"{(toggle.Checked ? "▼" : "▶")} {group}";
             groupPanel.Visible = toggle.Checked;
 
             // 1.c. Add event handlers.
             toggle.CheckedChanged += (s, e) =>
             {
-                toggle.Text = $"{(toggle.Checked ? "▼" : "▶")} {group.Key}";
+                toggle.Text = $"{(toggle.Checked ? "▼" : "▶")} {group}";
                 groupPanel.Visible = toggle.Checked;
 
-                if (selectedGroupFiles.TryGetValue(group.Key, out GroupFiles? gp))
+                if (selectedGroupFiles.TryGetValue(group, out GroupFiles? gp))
                 {
-                    gp.expanded = toggle.Checked;
+                    gp.Expanded = toggle.Checked;
                 }
                 else
                 {
                     gp = new GroupFiles()
                     {
-                        expanded = toggle.Checked,
+                        Expanded = toggle.Checked,
                     };
-                    selectedGroupFiles.Add(group.Key, gp);
+                    selectedGroupFiles.Add(group, gp);
                 }
 
                 var selectedGroupFilesJson = JsonSerializer.Serialize(selectedGroupFiles);
@@ -480,7 +491,15 @@ public partial class JFlashForm : Form
     private static Dictionary<string, GroupFiles> GetSavedSelectionOptions()
     {
         string savedGroupFilesText = RegistryHelper.LoadSetting("selection", string.Empty);
-        object? tempSavedGroupFiles = JsonSerializer.Deserialize(savedGroupFilesText, typeof(Dictionary<string, GroupFiles>));
+        object? tempSavedGroupFiles;
+        try
+        {
+            tempSavedGroupFiles = JsonSerializer.Deserialize(savedGroupFilesText, typeof(Dictionary<string, GroupFiles>));
+        }
+        catch
+        {
+            return [];
+        }
 
         Dictionary<string, GroupFiles>? savedGroupFiles =
             tempSavedGroupFiles != null ? tempSavedGroupFiles as Dictionary<string, GroupFiles> : null;
@@ -501,7 +520,7 @@ public partial class JFlashForm : Form
         // If group is found then collapse or expand per value.
         if (dictionary.TryGetValue(key, out var gp))
         {
-            return gp.expanded;
+            return gp.Expanded;
         }
 
         // If group not found just collapse it.
@@ -554,7 +573,7 @@ public partial class JFlashForm : Form
     {
         foreach (var questionSet in QuestionFiles.Values)
         {
-            foreach (var question in questionSet.Questions)
+            foreach (var question in questionSet.JfQuestions)
             {
                 question.UpdateQuestion(
                     QuestionTypes.JfStringToChoiceIndex(cmbFrom.Text),
@@ -645,26 +664,33 @@ public partial class JFlashForm : Form
     {
         if (e.KeyValue == 13)
         {
-            UpdateQuestionFiles("from", cmbFrom.Text);
+            RegistryHelper.SaveSetting("from", cmbFrom.Text);
         }
     }
 
     private void CmbFrom_SelectedIndexChanged(object sender, EventArgs e)
     {
-        UpdateQuestionFiles("from", cmbFrom.Text);
+        RegistryHelper.SaveSetting("from", cmbFrom.Text);
     }
 
     private void CmbTo_KeyDown(object sender, KeyEventArgs e)
     {
         if (e.KeyValue == 13)
         {
-            UpdateQuestionFiles("to", cmbTo.Text);
+            RegistryHelper.SaveSetting("to", cmbTo.Text);
         }
     }
 
     private void CmbTo_SelectedIndexChanged(object sender, EventArgs e)
     {
-        UpdateQuestionFiles("to", cmbTo.Text);
+        RegistryHelper.SaveSetting("to", cmbTo.Text);
+    }
+
+    private void NsSubsetSize_ValueChanged(object sender, EventArgs e)
+    {
+        subsetSize = (int)nsSubsetSize.Value;
+        RegistryHelper.SaveSetting("subsetsize", subsetSize.ToString());
+        BuildQuestions();
     }
 
     private void NsUpDown_Enter(object sender, EventArgs e)
@@ -727,10 +753,6 @@ public partial class JFlashForm : Form
                 }
             }
         }
-    }
-
-    private void NsSubsetSize_ValueChanged(object sender, EventArgs e)
-    {
     }
 
     #endregion Event Handlers
