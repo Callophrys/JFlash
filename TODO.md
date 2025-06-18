@@ -1,6 +1,3 @@
-- From always displays as kanji, no matter the format chosen.
-- Entry always evaluates as if romaji were entered, no matter the format.
-
 - Make logs work in sections per session. Could create a show all option.
 E.g. just show for active session.
 - Peak at answer or some second type of hint.
