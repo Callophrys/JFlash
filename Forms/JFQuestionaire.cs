@@ -204,6 +204,7 @@ public partial class JFQuestionaireForm : Form
             lblStatusResultScore.Text = $"{(Convert.ToInt32(100 * QuestionSet.countCorrect / parentForm.QuestionCount))}%";
 
             ClearQuestion();
+            btnFinish.Select();
         }
         else
         {
