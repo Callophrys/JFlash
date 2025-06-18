@@ -14,6 +14,8 @@ public class QuestionFile
     public string Prompt { get; } = string.Empty;
     public string SetName { get; } = string.Empty;
 
+    public QuestionFile() { }
+
     public QuestionFile(string filename)
     {
         if (!File.Exists(filename))

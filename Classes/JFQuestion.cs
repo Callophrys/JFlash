@@ -86,7 +86,7 @@ namespace JFlash
             // question-answer-related data MINUS then ones
             // actually being queried and answered.
             var extra = new List<string>();
-            for (var i = LimitForQuestionDataBottom; i < LimitForQuestionDataTop; ++i)
+            for (var i = LimitForQuestionDataBottom; i < Math.Min(sourceEntry.Length, LimitForQuestionDataTop); ++i)
             {
                 if (i != indexFrom && i != indexTo)
                 {
