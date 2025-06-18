@@ -60,8 +60,8 @@ public class QuestionEntries
     /// </summary>
     public string Prompt { get; } = string.Empty;
 
-    protected readonly int indexFrom;
-    protected readonly int indexTo;
+    protected int indexFrom;
+    protected int indexTo;
 
     public readonly string[] sourceEntry = [];
 

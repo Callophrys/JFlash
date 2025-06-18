@@ -123,7 +123,8 @@ public partial class JFQuestionaireForm : Form
         lblQuestionTitle.Text = q.Title;
         lblQuestionQuery.Text = q.Prompt;
         if ((LangFrom == "Hirigana" || LangFrom == "Katakana" || LangFrom == "Romaji") &&
-            (LangTo == "Kanji" || LangTo == "English"))
+            (LangTo == "Kanji" || LangTo == "English") &&
+            !string.IsNullOrEmpty(q.Hint))
         {
             lblQuestionHint.Text = q.Hint;
         }

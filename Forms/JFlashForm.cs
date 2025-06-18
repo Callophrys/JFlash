@@ -244,8 +244,8 @@ public partial class JFlashForm : Form
                 {
                     var qf = new JFQuestionFile(
                         Path.Combine(questionPath, cb.Text),
-                        QuestionTypes.JpStringToChoiceIndex(cmbFrom.Text),
-                        QuestionTypes.JpStringToChoiceIndex(cmbTo.Text),
+                        QuestionTypes.JfStringToChoiceIndex(cmbFrom.Text),
+                        QuestionTypes.JfStringToChoiceIndex(cmbTo.Text),
                         (int)nsSubsetSize.Value);
 
                     QuestionFiles.Add(cb.Text, qf);
@@ -264,8 +264,8 @@ public partial class JFlashForm : Form
 
                         QuestionFiles.Add(cb.Text, new JFQuestionFile(
                             Path.Combine(questionPath, cb.Text),
-                            QuestionTypes.JpStringToChoiceIndex(cmbFrom.Text),
-                            QuestionTypes.JpStringToChoiceIndex(cmbTo.Text),
+                            QuestionTypes.JfStringToChoiceIndex(cmbFrom.Text),
+                            QuestionTypes.JfStringToChoiceIndex(cmbTo.Text),
                             (int)nsSubsetSize.Value));
 
                         gp.expanded = toggle.Checked;
@@ -552,13 +552,21 @@ public partial class JFlashForm : Form
 
     private void UpdateQuestionFiles()
     {
-        foreach (var question in QuestionFiles.Values)
+        foreach (var questionSet in QuestionFiles.Values)
         {
-            foreach (var q in question.Questions)
+            foreach (var question in questionSet.Questions)
             {
-                q.UpdateQuestion();
+                question.UpdateQuestion(
+                    QuestionTypes.JfStringToChoiceIndex(cmbFrom.Text),
+                    QuestionTypes.JfStringToChoiceIndex(cmbTo.Text));
             }
         }
+    }
+
+    private void UpdateQuestionFiles(string setting, string value)
+    {
+        RegistryHelper.SaveSetting(setting, value);
+        UpdateQuestionFiles();
     }
 
     private void UpdateQuestionFileSets()
@@ -635,24 +643,28 @@ public partial class JFlashForm : Form
 
     private void CmbFrom_KeyDown(object sender, KeyEventArgs e)
     {
-        if (e.KeyValue == 13) BtnGo_Click(sender, e);
+        if (e.KeyValue == 13)
+        {
+            UpdateQuestionFiles("from", cmbFrom.Text);
+        }
     }
 
     private void CmbFrom_SelectedIndexChanged(object sender, EventArgs e)
     {
-        RegistryHelper.SaveSetting("from", cmbFrom.Text);
-        UpdateQuestionFiles();
+        UpdateQuestionFiles("from", cmbFrom.Text);
     }
 
     private void CmbTo_KeyDown(object sender, KeyEventArgs e)
     {
-        if (e.KeyValue == 13) BtnGo_Click(sender, e);
+        if (e.KeyValue == 13)
+        {
+            UpdateQuestionFiles("to", cmbTo.Text);
+        }
     }
 
     private void CmbTo_SelectedIndexChanged(object sender, EventArgs e)
     {
-        RegistryHelper.SaveSetting("to", cmbTo.Text);
-        UpdateQuestionFiles();
+        UpdateQuestionFiles("to", cmbTo.Text);
     }
 
     private void NsUpDown_Enter(object sender, EventArgs e)

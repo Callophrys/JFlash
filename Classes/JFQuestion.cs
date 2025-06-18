@@ -98,6 +98,13 @@ namespace JFlash
             Additional = string.Join("  /  ", extra.Distinct());
         }
 
+        public void UpdateQuestion(int idxFrom, int idxTo)
+        {
+            indexFrom = idxFrom;
+            indexTo = idxTo;
+            UpdateQuestion();
+        }
+
         public bool IsEntryCorrect(string ans)
         {
             if (string.IsNullOrWhiteSpace(ans)) return false;
