@@ -25,7 +25,7 @@ namespace JFlash.Classes
 
             foreach (KeyValuePair<string, JFQuestionFile> qf in QuestionFiles)
             {
-                foreach (JFQuestion question in qf.Value.JFQuestions)
+                foreach (JFQuestion question in qf.Value.JfQuestions)
                 {
                     question.SetName = Path.GetFileNameWithoutExtension(qf.Key);
                     question.Title = qf.Value.Description;

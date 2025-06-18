@@ -2,7 +2,7 @@
 
 public static class QuestionTypes
 {
-    public enum JPCHOICES
+    public enum JFCHOICES
     {
         Kanji = QuestionFields.Kanji,
         Hirigana = QuestionFields.Hirigana,
@@ -20,7 +20,7 @@ public static class QuestionTypes
         "English",
     ];
 
-    public static string JpIntToChoiceString(int choice) => choice switch
+    public static string JfIntToChoiceString(int choice) => choice switch
     {
         QuestionFields.Hirigana => "Hirigana",
         QuestionFields.Katakana => "Katakana",
@@ -29,12 +29,12 @@ public static class QuestionTypes
         _ => "Kanji",
     };
 
-    public static int JpStringToChoiceIndex(string choice) => (int)(choice switch
+    public static int JfStringToChoiceIndex(string choice) => (int)(choice switch
     {
-        "Hirigana" => JPCHOICES.Hirigana,
-        "Katakana" => JPCHOICES.Katakana,
-        "Romaji" => JPCHOICES.Romaji,
-        "English" => JPCHOICES.English,
-        _ => JPCHOICES.Kanji,
+        "Hirigana" => JFCHOICES.Hirigana,
+        "Katakana" => JFCHOICES.Katakana,
+        "Romaji" => JFCHOICES.Romaji,
+        "English" => JFCHOICES.English,
+        _ => JFCHOICES.Kanji,
     });
 }

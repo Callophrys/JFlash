@@ -53,15 +53,15 @@ public class QuestionEntries
     /// <summary>
     /// Correct answer. This is the value to be entered by the user.
     /// </summary>
-    public string Answer { get; } = string.Empty;
+    public string Answer => sourceEntry[indexTo];
 
     /// <summary>
     /// Source question. This is read by the user and requires a response.
     /// </summary>
-    public string Prompt { get; } = string.Empty;
+    public string Prompt => sourceEntry[indexFrom];
 
-    protected readonly int indexFrom;
-    protected readonly int indexTo;
+    protected int indexFrom;
+    protected int indexTo;
 
     public readonly string[] sourceEntry = [];
 
@@ -92,8 +92,5 @@ public class QuestionEntries
         English = questionEntry.English;
         BriefHint = questionEntry.BriefHint;
         DetailedHint = questionEntry.DetailedHint;
-
-        Prompt = questionEntry[indexFrom];
-        Answer = questionEntry[indexTo];
     }
 } 

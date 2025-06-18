@@ -32,6 +32,7 @@ public partial class JFlashForm : Form
     public JFlashForm()
     {
         InitializeComponent();
+        AcceptButton = btnGo;
         rbAllQuestions.Text = ALLQUESTIONSTITLE + "0";
         cmbFrom.Items.AddRange(QuestionTypes.choices);
         cmbTo.Items.AddRange(QuestionTypes.choices);
@@ -89,8 +90,6 @@ public partial class JFlashForm : Form
 
         BuildQuestions();
         UpdateChkExpandAllOnceWithoutEffects();
-
-        this.AcceptButton = btnGo;
     }
 
     #region Public Methods
@@ -123,6 +122,8 @@ public partial class JFlashForm : Form
 
     private void BuildQuestionaire()
     {
+        UpdateQuestionFiles();
+
         Form frm = new JFQuestionaireForm(this
             , rbLimitQuestions.Checked ? Convert.ToInt16(nsUpDown.Value) : QuestionCount
             , cmbFrom.Text
@@ -249,8 +250,8 @@ public partial class JFlashForm : Form
 
                     var qf = JFQuestionFileFactory.GenerateQuestionFile(
                         Path.Combine(questionPath, cb.Text),
-                        QuestionTypes.JpStringToChoiceIndex(cmbFrom.Text),
-                        QuestionTypes.JpStringToChoiceIndex(cmbTo.Text));
+                        QuestionTypes.JfStringToChoiceIndex(cmbFrom.Text),
+                        QuestionTypes.JfStringToChoiceIndex(cmbTo.Text));
 
                     QuestionFiles.Add(cb.Text, qf);
 
@@ -267,8 +268,8 @@ public partial class JFlashForm : Form
                         /* cb.Text is same as item; both are the filename */
                         var qf = JFQuestionFileFactory.GenerateQuestionFile(
                             Path.Combine(questionPath, cb.Text),
-                            QuestionTypes.JpStringToChoiceIndex(cmbFrom.Text),
-                            QuestionTypes.JpStringToChoiceIndex(cmbTo.Text));
+                            QuestionTypes.JfStringToChoiceIndex(cmbFrom.Text),
+                            QuestionTypes.JfStringToChoiceIndex(cmbTo.Text));
 
                         QuestionFiles.Add(cb.Text, qf);
 
@@ -556,18 +557,20 @@ public partial class JFlashForm : Form
 
     private void UpdateQuestionFiles()
     {
-        foreach (var question in QuestionFiles.Values)
+        foreach (var questionSet in QuestionFiles.Values)
         {
-            foreach (var q in question.JFQuestions)
+            foreach (var question in questionSet.JfQuestions)
             {
-                q.UpdateQuestion();
+                question.UpdateQuestion(
+                    QuestionTypes.JfStringToChoiceIndex(cmbFrom.Text),
+                    QuestionTypes.JfStringToChoiceIndex(cmbTo.Text));
             }
         }
     }
 
     private void UpdateQuestionFileSets()
     {
-        int total = QuestionFiles.Sum((kvp) => kvp.Value.JFQuestions.Count);
+        int total = QuestionFiles.Sum((kvp) => kvp.Value.Questions.Count);
 
         rbAllQuestions.Text = ALLQUESTIONSTITLE + total;
         QuestionCount = total;
@@ -639,24 +642,28 @@ public partial class JFlashForm : Form
 
     private void CmbFrom_KeyDown(object sender, KeyEventArgs e)
     {
-        if (e.KeyValue == 13) BtnGo_Click(sender, e);
+        if (e.KeyValue == 13)
+        {
+            RegistryHelper.SaveSetting("from", cmbFrom.Text);
+        }
     }
 
     private void CmbFrom_SelectedIndexChanged(object sender, EventArgs e)
     {
         RegistryHelper.SaveSetting("from", cmbFrom.Text);
-        UpdateQuestionFiles();
     }
 
     private void CmbTo_KeyDown(object sender, KeyEventArgs e)
     {
-        if (e.KeyValue == 13) BtnGo_Click(sender, e);
+        if (e.KeyValue == 13)
+        {
+            RegistryHelper.SaveSetting("to", cmbTo.Text);
+        }
     }
 
     private void CmbTo_SelectedIndexChanged(object sender, EventArgs e)
     {
         RegistryHelper.SaveSetting("to", cmbTo.Text);
-        UpdateQuestionFiles();
     }
 
     private void NsUpDown_Enter(object sender, EventArgs e)

@@ -82,10 +82,9 @@ public class QuestionFile
             return;
         }
 
-        Questions = input
+        Questions.AddRange([.. input
             .Split(["\r\n", "\n"], StringSplitOptions.RemoveEmptyEntries)
-            .TakeWhile(x => x.ToUpperInvariant() != "END")
-            .ToList();
+            .TakeWhile(x => !x.Equals("END", StringComparison.InvariantCultureIgnoreCase))]);
 
         sr.Close();
     }
@@ -102,7 +101,7 @@ public class QuestionFile
             if (i % subsetSize == 0 && (QuestionCount - i) > (subsetSize / 2))
             {
                 key = $"{SetName}_{i:00}";
-                subset = new List<string>();
+                subset = [];
                 subsets.Add(key, subset);
             }
 

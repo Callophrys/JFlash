@@ -2,7 +2,7 @@ namespace JFlash.Classes;
 
 public class JFQuestionFile(string filename) : QuestionFile(filename)
 {
-    public List<JFQuestion> JFQuestions = [];
+    public List<JFQuestion> JfQuestions = [];
 
     public void GenerateQuestions(int idxFrom, int idxTo)
     {
@@ -13,7 +13,7 @@ public class JFQuestionFile(string filename) : QuestionFile(filename)
             // Make sure question is usable
             if (!string.IsNullOrEmpty(jfQuestion.Answer))
             {
-                JFQuestions.Add(jfQuestion);
+                JfQuestions.Add(jfQuestion);
             }
         }
     }
