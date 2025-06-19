@@ -243,7 +243,7 @@ public partial class JFlashForm : Form
             //foreach (var item in group.Value)
             foreach (var item in testGroupSubGroups[group])
             {
-                GroupFiles gp = savedGroupFiles.TryGetValue(item.Key, out GroupFiles? x) ? x : new GroupFiles();
+                GroupFiles gp = savedGroupFiles.TryGetValue(group, out GroupFiles? x) ? x : new GroupFiles();
                 bool isFileSelected = gp.files.Contains(item.Key);
 
                 var cb = new CheckBox
@@ -495,18 +495,15 @@ public partial class JFlashForm : Form
         try
         {
             tempSavedGroupFiles = JsonSerializer.Deserialize(savedGroupFilesText, typeof(Dictionary<string, GroupFiles>));
+            Dictionary<string, GroupFiles> savedGroupFiles =
+                tempSavedGroupFiles != null ? (Dictionary<string, GroupFiles>)tempSavedGroupFiles : [];
+
+            return savedGroupFiles;
         }
         catch
         {
             return [];
         }
-
-        Dictionary<string, GroupFiles>? savedGroupFiles =
-            tempSavedGroupFiles != null ? tempSavedGroupFiles as Dictionary<string, GroupFiles> : null;
-
-        if (savedGroupFiles == null) return [];
-
-        return savedGroupFiles;
     }
 
     private static bool GetToggleState(Dictionary<string, GroupFiles> dictionary, string key, int counter)

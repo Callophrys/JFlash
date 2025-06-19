@@ -28,7 +28,6 @@ public partial class JFQuestionaireForm : Form
         int x = parentForm.Location.X + (parentForm.Width - this.Width) / 2;
         int y = parentForm.Location.Y + (parentForm.Height - this.Height) / 2;
         Location = new Point(x, y);
-        btnFinish.Enabled = false;
         lblStatusResultTotal.Text = desiredQuestionCount.ToString();
         txtLastQuery.Text = string.Empty;
         txtLastAttempt.Text = string.Empty;
@@ -97,6 +96,8 @@ public partial class JFQuestionaireForm : Form
             MistakesForm = new JFMistakes(JFlashForm.LogFile);
         }
 
+        btnFinish.Text = "A&bandon";
+
         NextQuestion();
     }
 
@@ -105,6 +106,11 @@ public partial class JFQuestionaireForm : Form
         lblQuestionTitle.Text = "No more questions";
         lblQuestionInstruction.Text = string.Empty;
         lblQuestionQuery.Text = string.Empty;
+        lblQuestionHint.Text = string.Empty;
+
+        btnSubmit.Enabled = false;
+        btnFinish.Text = "&Finish";
+        btnFinish.Focus();
     }
 
     public void NextQuestion()
@@ -114,8 +120,6 @@ public partial class JFQuestionaireForm : Form
         {
             ClearQuestion();
             txtAnswer.Enabled = false;
-            btnFinish.Enabled = true;
-            btnFinish.Focus();
 
             return;
         }
@@ -127,6 +131,10 @@ public partial class JFQuestionaireForm : Form
             !string.IsNullOrEmpty(q.Hint))
         {
             lblQuestionHint.Text = q.Hint;
+        }
+        else
+        {
+            lblQuestionHint.Text = string.Empty;
         }
 
         lblStatusResultAttempted.Text = QuestionSet.questionNumber.ToString();
@@ -197,10 +205,7 @@ public partial class JFQuestionaireForm : Form
 
         if (QuestionSet.isFinished)
         {
-            btnAbandon.Enabled = false;
-            btnFinish.Enabled = true;
             txtAnswer.Enabled = false;
-
             lblStatusResultScore.Text = $"{(Convert.ToInt32(100 * QuestionSet.countCorrect / parentForm.QuestionCount))}%";
 
             ClearQuestion();
@@ -214,29 +219,11 @@ public partial class JFQuestionaireForm : Form
         txtAnswer.Clear();
     }
 
-    private void BtnAbandon_Click(object sender, EventArgs e)
-    {
-        parentForm.Show();
-        this.Close();
-    }
-
-    private void TxtAnswer_KeyDown(object sender, KeyEventArgs e)
-    {
-        if (e.KeyValue == 13)
-        {
-            e.SuppressKeyPress = true;
-            EvaluateAnswer();
-        }
-    }
+    #region Event Handlers
 
     private void BtnFinish_Click(object sender, EventArgs e)
     {
         Close();
-    }
-
-    private void JFQuestionaireForm_FormClosed(object sender, FormClosedEventArgs e)
-    {
-        parentForm.Show();
     }
 
     private void BtnMistakes_Click(object sender, EventArgs e)
@@ -248,4 +235,20 @@ public partial class JFQuestionaireForm : Form
     {
         EvaluateAnswer();
     }
+
+    private void JFQuestionaireForm_FormClosed(object sender, FormClosedEventArgs e)
+    {
+        parentForm.Show();
+    }
+
+    private void TxtAnswer_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyValue == 13)
+        {
+            e.SuppressKeyPress = true;
+            EvaluateAnswer();
+        }
+    }
+
+    #endregion Event Handlers
 }

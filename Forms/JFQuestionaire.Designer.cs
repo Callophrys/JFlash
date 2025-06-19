@@ -30,8 +30,8 @@ namespace JFlash.Forms
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JFQuestionaireForm));
             btnFinish = new Button();
-            btnAbandon = new Button();
             groupBoxQuestion = new GroupBox();
+            btnSubmit = new Button();
             lblQuestionHint = new Label();
             lblQuestionTitle = new Label();
             lblQuestionQuery = new Label();
@@ -55,7 +55,6 @@ namespace JFlash.Forms
             txtLastAttempt = new TextBox();
             txtLastAnswer = new TextBox();
             lblLastAns = new Label();
-            btnSubmit = new Button();
             groupBoxQuestion.SuspendLayout();
             groupStatus.SuspendLayout();
             groupResult.SuspendLayout();
@@ -73,19 +72,6 @@ namespace JFlash.Forms
             btnFinish.Text = "&Finish";
             btnFinish.UseVisualStyleBackColor = true;
             btnFinish.Click += BtnFinish_Click;
-            // 
-            // btnAbandon
-            // 
-            btnAbandon.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnAbandon.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnAbandon.Location = new Point(104, 440);
-            btnAbandon.Margin = new Padding(2);
-            btnAbandon.Name = "btnAbandon";
-            btnAbandon.Size = new Size(90, 28);
-            btnAbandon.TabIndex = 2;
-            btnAbandon.Text = "A&bandon";
-            btnAbandon.UseVisualStyleBackColor = true;
-            btnAbandon.Click += BtnAbandon_Click;
             // 
             // groupBoxQuestion
             // 
@@ -105,6 +91,16 @@ namespace JFlash.Forms
             groupBoxQuestion.TabIndex = 0;
             groupBoxQuestion.TabStop = false;
             groupBoxQuestion.Text = "&Question";
+            // 
+            // btnSubmit
+            // 
+            btnSubmit.Location = new Point(323, 194);
+            btnSubmit.Name = "btnSubmit";
+            btnSubmit.Size = new Size(20, 23);
+            btnSubmit.TabIndex = 6;
+            btnSubmit.Text = "?";
+            btnSubmit.UseVisualStyleBackColor = true;
+            btnSubmit.Click += BtnSubmit_Click;
             // 
             // lblQuestionHint
             // 
@@ -297,7 +293,7 @@ namespace JFlash.Forms
             btnMistakes.Margin = new Padding(2);
             btnMistakes.Name = "btnMistakes";
             btnMistakes.Size = new Size(90, 28);
-            btnMistakes.TabIndex = 11;
+            btnMistakes.TabIndex = 2;
             btnMistakes.Text = "&Mistakes";
             btnMistakes.UseVisualStyleBackColor = true;
             btnMistakes.Click += BtnMistakes_Click;
@@ -395,16 +391,6 @@ namespace JFlash.Forms
             lblLastAns.TabIndex = 11;
             lblLastAns.Text = "Last Question:";
             // 
-            // btnSubmit
-            // 
-            btnSubmit.Location = new Point(323, 194);
-            btnSubmit.Name = "btnSubmit";
-            btnSubmit.Size = new Size(20, 23);
-            btnSubmit.TabIndex = 6;
-            btnSubmit.Text = "\u276F";
-            btnSubmit.UseVisualStyleBackColor = true;
-            btnSubmit.Click += BtnSubmit_Click;
-            // 
             // JFQuestionaireForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -414,7 +400,6 @@ namespace JFlash.Forms
             Controls.Add(btnMistakes);
             Controls.Add(groupStatus);
             Controls.Add(groupBoxQuestion);
-            Controls.Add(btnAbandon);
             Controls.Add(btnFinish);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(2);
@@ -437,7 +422,6 @@ namespace JFlash.Forms
         #endregion
 
         private System.Windows.Forms.Button btnFinish;
-        private System.Windows.Forms.Button btnAbandon;
         private System.Windows.Forms.GroupBox groupBoxQuestion;
         private System.Windows.Forms.Label lblQuestionQuery;
         private System.Windows.Forms.Label lblQuestionInstruction;
