@@ -27,12 +27,12 @@ Adjectives;ADJ-I;暑い;あつい;アツイ;atsui;hot,warm;conditions of surroun
 Adjectives;ADJ-I;寒い;さむい;サムイ;samui;cold,chilly,freezing
 Adjectives;ADJ-I;冷たい;つめたい;ツメタイ;tsumetai;cold,chilly,icy,cold-hearted
 Adjectives;ADJ-I;厚い;あつい;アツイ;atsui;thick,deep,cordial,kind,warm hearted,warm-hearted;emotion-oriented
-Adjectives;ADJ-I;濃い;にい;ニイ;nii;dense,deep,thick color,thickly-colored,thick liquid,strong
+Adjectives;ADJ-I;濃い;にい;ニイ;nii;dense,deep,thick color,thickly colored,thick liquid,strong
 Adjectives;ADJ-I;薄い;うすい;ウスイ;usui;thin,light,weak,watery,diluted
 Adjectives;ADJ-I;遠い;とおい;トオイ;tooi;far,distant
 Adjectives;ADJ-I;近い;ちかい;チカイ;chikai;near,close by
 Adjectives;ADJ-I;高い;たかい;タカイ;takai;high,tall,expensive
-Adjectives;ADJ-I;低い;ひくい;ヒクイ;hikui;low,short,lowvoiced,humble
+Adjectives;ADJ-I;低い;ひくい;ヒクイ;hikui;low,short,low-voiced,humble
 Adjectives;ADJ-I;安い;やすい;ヤスイ;yasui;cheap,inexpensive
 Adjectives;ADJ-I;難い;かたい;カタイ;katai;hard,tough
 Adjectives;ADJ-I;柔らかい;やわらかい;ヤワラタイ;yawarakai;soft,mild
@@ -52,7 +52,7 @@ Adjectives;ADJ-I;臭い;くさい;クサイ;kusai;smell,stink,suspicious
 Adjectives;ADJ-I;怖い;にわい;ニワイ;niwai;dreadful,terrible,tearful
 Adjectives;ADJ-I;涼しい;すずしい;スズシイ;suzushii;cool
 Adjectives;ADJ-I;面白い;おもしろい;オモシロイ;omoshiroi;interesting,amusing
-Adjectives;ADJ-I;美味しい;おいしい;オイシイ;oishii;delicious
+Adjectives;ADJ-I;美味しい;おいしい;オイシイ;oishii;delicious,tasty
 Adjectives;ADJ-I;易しい;やさひい;ヤサシイ;yasashii;easy,plain,simple
 Adjectives;ADJ-I;難しい;むずかしい;ムズカシイ;muzukashii;difficult
 Adjectives;ADJ-I;若い;わかい;ワカイ;wakai;young
@@ -65,9 +65,8 @@ Adjectives;ADJ-I;眠い;ねむい;ネムイ;nemui;sleepy,drowsy
 Adjectives;ADJ-I;鋭い;するどい;スルドイ;surudoi;sharp,pointed
 Adjectives;ADJ-I;小恥ずかしい;こはずかしい;コハズカシイ;kohazukashii;feeling embarrassed,shameful
 Adjectives;ADJ-I;恥ずかしい;はずかしい;ハズカシイ;hazukashii;shy,ashamed,embarrassed
-Adjectives;ADJ-I;煙い;けむい;ケムイ;kemui;smoky
+Adjectives;ADJ-I;煙い;けむい;ケムイ;kemui;smokey
 Adjectives;ADJ-I;古い;ふるい;フルイ;furui;old
-Adjectives;ADJ-I;いい;いい;イイ;ii;good
 Adjectives;ADJ-I;ダサイ;ださい;ダサイ;dasai;hideous,lame
 Adjectives;ADJ-I;欲しい;ほしい;ホシイ;hoshii;want
 Adjectives;ADJ-I;頭いい;あたまいい;アタマイイ;atamaii;smart

@@ -5,6 +5,52 @@ using System.Text.RegularExpressions;
 
 namespace JFlash.Forms;
 
+//public static class ScreenHelper
+//{
+//    private static void SetFormDimensions(Form form)
+//    {
+//        Screen screen = Screen.FromControl(form);
+//        Size size = new Size(); // fetch from registry
+//        if (screen.WorkingArea.Size == size)
+//        {
+//            Rectangle rect = new Rectangle(); // fetch from registry
+//            form.Size = rect.Size;
+//            form.Location = rect.Location;
+//        }
+//    }
+
+//    private static void SaveScreenSize(Form form)
+//    {
+//        Screen screen = Screen.FromControl(form);
+//        string value = JsonSerializer.Serialize(screen.WorkingArea.Size);
+//        RegistryHelper.SaveSetting("screensize", value);
+//    }
+
+//    private static void SaveFormDimensions(Form form)
+//    {
+//        string value = JsonSerializer.Serialize(form.DisplayRectangle);
+//        RegistryHelper.SaveSetting($"form.{form.Name}", value);
+//    }
+
+//    private static Dictionary<string, GroupFiles> GetSavedSelectionOptions()
+//    {
+//        string savedGroupFilesText = RegistryHelper.LoadSetting("selection", string.Empty);
+//        object? tempSavedGroupFiles;
+//        try
+//        {
+//            tempSavedGroupFiles = JsonSerializer.Deserialize(savedGroupFilesText, typeof(Dictionary<string, GroupFiles>));
+//            Dictionary<string, GroupFiles> savedGroupFiles =
+//                tempSavedGroupFiles != null ? (Dictionary<string, GroupFiles>)tempSavedGroupFiles : [];
+
+//            return savedGroupFiles;
+//        }
+//        catch
+//        {
+//            return [];
+//        }
+//    }
+//}
+
 public partial class JFlashForm : Form
 {
     public Dictionary<string, JFQuestionFile> QuestionFiles { get; private set; } = [];
@@ -224,7 +270,7 @@ public partial class JFlashForm : Form
             // 3.a. Create and place in first position of group panel.
             var selectAllCheckBox = new CheckBox
             {
-                Text = $"Select All &{++counter}",
+                Text = $"&{++counter}. Select All",
                 AutoSize = true,
                 Font = new Font(DefaultFont, FontStyle.Bold),
                 Width = panelWidth,
@@ -263,7 +309,7 @@ public partial class JFlashForm : Form
                     gp.Expanded = toggle.Checked;
                     gp.files.Add(cb.Text);
 
-                    selectedGroupFiles.TryAdd(item.Key, gp);
+                    selectedGroupFiles.TryAdd(group, gp);
                 }
 
                 cb.CheckedChanged += (s, e) =>
@@ -424,6 +470,12 @@ public partial class JFlashForm : Form
             toggle.KeyDown += (s, e) =>
             {
                 if (e.KeyValue == 13) toggle.Checked = !toggle.Checked;
+            };
+
+            // Required for the enter key press work on the keydown event.
+            toggle.PreviewKeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Enter) e.IsInputKey = true;
             };
 
             // 5. Add toggle and groupPanel to the TableLayoutPanel
