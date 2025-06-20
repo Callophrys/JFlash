@@ -5,52 +5,6 @@ using System.Text.RegularExpressions;
 
 namespace JFlash.Forms;
 
-//public static class ScreenHelper
-//{
-//    private static void SetFormDimensions(Form form)
-//    {
-//        Screen screen = Screen.FromControl(form);
-//        Size size = new Size(); // fetch from registry
-//        if (screen.WorkingArea.Size == size)
-//        {
-//            Rectangle rect = new Rectangle(); // fetch from registry
-//            form.Size = rect.Size;
-//            form.Location = rect.Location;
-//        }
-//    }
-
-//    private static void SaveScreenSize(Form form)
-//    {
-//        Screen screen = Screen.FromControl(form);
-//        string value = JsonSerializer.Serialize(screen.WorkingArea.Size);
-//        RegistryHelper.SaveSetting("screensize", value);
-//    }
-
-//    private static void SaveFormDimensions(Form form)
-//    {
-//        string value = JsonSerializer.Serialize(form.DisplayRectangle);
-//        RegistryHelper.SaveSetting($"form.{form.Name}", value);
-//    }
-
-//    private static Dictionary<string, GroupFiles> GetSavedSelectionOptions()
-//    {
-//        string savedGroupFilesText = RegistryHelper.LoadSetting("selection", string.Empty);
-//        object? tempSavedGroupFiles;
-//        try
-//        {
-//            tempSavedGroupFiles = JsonSerializer.Deserialize(savedGroupFilesText, typeof(Dictionary<string, GroupFiles>));
-//            Dictionary<string, GroupFiles> savedGroupFiles =
-//                tempSavedGroupFiles != null ? (Dictionary<string, GroupFiles>)tempSavedGroupFiles : [];
-
-//            return savedGroupFiles;
-//        }
-//        catch
-//        {
-//            return [];
-//        }
-//    }
-//}
-
 public partial class JFlashForm : Form
 {
     public Dictionary<string, JFQuestionFile> QuestionFiles { get; private set; } = [];
@@ -71,6 +25,8 @@ public partial class JFlashForm : Form
     private const int ScrollBarWidth = 17; // standard scrollbar width on Windows
     private int previousClientWidth;
 
+    private bool ShowMistakes;
+
     public static readonly string LogFile = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
         "jflash",
@@ -84,7 +40,7 @@ public partial class JFlashForm : Form
         cmbFrom.Items.AddRange(QuestionTypes.choices);
         cmbTo.Items.AddRange(QuestionTypes.choices);
 
-        nsUpDown.Minimum = nsUpDown.Maximum = 0;
+        nsQuestionLimit.Maximum = 1;
 
         string temp = RegistryHelper.LoadSetting("from", "Kanji");
         cmbFrom.Text = QuestionTypes.choices.Contains(temp) ? temp : "Kanji";
@@ -92,7 +48,9 @@ public partial class JFlashForm : Form
         temp = RegistryHelper.LoadSetting("to", "Romaji");
         cmbTo.Text = QuestionTypes.choices.Contains(temp) ? temp : "Romaji";
 
-        nsSubsetSize.Value = Convert.ToDecimal(RegistryHelper.LoadSetting("subsetsize", 7));
+        decimal ssz = Math.Max(1, Convert.ToDecimal(RegistryHelper.LoadSetting("subsetsize", 7)));
+        if (ssz > nsSubsetSize.Maximum) nsSubsetSize.Maximum = ssz;
+        nsSubsetSize.Value = Math.Max(1, Convert.ToDecimal(RegistryHelper.LoadSetting("subsetsize", 7)));
 
         // Should always work in normal circumstances.
         questionPath = RegistryHelper.LoadSetting("questions", string.Empty);
@@ -145,7 +103,7 @@ public partial class JFlashForm : Form
     {
         bool mistakesFormMissingOrDown = MistakesForm == null || MistakesForm.IsDisposed;
 
-        if (!ShowForm)
+        if (!ShowMistakes)
         {
             if (mistakesFormMissingOrDown) MistakesForm = new JFMistakes(LogFile);
             MistakesForm!.Show();
@@ -155,7 +113,7 @@ public partial class JFlashForm : Form
             MistakesForm!.Hide();
         }
 
-        ShowForm = !ShowForm;
+        ShowMistakes = !ShowMistakes;
     }
 
     public void WriteMistakesLog(string query, string correctEntry, string wrongEntry, string setName)
@@ -172,7 +130,7 @@ public partial class JFlashForm : Form
         UpdateQuestionFiles();
 
         Form frm = new JFQuestionaireForm(this
-            , rbLimitQuestions.Checked ? Convert.ToInt16(nsUpDown.Value) : QuestionCount
+            , rbLimitQuestions.Checked ? Convert.ToInt16(nsQuestionLimit.Value) : QuestionCount
             , cmbFrom.Text
             , cmbTo.Text);
         frm.Show();
@@ -184,14 +142,18 @@ public partial class JFlashForm : Form
         toggleCheckBoxes.Clear();
         selectedGroupFiles.Clear();
         AllCheckBoxes.Clear();
-        pnlQuestionFiles.Controls.Clear();
+        // Keep the inner pane if it exists yet. It is the only child.
+        if (pnlQuestionFiles.Controls.Count > 0)
+        {
+            pnlQuestionFiles.Controls[0].Controls.Clear();
+        }
 
         if (string.IsNullOrEmpty(questionPath)) return;
 
         DirectoryInfo dir = new(questionPath);
         SortedDictionary<string, List<string>> groupingSets = [];
         SortedDictionary<string, Dictionary<string, JFQuestionFile>> testGroupingSets = [];
-        Dictionary<string, GroupFiles> savedGroupFiles = GetSavedSelectionOptions();
+        Dictionary<string, GroupFiles> savedGroupFiles = GetSavedSelectionOptions(Convert.ToInt32(nsSubsetSize.Value));
         Dictionary<string, Dictionary<string, JFQuestionFile>> testGroupSubGroups = [];
 
         List<CheckBox> questionFileCheckBoxes = [];
@@ -199,10 +161,12 @@ public partial class JFlashForm : Form
 
         SortedDictionary<string, List<string>> testD = [];
 
+        int maxSourceQuestions = 0;
         foreach (FileInfo fi in dir.GetFiles("*.jpf"))
         {
             var groupingName = Path.GetFileNameWithoutExtension(fi.Name);
             var tempQuestionFile = new QuestionFile(fi.FullName);
+            maxSourceQuestions = Math.Max(maxSourceQuestions, tempQuestionFile.QuestionCount);
             var dictionaryOfSubsets = tempQuestionFile.GenerateSubsets(Math.Min(tempQuestionFile.QuestionCount, (int)nsSubsetSize.Value));
 
             // Convert subsets of "file" QuestionFile into set of subsets.
@@ -210,6 +174,11 @@ public partial class JFlashForm : Form
 
             testGroupSubGroups.Add(groupingName, subsetQuestionFiles);
         }
+
+        // Prevent control from supporting silly numbers but do
+        // support subsets that can encompass the file with the
+        // most questions.
+        nsSubsetSize.Maximum = maxSourceQuestions;
 
         int panelWidth = this.pnlQuestionFiles.Width - 16;
 
@@ -222,9 +191,8 @@ public partial class JFlashForm : Form
             ColumnCount = 1,
             RowCount = 0,
         };
-        flowTableQuestions.SuspendLayout();
 
-        pnlQuestionFiles.Controls.Add(flowTableQuestions);
+        flowTableQuestions.SuspendLayout();
 
         bool firstCheckboxCreated = false;
 
@@ -276,8 +244,15 @@ public partial class JFlashForm : Form
                 Width = panelWidth,
             };
 
+            // Create a pane so user can click anywhere across the "parent" pane to click.
+            var selectAllPane = new Panel();
+            selectAllPane.Width = panelWidth;
+            selectAllPane.Height = selectAllCheckBox.Height;
+            selectAllPane.Controls.Add(selectAllCheckBox);
+            selectAllPane.Click += (s, e) => selectAllCheckBox.Checked = !selectAllCheckBox.Checked;
+
             groupingCheckBoxes.Add(selectAllCheckBox);
-            groupPanel.Controls.Add(selectAllCheckBox);
+            groupPanel.Controls.Add(selectAllPane);
 
             // 4. Add item checkboxes
             //
@@ -297,7 +272,8 @@ public partial class JFlashForm : Form
                     Checked = isFileSelected,
                     Text = item.Key,
                     AutoSize = true,
-                    Padding = new Padding(10, 0, 0, 0)
+                    Padding = new Padding(10, 0, 0, 0),
+                    Width = panelWidth,
                 };
 
                 if (isFileSelected)
@@ -384,9 +360,16 @@ public partial class JFlashForm : Form
                     }
                 };
 
+                var checkboxPane = new Panel();
+                checkboxPane.Margin = new(0);
+                checkboxPane.Width = panelWidth;
+                checkboxPane.Height = cb.Height;
+                checkboxPane.Controls.Add(cb);
+                checkboxPane.Click += (s, e) => cb.Checked = !cb.Checked;
+
                 groupCheckBoxes.Add(cb);        // save ref in grouping list
                 questionFileCheckBoxes.Add(cb); // save ref to everything list
-                groupPanel.Controls.Add(cb);
+                groupPanel.Controls.Add(checkboxPane);
             }
 
             // 3.b. (Select all continued) Check if "Select All" needs to be checked
@@ -508,10 +491,10 @@ public partial class JFlashForm : Form
                 var selectedGroupFilesJson = JsonSerializer.Serialize(selectedGroupFiles);
                 RegistryHelper.SaveSetting("selection", selectedGroupFilesJson);
             };
-
-            // 7. Update total count and enable go button.
-            UpdateQuestionFileSets();
         }
+
+        // 7. Update total count and enable go button.
+        UpdateQuestionFileSets();
 
         if (groupingCheckBoxes.All(x => x.Checked))
         {
@@ -521,7 +504,15 @@ public partial class JFlashForm : Form
             skipEventsChkSelectAll = false;
         }
 
+        pnlQuestionFiles.Controls.Clear();
+        pnlQuestionFiles.Controls.Add(flowTableQuestions);
+
         flowTableQuestions.ResumeLayout();
+    }
+
+    private void JFlashForm_Click(object? sender, EventArgs e)
+    {
+        throw new NotImplementedException();
     }
 
     private static string GetFilenamePrefix(string name)
@@ -540,7 +531,7 @@ public partial class JFlashForm : Form
         return string.Empty;
     }
 
-    private static Dictionary<string, GroupFiles> GetSavedSelectionOptions()
+    private static Dictionary<string, GroupFiles> GetSavedSelectionOptions(int currentSubsetSize)
     {
         string savedGroupFilesText = RegistryHelper.LoadSetting("selection", string.Empty);
         object? tempSavedGroupFiles;
@@ -549,6 +540,22 @@ public partial class JFlashForm : Form
             tempSavedGroupFiles = JsonSerializer.Deserialize(savedGroupFilesText, typeof(Dictionary<string, GroupFiles>));
             Dictionary<string, GroupFiles> savedGroupFiles =
                 tempSavedGroupFiles != null ? (Dictionary<string, GroupFiles>)tempSavedGroupFiles : [];
+
+            foreach (var a in savedGroupFiles.Values)
+            {
+                HashSet<string> filteredFiles = [];
+                foreach (var s in a.files)
+                {
+                    var x = Convert.ToInt32(s[^2..]);
+                    if (x % currentSubsetSize == 0) filteredFiles.Add(s);
+                }
+
+                a.files = filteredFiles;
+            }
+
+            // Update storage in reg. -- kind of a hack here.
+            var savedGroupFilesJson = JsonSerializer.Serialize(savedGroupFiles);
+            RegistryHelper.SaveSetting("selection", savedGroupFilesJson);
 
             return savedGroupFiles;
         }
@@ -631,12 +638,6 @@ public partial class JFlashForm : Form
         }
     }
 
-    private void UpdateQuestionFiles(string setting, string value)
-    {
-        RegistryHelper.SaveSetting(setting, value);
-        UpdateQuestionFiles();
-    }
-
     private void UpdateQuestionFileSets()
     {
         int total = QuestionFiles.Sum((kvp) => kvp.Value.Questions.Count);
@@ -644,15 +645,16 @@ public partial class JFlashForm : Form
         rbAllQuestions.Text = ALLQUESTIONSTITLE + total;
         QuestionCount = total;
 
-        nsUpDown.Maximum = total;
+        nsQuestionLimit.Maximum = total;
 
         GoEnabled();
     }
 
     private void GoEnabled()
     {
-        btnGo.Enabled = QuestionCount > 0 && rbAllQuestions.Checked
-            || nsUpDown.Value > 0 && rbLimitQuestions.Checked;
+        btnGo.Enabled = QuestionCount > 0 && (
+            rbAllQuestions.Checked && nsSubsetSize.Value > 0 ||
+            rbLimitQuestions.Checked && nsQuestionLimit.Value > 0);
     }
 
     [GeneratedRegex(@"^(.*?)(\d+.*|[ -_][^ -_]+)$")]
@@ -699,11 +701,14 @@ public partial class JFlashForm : Form
 
         skipEventsChkToggleAll = true;
 
+        pnlQuestionFiles.Controls[0].SuspendLayout();
+
         chkExpandAll.Text = chkExpandAll.Checked ? "▼" : "▶";
         foreach (CheckBox cb in toggleCheckBoxes.Where(x => x.Checked != chkExpandAll.Checked))
         {
             cb.Checked = chkExpandAll.Checked;
         }
+        pnlQuestionFiles.Controls[0].ResumeLayout();
 
         skipEventsChkToggleAll = false;
     }
@@ -734,6 +739,13 @@ public partial class JFlashForm : Form
         RegistryHelper.SaveSetting("to", cmbTo.Text);
     }
 
+    private void NsQuestionLimit_Enter(object sender, EventArgs e)
+    {
+        rbLimitQuestions.Checked = true;
+    }
+
+    private void NsQuestionLimit_ValueChanged(object sender, EventArgs e) => GoEnabled();
+
     private void NsSubsetSize_ValueChanged(object sender, EventArgs e)
     {
         subsetSize = (int)nsSubsetSize.Value;
@@ -741,29 +753,40 @@ public partial class JFlashForm : Form
         BuildQuestions();
     }
 
-    private void NsUpDown_Enter(object sender, EventArgs e)
-    {
-        rbLimitQuestions.Checked = true;
-    }
-
-    private void NsUpDown_ValueChanged(object sender, EventArgs e) => GoEnabled();
-
     private void PnlQuestionFiles_ControlAdded(object sender, ControlEventArgs e) => HandlePanelSizing();
 
     private void PnlQuestionFiles_ControlRemoved(object sender, ControlEventArgs e) => HandlePanelSizing();
 
     private void PnlQuestionFiles_SizeChanged(object sender, EventArgs e) => HandlePanelSizing();
 
-    private void Questions_KeyDown(object sender, KeyEventArgs e)
-    {
-        if (e.KeyValue == 13) BtnGo_Click(sender, e);
-    }
+    //private void Questions_KeyDown(object sender, KeyEventArgs e)
+    //{
+    //    if (e.KeyValue == 13) BtnGo_Click(sender, e);
+    //}
 
     private void RbAllQuestions_CheckedChanged(object sender, EventArgs e) => GoEnabled();
 
     private void RbLimitQuestions_CheckedChanged(object sender, EventArgs e) => GoEnabled();
 
-    bool ShowForm;
+    private void JFlashForm_Load(object sender, EventArgs e)
+    {
+        //Rectangle r = ScreenHelper.GetFormDimensions(this);
+        //if (r.Width != 0)
+        //{
+        //    Size = r.Size;
+        //    Location = r.Location;
+        //}
+    }
+
+    private void JFlashForm_Move(object sender, EventArgs e)
+    {
+        //ScreenHelper.SaveFormDimensions(this);
+    }
+
+    private void JFlashForm_Resize(object sender, EventArgs e)
+    {
+        //ScreenHelper.SaveFormDimensions(this);
+    }
 
     private void JFlashForm_Shown(object sender, EventArgs e)
     {
@@ -804,5 +827,45 @@ public partial class JFlashForm : Form
     }
 
     #endregion Event Handlers
+}
+
+public static class ScreenHelper
+{
+    public static void SetFormDimensions(Form form)
+    {
+        Screen screen = Screen.FromControl(form);
+        Size size = new Size(); // fetch from registry
+        if (screen.WorkingArea.Size == size)
+        {
+            Rectangle rect = new Rectangle(); // fetch from registry
+            form.Size = rect.Size;
+            form.Location = rect.Location;
+        }
+    }
+
+    public static void SaveScreenSize(Form form)
+    {
+        Screen screen = Screen.FromControl(form);
+        string value = JsonSerializer.Serialize(screen.WorkingArea.Size);
+        RegistryHelper.SaveSetting("screensize", value);
+    }
+
+    public static void SaveFormDimensions(Form form)
+    {
+        string value = JsonSerializer.Serialize(form.DisplayRectangle);
+        RegistryHelper.SaveSetting($"form.{form.Name}", value);
+    }
+
+    public static Rectangle GetFormDimensions(Form form)
+    {
+        string formDimensionsJson = RegistryHelper.LoadSetting($"form.{form.Name}", string.Empty);
+        object? fd = JsonSerializer.Deserialize(formDimensionsJson, typeof(Rectangle));
+        if (fd != null)
+        {
+            return (Rectangle)fd;
+        }
+
+        return new Rectangle(0, 0, 0, 0);
+    }
 }
 

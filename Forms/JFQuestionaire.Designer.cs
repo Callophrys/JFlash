@@ -31,7 +31,7 @@ namespace JFlash.Forms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JFQuestionaireForm));
             btnFinish = new Button();
             groupBoxQuestion = new GroupBox();
-            btnSubmit = new Button();
+            btnNextQuestion = new Button();
             lblQuestionHint = new Label();
             lblQuestionTitle = new Label();
             lblQuestionQuery = new Label();
@@ -76,7 +76,7 @@ namespace JFlash.Forms
             // groupBoxQuestion
             // 
             groupBoxQuestion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            groupBoxQuestion.Controls.Add(btnSubmit);
+            groupBoxQuestion.Controls.Add(btnNextQuestion);
             groupBoxQuestion.Controls.Add(lblQuestionHint);
             groupBoxQuestion.Controls.Add(lblQuestionTitle);
             groupBoxQuestion.Controls.Add(lblQuestionQuery);
@@ -92,15 +92,15 @@ namespace JFlash.Forms
             groupBoxQuestion.TabStop = false;
             groupBoxQuestion.Text = "&Question";
             // 
-            // btnSubmit
+            // btnNextQuestion
             // 
-            btnSubmit.Location = new Point(323, 194);
-            btnSubmit.Name = "btnSubmit";
-            btnSubmit.Size = new Size(20, 23);
-            btnSubmit.TabIndex = 6;
-            btnSubmit.Text = "?";
-            btnSubmit.UseVisualStyleBackColor = true;
-            btnSubmit.Click += BtnSubmit_Click;
+            btnNextQuestion.Location = new Point(323, 194);
+            btnNextQuestion.Name = "btnNextQuestion";
+            btnNextQuestion.Size = new Size(20, 23);
+            btnNextQuestion.TabIndex = 6;
+            btnNextQuestion.Text = "\u276F";
+            btnNextQuestion.UseVisualStyleBackColor = true;
+            btnNextQuestion.Click += BtnNextQuestion_Click;
             // 
             // lblQuestionHint
             // 
@@ -446,6 +446,6 @@ namespace JFlash.Forms
         private TextBox txtLastAttempt;
         private TextBox txtLastAnswer;
         private Label lblLastAns;
-        private Button btnSubmit;
+        private Button btnNextQuestion;
     }
 }

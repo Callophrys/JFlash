@@ -2,31 +2,31 @@
 
 public static class QuestionFields
 {
-    public const int FieldCount   = 9;
-    public const int MinQuesIdx   = 2;
-    public const int MaxQuesInx   = 6;
+    public const int FieldCount = 9;
+    public const int MinQuesIdx = 2;
+    public const int MaxQuesInx = 6;
 
-    public const int Lesson       = 0;
-    public const int Structure    = 1;
-    public const int Kanji        = 2;
-    public const int Hirigana     = 3;
-    public const int Katakana     = 4;
-    public const int Romaji       = 5;
-    public const int English      = 6;
-    public const int BriefHint    = 7;
+    public const int Lesson = 0;
+    public const int Structure = 1;
+    public const int Kanji = 2;
+    public const int Hirigana = 3;
+    public const int Katakana = 4;
+    public const int Romaji = 5;
+    public const int English = 6;
+    public const int BriefHint = 7;
     public const int DetailedHint = 8;
 }
 
 readonly record struct QuestionEntry(string[] Parts)
 {
-    public string Lesson       => Parts.Length > QuestionFields.Lesson ? Parts[QuestionFields.Lesson] : string.Empty;
-    public string Structure    => Parts.Length > QuestionFields.Structure ? Parts[QuestionFields.Structure] : string.Empty;
-    public string Kanji        => Parts.Length > QuestionFields.Kanji ? Parts[QuestionFields.Kanji] : string.Empty;
-    public string Hirigana     => Parts.Length > QuestionFields.Hirigana ? Parts[QuestionFields.Hirigana] : string.Empty;
-    public string Katakana     => Parts.Length > QuestionFields.Katakana ? Parts[QuestionFields.Katakana] : string.Empty;
-    public string Romaji       => Parts.Length > QuestionFields.Romaji ? Parts[QuestionFields.Romaji] : string.Empty;
-    public string English      => Parts.Length > QuestionFields.English ? Parts[QuestionFields.English] : string.Empty;
-    public string BriefHint    => Parts.Length > QuestionFields.BriefHint ? Parts[QuestionFields.BriefHint] : string.Empty;
+    public string Lesson => Parts.Length > QuestionFields.Lesson ? Parts[QuestionFields.Lesson] : string.Empty;
+    public string Structure => Parts.Length > QuestionFields.Structure ? Parts[QuestionFields.Structure] : string.Empty;
+    public string Kanji => Parts.Length > QuestionFields.Kanji ? Parts[QuestionFields.Kanji] : string.Empty;
+    public string Hirigana => Parts.Length > QuestionFields.Hirigana ? Parts[QuestionFields.Hirigana] : string.Empty;
+    public string Katakana => Parts.Length > QuestionFields.Katakana ? Parts[QuestionFields.Katakana] : string.Empty;
+    public string Romaji => Parts.Length > QuestionFields.Romaji ? Parts[QuestionFields.Romaji] : string.Empty;
+    public string English => Parts.Length > QuestionFields.English ? Parts[QuestionFields.English] : string.Empty;
+    public string BriefHint => Parts.Length > QuestionFields.BriefHint ? Parts[QuestionFields.BriefHint] : string.Empty;
     public string DetailedHint => Parts.Length > QuestionFields.DetailedHint ? Parts[QuestionFields.DetailedHint] : string.Empty;
 
     public string this[int index] => index < Parts.Length ? Parts[index] : string.Empty;
@@ -93,4 +93,4 @@ public class QuestionEntries
         BriefHint = questionEntry.BriefHint;
         DetailedHint = questionEntry.DetailedHint;
     }
-} 
+}

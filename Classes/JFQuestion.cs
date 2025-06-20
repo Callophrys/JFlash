@@ -1,5 +1,4 @@
 ﻿using JFlash.Classes;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 namespace JFlash
@@ -105,27 +104,40 @@ namespace JFlash
             UpdateQuestion();
         }
 
-        public bool IsEntryCorrect(string ans)
+        public bool IsEntryCorrect(string answer)
         {
-            if (string.IsNullOrWhiteSpace(ans)) return false;
+            if (string.IsNullOrWhiteSpace(answer)) return false;
 
             // Condition here since commas should be rare if at all.
-            ans = ans.IndexOfAny([',', '，']) > -1 ? RegExCommas().Replace(ans, ", ") : ans;
+            string ans = answer.IndexOfAny([',', '，']) > -1
+                ? RegExCommas().Replace(answer, ", ")
+                : answer;
 
             ans = RegExSpaces().Replace(ans, " ");
             ans = ans.Trim([' ', ',', '，']);
 
             bool result = false;
-            foreach (string p in Answer.Split([',', '，'], StringSplitOptions.TrimEntries))
+
+            try
             {
-                if (indexTo == QuestionFields.English && Structure == "VERB")
+                foreach (string p in Answer.Split([',', '，'], StringSplitOptions.TrimEntries))
                 {
-                    result |= string.Equals(RegExTo().Replace(ans, string.Empty), RegExTo().Replace(p, string.Empty), StringComparison.CurrentCultureIgnoreCase);
+                    if (indexTo == QuestionFields.English && Structure == "VERB")
+                    {
+                        result |= string.Equals(RegExTo().Replace(ans, string.Empty), RegExTo().Replace(p, string.Empty), StringComparison.CurrentCultureIgnoreCase);
+                    }
+                    else
+                    {
+                        result |= string.Equals(ans, p, StringComparison.CurrentCultureIgnoreCase);
+                    }
                 }
-                else
-                {
-                    result |= string.Equals(ans, p, StringComparison.CurrentCultureIgnoreCase);
-                }
+            }
+            catch (Exception ex)
+            {
+                // Can get here when handling faulty question files.
+
+                JFHelper.LogError($"IsEntryCorrect: {answer},\n            ex: {ex.Message}");
+                return false;
             }
 
             return result;

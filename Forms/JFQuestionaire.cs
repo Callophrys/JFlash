@@ -108,7 +108,7 @@ public partial class JFQuestionaireForm : Form
         lblQuestionQuery.Text = string.Empty;
         lblQuestionHint.Text = string.Empty;
 
-        btnSubmit.Enabled = false;
+        btnNextQuestion.Enabled = false;
         btnFinish.Text = "&Finish";
         btnFinish.Focus();
     }
@@ -231,7 +231,7 @@ public partial class JFQuestionaireForm : Form
         parentForm.ToggleMistakesForm();
     }
 
-    private void BtnSubmit_Click(object sender, EventArgs e)
+    private void BtnNextQuestion_Click(object sender, EventArgs e)
     {
         EvaluateAnswer();
     }

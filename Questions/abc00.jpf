@@ -52,7 +52,9 @@ Sundry;NOUN;じはんき;じはんきい;ヒハンキ;jihanki;vending machines
 Sundry;NOUN;のりかえ;のりかえ;ノリカエ;norikae;transfer;bus transfer,train transfer
 Sundry;;ちか;ちか;チカ;chika;underground;underground level
 Sundry;NOUN;改札,改札口;かいさつ;カイサツ;kaisatsu;ticket gate
-Sundry;いつも;いつも;イツモ;itsumo;always,every time,all the time,never
+Sundry;;いつも;いつも;イツモ;itsumo;always,every time,all the time,never
 Sundry;;もう寝なきゃ;もうねなきゃ;モウネナキャ;moonenakya,moo nenakya;I need to go to bed now.
 Sundry;;もう寝なきゃ;ねなきゃ;ネナキャ;nenakya;I need to go to bed.
+Sundry;;初め;はじめ;ハジメ;hajime;first
+Sundry;;最後;さいじょ;サイゴ;saigo;last
 END

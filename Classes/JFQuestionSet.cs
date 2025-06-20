@@ -44,10 +44,10 @@ namespace JFlash.Classes
 
             for (last = size; last > 1; last--)
             {
-              randomNum = rnd.Next(size) % last;
-              temporary = questionsList[randomNum];
-              questionsList[randomNum] = questionsList[last - 1];
-              questionsList[last - 1] = temporary;
+                randomNum = rnd.Next(size) % last;
+                temporary = questionsList[randomNum];
+                questionsList[randomNum] = questionsList[last - 1];
+                questionsList[last - 1] = temporary;
             }
         }
 
@@ -62,7 +62,7 @@ namespace JFlash.Classes
             return CurrentQuestion;
         }
 
-        public bool IsEntryCorrect (string ans)
+        public bool IsEntryCorrect(string ans)
         {
             bool result = CurrentQuestion?.IsEntryCorrect(ans) ?? false;
             if (result)
