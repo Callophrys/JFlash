@@ -8,3 +8,9 @@ missing; even if hirigana is the response format.
 - Maybe put all settings in a menu bar or buttons.
 - Maybe add a status bar at bottom.
 - Convert to Avalonia.
+- Deal with stored selections when changing subset sizes and using (un)select all.
+Also re-sizing can attempt adds when expanded files set already has same-named subset.
+- Using expand-collapse all is slow.
+- Have selection checkboxes work across panel width.
+- Handle subset size of 0 as "no subsets" and limit max size of max questions count of a file.
+- Next question button needs to render the chevron.

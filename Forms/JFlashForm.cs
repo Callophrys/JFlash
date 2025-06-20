@@ -700,7 +700,6 @@ public partial class JFlashForm : Form
         skipEventsChkToggleAll = true;
 
         chkExpandAll.Text = chkExpandAll.Checked ? "▼" : "▶";
-        RegistryHelper.SaveSetting("expanded", chkExpandAll.Checked.ToString());
         foreach (CheckBox cb in toggleCheckBoxes.Where(x => x.Checked != chkExpandAll.Checked))
         {
             cb.Checked = chkExpandAll.Checked;

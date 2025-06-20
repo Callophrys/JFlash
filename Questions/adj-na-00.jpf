@@ -5,14 +5,14 @@ Type=Entry
 Adjectives;ADJ-NA;静か;しずか;シズカ;shizuka;quiet
 Adjectives;ADJ-NA;元気;げんき;ゲンキ;genki;well,health
 Adjectives;ADJ-NA;親切;しんせつ;シンセツ;shinsetsu;kind
-Adjectives;ADJ-NA;上手;ほうず;ジョウズ;jouzu;skilled,good at
-Adjectives;ADJ-NA;駄目;だめ;ダメ;dame;no good
+Adjectives;ADJ-NA;上手;じょうず;ジョウズ;jouzu;skilled,skilled at,skillful,good at
+Adjectives;ADJ-NA;駄目;だめ;ダメ;dame;no good,hopeless
 Adjectives;ADJ-NA;不便;ふべにん;フベニｎ;fubenin;convenient
 Adjectives;ADJ-NA;正直;しょうじき;ショウジキ;shoujiki;honest
 Adjectives;ADJ-NA;奇麗;きれい;ケレイ;kirei;pretty,clean,nice,tidy,beautiful,fair
 Adjectives;ADJ-NA;便利;べんり;ベンリ;benri;convenient
 Adjectives;ADJ-NA;有名;ゆうめい;ユウメイ;yuumei;famous
-Adjectives;ADJ-NA;下手;へた;ヘタ;heta;unskilled,not good at
+Adjectives;ADJ-NA;下手;へた;ヘタ;heta;unskilled,not good at,inept,untrained
 Adjectives;ADJ-NA;好き;すき;スキ;suki;like,likable
 Adjectives;ADJ-NA;色色;いろいろ;イロイロ;iroiro;various
 Adjectives;ADJ-NA;丁寧;ていねい;テイネイ;teinei;polite
@@ -29,4 +29,5 @@ Adjectives;ADJ-NA;退屈;たいくつ;タイクツ;taikutsu;tedium,boredom
 Adjectives;ADJ-NA;変;けん;ケン;ken;change,incident,disturbance,strange,flat (music),odd,peculiar,suspicious-looking,queer,eccentric,funny
 Adjectives;ADJ-NA;苦手;にがて;ニガテ;nigate;poor,weak,dislike,poor (at)_weak (in)_dislike (of)
 Adjectives;ADJ-NA;沢山;たくさん;タクサン;takusan;many,a lot,much
+Adjectives;ADJ-NA;未熟;みじゅく;ミジュク;mijuku;unskilled,immature
 END
