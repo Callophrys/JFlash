@@ -2,7 +2,7 @@
 
 namespace JFlash.Forms;
 
-partial class JFMistakes
+partial class JfMistakes
 {
     /// <summary>
     /// Required designer variable.
@@ -32,9 +32,9 @@ partial class JFMistakes
     {
         ListViewGroup listViewGroup1 = new ListViewGroup("Mistakes", HorizontalAlignment.Left);
         ListViewGroup listViewGroup2 = new ListViewGroup("Results", HorizontalAlignment.Left);
-        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JFMistakes));
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JfMistakes));
         groupBox1 = new GroupBox();
-        jfListViewMistakes = new JFListView();
+        jfListViewMistakes = new JfListView();
         btnClear = new Button();
         btnClose = new Button();
         groupBox1.SuspendLayout();
@@ -110,6 +110,6 @@ partial class JFMistakes
 
     private GroupBox groupBox1;
     private Button btnClose;
-    private JFListView jfListViewMistakes;
+    private JfListView jfListViewMistakes;
     private Button btnClear;
 }

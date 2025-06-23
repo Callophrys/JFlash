@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace JFlash
 {
-    public partial class JFQuestion : QuestionEntries
+    public partial class JfQuestion : QuestionEntries
     {
         /// <summary>
         /// The correct answer formatted cleaned up, if multi-answer, for display. 
@@ -68,7 +68,7 @@ namespace JFlash
         [GeneratedRegex("^[tT][oO] +")]
         private static partial Regex RegExTo();
 
-        public JFQuestion(string sourceLine, int idxFrom, int idxTo) :
+        public JfQuestion(string sourceLine, int idxFrom, int idxTo) :
             base(sourceLine.Trim(), idxFrom, idxTo)
         {
             sourceParts = [.. sourceEntry.Select(x => x.Scrub())];
@@ -136,7 +136,7 @@ namespace JFlash
             {
                 // Can get here when handling faulty question files.
 
-                JFHelper.LogError($"IsEntryCorrect: {answer},\n            ex: {ex.Message}");
+                JfHelper.LogError($"IsEntryCorrect: {answer},\n            ex: {ex.Message}");
                 return false;
             }
 

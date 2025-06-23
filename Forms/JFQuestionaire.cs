@@ -2,12 +2,12 @@ using JFlash.Classes;
 
 namespace JFlash.Forms;
 
-public partial class JFQuestionaireForm : Form
+public partial class JfQuestionaireForm : Form
 {
-    private readonly JFQuestionSet QuestionSet;
+    private readonly JfQuestionSet QuestionSet;
     private readonly JFlashForm parentForm;
 
-    private JFMistakes? MistakesForm
+    private JfMistakes? MistakesForm
     {
         get => parentForm.MistakesForm;
         set => parentForm.MistakesForm = value;
@@ -16,7 +16,7 @@ public partial class JFQuestionaireForm : Form
     private readonly string LangFrom;
     private readonly string LangTo;
 
-    public JFQuestionaireForm(JFlashForm frm, int desiredQuestionCount, string langFrom, string langTo)
+    public JfQuestionaireForm(JFlashForm frm, int desiredQuestionCount, string langFrom, string langTo)
     {
         LangFrom = langFrom;
         LangTo = langTo;
@@ -86,14 +86,14 @@ public partial class JFQuestionaireForm : Form
         // Need to set up randomized Question Set (q&a pairs)
         // and scores
         // Load first in set
-        QuestionSet = new JFQuestionSet(
+        QuestionSet = new JfQuestionSet(
             parentForm.QuestionFiles,
             parentForm.QuestionCount,
             desiredQuestionCount);
 
         if (MistakesForm == null || MistakesForm.IsDisposed)
         {
-            MistakesForm = new JFMistakes(JFlashForm.LogFile);
+            MistakesForm = new JfMistakes(JFlashForm.LogFile);
         }
 
         btnFinish.Text = "A&bandon";
@@ -115,7 +115,7 @@ public partial class JFQuestionaireForm : Form
 
     public void NextQuestion()
     {
-        JFQuestion? q = QuestionSet.NextQuestion();
+        JfQuestion? q = QuestionSet.NextQuestion();
         if (q == null)
         {
             ClearQuestion();
@@ -155,7 +155,7 @@ public partial class JFQuestionaireForm : Form
 
         // Just to turn off might be null warnings.
 #pragma warning disable IDE0059 // Unnecessary assignment of a value
-        JFQuestion question = QuestionSet.CurrentQuestion;
+        JfQuestion question = QuestionSet.CurrentQuestion;
 #pragma warning restore IDE0059 // Unnecessary assignment of a value
 
         txtLastQuery.Text = QuestionSet.CurrentQuestion.Prompt;

@@ -1,17 +1,17 @@
 namespace JFlash.Classes
 {
-    class JFQuestionSet
+    class JfQuestionSet
     {
-        public List<JFQuestion> Questions = [];
-        public JFQuestion? CurrentQuestion;
+        public List<JfQuestion> Questions = [];
+        public JfQuestion? CurrentQuestion;
         public int countAttempted, countCorrect, countWrong;
         public int questionNumber;
         public bool isFinished;
         public int Hours, Minutes, Seconds;
 
-        private readonly Dictionary<string, JFQuestionFile> QuestionFiles;
+        private readonly Dictionary<string, JfQuestionFile> QuestionFiles;
 
-        public JFQuestionSet(Dictionary<string, JFQuestionFile> questionFiles, int countQuestions, int countAttempted)
+        public JfQuestionSet(Dictionary<string, JfQuestionFile> questionFiles, int countQuestions, int countAttempted)
         {
             QuestionFiles = questionFiles;
 
@@ -23,9 +23,9 @@ namespace JFlash.Classes
             isFinished = false;
             Hours = Minutes = Seconds = 0;
 
-            foreach (KeyValuePair<string, JFQuestionFile> qf in QuestionFiles)
+            foreach (KeyValuePair<string, JfQuestionFile> qf in QuestionFiles)
             {
-                foreach (JFQuestion question in qf.Value.JfQuestions)
+                foreach (JfQuestion question in qf.Value.JfQuestions)
                 {
                     question.SetName = Path.GetFileNameWithoutExtension(qf.Key);
                     question.Title = qf.Value.Description;
@@ -36,9 +36,9 @@ namespace JFlash.Classes
             ShuffleElements(Questions, countQuestions);
         }
 
-        static void ShuffleElements(IList<JFQuestion> questionsList, int size)
+        static void ShuffleElements(IList<JfQuestion> questionsList, int size)
         {
-            JFQuestion temporary;
+            JfQuestion temporary;
             int randomNum, last;
             Random rnd = new(DateTime.UtcNow.Millisecond);
 
@@ -51,7 +51,7 @@ namespace JFlash.Classes
             }
         }
 
-        public JFQuestion? NextQuestion()
+        public JfQuestion? NextQuestion()
         {
             if (questionNumber < Questions.Count)
             {

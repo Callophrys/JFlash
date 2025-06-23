@@ -1,14 +1,14 @@
 namespace JFlash.Classes;
 
-public class JFQuestionFile(string filename) : QuestionFile(filename)
+public class JfQuestionFile(string filename) : QuestionFile(filename)
 {
-    public List<JFQuestion> JfQuestions = [];
+    public List<JfQuestion> JfQuestions = [];
 
     public void GenerateQuestions(int idxFrom, int idxTo)
     {
         foreach (string question in Questions)
         {
-            JFQuestion? jfQuestion = new(question.Trim(), idxFrom, idxTo);
+            JfQuestion? jfQuestion = new(question.Trim(), idxFrom, idxTo);
 
             // Make sure question is usable
             if (!string.IsNullOrEmpty(jfQuestion.Answer))

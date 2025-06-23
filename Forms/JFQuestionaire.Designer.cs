@@ -1,6 +1,6 @@
 namespace JFlash.Forms
 {
-    partial class JFQuestionaireForm
+    partial class JfQuestionaireForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@ namespace JFlash.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JFQuestionaireForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JfQuestionaireForm));
             btnFinish = new Button();
             groupBoxQuestion = new GroupBox();
             btnNextQuestion = new Button();

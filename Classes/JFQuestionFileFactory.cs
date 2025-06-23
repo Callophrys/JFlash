@@ -2,33 +2,33 @@
 
 public static class JFQuestionFileFactory
 {
-    public static JFQuestionFile GenerateQuestionFile(
+    public static JfQuestionFile GenerateQuestionFile(
         string filename,
         int idxFrom,
         int idxTo)
     {
-        var qf = new JFQuestionFile(filename);
+        var qf = new JfQuestionFile(filename);
         qf.GenerateQuestions(idxFrom, idxTo);
         return qf;
     }
 
-    public static JFQuestionFile GenerateQuestionFile(
+    public static JfQuestionFile GenerateQuestionFile(
         List<string> questions,
         int idxFrom,
         int idxTo)
     {
-        var qf = new JFQuestionFile("");
+        var qf = new JfQuestionFile("");
         qf.Questions.AddRange(questions);
         qf.GenerateQuestions(idxFrom, idxTo);
         return qf;
     }
 
-    public static Dictionary<string, JFQuestionFile> GenerateQuestionFiles(
+    public static Dictionary<string, JfQuestionFile> GenerateQuestionFiles(
         Dictionary<string, List<string>> source,
         int idxFrom,
         int idxTo)
     {
-        Dictionary<string, JFQuestionFile> result = [];
+        Dictionary<string, JfQuestionFile> result = [];
         foreach (string key in source.Keys)
         {
             result.Add(key, GenerateQuestionFile(source[key], idxFrom, idxTo));

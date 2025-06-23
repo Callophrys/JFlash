@@ -2,9 +2,9 @@
 
 namespace JFlash.Forms;
 
-public partial class JFMistakes : Form
+public partial class JfMistakes : Form
 {
-    public JFMistakes(string logFile)
+    public JfMistakes(string logFile)
     {
         InitializeComponent();
 

@@ -2,7 +2,7 @@
 
 namespace JFlash.Components;
 
-public class JFListView : ListView
+public class JfListView : ListView
 {
     const int MaxItems = 600;
 
@@ -11,7 +11,7 @@ public class JFListView : ListView
     private FileSystemWatcher? fsWatcher;
     private readonly ListViewGroup MistakesListViewGroup;
 
-    public JFListView()
+    public JfListView()
     {
         SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
         UpdateStyles();

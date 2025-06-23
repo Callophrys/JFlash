@@ -1,6 +1,6 @@
 ﻿namespace JFlash.Classes;
 
-public static class JFHelper
+public static class JfHelper
 {
     private static readonly string ErrorLogFile = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),

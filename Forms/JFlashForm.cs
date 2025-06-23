@@ -7,7 +7,7 @@ namespace JFlash.Forms;
 
 public partial class JFlashForm : Form
 {
-    public Dictionary<string, JFQuestionFile> QuestionFiles { get; private set; } = [];
+    public Dictionary<string, JfQuestionFile> QuestionFiles { get; private set; } = [];
     public int QuestionCount = 0;
 
     private const string ALLQUESTIONSTITLE = "Test &all questions in selected sets: ";
@@ -19,7 +19,7 @@ public partial class JFlashForm : Form
     private bool skipEventsChkToggleAll = false;
 
     private string questionPath = string.Empty;
-    public JFMistakes? MistakesForm { get; set; }
+    public JfMistakes? MistakesForm { get; set; }
 
     private int subsetSize = 7;
     private const int ScrollBarWidth = 17; // standard scrollbar width on Windows
@@ -105,7 +105,7 @@ public partial class JFlashForm : Form
 
         if (!ShowMistakes)
         {
-            if (mistakesFormMissingOrDown) MistakesForm = new JFMistakes(LogFile);
+            if (mistakesFormMissingOrDown) MistakesForm = new JfMistakes(LogFile);
             MistakesForm!.Show();
         }
         else if (!mistakesFormMissingOrDown)
@@ -129,7 +129,7 @@ public partial class JFlashForm : Form
     {
         UpdateQuestionFiles();
 
-        Form frm = new JFQuestionaireForm(this
+        Form frm = new JfQuestionaireForm(this
             , rbLimitQuestions.Checked ? Convert.ToInt16(nsQuestionLimit.Value) : QuestionCount
             , cmbFrom.Text
             , cmbTo.Text);
@@ -152,9 +152,9 @@ public partial class JFlashForm : Form
 
         DirectoryInfo dir = new(questionPath);
         SortedDictionary<string, List<string>> groupingSets = [];
-        SortedDictionary<string, Dictionary<string, JFQuestionFile>> testGroupingSets = [];
+        SortedDictionary<string, Dictionary<string, JfQuestionFile>> testGroupingSets = [];
         Dictionary<string, GroupFiles> savedGroupFiles = GetSavedSelectionOptions(Convert.ToInt32(nsSubsetSize.Value));
-        Dictionary<string, Dictionary<string, JFQuestionFile>> testGroupSubGroups = [];
+        Dictionary<string, Dictionary<string, JfQuestionFile>> testGroupSubGroups = [];
 
         List<CheckBox> questionFileCheckBoxes = [];
         List<CheckBox> groupingCheckBoxes = [];
@@ -828,44 +828,3 @@ public partial class JFlashForm : Form
 
     #endregion Event Handlers
 }
-
-public static class ScreenHelper
-{
-    public static void SetFormDimensions(Form form)
-    {
-        Screen screen = Screen.FromControl(form);
-        Size size = new Size(); // fetch from registry
-        if (screen.WorkingArea.Size == size)
-        {
-            Rectangle rect = new Rectangle(); // fetch from registry
-            form.Size = rect.Size;
-            form.Location = rect.Location;
-        }
-    }
-
-    public static void SaveScreenSize(Form form)
-    {
-        Screen screen = Screen.FromControl(form);
-        string value = JsonSerializer.Serialize(screen.WorkingArea.Size);
-        RegistryHelper.SaveSetting("screensize", value);
-    }
-
-    public static void SaveFormDimensions(Form form)
-    {
-        string value = JsonSerializer.Serialize(form.DisplayRectangle);
-        RegistryHelper.SaveSetting($"form.{form.Name}", value);
-    }
-
-    public static Rectangle GetFormDimensions(Form form)
-    {
-        string formDimensionsJson = RegistryHelper.LoadSetting($"form.{form.Name}", string.Empty);
-        object? fd = JsonSerializer.Deserialize(formDimensionsJson, typeof(Rectangle));
-        if (fd != null)
-        {
-            return (Rectangle)fd;
-        }
-
-        return new Rectangle(0, 0, 0, 0);
-    }
-}
-
