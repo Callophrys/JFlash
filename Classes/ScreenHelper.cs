@@ -40,4 +40,13 @@ public static class ScreenHelper
 
         return new Rectangle(0, 0, 0, 0);
     }
+
+    public static void SetChildLocation(
+        ContainerControl targetForm,
+        ContainerControl referenceForm)
+    {
+        int x = referenceForm.Location.X + (referenceForm.Width - targetForm.Width) / 2;
+        int y = referenceForm.Location.Y + (referenceForm.Height - targetForm.Height) / 2;
+        targetForm.Location = new Point(x, y);
+    }
 }

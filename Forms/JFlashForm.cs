@@ -7,10 +7,9 @@ namespace JFlash.Forms;
 
 public partial class JFlashForm : Form
 {
-    public Dictionary<string, JfQuestionFile> QuestionFiles { get; private set; } = [];
-    public int QuestionCount = 0;
-
     private const string ALLQUESTIONSTITLE = "Test &all questions in selected sets: ";
+    private const int scrollBarWidth = 17; // standard scrollbar width on Windows
+
     private readonly List<CheckBox> AllCheckBoxes = [];
     private readonly Dictionary<string, GroupFiles> selectedGroupFiles = [];
     private readonly List<CheckBox> toggleCheckBoxes = [];
@@ -18,14 +17,14 @@ public partial class JFlashForm : Form
     private bool skipEventsChkSelectAll = false;
     private bool skipEventsChkToggleAll = false;
 
-    private string questionPath = string.Empty;
-    public JfMistakes? MistakesForm { get; set; }
-
-    private int subsetSize = 7;
-    private const int ScrollBarWidth = 17; // standard scrollbar width on Windows
+    private bool showMistakes;
     private int previousClientWidth;
+    private int subsetSize = 7;
+    private string questionPath = string.Empty;
 
-    private bool ShowMistakes;
+    public int QuestionCount = 0;
+    public Dictionary<string, JfQuestionFile> QuestionFiles { get; private set; } = [];
+    public JfMistakes? MistakesForm { get; set; }
 
     public static readonly string LogFile = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
@@ -35,64 +34,11 @@ public partial class JFlashForm : Form
     public JFlashForm()
     {
         InitializeComponent();
+
+        PrepareControls();
         AcceptButton = btnGo;
-        rbAllQuestions.Text = ALLQUESTIONSTITLE + "0";
-        cmbFrom.Items.AddRange(QuestionTypes.choices);
-        cmbTo.Items.AddRange(QuestionTypes.choices);
 
-        nsQuestionLimit.Maximum = 1;
-
-        string temp = RegistryHelper.LoadSetting("from", "Kanji");
-        cmbFrom.Text = QuestionTypes.choices.Contains(temp) ? temp : "Kanji";
-
-        temp = RegistryHelper.LoadSetting("to", "Romaji");
-        cmbTo.Text = QuestionTypes.choices.Contains(temp) ? temp : "Romaji";
-
-        decimal ssz = Math.Max(1, Convert.ToDecimal(RegistryHelper.LoadSetting("subsetsize", 7)));
-        if (ssz > nsSubsetSize.Maximum) nsSubsetSize.Maximum = ssz;
-        nsSubsetSize.Value = Math.Max(1, Convert.ToDecimal(RegistryHelper.LoadSetting("subsetsize", 7)));
-
-        // Should always work in normal circumstances.
-        questionPath = RegistryHelper.LoadSetting("questions", string.Empty);
-        if (Directory.Exists(questionPath))
-        {
-            BuildQuestions();
-            UpdateChkExpandAllOnceWithoutEffects();
-            return;
-        }
-
-        // Dev-oriented path based on where the pre-made questions exist.
-        questionPath = @"..\Questions";
-        if (Directory.Exists(questionPath))
-        {
-            questionPath = Path.GetFullPath(questionPath);
-            RegistryHelper.SaveSetting("questions", questionPath);
-            BuildQuestions();
-            UpdateChkExpandAllOnceWithoutEffects();
-            return;
-        }
-
-        // Check if folder of executable or any sub-folder has files. Use
-        // the folder path of the first found file. Yes this is arbitray if
-        // there are more than one folder containing question files.
-        questionPath = AppContext.BaseDirectory;
-        var fn = Directory.EnumerateFiles(".", "*.jpf", SearchOption.AllDirectories).FirstOrDefault();
-        if (fn != null)
-        {
-            questionPath = Path.GetDirectoryName(Path.GetFullPath(fn)) ?? string.Empty;
-            if (questionPath != null)
-            {
-                RegistryHelper.SaveSetting("questions", questionPath);
-                BuildQuestions();
-                UpdateChkExpandAllOnceWithoutEffects();
-            }
-        }
-
-        // Just point to My Documents and hope there are files. Simply let
-        // the user pick the question files location from this point on.
-        questionPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        RegistryHelper.SaveSetting("questions", questionPath);
-
+        ResolveQuestionPath();
         BuildQuestions();
         UpdateChkExpandAllOnceWithoutEffects();
     }
@@ -103,7 +49,7 @@ public partial class JFlashForm : Form
     {
         bool mistakesFormMissingOrDown = MistakesForm == null || MistakesForm.IsDisposed;
 
-        if (!ShowMistakes)
+        if (!showMistakes)
         {
             if (mistakesFormMissingOrDown) MistakesForm = new JfMistakes(LogFile);
             MistakesForm!.Show();
@@ -113,7 +59,7 @@ public partial class JFlashForm : Form
             MistakesForm!.Hide();
         }
 
-        ShowMistakes = !ShowMistakes;
+        showMistakes = !showMistakes;
     }
 
     public void WriteMistakesLog(string query, string correctEntry, string wrongEntry, string setName)
@@ -591,8 +537,8 @@ public partial class JFlashForm : Form
         //int widthAdjustment = hasVerticalScrollBar ? -ScrollBarWidth : ScrollBarWidth;
 
         // Only adjust if there's a change in scrollbar visibility
-        if ((hasVerticalScrollBar && previousClientWidth == pnlQuestionFiles.ClientSize.Width + ScrollBarWidth) ||
-            (!hasVerticalScrollBar && previousClientWidth == pnlQuestionFiles.ClientSize.Width - ScrollBarWidth))
+        if ((hasVerticalScrollBar && previousClientWidth == pnlQuestionFiles.ClientSize.Width + scrollBarWidth) ||
+            (!hasVerticalScrollBar && previousClientWidth == pnlQuestionFiles.ClientSize.Width - scrollBarWidth))
         {
             // No change
             return;
@@ -609,6 +555,64 @@ public partial class JFlashForm : Form
         //}
 
         previousClientWidth = pnlQuestionFiles.ClientSize.Width;
+    }
+
+    private void PrepareControls()
+    {
+        rbAllQuestions.Text = ALLQUESTIONSTITLE + "0";
+        cmbFrom.Items.AddRange(QuestionTypes.choices);
+        cmbTo.Items.AddRange(QuestionTypes.choices);
+
+        nsQuestionLimit.Maximum = 1;
+
+        string temp = RegistryHelper.LoadSetting("from", "Kanji");
+        cmbFrom.Text = QuestionTypes.choices.Contains(temp) ? temp : "Kanji";
+
+        temp = RegistryHelper.LoadSetting("to", "Romaji");
+        cmbTo.Text = QuestionTypes.choices.Contains(temp) ? temp : "Romaji";
+
+        decimal ssz = Math.Max(1, Convert.ToDecimal(RegistryHelper.LoadSetting("subsetsize", 7)));
+        if (ssz > nsSubsetSize.Maximum) nsSubsetSize.Maximum = ssz;
+        nsSubsetSize.Value = Math.Max(1, Convert.ToDecimal(RegistryHelper.LoadSetting("subsetsize", 7)));
+    }
+
+    private void ResolveQuestionPath()
+    {
+        // Should always work in normal circumstances.
+        questionPath = RegistryHelper.LoadSetting("questions", string.Empty);
+        if (Directory.Exists(questionPath))
+        {
+            return;
+        }
+
+        // Dev-oriented path based on where the pre-made questions exist.
+        questionPath = @"..\Questions";
+        if (Directory.Exists(questionPath))
+        {
+            questionPath = Path.GetFullPath(questionPath);
+            RegistryHelper.SaveSetting("questions", questionPath);
+            return;
+        }
+
+        // Check if folder of executable or any sub-folder has files. Use
+        // the folder path of the first found file. Yes this is arbitray if
+        // there are more than one folder containing question files.
+        questionPath = AppContext.BaseDirectory;
+        var fn = Directory.EnumerateFiles(".", "*.jpf", SearchOption.AllDirectories).FirstOrDefault();
+        if (fn != null)
+        {
+            questionPath = Path.GetDirectoryName(Path.GetFullPath(fn)) ?? string.Empty;
+            if (questionPath != null)
+            {
+                RegistryHelper.SaveSetting("questions", questionPath);
+                return;
+            }
+        }
+
+        // Just point to My Documents and hope there are files. Simply let
+        // the user pick the question files location from this point on.
+        questionPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        RegistryHelper.SaveSetting("questions", questionPath);
     }
 
     private void UpdateChkExpandAllOnceWithoutEffects()

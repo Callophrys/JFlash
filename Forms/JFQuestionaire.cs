@@ -4,6 +4,9 @@ namespace JFlash.Forms;
 
 public partial class JfQuestionaireForm : Form
 {
+    private readonly string LangFrom;
+    private readonly string LangTo;
+
     private readonly JfQuestionSet QuestionSet;
     private readonly JFlashForm parentForm;
 
@@ -13,79 +16,25 @@ public partial class JfQuestionaireForm : Form
         set => parentForm.MistakesForm = value;
     }
 
-    private readonly string LangFrom;
-    private readonly string LangTo;
-
-    public JfQuestionaireForm(JFlashForm frm, int desiredQuestionCount, string langFrom, string langTo)
+    public JfQuestionaireForm(
+        JFlashForm mainForm,
+        int desiredQuestionCount,
+        string langFrom,
+        string langTo)
     {
         LangFrom = langFrom;
         LangTo = langTo;
 
-        parentForm = frm;
+        parentForm = mainForm;
         parentForm.Hide();
+
         InitializeComponent();
-        lblQuestionHint.Text = string.Empty;
-        int x = parentForm.Location.X + (parentForm.Width - this.Width) / 2;
-        int y = parentForm.Location.Y + (parentForm.Height - this.Height) / 2;
-        Location = new Point(x, y);
-        lblStatusResultTotal.Text = desiredQuestionCount.ToString();
-        txtLastQuery.Text = string.Empty;
-        txtLastAttempt.Text = string.Empty;
-        txtLastAnswer.Text = string.Empty;
-        txtAdditional.Text = string.Empty;
+        PrepareControls(desiredQuestionCount);
+        SetRandomFont();
 
-        lblQuestionInstruction.Text = string.Format("Enter the {1} for the presented {0}", langFrom, langTo);
+        ScreenHelper.SetChildLocation(this, mainForm);
 
-        // Also randomize font choice and font style
-        Random rnd = new(DateTime.UtcNow.Millisecond);
-        string[] fonts = [
-            "0xProto",
-            "Arial",
-            "Bahnschrift",
-            "BIZ UDGothic",
-            "BIZ UDMincho",
-            "BIZ UDPGothic",
-            "BIZ UDMincho",
-            "Dubai",
-            "Hasklug Nerd Font Mono",
-            "Meiryo",
-            "Meiryo UI",
-            "MS PMincho",
-            "UD Digi Kyokasho N",
-        ];
-
-        const int fontSizeMin = 20;
-        const int fontSizeMax = 28;
-
-        lblQuestionQuery.Font = langFrom switch
-        {
-            "English" => new Font(
-                "MS Sans Serif",
-                16,
-                FontStyle.Regular,
-                GraphicsUnit.Point,
-                0),
-            "Romaji" => new Font(
-                "Arial",
-                16,
-                FontStyle.Regular,
-                GraphicsUnit.Point,
-                0),
-            _ => new Font(
-                    fonts[rnd.Next(0, fonts.Length - 1)],
-                    rnd.Next(fontSizeMin, fontSizeMax),
-                    new FontStyle[3] {
-                        FontStyle.Regular,
-                        FontStyle.Bold,
-                        FontStyle.Italic
-                    }[rnd.Next(0, 2)],
-                    GraphicsUnit.Point,
-                    0),
-        };
-
-        // Need to set up randomized Question Set (q&a pairs)
-        // and scores
-        // Load first in set
+        // Prepare randomized Question Set (q&a pairs) and scores.
         QuestionSet = new JfQuestionSet(
             parentForm.QuestionFiles,
             parentForm.QuestionCount,
@@ -96,12 +45,12 @@ public partial class JfQuestionaireForm : Form
             MistakesForm = new JfMistakes(JFlashForm.LogFile);
         }
 
-        btnFinish.Text = "A&bandon";
-
         NextQuestion();
     }
 
-    public void ClearQuestion()
+    #region Private Methods
+
+    private void ClearQuestion()
     {
         lblQuestionTitle.Text = "No more questions";
         lblQuestionInstruction.Text = string.Empty;
@@ -111,38 +60,6 @@ public partial class JfQuestionaireForm : Form
         btnNextQuestion.Enabled = false;
         btnFinish.Text = "&Finish";
         btnFinish.Focus();
-    }
-
-    public void NextQuestion()
-    {
-        JfQuestion? q = QuestionSet.NextQuestion();
-        if (q == null)
-        {
-            ClearQuestion();
-            txtAnswer.Enabled = false;
-
-            return;
-        }
-
-        lblQuestionTitle.Text = q.Title;
-        lblQuestionQuery.Text = q.Prompt;
-        if ((LangFrom == "Hirigana" || LangFrom == "Katakana" || LangFrom == "Romaji") &&
-            (LangTo == "Kanji" || LangTo == "English") &&
-            !string.IsNullOrEmpty(q.Hint))
-        {
-            lblQuestionHint.Text = q.Hint;
-        }
-        else
-        {
-            lblQuestionHint.Text = string.Empty;
-        }
-
-        lblStatusResultAttempted.Text = QuestionSet.questionNumber.ToString();
-        int result = QuestionSet.questionNumber > 1
-            ? Convert.ToInt32(100 * QuestionSet.countCorrect / (QuestionSet.questionNumber - 1))
-            : 100;
-        lblStatusResultScore.Text = $"{result}%";
-        groupBoxQuestion.Text = $"&Question {QuestionSet.questionNumber} of {QuestionSet.countAttempted}";
     }
 
     private void EvaluateAnswer()
@@ -218,6 +135,102 @@ public partial class JfQuestionaireForm : Form
 
         txtAnswer.Clear();
     }
+
+    private void NextQuestion()
+    {
+        JfQuestion? q = QuestionSet.NextQuestion();
+        if (q == null)
+        {
+            ClearQuestion();
+            txtAnswer.Enabled = false;
+
+            return;
+        }
+
+        lblQuestionTitle.Text = q.Title;
+        lblQuestionQuery.Text = q.Prompt;
+        if ((LangFrom == "Hirigana" || LangFrom == "Katakana" || LangFrom == "Romaji") &&
+            (LangTo == "Kanji" || LangTo == "English") &&
+            !string.IsNullOrEmpty(q.Hint))
+        {
+            lblQuestionHint.Text = q.Hint;
+        }
+        else
+        {
+            lblQuestionHint.Text = string.Empty;
+        }
+
+        lblStatusResultAttempted.Text = QuestionSet.questionNumber.ToString();
+        int result = QuestionSet.questionNumber > 1
+            ? Convert.ToInt32(100 * QuestionSet.countCorrect / (QuestionSet.questionNumber - 1))
+            : 100;
+        lblStatusResultScore.Text = $"{result}%";
+        groupBoxQuestion.Text = $"&Question {QuestionSet.questionNumber} of {QuestionSet.countAttempted}";
+    }
+
+    private void PrepareControls(int questionCount)
+    {
+        lblQuestionHint.Text = string.Empty;
+        lblStatusResultTotal.Text = questionCount.ToString();
+        txtLastQuery.Text = string.Empty;
+        txtLastAttempt.Text = string.Empty;
+        txtLastAnswer.Text = string.Empty;
+        txtAdditional.Text = string.Empty;
+        lblQuestionInstruction.Text = string.Format("Enter the {1} for the presented {0}", LangFrom, LangTo);
+        btnFinish.Text = "A&bandon";
+    }
+
+    private void SetRandomFont()
+    {
+        // Also randomize font choice and font style
+        Random rnd = new(DateTime.UtcNow.Millisecond);
+        string[] fonts = [
+            "0xProto",
+            "Arial",
+            "Bahnschrift",
+            "BIZ UDGothic",
+            "BIZ UDMincho",
+            "BIZ UDPGothic",
+            "BIZ UDMincho",
+            "Dubai",
+            "Hasklug Nerd Font Mono",
+            "Meiryo",
+            "Meiryo UI",
+            "MS PMincho",
+            "UD Digi Kyokasho N",
+        ];
+
+        const int fontSizeMin = 20;
+        const int fontSizeMax = 28;
+
+        lblQuestionQuery.Font = LangFrom switch
+        {
+            "English" => new Font(
+                "MS Sans Serif",
+                16,
+                FontStyle.Regular,
+                GraphicsUnit.Point,
+                0),
+            "Romaji" => new Font(
+                "Arial",
+                16,
+                FontStyle.Regular,
+                GraphicsUnit.Point,
+                0),
+            _ => new Font(
+                    fonts[rnd.Next(0, fonts.Length - 1)],
+                    rnd.Next(fontSizeMin, fontSizeMax),
+                    new FontStyle[3] {
+                        FontStyle.Regular,
+                        FontStyle.Bold,
+                        FontStyle.Italic
+                    }[rnd.Next(0, 2)],
+                    GraphicsUnit.Point,
+                    0),
+        };
+    }
+
+    #endregion Private Methods
 
     #region Event Handlers
 
