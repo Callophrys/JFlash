@@ -2,15 +2,15 @@ JPFLASH
 Desc=Sundry words
 Prompt=Time.
 Type=Entry
-Time;ANY;五分,#5分;ごふん;ゴフン;gofun,go-fun,go fun;5 minutes,five minutes
+Time;ANY;五分,#5分;ごふん;ゴフン;go-fun;5 minutes,five minutes
 Time;ANY;十分,#10分;じゅっぷん;ジュップン;juppun;10 minutes,ten minutes
 Time;ANY;十五分,#15分;じゅうごふん;ジュウゴフン;juu-go-fun;15 minutes,fifteen minutes
 Time;ANY;に十分,#20分;にじゅっぷん;ニジュップン;nijuppun;20 minutes,twenty minutes
-Time;ANY;二十五分,#25分;にじゅうごふん;ニジュウゴフン;nijuugofun,nijuu-go-fun,nijuu go fun;25 minutes,twenty five minutes
+Time;ANY;二十五分,#25分;にじゅうごふん;ニジュウゴフン;nijuu-go-fun;25 minutes,twenty five minutes
 Time;ANY;三十分,#30分;さんじゅっぷん;サンジュップン;sanjuppun;30 minutes,thirty minutes
-Time;ANY;一時間,#1時間;いちじかん;イチジカン;ichijikan,ichi-jikan,ichi jikan;1 hour,one hour
-Time;ANY;一時間半,#1.5時間;いちじかんはん;イチジカンハン;ichijikanhan,ichi-jikan-han,ichi jikan han;1.5 hours,1 and a half hours
-Time;ANY;二時間,#2時間;にじかん;ニジカン;nijikan,ni-jikan,ni jikan;2 hours,two hours
+Time;ANY;一時間,#1時間;いちじかん;イチジカン;ichi-jikan;1 hour,one hour
+Time;ANY;一時間半,#1.5時間;いちじかんはん;イチジカンハン;ichi-jikan-han;1.5 hours,1 and a half hours
+Time;ANY;二時間,#2時間;にじかん;ニジカン;ni-jikan;2 hours,two hours
 Time;ANY;三時間,#3時間;さんじかん;サンジカン;san-jikan;3 hours,three hours
 Time;ANY;四時間,#4時間;よじかん;ヨジカン;yo-jikan;4 hours,four hours
 Time;ANY;ご時間,#5時間;ごじかん;ゴジカン;go-jikan;5 hours,five hours

@@ -15,7 +15,7 @@ public class QuestionEntries
     /// <summary>
     /// User answer. This is the value entered by the user.
     /// </summary>
-    public string Answer => sourceEntry[indexTo];
+    public string Answer => sourceEntry[indexTo].ExcludeEscapedSubElements();
 
     /// <summary>
     /// Source question. This is read by the user and requires a response.

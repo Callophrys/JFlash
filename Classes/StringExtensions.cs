@@ -13,6 +13,7 @@ public static class StringExtensions
 
     public static string ExcludeEscapedSubElements(this string item, string delimiter = ",", char escape = '#')
     {
+        if (string.IsNullOrWhiteSpace(item)) return string.Empty;
         if (!item.Contains(escape)) return item;
 
         List<string> elements = [];
@@ -26,6 +27,7 @@ public static class StringExtensions
 
     public static string RemoveSubElementEscapes(this string item, string delimiter = ",", char escape = '#')
     {
+        if (string.IsNullOrWhiteSpace(item)) return string.Empty;
         if (!item.Contains(escape)) return item;
 
         List<string> elements = [];
@@ -35,5 +37,26 @@ public static class StringExtensions
         }
 
         return string.Join(", ", elements);
+    }
+
+    public static string ResolveHyphens(this string item, string delimiter = ",")
+    {
+        if (string.IsNullOrWhiteSpace(item)) return string.Empty;
+        if (!item.Contains('-')) return item;
+
+        List<string> elements = [];
+        foreach (string rawElement in item.Split(delimiter, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+        {
+            string element = rawElement.Trim();
+            elements.Add(element);  
+
+            if (element.Contains("-"))
+            {
+                elements.Add("#" + element.Replace("-", " "));  
+                elements.Add("#" + element.Replace("-", string.Empty));  
+            }
+        }
+
+        return string.Join(", ", elements.Distinct());
     }
 }

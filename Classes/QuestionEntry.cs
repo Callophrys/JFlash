@@ -16,6 +16,7 @@ readonly record struct QuestionEntry(string[] Parts)
 
     public static bool TryParse(string[] parts, ref QuestionEntry questionEntry)
     {
+        parts[QuestionFields.Romaji] = parts[QuestionFields.Romaji].ResolveHyphens();
         questionEntry = new QuestionEntry(parts);
         return true;
     }

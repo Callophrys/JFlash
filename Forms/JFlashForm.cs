@@ -651,10 +651,10 @@ public partial class JFlashForm : Form
 
         nsQuestionLimit.Maximum = total;
 
-        GoEnabled();
+        SetGoButtonEnabled();
     }
 
-    private void GoEnabled()
+    private void SetGoButtonEnabled()
     {
         btnGo.Enabled = QuestionCount > 0 && (
             rbAllQuestions.Checked && nsSubsetSize.Value > 0 ||
@@ -748,7 +748,7 @@ public partial class JFlashForm : Form
         rbLimitQuestions.Checked = true;
     }
 
-    private void NsQuestionLimit_ValueChanged(object sender, EventArgs e) => GoEnabled();
+    private void NsQuestionLimit_ValueChanged(object sender, EventArgs e) => SetGoButtonEnabled();
 
     private void NsSubsetSize_ValueChanged(object sender, EventArgs e)
     {
@@ -768,9 +768,9 @@ public partial class JFlashForm : Form
     //    if (e.KeyValue == 13) BtnGo_Click(sender, e);
     //}
 
-    private void RbAllQuestions_CheckedChanged(object sender, EventArgs e) => GoEnabled();
+    private void RbAllQuestions_CheckedChanged(object sender, EventArgs e) => SetGoButtonEnabled();
 
-    private void RbLimitQuestions_CheckedChanged(object sender, EventArgs e) => GoEnabled();
+    private void RbLimitQuestions_CheckedChanged(object sender, EventArgs e) => SetGoButtonEnabled();
 
     private void JFlashForm_Load(object sender, EventArgs e)
     {
