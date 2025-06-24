@@ -1,0 +1,17 @@
+JPFLASH
+Desc=Sundry words
+Prompt=Last- This- and Next- timeframes.
+Type=Entry
+Sundry;ANY;昨日;きのう;キノウ;kinou;yesterday
+Sundry;ANY;今日;きょう;キョウ;kyou;today
+Sundry;ANY;明日;あした;アシタ;ashita;tomorrow
+Sundry;ANY;先週;せんしゅう;センシュウ;senshuu;last week
+Sundry;ANY;今週;こんしゅう;コンシュウ;konshuu;this week
+Sundry;ANY;来週;らいしゅう;ライシュウ;raishuu;next week
+Sundry;ANY;先月;せんげつ;センゲツ;sengetsu;last month
+Sundry;ANY;今月;こんげつ;コンゲツ;kongetsu;this month
+Sundry;ANY;来月;らいげつ;ライゲツ;raigetsu;next month
+Sundry;ANY;去年;きょねん;キョネン;kyonen;last year
+Sundry;ANY;今年;ことし;コトシ;kotoshi;this year
+Sundry;ANY;来年;らいねん;ライネン;rainen;next year
+END

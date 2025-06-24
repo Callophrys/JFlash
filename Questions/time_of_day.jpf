@@ -1,0 +1,18 @@
+JPFLASH
+Desc=Sundry words
+Prompt=Time.
+Type=Entry
+Time;ANY;一時;いちじ;イチジ;ichiji,ichi-ji,ichi ji;1:00,one o'clock
+Time;ANY;一時半;いちじはん;イチジハン;ichijihan,ichi-ji-han,ichi ji han;1:30,one thirty
+Time;ANY;二時;にじ;ニジ;niji,ni-ji,ni ji;2:00,two o'clock
+Time;ANY;三時;さんじ;サンジ;sanji,san-ji,san ji;three 3:00,o'clock
+Time;ANY;四時;よじ;ヨジ;yoji,yo-ji,yo ji;4:00,four o'clock
+Time;ANY;五時;ごじ;ゴジ;goji,go-ji,go ji;5:00,five o'clock
+Time;ANY;六時;ろくじ;ロクジ;rokuji,roku-ji,roku ji;6:00,six o'clock
+Time;ANY;七時;しちじい;シチジ;shichiji,sihchi-ji,shichi ji;7:00,seven o'clock
+Time;ANY;八時;ちゃちじ;ハチジ;hachiji,hachi-ji,hachi ji;8:00,eight o'clock
+Time;ANY;九時;くじ;クジ;kuji,ku-ji,ku ji;9:00,nine o'clock
+Time;ANY;十時;じゅうじ;ジュウジ;juuji,juu-ji,juu ji;10:00,ten o'clock
+Time;ANY;十一時;じゅういちじ;ジュウイチジ;juuichiji,juuichi-ji,juuichi ji,juu ichi ji;11:00,eleven o'clock
+Time;ANY;十二時;じゅうにじ;ジュウニジ;juuniji,juuni-ji,juuni ji,juu ni ji;12:00,twelve o'clock
+END

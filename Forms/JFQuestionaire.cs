@@ -75,7 +75,7 @@ public partial class JfQuestionaireForm : Form
         JfQuestion question = QuestionSet.CurrentQuestion;
 #pragma warning restore IDE0059 // Unnecessary assignment of a value
 
-        txtLastQuery.Text = QuestionSet.CurrentQuestion.Prompt;
+        txtLastQuery.Text = QuestionSet.CurrentQuestion.PostPrompt;
 
         if (QuestionSet.IsEntryCorrect(txtAnswer.Text))
         {

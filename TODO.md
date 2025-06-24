@@ -13,3 +13,5 @@ Also re-sizing can attempt adds when expanded files set already has same-named s
 -[x] Using expand-collapse all is slow.
 -[ ] Have selection checkboxes work across panel width.
 -[x] Handle subset size of 0 as "no subsets" and limit max size of max questions count of a file.
+-[ ] Handle romaji answers with hyphens as answers without hypens, e.g. one single word, and 
+handle as multiple words or word parts with spaces instead, and ofc with the hyphen present.

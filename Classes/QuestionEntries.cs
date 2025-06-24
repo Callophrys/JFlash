@@ -13,14 +13,19 @@ public class QuestionEntries
     public string DetailedHint { get; } = string.Empty;
 
     /// <summary>
-    /// Correct answer. This is the value to be entered by the user.
+    /// User answer. This is the value entered by the user.
     /// </summary>
     public string Answer => sourceEntry[indexTo];
 
     /// <summary>
     /// Source question. This is read by the user and requires a response.
     /// </summary>
-    public string Prompt => sourceEntry[indexFrom];
+    public string Prompt => sourceEntry[indexFrom].ExcludeEscapedSubElements();
+
+    /// <summary>
+    /// Post prompt is what is shown after the question has been assessed.
+    /// </summary>
+    public string PostPrompt => sourceEntry[indexFrom].RemoveSubElementEscapes();
 
     protected int indexFrom;
     protected int indexTo;

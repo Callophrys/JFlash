@@ -492,7 +492,7 @@ public partial class JFlashForm : Form
                 HashSet<string> filteredFiles = [];
                 foreach (var s in a.files)
                 {
-                    var x = Convert.ToInt32(s[^2..]);
+                    var x = Convert.ToInt32(s[^2..]); // Take the string's last 2 characters.
                     if (x % currentSubsetSize == 0) filteredFiles.Add(s);
                 }
 

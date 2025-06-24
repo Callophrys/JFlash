@@ -14,9 +14,6 @@ Sundry;ANY;どういたしまして;どういたしまして;ドウイタシマ�
 Sundry;ANY;今夜;こんや;コンヤ;konya;tonight
 Sundry;ANY;今朝;けさ;ケサ;kesa;this morning
 Sundry;ANY;午後;ごご;ゴゴ;gogo;afternoon
-Sundry;ANY;今日;きょう;キョウ;kyou;today
-Sundry;ANY;昨日;きの;キノ;kino;yesterday
-Sundry;ANY;明日;あした;アシタ;ashita;tomorrow
 Sundry;ANY;夜;よる;ヨル;yoru;night
 Sundry;ANY;日;ひ;ヒ;hi;day
 Sundry;ANY;少し;すこし;スコシ;sukoshi;few
@@ -57,4 +54,9 @@ Sundry;;もう寝なきゃ;もうねなきゃ;モウネナキャ;moonenakya,moo 
 Sundry;;もう寝なきゃ;ねなきゃ;ネナキャ;nenakya;I need to go to bed.
 Sundry;;初め;はじめ;ハジメ;hajime;first
 Sundry;;最後;さいじょ;サイゴ;saigo;last
+Sundry;Directions;右;みぎ;ミギ;migi;right
+Sundry;Directions;左;ひだり;ヒダリ;hidari;left
+Sundry;Directions;真っ直ぐ;まっさぐ;マッサグ;massagu;straight
+Sundry;Directions;曲がる;まがる;マガル;magaru;turn
+Sundry;Directions;進んで;すすんで;ススンデ;susunde;go ahead
 END
