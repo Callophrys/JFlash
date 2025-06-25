@@ -98,7 +98,7 @@ namespace JFlash.Forms
             btnNextQuestion.Name = "btnNextQuestion";
             btnNextQuestion.Size = new Size(20, 23);
             btnNextQuestion.TabIndex = 6;
-            btnNextQuestion.Text = "\u276F";
+            btnNextQuestion.Text = "?";
             btnNextQuestion.UseVisualStyleBackColor = true;
             btnNextQuestion.Click += BtnNextQuestion_Click;
             // 
@@ -391,7 +391,7 @@ namespace JFlash.Forms
             lblLastAns.TabIndex = 11;
             lblLastAns.Text = "Last Question:";
             // 
-            // JFQuestionaireForm
+            // JfQuestionaireForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -404,10 +404,11 @@ namespace JFlash.Forms
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(2);
             MinimumSize = new Size(539, 464);
-            Name = "JFQuestionaireForm";
+            Name = "JfQuestionaireForm";
             SizeGripStyle = SizeGripStyle.Show;
             StartPosition = FormStartPosition.Manual;
             Text = "Japanese Flash Cards - Questionaire";
+            FormClosing += JfQuestionaireForm_FormClosing;
             FormClosed += JFQuestionaireForm_FormClosed;
             groupBoxQuestion.ResumeLayout(false);
             groupBoxQuestion.PerformLayout();

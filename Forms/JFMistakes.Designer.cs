@@ -31,7 +31,8 @@ partial class JfMistakes
     private void InitializeComponent()
     {
         ListViewGroup listViewGroup1 = new ListViewGroup("Mistakes", HorizontalAlignment.Left);
-        ListViewGroup listViewGroup2 = new ListViewGroup("Results", HorizontalAlignment.Left);
+        ListViewGroup listViewGroup2 = new ListViewGroup("Mistakes", HorizontalAlignment.Left);
+        ListViewGroup listViewGroup3 = new ListViewGroup("Results", HorizontalAlignment.Left);
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JfMistakes));
         groupBox1 = new GroupBox();
         jfListViewMistakes = new JfListView();
@@ -57,10 +58,13 @@ partial class JfMistakes
         listViewGroup1.Header = "Mistakes";
         listViewGroup1.Name = "mistakes";
         listViewGroup1.Subtitle = "Kanji to English";
-        listViewGroup2.Header = "Results";
-        listViewGroup2.Name = "listViewGroup1";
+        listViewGroup2.Header = "Mistakes";
+        listViewGroup2.Name = "mistakes";
         listViewGroup2.Subtitle = "Kanji to English";
-        jfListViewMistakes.Groups.AddRange(new ListViewGroup[] { listViewGroup1, listViewGroup2 });
+        listViewGroup3.Header = "Results";
+        listViewGroup3.Name = "listViewGroup1";
+        listViewGroup3.Subtitle = "Kanji to English";
+        jfListViewMistakes.Groups.AddRange(new ListViewGroup[] { listViewGroup1, listViewGroup2, listViewGroup3 });
         jfListViewMistakes.Location = new Point(6, 22);
         jfListViewMistakes.Name = "jfListViewMistakes";
         jfListViewMistakes.Size = new Size(308, 274);
@@ -90,7 +94,7 @@ partial class JfMistakes
         btnClose.UseVisualStyleBackColor = true;
         btnClose.Click += BtnClose_Click;
         // 
-        // JFMistakes
+        // JfMistakes
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
@@ -98,10 +102,11 @@ partial class JfMistakes
         Controls.Add(btnClose);
         Controls.Add(groupBox1);
         Icon = (Icon)resources.GetObject("$this.Icon");
-        Name = "JFMistakes";
+        Name = "JfMistakes";
         SizeGripStyle = SizeGripStyle.Show;
         Text = "JFMistakes";
         FormClosing += JFMistakes_FormClosing;
+        VisibleChanged += JfMistakes_VisibleChanged;
         groupBox1.ResumeLayout(false);
         ResumeLayout(false);
     }

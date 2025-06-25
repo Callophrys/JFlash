@@ -35,6 +35,18 @@ public partial class JFlashForm : Form
     {
         InitializeComponent();
 
+        FormInfo defaultFormInfo = new()
+        {
+            Rectangle = new()
+            {
+                Size = ClientSize,
+            },
+            IsMaximized = false,
+            StartPosition = StartPosition,
+        };
+
+        ScreenHelper.LoadWindowState(this, defaultFormInfo);
+
         PrepareControls();
         AcceptButton = btnGo;
 
@@ -461,22 +473,6 @@ public partial class JFlashForm : Form
         throw new NotImplementedException();
     }
 
-    private static string GetFilenamePrefix(string name)
-    {
-        string fileName = Path.GetFileName(name);
-        if (!string.IsNullOrEmpty(fileName))
-        {
-            string baseName = Path.GetFileNameWithoutExtension(fileName);
-            Match match = RegexFilenamePrefix().Match(baseName);
-            if (match.Success)
-            {
-                return match.Groups[1].Value.TrimEnd(' ', '-');
-            }
-        }
-
-        return string.Empty;
-    }
-
     private static Dictionary<string, GroupFiles> GetSavedSelectionOptions(int currentSubsetSize)
     {
         string savedGroupFilesText = RegistryHelper.LoadSetting("selection", string.Empty);
@@ -654,12 +650,9 @@ public partial class JFlashForm : Form
         SetGoButtonEnabled();
     }
 
-    private void SetGoButtonEnabled()
-    {
-        btnGo.Enabled = QuestionCount > 0 && (
+    private void SetGoButtonEnabled() => btnGo.Enabled = QuestionCount > 0 && (
             rbAllQuestions.Checked && nsSubsetSize.Value > 0 ||
             rbLimitQuestions.Checked && nsQuestionLimit.Value > 0);
-    }
 
     [GeneratedRegex(@"^(.*?)(\d+.*|[ -_][^ -_]+)$")]
     private static partial Regex RegexFilenamePrefix();
@@ -772,24 +765,9 @@ public partial class JFlashForm : Form
 
     private void RbLimitQuestions_CheckedChanged(object sender, EventArgs e) => SetGoButtonEnabled();
 
-    private void JFlashForm_Load(object sender, EventArgs e)
+    private void JFlashForm_FormClosing(object sender, FormClosingEventArgs e)
     {
-        //Rectangle r = ScreenHelper.GetFormDimensions(this);
-        //if (r.Width != 0)
-        //{
-        //    Size = r.Size;
-        //    Location = r.Location;
-        //}
-    }
-
-    private void JFlashForm_Move(object sender, EventArgs e)
-    {
-        //ScreenHelper.SaveFormDimensions(this);
-    }
-
-    private void JFlashForm_Resize(object sender, EventArgs e)
-    {
-        //ScreenHelper.SaveFormDimensions(this);
+        ScreenHelper.SaveWindowState(this);
     }
 
     private void JFlashForm_Shown(object sender, EventArgs e)

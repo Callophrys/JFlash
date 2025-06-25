@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using JFlash.Classes;
+using System.Diagnostics;
 
 namespace JFlash.Forms;
 
@@ -7,6 +8,18 @@ public partial class JfMistakes : Form
     public JfMistakes(string logFile)
     {
         InitializeComponent();
+
+        FormInfo defaultFormInfo = new()
+        {
+            Rectangle = new()
+            {
+                Size = ClientSize,
+            },
+            IsMaximized = false,
+            StartPosition = StartPosition,
+        };
+
+        ScreenHelper.LoadWindowState(this, defaultFormInfo);
 
         Debug.WriteLine("JFMistakes constructor");
 
@@ -43,8 +56,15 @@ public partial class JfMistakes : Form
     private void JFMistakes_FormClosing(object sender, FormClosingEventArgs e)
     {
         // Might want pause file watcher.
-
         e.Cancel = true;
         Hide();
+    }
+
+    private void JfMistakes_VisibleChanged(object sender, EventArgs e)
+    {
+        if (!Visible)
+        {
+            ScreenHelper.SaveWindowState(this);
+        }
     }
 }

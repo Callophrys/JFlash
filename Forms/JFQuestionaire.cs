@@ -29,6 +29,18 @@ public partial class JfQuestionaireForm : Form
         parentForm.Hide();
 
         InitializeComponent();
+
+        FormInfo defaultFormInfo = new()
+        {
+            Rectangle = new()
+            {
+                Size = ClientSize,
+            },
+            IsMaximized = false,
+            StartPosition = StartPosition,
+        };
+
+        ScreenHelper.LoadWindowState(this, defaultFormInfo);
         PrepareControls(desiredQuestionCount);
         SetRandomFont();
 
@@ -251,6 +263,11 @@ public partial class JfQuestionaireForm : Form
     private void JFQuestionaireForm_FormClosed(object sender, FormClosedEventArgs e)
     {
         parentForm.Show();
+    }
+
+    private void JfQuestionaireForm_FormClosing(object sender, FormClosingEventArgs e)
+    {
+        ScreenHelper.SaveWindowState(this);
     }
 
     private void TxtAnswer_KeyDown(object sender, KeyEventArgs e)
