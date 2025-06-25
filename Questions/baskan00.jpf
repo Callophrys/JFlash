@@ -4,14 +4,14 @@ Prompt=
 Type=Entry
 Lession 1;Noun;日;ひ;ヒ;hi;sun,day,sunshine
 Lession 1;Noun;日本;にほん;ニホン;nihon,nippon;Japan
-Lession 1;Noun;日曜日;にちようび;ニチヨウビ;nichiyoubi;Sunday
+Lession 1;Noun - Weekday;日曜日;にちようび;ニチヨウビ;nichiyoubi;Sunday
 Lession 1;Noun;３日;みっか;ミッカ;mikka;third date,three days
 Lession 1;Noun;月;つき;ツキ;tsuki;moon,month
-Lession 1;Noun;月曜日;げつようび;ゲツヨウビ;getsuyoubi;Monday
-Lession 1;Noun;１月;いちがつ;イチガツ;ichigatsu;January
+Lession 1;Noun - Weekday;月曜日;げつようび;ゲツヨウビ;getsuyoubi;Monday
+Lession 1;Noun - Month;１月;いちがつ;イチガツ;ichigatsu;January
 Lession 1;Noun;１か月;いっかげつ;イッカゲツ;ikkagetsu;one month
 Lession 1;Noun;木;き;キ;ki;tree,wood,timber
-Lession 1;Noun;木曜日;もくようび;モクヨウビ;mokuyoubi;Thursday
+Lession 1;Noun - Weekday;木曜日;もくようび;モクヨウビ;mokuyoubi;Thursday
 Lession 1;Noun;木村;きむら;キムラ;kimura;Kimura
 Lession 1;Noun;山;やま;ヤマ;yama;mountain,pile,head,climax,critical point
 Lession 1;Noun;富士山;ふじさｎ;フジサン;fujisan;Mt Fuji
@@ -37,16 +37,16 @@ Lession 1;Noun;門;もん;モン;mon;gate
 Lession 1;Noun;問題;もんだい;モンダイ;mondai;problem,question
 Lession 1;Noun;専門;せっもん;セッモン;semmon;speciality,specialty,subject of study,expert
 Lession 2;Noun;火;ひ;ヒ;hi;fire,flame
-Lession 2;Noun;火曜日;かようび;カヨウビ;kayoubi;Tuesday
+Lession 2;Noun - Weekday;火曜日;かようび;カヨウビ;kayoubi;Tuesday
 Lession 2;Noun;水;みず;ミズ;mizu;water
-Lession 2;Noun;水曜日;すいようび;スイヨウビ;suiyoubi;Wednesday
+Lession 2;Noun - Weekday;水曜日;すいようび;スイヨウビ;suiyoubi;Wednesday
 Lession 2;Noun;水田;すいでｎ;スイデン;suiden;paddy field
 Lession 2;Noun;お金;おかね;オカネ;okane;money
 Lession 2;Noun;金;きん;キン;kin;gold
 Lession 2;Noun;金田;かねだ;カネダ;kaneda;Kaneda,kaneda
-Lession 2;Noun;金曜日;きにょうび;キンヨウビ;kinyoubi;Friday
+Lession 2;Noun - Weekday;金曜日;きにょうび;キンヨウビ;kinyoubi;Friday
 Lession 2;Noun;土;つち;ツチ;tsuchi;earth,soil
-Lession 2;Noun;土曜日;どようび;ドヨウビ;doyoubi;Saturday
+Lession 2;Noun - Weekday;土曜日;どようび;ドヨウビ;doyoubi;Saturday
 Lession 2;Noun;土木;どぼく;ドボク;doboku;public works
 Lession 2;Noun;子ども;こども;コドモ;kodomo;child,children
 Lession 2;Noun;女子学生;じょしがくせい;ジョシガクセイ;joshigakusei;female student,school girl

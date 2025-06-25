@@ -70,12 +70,11 @@ public partial class JfQuestionaireForm : Form
             return;
         }
 
-        // Just to turn off might be null warnings.
 #pragma warning disable IDE0059 // Unnecessary assignment of a value
         JfQuestion question = QuestionSet.CurrentQuestion;
 #pragma warning restore IDE0059 // Unnecessary assignment of a value
 
-        txtLastQuery.Text = QuestionSet.CurrentQuestion.Prompt;
+        txtLastQuery.Text = QuestionSet.CurrentQuestion.PostPrompt;
 
         if (QuestionSet.IsEntryCorrect(txtAnswer.Text))
         {
@@ -88,7 +87,7 @@ public partial class JfQuestionaireForm : Form
 
             if (QuestionSet.CurrentQuestion.HasMultipleAnswers)
             {
-                txtLastAnswer.Text = $"Others: {QuestionSet.CurrentQuestion.ScrubbedAnswer(txtAnswer.Text)}";
+                txtLastAnswer.Text = $"Other(s): {QuestionSet.CurrentQuestion.ScrubbedAnswer(txtAnswer.Text)}";
                 txtLastAnswer.ForeColor = Color.Blue;
             }
             else

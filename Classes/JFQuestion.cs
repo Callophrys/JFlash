@@ -24,7 +24,7 @@ namespace JFlash
         /// <summary>
         /// The additional with commas formatted for display. 
         /// </summary>
-        public string FormattedAdditional => Additional.Replace(",", ", ");
+        public string FormattedAdditional => Additional.Replace(",", ", ").ExcludeEscapedSubElements();
 
         /// <summary>
         /// Name of the set. Taken from basename of respective source file.
