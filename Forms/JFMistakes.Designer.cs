@@ -32,7 +32,8 @@ partial class JfMistakes
     {
         ListViewGroup listViewGroup1 = new ListViewGroup("Mistakes", HorizontalAlignment.Left);
         ListViewGroup listViewGroup2 = new ListViewGroup("Mistakes", HorizontalAlignment.Left);
-        ListViewGroup listViewGroup3 = new ListViewGroup("Results", HorizontalAlignment.Left);
+        ListViewGroup listViewGroup3 = new ListViewGroup("Mistakes", HorizontalAlignment.Left);
+        ListViewGroup listViewGroup4 = new ListViewGroup("Results", HorizontalAlignment.Left);
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JfMistakes));
         groupBox1 = new GroupBox();
         jfListViewMistakes = new JfListView();
@@ -48,7 +49,7 @@ partial class JfMistakes
         groupBox1.Controls.Add(btnClear);
         groupBox1.Location = new Point(11, 8);
         groupBox1.Name = "groupBox1";
-        groupBox1.Size = new Size(320, 339);
+        groupBox1.Size = new Size(453, 339);
         groupBox1.TabIndex = 2;
         groupBox1.TabStop = false;
         // 
@@ -61,13 +62,16 @@ partial class JfMistakes
         listViewGroup2.Header = "Mistakes";
         listViewGroup2.Name = "mistakes";
         listViewGroup2.Subtitle = "Kanji to English";
-        listViewGroup3.Header = "Results";
-        listViewGroup3.Name = "listViewGroup1";
+        listViewGroup3.Header = "Mistakes";
+        listViewGroup3.Name = "mistakes";
         listViewGroup3.Subtitle = "Kanji to English";
-        jfListViewMistakes.Groups.AddRange(new ListViewGroup[] { listViewGroup1, listViewGroup2, listViewGroup3 });
+        listViewGroup4.Header = "Results";
+        listViewGroup4.Name = "listViewGroup1";
+        listViewGroup4.Subtitle = "Kanji to English";
+        jfListViewMistakes.Groups.AddRange(new ListViewGroup[] { listViewGroup1, listViewGroup2, listViewGroup3, listViewGroup4 });
         jfListViewMistakes.Location = new Point(6, 22);
         jfListViewMistakes.Name = "jfListViewMistakes";
-        jfListViewMistakes.Size = new Size(308, 274);
+        jfListViewMistakes.Size = new Size(441, 274);
         jfListViewMistakes.TabIndex = 0;
         jfListViewMistakes.UseCompatibleStateImageBehavior = false;
         jfListViewMistakes.View = View.Details;
@@ -75,7 +79,7 @@ partial class JfMistakes
         // btnClear
         // 
         btnClear.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-        btnClear.Location = new Point(224, 302);
+        btnClear.Location = new Point(357, 302);
         btnClear.Name = "btnClear";
         btnClear.Size = new Size(90, 28);
         btnClear.TabIndex = 1;
@@ -98,7 +102,7 @@ partial class JfMistakes
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(352, 388);
+        ClientSize = new Size(485, 388);
         Controls.Add(btnClose);
         Controls.Add(groupBox1);
         Icon = (Icon)resources.GetObject("$this.Icon");

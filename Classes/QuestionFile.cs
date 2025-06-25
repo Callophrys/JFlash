@@ -10,8 +10,8 @@ public class QuestionFile
     public List<string> Questions { get; } = [];
     public int QuestionCount => Questions.Count;
 
-    public string Description { get; } = string.Empty;
-    public string Prompt { get; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public string Prompt { get; set; } = string.Empty;
     public string SetName { get; } = string.Empty;
 
     public QuestionFile() { }

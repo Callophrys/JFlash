@@ -128,7 +128,12 @@ public partial class JFlashForm : Form
             var dictionaryOfSubsets = tempQuestionFile.GenerateSubsets(Math.Min(tempQuestionFile.QuestionCount, (int)nsSubsetSize.Value));
 
             // Convert subsets of "file" QuestionFile into set of subsets.
-            var subsetQuestionFiles = JFQuestionFileFactory.GenerateQuestionFiles(dictionaryOfSubsets, 2, 3);
+            var subsetQuestionFiles = JFQuestionFileFactory.GenerateQuestionFiles(
+                dictionaryOfSubsets,
+                2,
+                3,
+                tempQuestionFile.Description,
+                tempQuestionFile.Prompt);
 
             testGroupSubGroups.Add(groupingName, subsetQuestionFiles);
         }

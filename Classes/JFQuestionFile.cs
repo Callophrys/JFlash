@@ -4,6 +4,12 @@ public class JfQuestionFile(string filename) : QuestionFile(filename)
 {
     public List<JfQuestion> JfQuestions = [];
 
+    public void DoIt(string prompt, string description)
+    {
+        Prompt = prompt;
+        Description = description;
+    }
+
     public void GenerateQuestions(int idxFrom, int idxTo)
     {
         foreach (string question in Questions)
