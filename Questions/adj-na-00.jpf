@@ -26,8 +26,8 @@ Adjectives;ADJ-NA;孤独;こどく;コドク;kodoku;isolation,loneliness,solitud
 Adjectives;ADJ-NA;奇想天外;きそうたんがい;キソウタンガイ;kisoutangai;fantastic idea,bizarre
 Adjectives;ADJ-NA;賑やか;にぎやか;ニギヤカ;nigiyaka;bustling,busy,lively
 Adjectives;ADJ-NA;退屈;たいくつ;タイクツ;taikutsu;tedium,boredom
-Adjectives;ADJ-NA;変;けん;ケン;ken;change,incident,disturbance,strange,flat (music),odd,peculiar,suspicious-looking,queer,eccentric,funny
-Adjectives;ADJ-NA;苦手;にがて;ニガテ;nigate;poor,weak,dislike,poor (at)_weak (in)_dislike (of)
+Adjectives;ADJ-NA;変;けん;ケン;ken;change,incident,disturbance,strange,,odd,peculiar,suspicious-looking,queer,eccentric,funny,flat tone,flat sound,flat music
+Adjectives;ADJ-NA;苦手;にがて;ニガテ;nigate;poor,weak,dislike,poor at, weak point
 Adjectives;ADJ-NA;沢山;たくさん;タクサン;takusan;many,a lot,much
 Adjectives;ADJ-NA;未熟;みじゅく;ミジュク;mijuku;unskilled,immature
 END
