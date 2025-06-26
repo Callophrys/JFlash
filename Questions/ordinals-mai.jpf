@@ -1,6 +1,6 @@
 JPFLASH
 Desc=Ordinals - Mai Endings
-Prompt=Enter the ordinal of flat things (paper, cloth, pizza, window glass) (-mai):
+Prompt=Ordinal of flat things (paper, cloth, pizza, window glass) (-mai):
 Type=Entry
 Ordinals - Mai;0-MAI;一枚;いちまい;イチマイ;ichimai;1
 Ordinals - Mai;0-MAI;二枚;にまい;ニウマイ;nimai;2

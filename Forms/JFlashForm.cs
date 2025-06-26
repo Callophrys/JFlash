@@ -506,8 +506,9 @@ public partial class JFlashForm : Form
 
             return savedGroupFiles;
         }
-        catch
+        catch (Exception ex)
         {
+            JfHelper.LogError($"GetSavedSelectionOptions,\n  ex: {ex.Message}");
             return [];
         }
     }

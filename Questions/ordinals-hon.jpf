@@ -1,6 +1,6 @@
 JPFLASH
 Desc=Ordinals - Hon Endings
-Prompt=Enter the ordinal of long and thin things (pencils, pens, bottles) (-hon, -pon):
+Prompt=Ordinal of long and thin things (pencils, pens, bottles) (-hon, -pon):
 Type=Entry
 Ordinals - Hon;0-HON;一本;いっぽｎ;イッポン;ippon;1
 Ordinals - Hon;0-HON;二本;にほん;ニホン;nihon;2

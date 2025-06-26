@@ -87,8 +87,9 @@ public static class ScreenHelper
                 && root.TryGetProperty("IsMaximized", out var isMax) && (isMax.ValueKind == JsonValueKind.False || isMax.ValueKind == JsonValueKind.True)
                 && root.TryGetProperty("StartPosition", out var startPos) && startPos.ValueKind == JsonValueKind.Number;
         }
-        catch (JsonException)
+        catch (JsonException ex)
         {
+            JfHelper.LogError($"IsValidWinInfJson: {json},\n  ex: {ex.Message}");
             return false;
         }
     }
@@ -109,7 +110,10 @@ public static class ScreenHelper
             formInfo = JsonSerializer.Deserialize<FormInfo>(formInfoJson);
             return true;
         }
-        catch (JsonException) { }
+        catch (JsonException ex)
+        {
+            JfHelper.LogError($"TryGetFormInfo: {formName},\n  ex: {ex.Message}");
+        }
 
         formInfo = new FormInfo();
         return false;

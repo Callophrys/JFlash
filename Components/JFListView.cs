@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using JFlash.Classes;
+using System.Diagnostics;
 
 namespace JFlash.Components;
 
@@ -75,11 +76,12 @@ public class JfListView : ListView
 
             LastFileSize = fs.Length;
         }
-        catch (IOException)
+        catch (IOException ex)
         {
             LastFileSize = 0;
 
             // Log or handle read errors
+            JfHelper.LogError($"ReadNewLogLines, ex:\n{ex.Message}");
         }
     }
 
@@ -181,7 +183,7 @@ public class JfListView : ListView
         }
         catch (IOException ex)
         {
-            Debug.WriteLine($"Error reading log file: {ex.Message}");
+            JfHelper.LogError($"ReadAllLinesToListView,\n  Ex: {ex.Message}");
             return 0;
         }
     }
@@ -195,6 +197,7 @@ public class JfListView : ListView
         }
         catch (Exception ex)
         {
+            JfHelper.LogError($"ClearLogs,\n  Ex:: {ex.Message}");
             MessageBox.Show("Failed to clear log: " + ex.Message);
         }
     }

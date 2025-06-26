@@ -189,6 +189,17 @@ public partial class JfQuestionaireForm : Form
         txtAdditional.Text = string.Empty;
         lblQuestionInstruction.Text = string.Format("Enter the {1} for the presented {0}", LangFrom, LangTo);
         btnFinish.Text = "A&bandon";
+
+        if (LangFrom == "Romaji" || LangFrom == "English")
+        {
+            txtLastQuery.Font = new Font("Meiryo", 12, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtLastQuery.Location = new Point(120, 24);
+        }
+        else
+        {
+            txtLastQuery.Font = new Font("Meiryo", 20F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtLastQuery.Location = new Point(120, 16);
+        }
     }
 
     private void SetRandomFont()

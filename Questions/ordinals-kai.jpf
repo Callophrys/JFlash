@@ -1,6 +1,6 @@
 JPFLASH
 Desc=Counter - Kai Endings
-Prompt=Frequency or number of times of something happening.
+Prompt=Frequency or number of times of something happening (-kai).
 Type=Entry
 Counter - Kai;0-KAI;一回;いっかい;イッカイ;ikkai;1 time, one time
 Counter - Kai;0-KAI;二回;にかい;ニカイ;nikai;2 times, two times

@@ -1,0 +1,17 @@
+JPFLASH
+Desc=Date ordinals
+Prompt=
+Type=Entry
+Time;ANY;一日,#1日;ついたち;ツイタチ;tsuichi;1st,first
+Time;ANY;二日,#2日;ふつか;フツカ;futsuka;2nd,second
+Time;ANY;三日,#3日;にっか;ミッカ;mikka;3rd,third
+Time;ANY;四日,#4日;よっか;ヨッカ;yokka;4th,fourth
+Time;ANY;五日,#5日;いつか;イツカ;itsuka;5th,fifth
+Time;ANY;六日,#6日;むいか;ムイカ;muika;6th,sixth
+Time;ANY;七日,#7日;なのか;ナノカ;nanoka;7th,seventh
+Time;ANY;八日,#8日;よおか;ヨオカ;yooka;8th,eighth
+Time;ANY;九日,#9日;ここのか;ココノカ;kokonoka;9th,ninth
+Time;ANY;十日,#10日;とおか;トオカ;tooka;10th,tenth
+Time;ANY;十一日,#11日;じゅういちにち;ジュウイチニチ;juu-ichi-nichi;11th,eleventh
+Time;ANY;二十日,#20日;はつか;ハツカ;hatsuka;20th,twentieth
+END

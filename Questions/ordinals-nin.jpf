@@ -1,15 +1,15 @@
 JPFLASH
 Desc=Ordinals - Nin Endings
-Prompt=Enter the ordinal of people (-nin).
+Prompt=Ordinal of people (-nin).
 Type=Entry
-Ordinals - Nin;0-NIN;一人;ひとり;ヒトリ;hitori;1
-Ordinals - Nin;0-NIN;二人;ふあり;フタリ;futari;2
-Ordinals - Nin;0-NIN;三人;さんいん;サンニン;sannin,san-nin;3
-Ordinals - Nin;0-NIN;四人;よにん;ヨンニン;yonin,yo-nin;4
-Ordinals - Nin;0-NIN;五人;ごにん;ゴニン;gonin,go-nin;5
-Ordinals - Nin;0-NIN;六人;ろくにん;ロクニン;rokunin,roku-nin;6
-Ordinals - Nin;0-NIN;七人;ななにん;ナナニン;nananin,nana-nin;7
-Ordinals - Nin;0-NIN;八人;はちにん;ハチニン;hachinin,hachi-nin;8
-Ordinals - Nin;0-NIN;九人;きゅうにん;キュウニン;kyuunin,kyuu-nin;9
-Ordinals - Nin;0-NIN;十人;じゅうにん;ジュウニン;juunin,juu-nin;10
+Ordinals - Nin;0-NIN;一人;ひとり;ヒトリ;hitori;#1,1 person
+Ordinals - Nin;0-NIN;二人;ふあり;フタリ;futari;#2,2 people,#2 persons
+Ordinals - Nin;0-NIN;三人;さんいん;サンニン;san-nin;#3,3 people,#3 persons
+Ordinals - Nin;0-NIN;四人;よにん;ヨンニン;yo-nin;#4,4 people,#4 persons
+Ordinals - Nin;0-NIN;五人;ごにん;ゴニン;go-nin;#5,5 people,#5 persons
+Ordinals - Nin;0-NIN;六人;ろくにん;ロクニン;roku-nin;#6,6 people,#6 persons
+Ordinals - Nin;0-NIN;七人;ななにん;ナナニン;nana-nin;#7,7 people,#7 persons
+Ordinals - Nin;0-NIN;八人;はちにん;ハチニン;hachi-nin;#8,8 people,#8 persons
+Ordinals - Nin;0-NIN;九人;きゅうにん;キュウニン;kyuu-nin;#9,9 people,#9 persons
+Ordinals - Nin;0-NIN;十人;じゅうにん;ジュウニン;juu-nin;#10,10 people,#10 persons
 END

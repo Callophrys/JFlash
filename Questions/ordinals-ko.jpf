@@ -1,6 +1,6 @@
 JPFLASH
 Desc=Ordinals - Ko Endings
-Prompt=Enter the ordinal of small round items. E.g. spheres and also cubes (oranges, baseballs, boxes) (-ko)
+Prompt=Ordinal of small round items. E.g. spheres & also cubes (oranges, baseballs, boxes) (-ko)
 Type=Entry
 Ordinals - Ko;0-KO;一個;いっこ;イッコ;ikko;1
 Ordinals - Ko;0-KO;二個;にこ;ニコ;niko;2

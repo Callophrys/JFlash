@@ -24,7 +24,9 @@ namespace JFlash
         /// <summary>
         /// The additional with commas formatted for display. 
         /// </summary>
-        public string FormattedAdditional => Additional.Replace(",", ", ").ExcludeEscapedSubElements();
+        public string FormattedAdditional => Additional
+            .Replace(",", ", ")
+            .ExcludeEscapedSubElements();
 
         /// <summary>
         /// Name of the set. Taken from basename of respective source file.
@@ -104,6 +106,11 @@ namespace JFlash
             UpdateQuestion();
         }
 
+        /// <summary>
+        /// Determine if user's entry (answer/response) is correct or not.
+        /// </summary>
+        /// <param name="answer">This is what the user attempted to answer with.</param>
+        /// <returns></returns>
         public bool IsEntryCorrect(string answer)
         {
             if (string.IsNullOrWhiteSpace(answer)) return false;
@@ -120,11 +127,14 @@ namespace JFlash
 
             try
             {
-                foreach (string p in Answer.Split([',', '，'], StringSplitOptions.TrimEntries))
+                foreach (string p in RawAnswer.Split([',', '，'], StringSplitOptions.TrimEntries))
                 {
                     if (indexTo == QuestionFields.English && Structure == "VERB")
                     {
-                        result |= string.Equals(RegExTo().Replace(ans, string.Empty), RegExTo().Replace(p, string.Empty), StringComparison.CurrentCultureIgnoreCase);
+                        result |= string.Equals(
+                            RegExTo().Replace(ans, string.Empty),
+                            RegExTo().Replace(p, string.Empty),
+                            StringComparison.CurrentCultureIgnoreCase);
                     }
                     else
                     {
@@ -136,7 +146,7 @@ namespace JFlash
             {
                 // Can get here when handling faulty question files.
 
-                JfHelper.LogError($"IsEntryCorrect: {answer},\n            ex: {ex.Message}");
+                JfHelper.LogError($"IsEntryCorrect: {answer},\n  ex: {ex.Message}");
                 return false;
             }
 

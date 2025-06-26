@@ -13,17 +13,28 @@ public class QuestionEntries
     public string DetailedHint { get; } = string.Empty;
 
     /// <summary>
-    /// User answer. This is the value entered by the user.
+    ///
     /// </summary>
     public string Answer => sourceEntry[indexTo].ExcludeEscapedSubElements();
 
+    public string PostAnswer => sourceEntry[indexTo].RemoveSubElementEscapes();
+
+    /// <summary>
+    /// The actual answer used internally to evaluate the users entry/response.
+    /// </summary>
+    protected string RawAnswer => sourceEntry[indexTo]
+        .ResolveHyphens()
+        .RemoveSubElementEscapes();
+
     /// <summary>
     /// Source question. This is read by the user and requires a response.
+    /// <br/>Escaped elements WILL NOT be shown.
     /// </summary>
     public string Prompt => sourceEntry[indexFrom].ExcludeEscapedSubElements();
 
     /// <summary>
     /// Post prompt is what is shown after the question has been assessed.
+    /// <br/>Escaped elements WILL be shown.
     /// </summary>
     public string PostPrompt => sourceEntry[indexFrom].RemoveSubElementEscapes();
 
