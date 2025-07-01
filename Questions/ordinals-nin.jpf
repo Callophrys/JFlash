@@ -2,6 +2,7 @@ JPFLASH
 Desc=Ordinals - Nin Endings
 Prompt=Ordinal of people (-nin).
 Type=Entry
+<<<<<<< Updated upstream
 Ordinals - Nin;0-NIN;一人;ひとり;ヒトリ;hitori;#1,1 person
 Ordinals - Nin;0-NIN;二人;ふあり;フタリ;futari;#2,2 people,#2 persons
 Ordinals - Nin;0-NIN;三人;さんいん;サンニン;san-nin;#3,3 people,#3 persons
@@ -12,4 +13,16 @@ Ordinals - Nin;0-NIN;七人;ななにん;ナナニン;nana-nin;#7,7 people,#7 pe
 Ordinals - Nin;0-NIN;八人;はちにん;ハチニン;hachi-nin;#8,8 people,#8 persons
 Ordinals - Nin;0-NIN;九人;きゅうにん;キュウニン;kyuu-nin;#9,9 people,#9 persons
 Ordinals - Nin;0-NIN;十人;じゅうにん;ジュウニン;juu-nin;#10,10 people,#10 persons
+=======
+Ordinals - Nin;0-NIN;一人;ひとり;ヒトリ;hitori;1,1 person
+Ordinals - Nin;0-NIN;二人;ふあり;フタリ;futari;2,2 persons,2 people
+Ordinals - Nin;0-NIN;三人;さんいん;サンニン;sannin,san-nin;3,3 persons,3 people
+Ordinals - Nin;0-NIN;四人;よにん;ヨンニン;yonin,yo-nin;4,4 persons,4 people
+Ordinals - Nin;0-NIN;五人;ごにん;ゴニン;gonin,go-nin;5,5 persons,5 people
+Ordinals - Nin;0-NIN;六人;ろくにん;ロクニン;rokunin,roku-nin;6,6 persons,6 people
+Ordinals - Nin;0-NIN;七人;ななにん;ナナニン;nananin,nana-nin;7,7 persons,7 people
+Ordinals - Nin;0-NIN;八人;はちにん;ハチニン;hachinin,hachi-nin;8,8 persons,8 people
+Ordinals - Nin;0-NIN;九人;きゅうにん;キュウニン;kyuunin,kyuu-nin;9,9 persons,9 people
+Ordinals - Nin;0-NIN;十人;じゅうにん;ジュウニン;juunin,juu-nin;10,10 persons,10 people
+>>>>>>> Stashed changes
 END
