@@ -34,18 +34,7 @@ public partial class JFlashForm : Form
     public JFlashForm()
     {
         InitializeComponent();
-
-        FormInfo defaultFormInfo = new()
-        {
-            Rectangle = new()
-            {
-                Size = ClientSize,
-            },
-            IsMaximized = false,
-            StartPosition = StartPosition,
-        };
-
-        ScreenHelper.LoadWindowState(this, defaultFormInfo);
+        this.LoadWindowState();
 
         PrepareControls();
         AcceptButton = btnGo;
@@ -199,7 +188,7 @@ public partial class JFlashForm : Form
             //
 
             // 3.a. Create and place in first position of group panel.
-            var selectAllCheckBox = new CheckBox
+            CheckBox selectAllCheckBox = new()
             {
                 Text = $"&{++counter}. Select All",
                 AutoSize = true,
@@ -208,9 +197,11 @@ public partial class JFlashForm : Form
             };
 
             // Create a pane so user can click anywhere across the "parent" pane to click.
-            var selectAllPane = new Panel();
-            selectAllPane.Width = panelWidth;
-            selectAllPane.Height = selectAllCheckBox.Height;
+            Panel selectAllPane = new()
+            {
+                Width = panelWidth,
+                Height = selectAllCheckBox.Height
+            };
             selectAllPane.Controls.Add(selectAllCheckBox);
             selectAllPane.Click += (s, e) => selectAllCheckBox.Checked = !selectAllCheckBox.Checked;
 
@@ -221,7 +212,7 @@ public partial class JFlashForm : Form
             //
 
             // All checkboxes in grouping.
-            var groupCheckBoxes = new List<CheckBox>();
+            List<CheckBox> groupCheckBoxes = []; 
 
             // Populate with the actual questions.
             //foreach (var item in group.Value)
@@ -323,10 +314,13 @@ public partial class JFlashForm : Form
                     }
                 };
 
-                var checkboxPane = new Panel();
-                checkboxPane.Margin = new(0);
-                checkboxPane.Width = panelWidth;
-                checkboxPane.Height = cb.Height;
+                Panel checkboxPane = new()
+                {
+                    Margin = new(0),
+                    Width = panelWidth,
+                    Height = cb.Height
+                };
+
                 checkboxPane.Controls.Add(cb);
                 checkboxPane.Click += (s, e) => cb.Checked = !cb.Checked;
 
@@ -773,7 +767,7 @@ public partial class JFlashForm : Form
 
     private void JFlashForm_FormClosing(object sender, FormClosingEventArgs e)
     {
-        ScreenHelper.SaveWindowState(this);
+        this.SaveWindowState();
     }
 
     private void JFlashForm_Shown(object sender, EventArgs e)

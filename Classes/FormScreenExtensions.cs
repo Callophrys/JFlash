@@ -2,10 +2,9 @@
 
 namespace JFlash.Classes;
 
-public static class ScreenHelper
+public static class FormScreenExtensions
 {
-    public static void SetChildLocation(
-        ContainerControl targetForm,
+    public static void CenterAsChild(this ContainerControl targetForm,
         ContainerControl referenceForm)
     {
         int x = referenceForm.Location.X + (referenceForm.Width - targetForm.Width) / 2;
@@ -13,36 +12,39 @@ public static class ScreenHelper
         targetForm.Location = new Point(x, y);
     }
 
-    public static void LoadWindowState(Form form, FormInfo defaultFormInfo)
+    public static bool LoadWindowState(this Form form, Form? centerOnForm = null)
     {
-        if (!TryGetFormInfo(form.Name, out FormInfo formInfo))
+        if (!TryGetFormInfo(form.Name, out var tempFormInfo))
         {
+            if (centerOnForm != null) CenterAsChild(form, centerOnForm);
+
             // Just let the designer values direct things.
-            return;
+            return false;
         }
+
+        FormInfo formInfo = (FormInfo)tempFormInfo!;
 
         form.Size = formInfo.Rectangle.Size;
 
         if (IsOnScreen(formInfo))
         {
             form.StartPosition = formInfo.StartPosition;
-            form.Location = new Point(Math.Max(formInfo.Rectangle.Location.X, 0), Math.Max(formInfo.Rectangle.Location.Y, 0));
-        }
-        else
-        {
-            // fallback to default if off-screen
-            form.StartPosition = defaultFormInfo.StartPosition;
+            form.Location = new Point(
+                Math.Max(formInfo.Rectangle.Location.X, 0),
+                Math.Max(formInfo.Rectangle.Location.Y, 0));
         }
 
         if (formInfo.IsMaximized)
             form.WindowState = FormWindowState.Maximized;
+
+        return true;
     }
 
-    public static void SaveWindowState(Form form)
+    public static void SaveWindowState(this Form form)
     {
-        FormInfo formInfo = new FormInfo()
+        FormInfo formInfo = new()
         {
-            StartPosition = form.StartPosition,
+            StartPosition = IsFormCenteredOnScreen(form) ? FormStartPosition.CenterScreen : FormStartPosition.Manual,
         };
 
         if (form.WindowState == FormWindowState.Normal)
@@ -52,6 +54,7 @@ public static class ScreenHelper
                 Location = form.Location,
                 Size = form.Size,
             };
+
             formInfo.IsMaximized = false;
         }
         else if (form.WindowState == FormWindowState.Maximized)
@@ -62,6 +65,7 @@ public static class ScreenHelper
                 Location = form.RestoreBounds.Location,
                 Size = form.RestoreBounds.Size,
             };
+
             formInfo.IsMaximized = true;
         }
 
@@ -70,6 +74,23 @@ public static class ScreenHelper
     }
 
     #region Private Methods
+
+    private static bool IsFormCenteredOnScreen(Form form)
+    {
+        // Get the working area of the screen the form is on
+        Rectangle screenBounds = Screen.FromControl(form).WorkingArea;
+
+        // Calculate the ideal centered location
+        int idealX = screenBounds.Left + (screenBounds.Width - form.Width) / 2;
+        int idealY = screenBounds.Top + (screenBounds.Height - form.Height) / 2;
+
+        // Check if the form’s location matches the ideal location
+        // Allowing for minor pixel differences
+        const int tolerance = 5;
+
+        return Math.Abs(form.Left - idealX) <= tolerance
+            && Math.Abs(form.Top - idealY) <= tolerance;
+    }
 
     private static bool IsOnScreen(FormInfo winInf)
     {
@@ -94,14 +115,14 @@ public static class ScreenHelper
         }
     }
 
-    private static bool TryGetFormInfo(string formName, out FormInfo formInfo)
+    private static bool TryGetFormInfo(string formName, out FormInfo? formInfo)
     {
         string formInfoJson = RegistryHelper.LoadSetting($"form.{formName}", string.Empty);
         if (string.IsNullOrEmpty(formInfoJson) ||
             formInfoJson == "{}" ||
             !IsValidWinInfJson(formInfoJson))
         {
-            formInfo = new FormInfo();
+            formInfo = null;
             return false;
         }
 
@@ -115,7 +136,7 @@ public static class ScreenHelper
             JfHelper.LogError($"TryGetFormInfo: {formName},\n  ex: {ex.Message}");
         }
 
-        formInfo = new FormInfo();
+        formInfo = null;
         return false;
     }
 

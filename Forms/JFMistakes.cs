@@ -8,18 +8,7 @@ public partial class JfMistakes : Form
     public JfMistakes(string logFile)
     {
         InitializeComponent();
-
-        FormInfo defaultFormInfo = new()
-        {
-            Rectangle = new()
-            {
-                Size = ClientSize,
-            },
-            IsMaximized = false,
-            StartPosition = StartPosition,
-        };
-
-        ScreenHelper.LoadWindowState(this, defaultFormInfo);
+        this.LoadWindowState();
 
         Debug.WriteLine("JFMistakes constructor");
 
@@ -64,7 +53,7 @@ public partial class JfMistakes : Form
     {
         if (!Visible)
         {
-            ScreenHelper.SaveWindowState(this);
+            this.SaveWindowState();
         }
     }
 }

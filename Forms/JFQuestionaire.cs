@@ -29,22 +29,10 @@ public partial class JfQuestionaireForm : Form
         parentForm.Hide();
 
         InitializeComponent();
+        this.LoadWindowState(mainForm);
 
-        FormInfo defaultFormInfo = new()
-        {
-            Rectangle = new()
-            {
-                Size = ClientSize,
-            },
-            IsMaximized = false,
-            StartPosition = StartPosition,
-        };
-
-        ScreenHelper.LoadWindowState(this, defaultFormInfo);
         PrepareControls(desiredQuestionCount);
         SetRandomFont();
-
-        ScreenHelper.SetChildLocation(this, mainForm);
 
         // Prepare randomized Question Set (q&a pairs) and scores.
         QuestionSet = new JfQuestionSet(
@@ -278,7 +266,7 @@ public partial class JfQuestionaireForm : Form
 
     private void JfQuestionaireForm_FormClosing(object sender, FormClosingEventArgs e)
     {
-        ScreenHelper.SaveWindowState(this);
+        this.SaveWindowState();
     }
 
     private void TxtAnswer_KeyDown(object sender, KeyEventArgs e)
