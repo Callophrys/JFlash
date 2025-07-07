@@ -29,6 +29,8 @@ public partial class JfQuestionaireForm : Form
         parentForm.Hide();
 
         InitializeComponent();
+        btnNextQuestion.Text = "\u2771";
+        btnNextQuestion.Padding = new(2, 0, 0, 1);
         this.LoadWindowState(mainForm);
 
         PrepareControls(desiredQuestionCount);
@@ -267,6 +269,21 @@ public partial class JfQuestionaireForm : Form
     private void JfQuestionaireForm_FormClosing(object sender, FormClosingEventArgs e)
     {
         this.SaveWindowState();
+    }
+
+    protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+    {
+        switch (keyData)
+        {
+            case Keys.Alt | Keys.N:
+            case Keys.Control | Keys.N:
+            case Keys.Control | Keys.Right:
+            case Keys.PageDown:
+                EvaluateAnswer();
+                break;
+        }
+
+        return base.ProcessCmdKey(ref msg, keyData);
     }
 
     private void TxtAnswer_KeyDown(object sender, KeyEventArgs e)
